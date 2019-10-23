@@ -3,56 +3,37 @@
 <head>
     <meta charset="UTF-8" />
 
-    <%
-    var title = page.title;
-    if( is_archive() ) {
-        title = __('archive_a');
-        if( is_month() ) {
-            title += ': ' + page.year + '/' + page.month;
-        } else if( is_year() ) {
-            title += ': ' + page.year;
-        }
-    } else if( is_category() ) {
-            title = __('category') + ': ' + page.category;
-    } else if( is_tag() ) {
-        title = __('tag') + ': ' + page.tag;
-    }
-    %>
+    
 
-    <%
-    var description = config.description;
-    if( is_post() ) {
-        description = _.truncate(strip_html(page.content), {length: 250}).replace(/\n/g, '');
-    }
-    %>
+    
 
-    <title><% if( title ) { %><%= title %> | <% } %><%= config.title %></title>
-    <meta name="author" content="<%= config.author %>" />
-    <meta name="keywords" content="<%= config.keywords %>" />
-    <meta name="description" content="<%= description %>" />
+    <title>测试博客 | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="博客测试于印霄" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
-    <% if( theme.rss ) { %>
-    <link rel="alternate" href="<%- url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml">
-    <% } %>
-    <% if( theme.favicon ) { %>
-    <link rel="icon" href="<%- url_for(theme.favicon) %>">
-    <% } %>
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
 
     <style type="text/css">
     @font-face {
         font-family: 'icomoon';
-        src: url("<%= url_for('/fonts/icomoon.eot?q628ml') %>");
-        src: url("<%= url_for('/fonts/icomoon.eot?q628ml#iefix') %>") format('embedded-opentype'),
-             url("<%= url_for('/fonts/icomoon.ttf?q628ml') %>") format('truetype'),
-             url("<%= url_for('/fonts/icomoon.woff?q628ml') %>") format('woff'),
-             url("<%= url_for('/fonts/icomoon.svg?q628ml#icomoon') %>") format('svg');
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
         font-weight: normal;
         font-style: normal;
     }
     </style>
-    <%- css('css/style') %>
+    <link rel="stylesheet" href="/css/style.css">
 
     <!--[if lt IE 9]>
     <style type="text/css">
@@ -66,13 +47,144 @@
 <body>
 
     <main class="app">
-        <%- partial('_partial/header') %>
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/front-end">
+                <span class="nav-text">前端</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/back-end">
+                <span class="nav-text">后端</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/atom.xml">
+                <span class="nav-text">订阅</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#博客"><span class="toc-number">1.</span> <span class="toc-text">博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#于印霄"><span class="toc-number">1.1.</span> <span class="toc-text">于印霄</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
         <div id="content" class="content">
-            <div id="wrapper" class="wrapper"<% if( theme.content_max_width ) { %> style="max-width: <%= theme.content_max_width %>"<% } %>>
-                <%- body %>
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            测试博客
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/23/test/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-23T13:48:23.000Z" itemprop="datePublished">2019-10-23</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a>, <a class="article-tag-link" href="/tags/%E8%AF%97%E5%92%8C%E8%BF%9C%E6%96%B9/" rel="tag">诗和远方</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h1><p>测试</p>
+<h2 id="于印霄"><a href="#于印霄" class="headerlink" title="于印霄"></a>于印霄</h2>
+        
+    </section>
+</article>
+
+
+
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "7fbe80427f54741e289f",
+        clientSecret: "f34ed5fd92e54c9000bd37ba951948cb939deff5",
+        repo: "sanonz.github.io",
+        owner: "sanonz",
+        admin: ["sanonz"],
+        id: "2019/10/23/test",
+        distractionFreeMode: true,
+        title: "测试博客",
+        body: "http://yuyinxiao.github.io/2019/10/23/test/",
+        labels: ["生活","诗和远方"]
+    }).render('comments');
+    </script>
+</div>
+
+
             </div>
         </div>
-        <%- partial('_partial/footer', {}, {cache: true}) %>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
     </main>
 
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
@@ -116,8 +228,8 @@
         }
     });
     </script>
-    <% if (is_post()) { %>
-        <%- js('js/scrollspy.min.js') %>
+    
+        <script src="/js/scrollspy.min.js"></script>
         <script type="text/javascript">
         $(document.body).scrollspy({target: '#aside-inner'});
 
@@ -141,7 +253,7 @@
             }
         }).trigger('resize');
         </script>
-    <% } %>
+    
 
 </body>
 </html>
