@@ -73,6 +73,10 @@
                 <span class="nav-text">计算广告</span>
             </a>
         
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
             <a class="nav-item" href="/tags">
                 <span class="nav-text">标签</span>
             </a>
@@ -140,6 +144,81 @@
         <div id="content" class="content">
             <div id="wrapper" class="wrapper" style="max-width: 800px">
                 
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/24/Java/">Java面试基础</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-24T13:21:26.000Z" itemprop="datePublished">2019-10-24</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/JVM/" rel="tag">JVM</a>, <a class="article-tag-link" href="/tags/Java/" rel="tag">Java</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Java面试基础"><a href="#Java面试基础" class="headerlink" title="Java面试基础"></a>Java面试基础</h1><h2 id="JVM与GC"><a href="#JVM与GC" class="headerlink" title="JVM与GC"></a>JVM与GC</h2><h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><p><img src="img/jvm.jpg" alt=""></p>
+<ol>
+<li>程序计数器–与每个线程线程执行字节码行号有关–线程私有</li>
+<li>虚拟机栈–与Java方法有关创建栈帧–线程私有</li>
+<li>本地方法栈–与Java的native方法有关–线程私有</li>
+<li>Java堆–与Java对象实例有关/垃圾收集器管理的主要区域–GC堆</li>
+<li>Java方法区——线程共享；存储被虚拟机加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。</li>
+</ol>
+<h3 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h3><ul>
+<li>引用计数：对象被引用时，计数器加1，引用失效时减1，当计数器值为0时则回收；但难以解决对象之间相互循环引用的问题；</li>
+<li>可达性分析：GC_Roots起始点向下通过引用链搜索，当一个对象到GC_Roots没有任何引用时，则对象是不可用的。第一次回收触发finalize方法，如果不在引用则回收；如果不回收，第二次触发finalize方法时肯定回收。</li>
+</ul>
+<h4 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h4><p>标记需要回收的对象，标记后统一回收。</p>
+<ul>
+<li>缺点：效率低，会产生不连续内存碎片，无法分配大对象的内存</li>
+</ul>
+<h4 id="复制算法—-适用于新生代"><a href="#复制算法—-适用于新生代" class="headerlink" title="复制算法—-适用于新生代"></a>复制算法—-适用于新生代</h4><p>可用内存分为A、B两块；使用其中一块，用完了A以后将存活的对象复制到B，然后对A进行清理，如此每次都对整个半区进行内存回收，不用考虑内存碎片，只需移动堆顶指针按顺序分配内存即可。</p>
+<h4 id="标记-整理—-适用于老年代"><a href="#标记-整理—-适用于老年代" class="headerlink" title="标记-整理—-适用于老年代"></a>标记-整理—-适用于老年代</h4><p>标记后不清理，而是让所有存活对象向一端移动，然后清理端外界以外的内存。</p>
+<h4 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h4><p>将Java堆分为新生代（大批对象死去，少量存活）、老年代（对象存活率高，没有额外空间分配担保）。</p>
+<ul>
+<li>新生代：复制算法；</li>
+<li>老年代：标记-整理算法。</li>
+</ul>
+<h3 id="关于内存分配与回收原则"><a href="#关于内存分配与回收原则" class="headerlink" title="关于内存分配与回收原则"></a>关于内存分配与回收原则</h3><p>对于Java堆中对所有对象的内存分配，首先在Eden中分配；然后大的对象直接老年代;在survivor中存活时间过长也进入老年代；新生代的对象满足老年代连续空间则进入老年代,否则对老年代Full_GC。在给对象分配内存区域的时候，也时刻进行着判断内存回收，对新生代Minor_GC(复制算法)，对老年代Full_GC(标记-整理算法)。</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><blockquote>
+<blockquote>
+<p>定义</p>
+</blockquote>
+</blockquote>
+<ol>
+<li>集合中的每一个进程都在等待只能由本集合中的其他进程才能引发的事件，那么该组进程是死锁的。</li>
+<li>指两个或两个以上的进程（或线程）在执行过程中，因争夺资源而造成的一种相互等待的现象，若无外力作用，他们将无法推进下去。<br>产生锁的资源：线程池、网络连接池、通知事件，磁盘、带宽<h3 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h3></li>
+<li>资源互斥条件： 进程对于所分配到的资源具有排他性，一个资源只能由一个进程占用，知道该进程释放该资源。</li>
+<li>不可剥夺条件： 进程无法剥夺其他进程的资源，知道其他进程释放资源后才可能请求到。</li>
+<li>请求保持条件： 进程会请求所有需要的资源，如果过程中因为缺少资源而阻塞，已请求到的资源不会释放。</li>
+<li>循环等待条件： 死锁发生时，一定有两个或以上的进程形成环路，在等待下一个进程的某些资源，导致永久阻塞。<h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3></li>
+<li>以确定顺序获得锁<br>hashCode排序，顺序获得；多进程时使用银行家算法试探是否安全。<br><strong>银行家算法</strong>：当一个进程申请使用资源的时候，银行家算法通过先试探分配给该进程资源，然后通过安全性算法判断分配后的系统是否处于安全状态，若不安全则试探分配作废，让该进程继续等待。</li>
+<li>超时放弃<br>按照固定时长等待锁，超时以后<strong>主动释放之前已经获得的所有的锁</strong>。<h3 id="案例与解决办法"><a href="#案例与解决办法" class="headerlink" title="案例与解决办法"></a>案例与解决办法</h3></li>
+<li>线程池死锁：扩大线程池线程数 or 使任务结果之间不再互相依赖。</li>
+<li>两个线程A和B，两个数据库连接池N1和N2，A先N1后N2;B先N2后N1；且两个线程在完成执行之前都不释放自己已经持有的链接，因此也造成了死锁。</li>
+</ol>
+
+        
+    </section>
+</article>
+
+
     <article class="article" itemscope itemprop="blogPost">
     
     <header class="article-header">
@@ -252,81 +331,6 @@ else
 </li>
 </ul>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##插入</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Websites (<span class="keyword">name</span>, <span class="keyword">url</span>, country) <span class="keyword">VALUES</span> (<span class="string">'stackoverflow'</span>, <span class="string">'http://stackoverflow.com/'</span>, <span class="string">'IND'</span>);</span><br><span class="line"><span class="comment">##更新（对全表）</span></span><br><span class="line"><span class="keyword">UPDATE</span> Websites <span class="keyword">SET</span> alexa=<span class="string">'5000'</span>, country=<span class="string">'USA'</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'菜鸟教程'</span>;</span><br><span class="line"><span class="comment">##添加删除修改列</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> column_name datatype</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> column_name</span><br><span class="line"><span class="comment">##删除（不删除表）</span></span><br><span class="line"><span class="keyword">DELETE</span> * <span class="keyword">FROM</span> table_name;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Websites <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'百度'</span> <span class="keyword">AND</span> country=<span class="string">'CN'</span>;</span><br></pre></td></tr></table></figure>
-
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/24/Java/">Java面试基础</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="http://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-24T13:21:26.000Z" itemprop="datePublished">2019-10-24</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/JVM/" rel="tag">JVM</a>, <a class="article-tag-link" href="/tags/Java/" rel="tag">Java</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="Java面试基础"><a href="#Java面试基础" class="headerlink" title="Java面试基础"></a>Java面试基础</h1><h2 id="JVM与GC"><a href="#JVM与GC" class="headerlink" title="JVM与GC"></a>JVM与GC</h2><h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><p><img src="img/jvm.jpg" alt=""></p>
-<ol>
-<li>程序计数器–与每个线程线程执行字节码行号有关–线程私有</li>
-<li>虚拟机栈–与Java方法有关创建栈帧–线程私有</li>
-<li>本地方法栈–与Java的native方法有关–线程私有</li>
-<li>Java堆–与Java对象实例有关/垃圾收集器管理的主要区域–GC堆</li>
-<li>Java方法区——线程共享；存储被虚拟机加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。</li>
-</ol>
-<h3 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h3><ul>
-<li>引用计数：对象被引用时，计数器加1，引用失效时减1，当计数器值为0时则回收；但难以解决对象之间相互循环引用的问题；</li>
-<li>可达性分析：GC_Roots起始点向下通过引用链搜索，当一个对象到GC_Roots没有任何引用时，则对象是不可用的。第一次回收触发finalize方法，如果不在引用则回收；如果不回收，第二次触发finalize方法时肯定回收。</li>
-</ul>
-<h4 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h4><p>标记需要回收的对象，标记后统一回收。</p>
-<ul>
-<li>缺点：效率低，会产生不连续内存碎片，无法分配大对象的内存</li>
-</ul>
-<h4 id="复制算法—-适用于新生代"><a href="#复制算法—-适用于新生代" class="headerlink" title="复制算法—-适用于新生代"></a>复制算法—-适用于新生代</h4><p>可用内存分为A、B两块；使用其中一块，用完了A以后将存活的对象复制到B，然后对A进行清理，如此每次都对整个半区进行内存回收，不用考虑内存碎片，只需移动堆顶指针按顺序分配内存即可。</p>
-<h4 id="标记-整理—-适用于老年代"><a href="#标记-整理—-适用于老年代" class="headerlink" title="标记-整理—-适用于老年代"></a>标记-整理—-适用于老年代</h4><p>标记后不清理，而是让所有存活对象向一端移动，然后清理端外界以外的内存。</p>
-<h4 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h4><p>将Java堆分为新生代（大批对象死去，少量存活）、老年代（对象存活率高，没有额外空间分配担保）。</p>
-<ul>
-<li>新生代：复制算法；</li>
-<li>老年代：标记-整理算法。</li>
-</ul>
-<h3 id="关于内存分配与回收原则"><a href="#关于内存分配与回收原则" class="headerlink" title="关于内存分配与回收原则"></a>关于内存分配与回收原则</h3><p>对于Java堆中对所有对象的内存分配，首先在Eden中分配；然后大的对象直接老年代;在survivor中存活时间过长也进入老年代；新生代的对象满足老年代连续空间则进入老年代,否则对老年代Full_GC。在给对象分配内存区域的时候，也时刻进行着判断内存回收，对新生代Minor_GC(复制算法)，对老年代Full_GC(标记-整理算法)。</p>
-<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><blockquote>
-<blockquote>
-<p>定义</p>
-</blockquote>
-</blockquote>
-<ol>
-<li>集合中的每一个进程都在等待只能由本集合中的其他进程才能引发的事件，那么该组进程是死锁的。</li>
-<li>指两个或两个以上的进程（或线程）在执行过程中，因争夺资源而造成的一种相互等待的现象，若无外力作用，他们将无法推进下去。<br>产生锁的资源：线程池、网络连接池、通知事件，磁盘、带宽<h3 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h3></li>
-<li>资源互斥条件： 进程对于所分配到的资源具有排他性，一个资源只能由一个进程占用，知道该进程释放该资源。</li>
-<li>不可剥夺条件： 进程无法剥夺其他进程的资源，知道其他进程释放资源后才可能请求到。</li>
-<li>请求保持条件： 进程会请求所有需要的资源，如果过程中因为缺少资源而阻塞，已请求到的资源不会释放。</li>
-<li>循环等待条件： 死锁发生时，一定有两个或以上的进程形成环路，在等待下一个进程的某些资源，导致永久阻塞。<h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3></li>
-<li>以确定顺序获得锁<br>hashCode排序，顺序获得；多进程时使用银行家算法试探是否安全。<br><strong>银行家算法</strong>：当一个进程申请使用资源的时候，银行家算法通过先试探分配给该进程资源，然后通过安全性算法判断分配后的系统是否处于安全状态，若不安全则试探分配作废，让该进程继续等待。</li>
-<li>超时放弃<br>按照固定时长等待锁，超时以后<strong>主动释放之前已经获得的所有的锁</strong>。<h3 id="案例与解决办法"><a href="#案例与解决办法" class="headerlink" title="案例与解决办法"></a>案例与解决办法</h3></li>
-<li>线程池死锁：扩大线程池线程数 or 使任务结果之间不再互相依赖。</li>
-<li>两个线程A和B，两个数据库连接池N1和N2，A先N1后N2;B先N2后N1；且两个线程在完成执行之前都不释放自己已经持有的链接，因此也造成了死锁。</li>
-</ol>
 
         
     </section>
