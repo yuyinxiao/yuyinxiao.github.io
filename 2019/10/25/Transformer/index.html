@@ -69,12 +69,12 @@
                 <span class="nav-text">推荐系统</span>
             </a>
         
-            <a class="nav-item" href="/categories/ad">
-                <span class="nav-text">计算广告</span>
-            </a>
-        
             <a class="nav-item" href="/categories/BD">
                 <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
             </a>
         
             <a class="nav-item" href="/tags">
@@ -95,7 +95,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://github.com/yuyinxiao/blog"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
 
         
         
@@ -121,7 +121,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://github.com/yuyinxiao/blog/2019/10/25/Transformer/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/Transformer/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -140,15 +140,15 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/yuyinxiao/blog/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
-<h2 id><a href="#" class="headerlink" title></a><img src="/yuyinxiao/blog/2019/10/25/Transformer/trm.gif" alt="avatar"></h2><a id="more"></a>
-<h2 id="一、Encoder"><a href="#一、Encoder" class="headerlink" title="一、Encoder"></a>一、Encoder</h2><p><img src="/yuyinxiao/blog/2019/10/25/Transformer/encoder.jpg" alt="avatar"></p>
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
+<h2 id><a href="#" class="headerlink" title></a><img src="/2019/10/25/Transformer/trm.gif" alt="avatar"></h2><a id="more"></a>
+<h2 id="一、Encoder"><a href="#一、Encoder" class="headerlink" title="一、Encoder"></a>一、Encoder</h2><p><img src="/2019/10/25/Transformer/encoder.jpg" alt="avatar"></p>
 <p>Transformer的encoder中，数据首先会经过一个叫做‘self-attention’的模块得到一个加权之后的特征向量$Z$，这个$Z$便是论文公式1中的 $\text{Attention}(Q,K,V)$</p>
 <script type="math/tex; mode=display">\text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V \tag1</script><p><strong>得到$Z$之后，加上残差网络结构然后被送到encoder的下一个模块，即Feed Forward Neural Network</strong>。这个全连接有两层，第一层的激活函数是ReLU，第二层是一个线性激活函数，可以表示为：</p>
 <script type="math/tex; mode=display">\text{FFN}(Z) = max(0, ZW_1 +b_1)W_2 + b_2 \tag2</script><p><strong>FFN输出后加上残差网络结构输出到下一层</strong></p>
 <h3 id="1-1、从self-Attention到MultiHead-Attention"><a href="#1-1、从self-Attention到MultiHead-Attention" class="headerlink" title="1.1、从self-Attention到MultiHead-Attention"></a>1.1、从self-Attention到MultiHead-Attention</h3><p>在self-attention中，每个单词有3个不同的向量，它们分别是Query向量（ Q ），Key向量（ K ）和Value向量（ V ），长度均是64。它们是通过3个不同的权值矩阵由嵌入向量 X 乘以三个不同的权值矩阵$W^Q$，$W^K$,$W^V$ 得到，其中三个矩阵的尺寸也是相同的。均是$512\times 64$.</p>
 <ul>
-<li>图解<img src="/yuyinxiao/blog/2019/10/25/Transformer/attention.jpg" alt="avatar"></li>
+<li>图解<img src="/2019/10/25/Transformer/attention.jpg" alt="avatar"></li>
 </ul>
 <ol>
 <li>根据嵌入向量得到 q ， k ， v 三个向量;</li>
@@ -159,7 +159,7 @@
 <li>对每个词的emb相加之后得到最终的输出结果$z ： z=\sum v$.</li>
 </ol>
 <ul>
-<li>图解<br><img src="/yuyinxiao/blog/2019/10/25/Transformer/attention2.png" alt><br>以上为self-Attention，MultiHead-Attention如下<br><img src="/yuyinxiao/blog/2019/10/25/Transformer/mattention.jpg" alt="avatar"><br>将各路self-Attention结果拼接得到MultiHead-Attention</li>
+<li>图解<br><img src="/2019/10/25/Transformer/attention2.png" alt><br>以上为self-Attention，MultiHead-Attention如下<br><img src="/2019/10/25/Transformer/mattention.jpg" alt="avatar"><br>将各路self-Attention结果拼接得到MultiHead-Attention</li>
 </ul>
 <h2 id="二、残差网络"><a href="#二、残差网络" class="headerlink" title="二、残差网络"></a>二、残差网络</h2><ul>
 <li>为什么使用残差网络<ol>
@@ -213,7 +213,7 @@
         id: "2019/10/25/Transformer",
         distractionFreeMode: true,
         title: "Transformer",
-        body: "https://github.com/yuyinxiao/blog/2019/10/25/Transformer/",
+        body: "https://yuyinxiao.github.io/2019/10/25/Transformer/",
         labels: ["NLP"]
     }).render('comments');
     </script>

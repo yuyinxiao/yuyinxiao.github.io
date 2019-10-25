@@ -69,12 +69,12 @@
                 <span class="nav-text">推荐系统</span>
             </a>
         
-            <a class="nav-item" href="/categories/ad">
-                <span class="nav-text">计算广告</span>
-            </a>
-        
             <a class="nav-item" href="/categories/BD">
                 <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
             </a>
         
             <a class="nav-item" href="/tags">
@@ -95,7 +95,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://github.com/yuyinxiao/blog"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
 
         
         
@@ -121,7 +121,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://github.com/yuyinxiao/blog/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -190,10 +190,10 @@
 <p>训练时丢失，预测时都加上</p>
 </blockquote>
 </blockquote>
-<p>隐藏层的采样概率为 0.5，输入的采样概率为 0.8；<br><img src="/yuyinxiao/blog/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/bn.png" alt="avatar"></p>
+<p>隐藏层的采样概率为 0.5，输入的采样概率为 0.8；<br><img src="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/bn.png" alt="avatar"></p>
 <h3 id="4、参数初始化"><a href="#4、参数初始化" class="headerlink" title="4、参数初始化"></a>4、参数初始化</h3><ol>
 <li>一般使用服从的高斯分布（mean=0, stddev=1）或均匀分布的随机值作为权重的初始化参数；使用 0 作为偏置的初始化参数</li>
-<li>一些启发式方法会根据输入与输出的单元数来决定初始值的范围；比如<br><img src="/yuyinxiao/blog/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/1.png" alt="avatar"><br>Keras 全连接层默认的权重初始化方法</li>
+<li>一些启发式方法会根据输入与输出的单元数来决定初始值的范围；比如<br><img src="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/1.png" alt="avatar"><br>Keras 全连接层默认的权重初始化方法</li>
 </ol>
 <h2 id="神经网络的偏置项b"><a href="#神经网络的偏置项b" class="headerlink" title="神经网络的偏置项b"></a>神经网络的偏置项b</h2><script type="math/tex; mode=display">\hat y=\sum_i w_i x_i</script><script type="math/tex; mode=display">y=1,if\hat{y}>= threshold</script><script type="math/tex; mode=display">y=0,if\hat{y}<= threshold</script><p>$threshold$度量神经元正负激励的难易程度，$threshold$越大产生正向激励难度越大。通过移项作为$-b$加入最终的值中判断是否大于0即可。所以<strong>$b$的大小，度量了神经元产生正（负）激励的难易程度</strong></p>
 <h2 id="NN的参数初始化"><a href="#NN的参数初始化" class="headerlink" title="NN的参数初始化"></a>NN的参数初始化</h2><p>如果无隐层则参数可以都初始化为0；其他不会使用0初始化；</p>
@@ -242,7 +242,7 @@
         id: "2019/10/25/深度学习面试",
         distractionFreeMode: true,
         title: "深度学习面试",
-        body: "https://github.com/yuyinxiao/blog/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/",
+        body: "https://yuyinxiao.github.io/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/",
         labels: ["DL"]
     }).render('comments');
     </script>
