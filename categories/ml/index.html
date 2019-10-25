@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Category: ml | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="记录一个人的学习，成长" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item active" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+
+        
+        <div class="author-meta">
+            
+            <div class="author-avatar">
+                <a href="/">
+                    <img src="/images/avatar.jpg" title="Yu">
+                </a>
+            </div>
+            
+            <div class="author-name">Yu</div>
+            <div class="author-work">机器学习，推荐系统 & 计算广告</div>
+            <div class="author-location">
+                <i class="icon-location vm"></i>
+                <span class="vm">中国，北京</span>
+            </div>
+            
+            <div class="author-thread-wrap">
+                <div class="author-threads clearfix">
+                    
+                        <a class="thread-item" href="https://github.com/yuyinxiao" target="_blank" rel="noopener">
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1571902922637" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3389" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M0 520.886c0-69.368 13.51-135.697 40.498-199.02 26.987-63.323 63.322-117.826 109.006-163.51 45.65-45.65 100.154-81.985 163.51-109.006A502.289 502.289 0 0 1 512 8.92c69.335 0 135.663 13.477 198.986 40.497 63.356 26.988 117.86 63.323 163.51 109.007 45.684 45.65 82.02 100.154 109.006 163.51A502.289 502.289 0 0 1 1024 520.852c0 111.318-32.504 211.472-97.511 300.494-64.975 88.989-148.48 150.825-250.484 185.476-5.351 0-9.348-0.99-11.99-2.973-2.676-1.982-4.196-3.997-4.526-6.012a59.458 59.458 0 0 1-0.495-8.984 7.663 7.663 0 0 1-0.991-3.006v-128.99c0-40.63-14.336-75.314-43.008-103.986 76.667-13.345 134.011-41.819 171.999-85.487 37.987-43.669 57.013-96.52 57.013-158.522 0-58.005-18.663-108.346-56.022-150.99 13.345-42.678 11-87.668-6.97-135.003-18.697-1.322-39.011 1.85-61.01 9.513-22 7.663-38.318 14.831-49.02 21.47-10.637 6.673-20.316 13.016-28.97 19.027-38.68-10.669-81.854-16.02-129.486-16.02-47.7 0-90.509 5.351-128.529 16.02-7.333-5.35-15.855-11.164-25.5-17.507-9.68-6.342-26.493-14.005-50.507-22.99-23.982-9.018-45.65-12.85-65.008-11.495-18.663 47.996-20.645 93.646-5.979 136.984-36.665 42.678-54.998 92.986-54.998 150.99 0 62.002 18.663 114.689 55.99 157.994 37.326 43.339 94.67 72.01 171.998 86.016a142.303 142.303 0 0 0-39.969 70.029c-56.683 13.972-96.355 3.963-119.015-30.06-42.017-61.308-79.674-83.307-113.003-65.965-4.69 4.657-3.997 9.48 1.982 14.501 6.012 4.988 14.996 11.66 27.02 19.985 11.99 8.357 20.976 17.507 26.987 27.515 0.661 1.322 2.51 6.177 5.517 14.502a831.917 831.917 0 0 0 8.985 23.981c2.973 7.663 8.654 16.186 17.011 25.5 8.324 9.349 18.003 17.178 29.003 23.52 11 6.309 26.161 11 45.485 14.006 19.324 2.972 41.323 3.138 65.998 0.495v100.484c0 0.991-0.165 2.643-0.495 5.021-0.33 2.312-0.991 3.964-1.982 4.955-0.991 1.024-2.345 2.015-4.03 3.039a12.52 12.52 0 0 1-6.474 1.486c-2.676 0-6.012-0.33-10.009-0.99-101.343-35.345-183.825-97.182-247.51-185.51C31.842 731.037 0 631.577 0 520.92z" fill="#0085a1" p-id="3390"></path></svg>
+                        </a>
+                    
+                        <a class="thread-item" href="https://weibo.com/u/5362475196/" target="_blank" rel="noopener">
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1571902975704" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4885" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M755.2 519.68c-38.4-7.68-20.48-28.16-20.48-28.16s38.4-64-7.68-110.08c-56.32-56.32-197.12 7.68-197.12 7.68-53.76 15.36-38.4-7.68-30.72-48.64 0-48.64-15.36-130.56-158.72-81.92C199.68 307.2 79.36 476.16 79.36 476.16-5.12 588.8 5.12 675.84 5.12 675.84 25.6 870.4 230.4 921.6 389.12 934.4c166.4 12.8 394.24-58.88 460.8-204.8 69.12-143.36-53.76-202.24-94.72-209.92zM401.92 880.64C235.52 888.32 102.4 806.4 102.4 693.76c0-110.08 133.12-199.68 299.52-207.36 166.4-7.68 299.52 61.44 299.52 171.52 2.56 110.08-133.12 215.04-299.52 222.72z" fill="#E63C53" p-id="4886"></path><path d="M368.64 558.08c-166.4 20.48-148.48 176.64-148.48 176.64s-2.56 48.64 46.08 74.24c97.28 53.76 197.12 20.48 248.32-46.08 51.2-64 23.04-222.72-145.92-204.8z m-40.96 220.16c-30.72 2.56-56.32-15.36-56.32-40.96s23.04-53.76 53.76-56.32c35.84-2.56 58.88 17.92 58.88 43.52 0 28.16-25.6 51.2-56.32 53.76z m97.28-81.92c-10.24 7.68-23.04 7.68-28.16-2.56-5.12-10.24-2.56-23.04 7.68-30.72 12.8-10.24 25.6-7.68 30.72 2.56 5.12 7.68 0 20.48-10.24 30.72z m412.16-243.2c15.36 0 25.6-10.24 28.16-25.6 20.48-184.32-151.04-151.04-151.04-151.04-15.36 0-28.16 12.8-28.16 28.16 0 15.36 12.8 28.16 28.16 28.16 122.88-28.16 94.72 94.72 94.72 94.72 0 12.8 12.8 25.6 28.16 25.6z" fill="#E63C53" p-id="4887"></path><path d="M816.64 130.56c-58.88-12.8-120.32-2.56-135.68 2.56l-2.56 2.56c-20.48 5.12-33.28 28.16-28.16 51.2 5.12 17.92 20.48 28.16 38.4 28.16 0 0 20.48-2.56 35.84-7.68 15.36-5.12 135.68-5.12 197.12 97.28 33.28 74.24 15.36 125.44 12.8 133.12 0 0-7.68 20.48-7.68 38.4 0 23.04 17.92 35.84 38.4 35.84 17.92 0 33.28-2.56 38.4-33.28 64-220.16-79.36-322.56-186.88-348.16z" fill="#E63C53" p-id="4888"></path></svg>
+                        </a>
+                    
+                        <a class="thread-item" href="mailto:yz11010604@gmail.com" target="_blank" rel="noopener">
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1571902946367" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4126" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M928 896H96a64 64 0 0 1-64-64V192a64 64 0 0 1 64-64h832a64 64 0 0 1 64 64v640a64 64 0 0 1-64 64" fill="#E3E3E3" p-id="4127"></path><path d="M992 832V192c0-9.984-2.464-19.296-6.528-27.68L509.984 544.224 56.32 244.992 671.296 896H928a64 64 0 0 0 64-64" fill="#D0CFCF" p-id="4128"></path><path d="M160 896H96a64 64 0 0 1-64-64V192a64 64 0 0 1 128 0v704z" fill="#D54B3D" p-id="4129"></path><path d="M928 896h-64V192a64 64 0 0 1 128 0v640a64 64 0 0 1-64 64" fill="#AC3D31" p-id="4130"></path><path d="M512 446.112L886.72 142.4a64.256 64.256 0 0 1 91.072 10.272 66.336 66.336 0 0 1-10.112 92.352L512 614.4 56.32 244.992a66.336 66.336 0 0 1-10.112-92.352 64.256 64.256 0 0 1 91.072-10.24L512 446.08z" fill="#D54B3D" p-id="4131"></path></svg>
+                        </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:54:14.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p>梯度下降是一种<strong>优化算法</strong>，通过<strong>迭代</strong>的方式寻找模型的<strong>最优参数</strong>；当目标函数是<strong>凸函数</strong>时，梯度下降的解是全局最优解；但在一般情况下，<strong>梯度下降无法保证全局最优</strong>。<strong>负梯度</strong>中的每一项可以认为传达了<strong>两个信息</strong>:</p>
+<ul>
+<li>正负号在告诉输入向量应该调大还是调小（正调大，负调小）；</li>
+<li>每一项的相对大小表明每个参数对函数值达到最值的<strong>影响程度</strong></li>
+</ul>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/">深度学习面试</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:53:01.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><h3 id="如何使用激活函数"><a href="#如何使用激活函数" class="headerlink" title="如何使用激活函数"></a>如何使用激活函数</h3><ul>
+<li>回归，则将sigmoid或tanh用作最后一层的非线性和平方误差作为成本函数。</li>
+<li>分类，隐层relu+尾层sigmoid+softmax归一化输出+结果交叉熵作损失</li>
+</ul>
+<h3 id="为什么非线性激活函数"><a href="#为什么非线性激活函数" class="headerlink" title="为什么非线性激活函数"></a>为什么非线性激活函数</h3><ul>
+<li><strong>神经网络万能近似定理</strong>认为神经网络具有至少一个非线性隐藏层，那么只要给予网络足够数量的隐藏单元，<strong>隐层就可以以任意的精度来拟合函数：完成任何一个有限维空间到另一个有限维空间的函数。</strong></li>
+<li>如果不使用非线性激活函数，那么每一层输出都是上层输入的线性组合，整体也是线性的，失去万能近似的性质。</li>
+<li>部分层是纯线性是可以接受的，这有助于减少网络中的参数。</li></ul>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/Transformer/">Transformer</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:47:38.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"><br><img src="https://upload-images.jianshu.io/upload_images/12877808-2d01f4df4f996b8f.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="avatar"></p>
+<hr>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/Transformer/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">语言模型</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:44:31.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
+<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><ul>
+<li>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；</li>
+<li>负采样：词频越大更被定为负样本，所以对生僻词更有优势</li>
+</ul>
+<h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/">Tensorflow基础</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:42:39.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h1><ul>
+<li>首先通过将程序分为两个独立的部分，包括计算图的定义及其执行。</li>
+<li>图定义和执行的分开设计让 TensorFlow 能够多平台工作以及并行执行。</li>
+<li>计算图：是包含节点和边的网络。定义所有要使用的数据，也就是张量（tensor）对象（常量、变量和占位符），同时定义要执行的所有计算，即运算操作对象（Operation Object，简称 OP）。</li>
+<li>每个节点可以有零个或多个输入，但只有一个输出。网络中的节点表示对象（张量和运算操作），边表示运算操作之间流动的张量。</li>
+</ul>
+<hr>
+<h2 id="一、数据类型：常量、变量、占位符"><a href="#一、数据类型：常量、变量、占位符" class="headerlink" title="一、数据类型：常量、变量、占位符"></a>一、数据类型：常量、变量、占位符</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是其值不能改变的张量；常量存储在计算图的定义中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(<span class="number">4</span>);</span><br><span class="line">tf.constant([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">tf.zeros([M,N],tf.dtype)</span><br><span class="line">tf.zeros([<span class="number">2</span>,<span class="number">3</span>],tf.int32)</span><br><span class="line">tf.ones([M,N],tf,dtype)</span><br><span class="line">range_t = tf.linspace(<span class="number">2.0</span>,<span class="number">5.0</span>,<span class="number">4</span>)  <span class="comment">#等差数列，差值=(5-2)/(4-1)</span></span><br><span class="line">range_t = tf.range(<span class="number">10</span>) <span class="comment">#同python range</span></span><br><span class="line">tf.random_normal([shape],mean=<span class="number">2.0</span>,stddev=<span class="number">4</span>,seed=<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/">算法推导整理</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:41:36.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为<br>$$<br>\begin{aligned}<br>\hat{\theta}&amp;= \mathop{\arg\max}<em>{\theta} \sum\limits</em>{i=1}^m\log p(x^{(i)};\theta)\<br>&amp;= \mathop{\arg\max}<em>{\theta} \sum\limits</em>{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)<br>\end{aligned}<br>$$<br>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/">各种算法优缺点</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="各种机器学习算法优缺点总结"><a href="#各种机器学习算法优缺点总结" class="headerlink" title="各种机器学习算法优缺点总结"></a>各种机器学习算法优缺点总结</h1><h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><blockquote>
+<blockquote>
+<p>可回归，可分类</p>
+</blockquote>
+</blockquote>
+<h3 id="决策树优点"><a href="#决策树优点" class="headerlink" title="决策树优点"></a>决策树优点</h3><ol>
+<li>决策树易于理解和解释，可以可视化分析，容易提取出规则。</li>
+<li>可以同时处理标称型和数值型数据。</li>
+<li>测试数据集时，运行速度比较快。</li>
+<li>决策树可以很好的扩展到大型数据库中，同时它的大小独立于数据库大小。</li>
+</ol>
+<h3 id="决策树缺点"><a href="#决策树缺点" class="headerlink" title="决策树缺点"></a>决策树缺点</h3><ol>
+<li>对缺失数据处理比较困难。</li>
+<li>容易出现过拟合问题。</li>
+<li>忽略数据集中属性的相互关联。</li>
+<li>ID3算法计算信息增益时结果偏向数值比较多的特征。</li>
+</ol>
+<h3 id="改进措施"><a href="#改进措施" class="headerlink" title="改进措施"></a>改进措施</h3><p>剪枝，采用交叉验证法，加入正则化；bagging算法，randomforest算法，可以解决过拟合的问题。</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">数学基础</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="导数、偏导数与方向导数"><a href="#导数、偏导数与方向导数" class="headerlink" title="导数、偏导数与方向导数"></a>导数、偏导数与方向导数</h2><p><img src="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/37.png" alt="avatar"></p>
+<p>首先明确，导数是一个值，代表切线的斜率，而梯度是一个向量。<strong>最大方向导数的方向就是梯度代表的方向。</strong><br>梯度是$f(\bm x)$对各个自变量$\bm x = [x_1, x_2, …, x_m]^\top$每一维分别求偏导数得到的向量。<br>从式（5）和（6）中我们也可以知道，当$\bm d = \frac{\nabla f(\bm x)}{|\nabla f(\bm x)|}$方向导数最大。 <strong>最大方向导数的方向就是梯度的方向，最大的方向导数就是梯度的欧几里德范数。</strong></p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">机器学习基础</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="机器学习基础"><a href="#机器学习基础" class="headerlink" title="机器学习基础"></a>机器学习基础</h1><p><a href="https://www.cnblogs.com/wuliytTaotao/p/10513371.html" target="_blank" rel="noopener">机器学习之数学01</a></p>
+<p><a href="https://www.cnblogs.com/wuliytTaotao/p/10603576.html" target="_blank" rel="noopener">机器学习之数学02</a></p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong><br>$$P(Y|X)=\frac{P(X,Y)}{P(X)}$$</p>
+<blockquote>
+<blockquote>
+<p>朴素贝叶斯、隐马尔科夫模型（HMM）。</p>
+</blockquote>
+</blockquote>
+<h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><p>由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。<strong>更为准确，隐变量失效，定义和使用特征</strong></p>
+<blockquote>
+<blockquote>
+<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。</p>
+</blockquote>
+</blockquote>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/">树模型</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/categories/ml/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong></p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+
+
+<nav class="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/categories/ml/page/2/">2</a><a class="extend next" rel="next" href="/categories/ml/page/2/">下一页 &amp;raquo;</a>
+</nav>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+
+</body>
+</html>

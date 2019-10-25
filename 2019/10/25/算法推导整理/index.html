@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>算法推导整理 | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="公式推导整理EM算法当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为$$\begin{aligned}\hat{\theta}&amp;amp;= \mathop{\arg\max}{\theta} \sum\limits{i=1}^m\log p(x^{(i)};\theta)\&amp;amp;= \mathop{\arg\max}{\theta..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#公式推导整理"><span class="toc-number">1.</span> <span class="toc-text">公式推导整理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EM算法"><span class="toc-number">1.1.</span> <span class="toc-text">EM算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#求解含有隐变量的概率模型"><span class="toc-number">1.1.1.</span> <span class="toc-text">求解含有隐变量的概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#收敛性证明"><span class="toc-number">1.1.2.</span> <span class="toc-text">收敛性证明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-number">1.1.3.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#朴素贝叶斯"><span class="toc-number">1.2.</span> <span class="toc-text">朴素贝叶斯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#朴素贝叶斯模型的求解"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">朴素贝叶斯模型的求解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GBDT-vs-XGBDT"><span class="toc-number">1.3.</span> <span class="toc-text">GBDT vs XGBDT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标函数"><span class="toc-number">1.3.1.</span> <span class="toc-text">目标函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树函数-f-k"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">决策树函数$f_k$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树的复杂度"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">决策树的复杂度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XGBoost的目标函数"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">XGBoost的目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树构造"><span class="toc-number">1.3.2.</span> <span class="toc-text">决策树构造</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FM算法"><span class="toc-number">1.4.</span> <span class="toc-text">$FM算法$</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FM-算法小结"><span class="toc-number">1.4.1.</span> <span class="toc-text">$FM$算法小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#L1，L2正则"><span class="toc-number">1.5.</span> <span class="toc-text">L1，L2正则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从贝叶斯先验概率看正则化"><span class="toc-number">1.5.1.</span> <span class="toc-text">从贝叶斯先验概率看正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L1-正则化的概率解释"><span class="toc-number">1.5.2.</span> <span class="toc-text">$L1$正则化的概率解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L2-正则化的概率解释"><span class="toc-number">1.5.3.</span> <span class="toc-text">$L2$正则化的概率解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM与GRU"><span class="toc-number">1.6.</span> <span class="toc-text">LSTM与GRU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA降维"><span class="toc-number">1.7.</span> <span class="toc-text">PCA降维</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#感知机模型"><span class="toc-number">1.8.</span> <span class="toc-text">感知机模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BP反向传播算法"><span class="toc-number">1.9.</span> <span class="toc-text">BP反向传播算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数与输出"><span class="toc-number">1.9.1.</span> <span class="toc-text">函数与输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出层-i-gt-j"><span class="toc-number">1.9.2.</span> <span class="toc-text">输出层$i-&gt;j$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏层-j-gt-k"><span class="toc-number">1.9.3.</span> <span class="toc-text">隐藏层$j-&gt;k$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回归算法与最小二乘"><span class="toc-number">1.10.</span> <span class="toc-text">回归算法与最小二乘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">1.10.1.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means"><span class="toc-number">1.11.</span> <span class="toc-text">K-means</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#k-means算法的损失函数"><span class="toc-number">1.11.1.</span> <span class="toc-text">k-means算法的损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化损失函数"><span class="toc-number">1.11.2.</span> <span class="toc-text">优化损失函数</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            算法推导整理
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:41:36.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为<br>$$<br>\begin{aligned}<br>\hat{\theta}&amp;= \mathop{\arg\max}<em>{\theta} \sum\limits</em>{i=1}^m\log p(x^{(i)};\theta)\<br>&amp;= \mathop{\arg\max}<em>{\theta} \sum\limits</em>{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)<br>\end{aligned}<br>$$<br>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
+<a id="more"></a>
+
+<h3 id="求解含有隐变量的概率模型"><a href="#求解含有隐变量的概率模型" class="headerlink" title="求解含有隐变量的概率模型"></a>求解含有隐变量的概率模型</h3><p>通过引入隐变量$z^{(i)}$的概率分布为$Q_i(z^{(i)})$，因为$\log (x)$是凹函数故结合凹函数形式下的詹森不等式进行放缩处理<br>$$<br>\begin{aligned}<br>\sum\limits_{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)&amp;=\sum\limits_{i=1}^m\log \sum\limits_{z^{(i)}} Q_i(z^{(i)})\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}\<br>&amp;=\sum\limits_{i=1}^m\log \mathbb{E}(\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})})\<br>&amp;\ge\sum\limits_{i=1}^m\mathbb{E}[\log\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})})]\<br>&amp;=\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}<br>\end{aligned}<br>$$<br>当不等式变成等式时说明调整后的概率能够等价于$\mathcal{L}(\theta)$，所以必须找到使得等式成立的条件，即寻找<br>$$<br>\mathbb{E}[\log\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})})]=\log \mathbb{E}[\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}]<br>$$<br>由期望得性质可知当<br>$$<br>\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}=C,\ \ \ \ \ C\in\R    \ \ \ \ \ (<em>)<br>$$<br>等式成立，对上述等式进行变形处理可得<br>$$<br>\begin{aligned}<br>&amp;p(x^{(i)},z^{(i)};\theta)=CQ_i(z^{(i)})\<br>&amp;\Leftrightarrow<br>\sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)=C\sum\limits_{z^{(i)}}Q_i(z^{(i)})=C\<br>&amp;\Leftrightarrow<br>\sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)=C \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \   (<strong>)<br>\end{aligned}<br>$$<br>把$\ (</strong>)\ ​$式带入$\ (</em>)\ ​$化简可知<br>$$<br>\begin{aligned}<br>Q_i(z^{(i)})&amp;=\dfrac{p(x^{(i)},z^{(i)};\theta)}{\sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)}\<br>&amp;=\dfrac{p(x^{(i)},z^{(i)};\theta)}{p(x^{(i)};\theta)}\<br>&amp;=p(z^{(i)}|x^{(i)};\theta)<br>\end{aligned}<br>$$<br>至此$Q_i(z^{(i)})$的计算公式就是后验概率，解决了$Q_i(z^{(i)})$如何选择得问题。这一步称为$E$步，建立 $\mathcal{L}(\theta)$得下界；接下来得$M$步，就是在给定$Q_i(z^{(i)})$后，调整$\theta$去极大化$\mathcal{L}(\theta)$的下界即<br>$$<br>\begin{aligned}<br>&amp;\mathop{\arg\max}<em>{\theta}\sum\limits</em>{i=1}^m\log p(x^{(i)};\theta)\<br>&amp;\Leftrightarrow<br>\mathop{\arg\max}<em>{\theta}\sum\limits</em>{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}\<br>&amp;\Leftrightarrow<br>\mathop{\arg\max}<em>{\theta}\sum\limits</em>{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\left[\log p(x^{(i)},z^{(i)};\theta)-\log Q_i(z^{(i)})\right]\<br>&amp;\Leftrightarrow<br>\mathop{\arg\max}<em>{\theta}\sum\limits</em>{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log p(x^{(i)},z^{(i)};\theta)<br>\end{aligned}<br>$$<br>因此EM算法的迭代形式为<br>Repeats until it converges{<br>$E$ step：for every  $x^{(i)}$ calculate<br>$Q_i(z^{(i)})=p(z^{(i)}|x^{(i)};\theta)$<br>$M$ step：update  $\theta$<br>$\begin{aligned} \theta:=\mathop{\arg\max}<em>{\theta}\sum\limits</em>{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log p(x^{(i)},z^{(i)};\theta) \end{aligned}$<br>}</p>
+<h3 id="收敛性证明"><a href="#收敛性证明" class="headerlink" title="收敛性证明"></a>收敛性证明</h3><p>$$<br>\begin{aligned}<br>\mathcal{L}(\theta^{(k)})&amp;=\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i^{(k)}(z^{(i)})\log \dfrac{p(x^{(i)},z^{(i)};\theta^{(k)})}{Q_i(z^{(i)})} \ \ \ \ \ \ \ \ \ \ (a)\<br>&amp;\le \sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i^{(k)}(z^{(i)})\log \dfrac{p(x^{(i)},z^{(i)};\theta^{(k)})}{Q_i(z^{(i)})}\ \ \ \ \ \ \ \ \ \ (b)\<br>&amp;\le\mathcal{L}(\theta^{(k+1)})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \  (c)<br>\end{aligned}<br>$$<br>首先$(a)$式是前面$E$步所保证詹森不等式中的等式成立的条件，$(a)$到$(b)$是M步的定义，$(b)$到$(c)$对任意参数都成立，而其等式的条件是固定$\theta$并调整好$Q$时成立，$(b)$到$(c)$只是固定$Q$调整$\theta$，在得到$\theta^{(k+1)}$时，只是最大化$\mathcal{L}(\theta^{(k)})$，也就是$\mathcal{L}(\theta^{(k+1)})$的一个下界而没有使等式成立。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>EM算法可以保证收敛到一个稳定点，但是却不能保证收敛到全局的极大值点，因此它是局部最优的算法，当然，如果我们的优化目标L(θ,θj)是凸的，则EM算法可以保证收敛到全局最大值，这点和梯度下降法这样的迭代算法相同。</p>
+<h2 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h2><p>$$P(Y=c_k|X=x^{(i)}) = \dfrac{P(X=x^{(i)}|Y=c_k)P(Y=c_k)}{\sum\limits_{k=1}^K P(X=x^{(i)}|Y=c_k)P(Y=c_k)} \ \ \ \ \ \ \ \ \ \ \ (<em>)$$<br>由于朴素贝叶斯算法对条件概率分布作了条件独立性假设，故<br>$$<br>\begin{aligned}<br>P(X=x^{(i)}|Y=c_k)&amp;=P(X_1^{(i)}=x_1^{(i)},\cdots,X_n^{(i)}=x_n^{(i)}|Y=c_k)\<br>&amp;=\prod_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)<br>\end{aligned} \ \ \ \ \    (<strong>)<br>$$<br>将$(</strong>)$式带入$(</em>)$式中得到朴素贝叶斯算法的基本形式：<br>$$<br>\begin{aligned}<br>P(Y=c_k|X=x^{(i)}) =\dfrac{\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}{\sum\limits_{k=1}^K P(Y=c_k)\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}P(Y=c_k)<br>\end{aligned}<br>$$<br>因此朴素贝叶斯算法的优化模型为<br>$$<br>\begin{aligned}<br>\mathop{\arg\max}<em>{c_k}\ P(Y=c_k|X=x^{(i)})&amp;=\mathop{\arg\max}</em>{c_k}\ \dfrac{\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}{\sum\limits_{k=1}^t P(Y=c_k)\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}P(Y=c_k)\<br>&amp;=\mathop{\arg\max}<em>{c_k}\ P(Y=c_k)\prod\limits</em>{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)<br>\end{aligned}<br>$$<br>因为对于每一个类别$c_k$，分母$\sum\limits_{k=1}^t P(Y=c_k)\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)$的值都是相同的。</p>
+<h4 id="朴素贝叶斯模型的求解"><a href="#朴素贝叶斯模型的求解" class="headerlink" title="朴素贝叶斯模型的求解"></a>朴素贝叶斯模型的求解</h4><p>​求解朴素贝叶斯模型相当于求解几个概率值，对于样本数据集可以求出先验概率</p>
+<ul>
+<li>$p(Y=c_k)$<br>$$<br>p(Y=c_k)=\dfrac{\sum\limits_{i=1}^mI(y^{(i)}=c_k)}{t}\ \ \ \ \ k=1,2,\cdots,t<br>$$<br>其中$I(x)$表示当$x$为真时函数值为$1$否则为$0$。</li>
+<li>条件概率<br>$$<br>\begin{aligned}<br>P(X_j^{(i)}=x_j^{(i)}|Y&amp;=c_k)=\dfrac{\sum\limits_{i=1}^mI(x_j^{(i)}=a_{jl},y^{(i)}=c_k)}{\sum\limits_{i=1}^m I(y^{(i)}=c_k)}\<br>&amp;j=1,2,\cdots,n\<br>&amp;l=1,2,\cdots,S_j<br>\end{aligned}<br>$$<br>其中$x_j^{(i)}$代表第$i$个样本的第$j$个特征$x_j^{(i)}\in{a_{j1},a_{j2},\cdots,a_{jS_j}}$，$a_{jl}$表示第$j$个特征取得第$l$个值。</li>
+</ul>
+<h2 id="GBDT-vs-XGBDT"><a href="#GBDT-vs-XGBDT" class="headerlink" title="GBDT vs XGBDT"></a>GBDT vs XGBDT</h2><p>GBDT目标函数最终形式为：<br>$$ Obj^{(k)}=\sum\limits_{i=1}^m L(y^{(i)},\hat{y}^{(i)}_{k-1})+g_if_k(x^{(i)})$$</p>
+<p>XGBDT目标函数最终形式为：<br>$$ \begin{aligned} Obj^{(k)}&amp;==\sum\limits_{i=1}^mL(y^{(i)},\hat{y}^{(i)}_{k-1}+f_k(x^{(i)}))+\Omega(f_k)+C \end{aligned} $$</p>
+<hr>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>为了求损失函数$L(y^{(i)},\hat{y}^{(i)}<em>{k-1}+f_k(x^{(i)}))​$在$\ \hat{y}^{(i)}</em>{k-1} \ ​$处的二阶展开，且记$\nabla_{\hat{y}^{(i)}<em>{k-1}}L\left(y^{(i)},\hat{y}^{(i)}</em>{k-1}\right)$为$g_i$、$\nabla^2_{\hat{y}^{(i)}<em>{k-1}}L\left(y^{(i)},\hat{y}^{(i)}</em>{k-1}\right)$为$h_i​$则有：<br>$$<br>L\left(y^{(i)},\hat{y}^{(i)}<em>{k-1}+f_k(x^{(i)})\right)\simeq L(y^{(i)},\hat{y}^{(i)}</em>{k-1})+g_if_k(x^{(i)})+\dfrac{1}{2}h_if^2_k(x^{(i)})$$<br>又因为在第$k$步$\hat{y}^{(i)}<em>{k-1}$其实是已知的，所以$l(y^{(i)},\hat{y}^{(i)}</em>{k-1})$是一个常数函数，故对优化目标函数不会产生影响，将上述结论带入目标函数$Obj^{(k)}$可得：<br>$$Obj^{(k)}\simeq\sum\limits_{i=1}^m\bigg[ g_if_k(x^{(i)})+\dfrac{1}{2}h_if^2_k(x^{(i)})\bigg]+\Omega(f_k)$$</p>
+<h4 id="决策树函数-f-k"><a href="#决策树函数-f-k" class="headerlink" title="决策树函数$f_k$"></a>决策树函数$f_k$</h4><p>对于任意决策树$f_k$，假设其叶子结点个数$T​$，该决策树是由所有结点对应的值组成的向量$\ w\in\mathbb{R}^T\ ​$，以及能够把特征向量映射到叶子结点的函数$\ q(*):\mathbb{R}^d\rightarrow {1,2,\cdots,T } \ ​$构造而成的，且每个样本数据都存在唯一的叶子结点上。因此决策树$\ f_k\ ​$可以定义为$\ f_k(x)=w_{q(x)} \ ​$。</p>
+<h4 id="决策树的复杂度"><a href="#决策树的复杂度" class="headerlink" title="决策树的复杂度"></a>决策树的复杂度</h4><p>由正则项$\ \Omega(f_k)=\gamma T+\dfrac{1}{2}\lambda\sum\limits_{j=1}^Tw_j^2 \ ​$来定义，该正则项表明决策树模型的复杂度可以由叶子结点的数量和叶子结点对应值向量$\ w \ ​$的$\ L2\ ​$范数决定。定义集合$\ I_j={i|q(x^{(i)})=j }\ ​$为划分到叶子结点$\ j \ ​$的所有训练样本的集合，即之前训练样本的集合，现在都改写成叶子结点的集合。</p>
+<h4 id="XGBoost的目标函数"><a href="#XGBoost的目标函数" class="headerlink" title="XGBoost的目标函数"></a>XGBoost的目标函数</h4><p>因此$\ XGBoost\ ​$算法的目标函数可以改写为：<br>$$\begin{aligned}<br>Obj^{(k)}&amp;\simeq\sum\limits_{i=1}^m\bigg[ g_if_k(x^{(i)})+\dfrac{1}{2}h_if^2_k(x^{(i)})\bigg]+\Omega(f_k)\<br>&amp;=\sum\limits_{i=1}^m\bigg[g_iw_{q(x^{(i)})}+\dfrac{1}{2}h_jw^2_{q(x^{(i)})} \bigg]+\gamma T+\dfrac{1}{2}\lambda\sum\limits_{j=1}^Tw_j^2\<br>&amp;=\sum\limits_{j=1}^T\bigg[(\sum\limits_{i\in I_j}g_i)w_j+\dfrac{1}{2}(\sum\limits_{i\in I_j}h_i+\lambda)w_j^2 \bigg]+\gamma T<br>\end{aligned}$$<br>令$G_j=\sum\limits_{i\in I_j}g_i ,\ H_j=\sum\limits_{i\in I_j}h_i$则有：<br>$$Obj^{(k)}\simeq\sum\limits_{j=1}^T\bigg[G_jw_j+\dfrac{1}{2}(H_j+\lambda)w_j^2 \bigg]$$</p>
+<p>分析可知当更新到第$\ k\ ​$步时，此时<strong>决策树结构固定的情况下</strong>，每个叶子结点有哪些样本是已知的，那么$\ q(<em>)\ ​$和$\ I_j\ ​$也是已知的；又因为$\ g_i\ ​$和$\ h_i\ ​$是第$\ k-1\ ​$步的导数，那么也是已知的，因此$\ G_j\ ​$和$\ H_j\ ​$都是已知的。令目标函数$\ Obj^{(k)}\ ​$的一阶导数为$\ 0\ ​$，即可求得叶子结点$\ j\ ​$对应的值为：<br>$$w^</em>_j=-\dfrac{G_j}{H_j+\lambda}$$</p>
+<p>因此针对于结构固定的决策树，最优的目标函数$Obj$为：<br>$$Obj=-\dfrac{1}{2}\sum\limits_{j=1}^T\dfrac{G_j^2}{H_j+\lambda}+\gamma T$$</p>
+<h3 id="决策树构造"><a href="#决策树构造" class="headerlink" title="决策树构造"></a>决策树构造</h3><p>通常使用贪心策略来生成决策树的每个结点，$XGBoost$算法的在决策树的生成阶段就对过拟合的问题进行了处理，因此无需独立的剪枝阶段，具体步骤可以归纳为：</p>
+<ol>
+<li>从深度为$0$的树开始对每个叶子结点穷举所有的可用特征；</li>
+<li>针对每一个特征，把属于该结点的训练样本的该特征升序排列，通过线性扫描的方式来决定该特征的<strong>最佳分裂点</strong>，并采用最佳分裂点时的<strong>收益</strong>；</li>
+<li>选择收益最大的特征作为分裂特征，用该特征的最佳分裂点作为分裂位置，把该结点生成出左右两个新的叶子结点，并为每个新结点关联新的样本集；</li>
+<li>退回到第一步，继续递归操作直到满足特定条件。</li>
+</ol>
+<p>因为对某个结点采取的是二分策略，分别对应左子结点和右子结点，除了当前待处理的结点，其他结点对应的$\ Obj \ ​$值都不变，所以对于收益的计算只需要考虑当前结点的$\ Obj \ ​$值即可，分裂前针对该结点的最优目标函数为：<br>$$Obj^{(before)}=-\dfrac{1}{2}\dfrac{(G_L+G_R)^2}{(H_L+H_R)+\lambda}+\gamma$$<br>分裂后的最优目标函数为：<br>$$Obj^{(later)}=-\dfrac{1}{2}\bigg[\dfrac{G_L^2}{H_L+\lambda}+\dfrac{G_R^2}{H_R+\lambda} \bigg]+2\gamma$$<br>那么对于该目标函数来说，分裂后的收益为：<br>$$\begin{aligned}<br>Gain&amp;=Obj^{(before)}-Obj^{(later)}\<br>&amp;=\dfrac{1}{2}\bigg[\dfrac{G_L^2}{H_L+\lambda}+\dfrac{G_R^2}{H_R+\lambda}-\dfrac{(G_L+G_R)^2}{(H_L+H_R)+\lambda} \bigg]-\gamma<br>\end{aligned}$$<br>故可以用上述公式来决定最有分裂特征和最优特征分裂点。</p>
+<h2 id="FM算法"><a href="#FM算法" class="headerlink" title="$FM算法$"></a>$FM算法$</h2><p>$$LR：<br>y=w_0+\sum\limits_{i=1}^nw_ix_i<br>$$<br><strong>在数据非常稀疏的情况下很难满足$x_i、x_j$都不为$0$，这样将会导致$w_{ij}$不能够通过训练得到</strong>，引入辅助向量$V$用$w_{ij}=\mathbf{v}<em>i\mathbf{v}_j^T$对$w$进行分解<br>$$<br>w=VV^T=<br>\begin{bmatrix}<br>\mathbf{v}_1\<br>\mathbf{v}_2\<br>\vdots\<br>\mathbf{v}_n<br>\end{bmatrix}<br>\begin{bmatrix}<br>\mathbf{v}_1^T &amp;<br>\mathbf{v}_2^T &amp;<br>\cdots &amp;<br>\mathbf{v}_n^T<br>\end{bmatrix}<br>$$<br>综上可以发现原始模型的二项式参数为$\frac{n(n-1)}{2}$个，现在减少为$kn(k\ll n)$个。引入辅助向量$V$最为重要的一点是使得$x_tx_i$和$x_ix_j$的参数不再相互独立，这样就能够在样本数据稀疏的情况下合理的估计模型交叉项的参数<br>$$<br>\begin{aligned}<br>\langle\mathbf{v}_t,\mathbf{v}_i\rangle&amp;=\sum\limits</em>{f=1}^k\mathbf{v}<em>{tf}\cdot\mathbf{v}</em>{if}\<br>\langle\mathbf{v}<em>i,\mathbf{v}_j\rangle&amp;=\sum\limits</em>{f=1}^k\mathbf{v}<em>{if}\cdot\mathbf{v}</em>{jf}<br>\end{aligned}<br>$$<br><strong>$x_tx_i$和$x_ix_j$的参数分别为$\langle\mathbf{v}<em>{t},\mathbf{v}_i \rangle$和$\langle\mathbf{v}</em>{i},\mathbf{v}<em>j \rangle$，它们之间拥有共同项$\mathbf{v}_i$，即所有包含$\mathbf{v}_i$的非零组合特征的样本都可以用来学习隐向量$\mathbf{v}_i$，而原始模型中$w</em>{ti}$和$w_{ij}$却是相互独立的，这在很大程度上避免了数据稀疏造成的参数估计不准确的影响。因此原始模型可以改写为最终的$FM$算法</strong><br>$$<br>y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \langle\mathbf{v}<em>i,\mathbf{v}_j \rangle x_ix_j<br>$$<br>由于求解上述式子的时间复杂度为$\mathcal{O}(n^2)$，可以看出主要是最后一项计算比较复杂，因此从数学上对该式最后一项进行一些改写可以把时间复杂度降为$\mathcal{O}(kn)$<br>$$<br>\begin{aligned} &amp; \sum</em>{i=1}^{n-1} \sum_{j=1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{j}\right\rangle x_{i} x_{j} \=&amp; \frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{j}\right\rangle x_{i} x_{j}-\frac{1}{2} \sum_{i=1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{i}\right\rangle x_{i} x_{i} \=&amp; \frac{1}{2}\left(\sum_{i=1}^{n} \sum_{j=1}^{n} \sum_{f=1}^{k} \mathbf{v}<em>{if} \mathbf{v}</em>{jf} x_{i} x_{j}-\sum_{i=1}^{n} \sum_{f=1}^{k} \mathbf{v}<em>{if} \mathbf{v}</em>{if} x_{i} x_{i}\right) \=&amp; \frac{1}{2} \sum_{f=1}^{k}\left(\left(\sum_{i=1}^{n} \mathbf{v}<em>{if} x</em>{i}\right)\left(\sum_{j=1}^{n} \mathbf{v}<em>{jf} x</em>{j}\right)-\sum_{i=1}^{n} \mathbf{v}<em>{if}^{2} x</em>{i}^{2}\right) \=&amp; \frac{1}{2} \sum_{f=1}^{k}\left(\left(\sum_{i=1}^{n} \mathbf{v}<em>{if} x</em>{i}\right)^{2}-\sum_{i=1}^{n} \mathbf{v}<em>{if}^{2} x</em>{i}^{2}\right) \end{aligned}<br>$$</p>
+<h3 id="FM-算法小结"><a href="#FM-算法小结" class="headerlink" title="$FM$算法小结"></a>$FM$算法小结</h3><ul>
+<li>$FM$算法降低了因数据稀疏，导致特征交叉项参数学习不充分的影响；</li>
+<li>$FM$算法提升了参数学习效率和模型预估的能力。</li>
+</ul>
+<h2 id="L1，L2正则"><a href="#L1，L2正则" class="headerlink" title="L1，L2正则"></a>L1，L2正则</h2><p>L1正则加上L1范数；L2正则加上L2范数<br>$L1$正则化和$L2$正则化的符号化描述假设待优化函数为$f(\theta)$，其中$\theta\in\R^n$，那么优化问题可以转化为求<br>$$\mathop{\arg\min}_{\theta}\ f(\theta)$$</p>
+<p>$L1$正则化，即对参数$\theta$加上$L1$范数约束<br>$$\mathop{\arg\min}_{\theta}\ J_1(\theta)=f(\theta)+\color{magenta}\lambda\Vert\theta\Vert_1$$</p>
+<p>$L2$正则化，即对参数$\theta$加上$L2$范数的平方约束<br>$$\mathop{\arg\min}_{\theta}\ J_2(\theta)=f(\theta)+\color{magenta}\lambda\Vert\theta\Vert_2^2 $$</p>
+<h3 id="从贝叶斯先验概率看正则化"><a href="#从贝叶斯先验概率看正则化" class="headerlink" title="从贝叶斯先验概率看正则化"></a>从贝叶斯先验概率看正则化</h3><p>假设输入空间是$X\in\R^{n}$,输出空间是$Y$，不妨假设含有$m$个样本数据($x^{(1)}$,$y^{(1)}$)、($x^{(2)}$,$y^{(2)}$)、$\cdots$、($x^{(m)}$,$y^{(m)}$)，其中$x^{(i)}\in X、y^{(i)}\in Y$。贝叶斯学派认为参数$\theta$也是服从某种概率分布的，即先给定$\theta$的先验分布为$p(\theta)$，然后根据贝叶斯定理$\color{Red}P(\theta|(X, Y))= \dfrac{P((Y,X);\theta)\times P(\theta)}{P(X,Y)}\sim P(Y|X;\theta)\times P(\theta)$（这里的$Y|X$仅仅是一种记号，代表给定的$X$对应相关的$Y$），因此通过极大似然估计可求参数$\theta$。<br>$$<br>\mathop{\arg\max}<em>{\theta}\ L(\theta)=\prod</em>{i=1}^{m}p(y^{(i)}|x^{(i)};\theta)p(\theta)<br>$$<br>等价于求解对数化极大似然函数$L(\theta)$<br>$$<br>\begin{aligned}<br>\mathop{\arg\max}<em>{\theta}\ L(\theta)&amp;=\log L(\theta)\<br>&amp;=\sum\limits</em>{i=1}^m\log p(y^{(i)}|x^{(i)};\theta)+\sum\limits_{i=1}^m\log p(\theta)\ \<br>\Leftrightarrow \mathop{\arg\min}<em>{\theta}\ -L(\theta)&amp;=-\log L(\theta) \<br>&amp;=-\sum\limits</em>{i=1}^m\log p(y^{(i)}|x^{(i)};\theta)-\sum\limits_{i=1}^m\log p(\theta)\<br>&amp;=f(\theta)\color{magenta}-\sum\limits_{i=1}^m\log p(\theta)<br>\end{aligned}<br>$$</p>
+<h3 id="L1-正则化的概率解释"><a href="#L1-正则化的概率解释" class="headerlink" title="$L1$正则化的概率解释"></a>$L1$正则化的概率解释</h3><p>假设$\theta$服从的先验分布为均值为$0$参数为$\lambda$的拉普拉斯分布，即$\theta\sim La(0, \lambda)$其中，$p(\theta)= \frac{1}{2\lambda}e^{- \frac{|\theta|}{\lambda}}$。因此，上述优化函数可转换为：<br>$$\begin{aligned}<br>&amp;\mathop{\arg\min}<em>{\theta}\ f(\theta)\color{magenta}-\sum\limits</em>{i=1}^m\log p(\theta)\<br>&amp;=f(\theta)-\sum\limits_{i=1}^m\log \frac{1}{2\lambda}e^{-\frac{|\theta_i|}{\lambda}}\<br>&amp;=f(\theta)-\sum\limits_{i=1}^m \log\frac{1}{2\lambda} + \frac{1}{\lambda}\sum\limits_{i=1}^m|\theta_i|\<br>&amp;\Leftrightarrow \mathop{\arg\min}_{\theta}\ f(\theta) + \color{magenta}\lambda\Vert\theta\Vert_1<br>\end{aligned}$$</p>
+<p><strong>从上面的数学推导可以看出，$L1$正则化可以看成是：通过假设权重参数$\theta​$的先验分布为拉普拉斯分布，由最大后验概率估计导出。</strong>​    </p>
+<h3 id="L2-正则化的概率解释"><a href="#L2-正则化的概率解释" class="headerlink" title="$L2$正则化的概率解释"></a>$L2$正则化的概率解释</h3><p>假设$\theta$服从的先验分布为均值为$0$方差为$\sigma^2$的正态分布，即$\theta\sim \mathcal{N} (0, \sigma^2)$其中，$p(\theta)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\theta^2}{2\sigma^2}}$。因此，上述优化函数可转换为：<br>$$\begin{aligned}<br>&amp;\mathop{\arg\min}<em>{\theta}\ f(\theta)\color{magenta}-\sum\limits</em>{i=1}^m\log p(\theta)\<br>&amp;=f(\theta)-\sum\limits_{i=1}^m\log \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\theta_i^2}{2\sigma^2}}\<br>&amp;=f(\theta)-\sum\limits_{i=1}^m \log \frac{1}{\sqrt{2\pi}\sigma} + \frac{1}{2\sigma^2}\sum\limits_{i=1}^m \theta_i^2\<br>&amp;\Leftrightarrow\mathop{\arg\min}_{\theta} f(\theta) + \color{magenta}\lambda\Vert\theta\Vert_2^2<br>\end{aligned}<br>$$<br><strong>从上面的数学推导可以看出，$L2$正则化可以看成是：通过假设权重参数$\theta$的先验分布为正态分布，由最大后验概率估计导出。</strong></p>
+<h2 id="LSTM与GRU"><a href="#LSTM与GRU" class="headerlink" title="LSTM与GRU"></a>LSTM与GRU</h2><p>LSTM：忘记门+输入门+输出门<br>GRU：重置门+更新门</p>
+<h2 id="PCA降维"><a href="#PCA降维" class="headerlink" title="PCA降维"></a>PCA降维</h2><p>最大方差原理：</p>
+<ol>
+<li>对m*n数据按列组成n*m；</li>
+<li>对数据，按行进行0均值化；</li>
+<li>求协方差矩阵<br>$$C=\dfrac{1}{m}XX^T$$</li>
+<li>对C求特征值，特征向量；按大小排列，取前K行</li>
+<li>Y=P*X 为X降维后的K维数据</li>
+</ol>
+<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><p>$$\begin{aligned} sign(x) =<br>\begin{cases}<br>+1, &amp; ifx \geqslant 0  \<br>-1, &amp;{otherwise}<br>\end{cases}<br>\end{aligned}$$<br>因此可知感知机的假设函数为$\psi (x)$,通过输入特征向量$x$即可判断其所属类别。</p>
+<p>误分类点集$M$中所有点到超平面$S$的距离之和为<br>$$ -\dfrac{1}{\Vert \omega\Vert_2}\sum\limits_{(x^{(i)},y^{(i)})\in M}y^{(i)}(w^Tx^{(i)}+b)$$<br>所以求解最小化距离之和可知<br>$$\begin{aligned} \mathop{\arg\min}<em>{\omega, b} L(\omega,b) &amp; \Leftrightarrow \mathop{\arg\min}</em>{\omega, b} -\dfrac{1}{\Vert \omega\Vert_2}\sum\limits_{(x^{(i)},y^{(i)})\in M}y^{(i)}(w^Tx^{(i)}+b)\ &amp; \Leftrightarrow \mathop{\arg\min}<em>{\omega, b} -\sum\limits</em>{(x^{(i)},y^{(i)})\in M}y^{(i)}(w^Tx^{(i)}+b)\ \end{aligned}$$<br>综上可知，感知机算法的损失函数为<br>$$L(\omega,b)=-\sum\limits_{(x^{(i)},y^{(i)})\in M}y^{(i)}(w^Tx^{(i)}+b)$$</p>
+<h2 id="BP反向传播算法"><a href="#BP反向传播算法" class="headerlink" title="BP反向传播算法"></a>BP反向传播算法</h2><h3 id="函数与输出"><a href="#函数与输出" class="headerlink" title="函数与输出"></a>函数与输出</h3><p>$$E_d\equiv\frac{1}{2}\sum_{i\in outputs}(t_i-y_i)^2$$</p>
+<ul>
+<li>隐层输出<br>$$net_{j}=\vec{w_j}·\vec{x_j}=\sum_{i}{w_{ji}}x_{ji}$$</li>
+<li>梯度下降<br>$$w_{ji}\gets w_{ji}-\eta\frac{\partial{E_d}}{\partial{w_{ji}}}$$</li>
+<li>激活函数<br>$$a_j=\sigma(net_j)$$</li>
+<li>反向传播<br>$$\frac{\partial{E_d}}{\partial{w_{ji}}}=\frac{\partial{E_d}}{\partial{net_j}}·\frac{\partial{net_j}}{\partial{w_{ji}}}\<br>=\frac{\partial{E_d}}{\partial{net_j}}·\frac{\partial{\sum_{i}{w_{ji}}x_{ji}}}{\partial{w_{ji}}}\<br>=\frac{\partial{E_d}}{\partial{net_j}}·x_{ji}$$<br>对于$\frac{\partial{E_d}}{\partial{net_j}}$的推导，需要区分输出层和隐藏层两种情况:</li>
+</ul>
+<h3 id="输出层-i-gt-j"><a href="#输出层-i-gt-j" class="headerlink" title="输出层$i-&gt;j$"></a>输出层$i-&gt;j$</h3><p>$$\frac{\partial{E_d}}{\partial{net_j}}=\frac{\partial{E_d}}{\partial{y_j}}·\frac{\partial{y_j}}{\partial{net_j}}\$$<br>$$\frac{\partial{E_d}}{\partial{y_j}}=\frac{\partial}{\partial{y_j}}\frac{1}{2}\sum_{i\in outputs}(t_i-y_i)^2<br>=\frac{\partial}{\partial{y_j}}\frac{1}{2}(t_j-y_j)^2<br>=-(t_j-y_j)$$<br>$$\frac{\partial{y_j}}{\partial{net_j}}=\frac{\partial sigmoid(net_j)}{\partial{net_j}}<br>=y_j(1-y_j)$$<br>故<br>$$\frac{\partial{E_d}}{\partial{net_j}}=-(t_j-y_j)y_j(1-y_j)$$<br>同时令<br>$$\delta_j=(t_j-y_j)y_j(1-y_j)$$</p>
+<h3 id="隐藏层-j-gt-k"><a href="#隐藏层-j-gt-k" class="headerlink" title="隐藏层$j-&gt;k$"></a>隐藏层$j-&gt;k$</h3><p>$$\frac{\partial{E_d}}{\partial{net_j}}=\sum_{k\in Downstream(j)}\frac{\partial{E_d}}{\partial{net_k}}·\frac{\partial{net_k}}{\partial{net_j}}\<br>=\sum_{k\in Downstream(j)}-\delta_k·\frac{\partial{net_k}}{\partial{net_j}}\<br>=\sum_{k\in Downstream(j)}-\delta_k·\frac{\partial{net_k}}{\partial{a_j}}·\frac{\partial{a_j}}{\partial{net_j}}\<br>=\sum_{k\in Downstream(j)}-\delta_k·w_{kj}·\frac{\partial{a_j}}{\partial{net_j}}\<br>=\sum_{k\in Downstream(j)}-\delta_k·w_{kj}·a_j(1-a_j)\<br>=-a_j(1-a_j)\sum_{k\in Downstream(j)}\delta_kw_{kj}$$</p>
+<p>因为$\delta_j=-\frac{\partial{E_d}}{\partial{net_j}}$，带入上式得到：<br>$$\delta_j=a_j(1-a_j)\sum_{k\in Downstream(j)}\delta_kw_{kj}$$</p>
+<h2 id="回归算法与最小二乘"><a href="#回归算法与最小二乘" class="headerlink" title="回归算法与最小二乘"></a>回归算法与最小二乘</h2><p>对于二次函数梯度下降算法最终会收敛到全局最小值。下面使用梯度下降算法求解上面推导出的线性回归模型的损失函数$\ J(\theta)=\dfrac{1}{2}\sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2$，为了实现该算法首先要求出损失函数$J(\theta)$对参数$\theta_j$的梯度：<br>$$<br>\begin{aligned}<br>\nabla_{\theta_j} J(\theta) &amp;=\nabla_{\theta_j} \dfrac{1}{2} \sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2\<br>&amp;=2\cdot\dfrac{1}{2}\sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)}) \nabla_{\theta_j}(h_\theta(x^{(i)})-y^{(i)})\<br>&amp;=\sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)}) \nabla_{\theta_j}\theta^Tx^{(i)}\<br>&amp;=\sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}<br>\end{aligned}<br>$$<br>因此在线性回归模型中利用所有的样本数据，训练梯度下降算法的完整迭代格式为<br>$$<br>\theta_j:=\theta_j-\alpha \sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \ \ \ ( j\ \  for \ \ 0 \ \sim \ n)<br>$$<br>上述迭代过程每次迭代都会使用所有的样本数据，数学上已经证明线性回归模型的损失函数通过梯度下降算法求解一定会全局收敛，所以如果要编程实现该算法只需要控制迭代次数即可，不过对于线性回归模型的求解一般不用梯度下降算法，还有更容易实现且更快捷的形式—正规方程。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一般情况下对于求解线性回归模型通常采用正规方程的方式，回过头来对于文章开头的求解一元线性回归方程系数的问题可以大大化简，具体参数形式为<br>$$\begin{bmatrix}<br>\alpha\<br>\beta<br> \end{bmatrix}<br> =\left(\begin{bmatrix}<br>  1 &amp; x_1^T\<br>  1 &amp; x_2^T\<br>  \vdots &amp; \vdots\<br>  1 &amp; x_n^T<br> \end{bmatrix}^T<br>  \begin{bmatrix}<br>  1 &amp; x_1^T\<br>  1 &amp; x_2^T\<br>  \vdots &amp; \vdots\<br>  1 &amp; x_n^T<br> \end{bmatrix}\right)^{-1}<br>  \begin{bmatrix}<br>  1 &amp; x_1^T\<br>  1 &amp; x_2^T\<br>  \vdots &amp; \vdots\<br>  1 &amp; x_n^T<br> \end{bmatrix}^T<br>  \begin{bmatrix}<br> y_1\y_2\ \vdots \ y_n<br> \end{bmatrix}$$<br>可以看出通过正规方程求解线性回归模型就转化为如何构造$X$矩阵，只要$X$矩阵构造出来后剩下的就是交给计算机做矩阵乘法运算就可以了。</p>
+<h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h3 id="k-means算法的损失函数"><a href="#k-means算法的损失函数" class="headerlink" title="k-means算法的损失函数"></a>k-means算法的损失函数</h3><p>假设输入空间 $X \in \R^n$ 为$n$维向量的集合，$X={x^{(1)} ,x^{(2)},\cdots,x^{(m)} }$，$\mathcal  C$为输入空间$X$的一个划分，不妨令$\mathcal C={ \mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K }$，因此可以定义$k-means$算法的损失函数为<br>$$<br>J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2<br>$$<br>其中$\mu^{(k)}=\frac{1}{\vert \mathbb C_k \vert}\sum\limits_{x^{(i)}\in\mathbb C_k}x^{(i)}$是簇$\mathbb C_k$的聚类中心。</p>
+<h3 id="优化损失函数"><a href="#优化损失函数" class="headerlink" title="优化损失函数"></a>优化损失函数</h3><p>$k\text{-}means$算法的损失函数$J(\mathcal C)$描述了簇类样本围绕簇聚类中心的紧密程度，其值越小，则簇内样本的相似度越高。故$k\text{-}means$算法的优化目标为最小化损失函数<br>$$<br>\mathop{\argmin}<em>{c}\ J(\mathcal C)=\sum\limits</em>{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2<br>$$<br>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
+<ol>
+<li>首先随机初始化$K$个聚类中心，$\mu^{(1)},\mu^{(2)},\cdots,\mu^{(K)}$；</li>
+<li>然后根据这$K$个聚类中心给出输入空间$\mathcal X$的一个划分，$\mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K$；<ul>
+<li>样本离哪个簇的聚类中心最近，则该样本就划归到那个簇<br>$$\mathop{\arg\min}_{k}\ \Vert x^{(i)}-\mu^{(k)} \Vert_2^2$$</li>
+</ul>
+</li>
+<li>再根据这个划分来更新这$K$个聚类中心<br> $$<br> \mu^{(k)}=\frac{1}{\vert \mathbb C_k \vert}\sum\limits_{x^{(i)}\in\mathbb C_k}x^{(i)}<br> $$</li>
+<li>重复2、3步骤直至收敛<ul>
+<li>即$K$个聚类中心不再变化</li>
+</ul>
+</li>
+</ol>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/linux/" class="article-next" title="linux"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/" class="article-prev" title="Tensorflow基础"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/算法推导整理",
+        distractionFreeMode: true,
+        title: "算法推导整理",
+        body: "http://yuyinxiao.github.io/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/",
+        labels: ["算法"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

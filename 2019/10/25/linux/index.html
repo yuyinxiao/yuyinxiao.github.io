@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>linux | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="Linuxps：查看当前进程ps -ef (system v 输出) ps -aux bsd 格式输出ps -ef | grep pidln：软连接，快捷方式；硬链接：同步更改。chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7vi 文件名编辑 cat file | more | lessmore 分页 less 分页可回翻tail 尾部head 头部wc 命令 - c 统计字节..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux"><span class="toc-number">1.</span> <span class="toc-text">Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、man-page"><span class="toc-number">1.1.</span> <span class="toc-text">一、man_page</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、常用命令"><span class="toc-number">1.2.</span> <span class="toc-text">二、常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、用户和组"><span class="toc-number">1.3.</span> <span class="toc-text">五、用户和组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、权限"><span class="toc-number">1.4.</span> <span class="toc-text">六、权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、文件夹属性"><span class="toc-number">1.5.</span> <span class="toc-text">七、文件夹属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、vim"><span class="toc-number">1.6.</span> <span class="toc-text">八、vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、查找"><span class="toc-number">1.7.</span> <span class="toc-text">九、查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十、打包与压缩"><span class="toc-number">1.8.</span> <span class="toc-text">十、打包与压缩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十一、正则表达式"><span class="toc-number">1.9.</span> <span class="toc-text">十一、正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十二、进程控制"><span class="toc-number">1.10.</span> <span class="toc-text">十二、进程控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十三、linux的命令操作"><span class="toc-number">1.11.</span> <span class="toc-text">十三、linux的命令操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看文件内容"><span class="toc-number">1.11.1.</span> <span class="toc-text">查看文件内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、文件权限的操作"><span class="toc-number">1.11.2.</span> <span class="toc-text">3、文件权限的操作</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            linux
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/linux/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:38:01.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/linux/" rel="tag">linux</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ul>
+<li>ps：查看当前进程<ol>
+<li>ps -ef (system v 输出) </li>
+<li>ps -aux bsd 格式输出</li>
+<li>ps -ef | grep pid</li>
+</ol>
+</li>
+<li>ln：软连接，快捷方式；硬链接：同步更改。</li>
+<li>chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7</li>
+<li>vi 文件名编辑 cat file | more | less<ol>
+<li>more 分页 </li>
+<li>less 分页可回翻</li>
+<li>tail 尾部</li>
+<li>head 头部</li>
+</ol>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li>wc 命令 - c 统计字节数 - l 统计行数 - w 统计字数。</li>
+<li>grep [string] filename grep [^string] filename</li>
+<li>nohup sh **.sh &amp; 后台运行 job -l fg bg</li>
+<li>kill -9 pid</li>
+<li><ol>
+<li>find &lt;指定目录&gt; &lt;指定条件&gt; &lt;指定动作&gt;</li>
+<li>whereis 加参数与文件名</li>
+<li>locate 只加文件名</li>
+</ol>
+</li>
+<li>history ,who am i,</li>
+<li>df -hl 磁盘使用</li>
+<li>hash：记录了已执行过的命令的完整路径, 用该命令可以打印出你所使用过的命令以及执行的次数。</li>
+<li>let 可以进行整型数的数学运算</li>
+</ul>
+<hr>
+<h2 id="一、man-page"><a href="#一、man-page" class="headerlink" title="一、man_page"></a>一、man_page</h2><ol>
+<li>内部命令：echo<br>查看内部命令帮助：help echo 或者 man echo</li>
+<li>外部命令：ls<br>查看外部命令帮助：ls –help 或者 man ls 或者 info ls</li>
+<li>快捷键：<br>ctrl + c：停止进程<br>ctrl + l：清屏<br>ctrl + r：搜索历史命令<br>ctrl + q：退出</li>
+<li>善于用tab键：文件名补全</li>
+</ol>
+<h2 id="二、常用命令"><a href="#二、常用命令" class="headerlink" title="二、常用命令"></a>二、常用命令</h2><ol>
+<li>进入到用户根目录<br>cd ~ 或 cd</li>
+<li>查看当前所在目录<br>pwd</li>
+<li>进入到itcast用户根目录<br>cd ~itcast</li>
+<li>返回到原来目录<br>cd -</li>
+<li>返回到上一级目录<br>cd ..</li>
+<li>查看itcast用户根目录下的所有文件<br>ls -la</li>
+<li>在根目录下创建一个itcast的文件夹<br>mkdir /itcast</li>
+<li>查看/itcast目录下面的所有文件<br>ls -la</li>
+<li>在/itcast目录下面创建一个test.txt文件,同时写入内容”this is test”<br>echo “this is test” &gt; test.txt</li>
+<li>查看一下test.txt的内容<br>cat test.txt<br>more test.txt<br>less test.txt</li>
+<li>向README文件追加写入”please read me first”<br>echo “please read me first” &gt;&gt; README</li>
+<li>将test.txt的内容追加到README文件中<br>cat test.txt &gt;&gt; README</li>
+<li>拷贝/itcast目录下的所有文件到/itcast-bak<br>cp -r /itcast /itcast-bak</li>
+<li>进入到/itcast-bak目录，将test.txt移动到src目录下，并修改文件名为Student.java<br>mv test.txt src/Student.java</li>
+<li>在src目录下创建一个struts.xml<blockquote>
+<p>struts.xml</p>
+</blockquote>
+</li>
+<li>删除所有的xml类型的文件<br>rm -rf *.xml</li>
+<li>删除/itcast-bak目录和下面的所有文件<br>rm -rf /itcast-bak</li>
+<li>返回到/itcast目录，查看一下README文件有多单词，多少个少行<br>wc -w README<br>wc -l README</li>
+<li>返回到根目录，将/itcast目录先打包，再用gzip压缩<br>分步完成：tar -cvf itcast.tar itcast    gzip itcast.tar<br>一步完成：tar -zcvf itcast.tar.gz itcast</li>
+<li>将其解压缩，再取消打包<br>分步完成：gzip -d itcast.tar.gz 或 gunzip itcast.tar.gz<br>一步完成：tar -zxvf itcast.tar.gz<br>将/itcast目录先打包，同时用bzip2压缩，并保存到/tmp目录下<br>tar -jcvf /tmp/itcast.tar.bz2 itcast<br>将/tmp/itcast.tar.bz2解压到/usr目录下面<br>tar -jxvf itcast.tar.bz2 -C /usr/</li>
+</ol>
+<p>三、文件相关命令</p>
+<ol>
+<li>进入到用户根目录<br>cd ~ 或者 cd<br>cd ~hadoop<br>回到原来路径<br>cd -</li>
+<li>查看文件详情<br>stat a.txt</li>
+<li>移动<br>mv a.txt /ect/<br>改名<br>mv b.txt a.txt<br>移动并改名<br>mv a.txt ../b.txt</li>
+<li>拷贝并改名<br>cp a.txt /etc/b.txt</li>
+<li>vi撤销修改<br>ctrl + u (undo)<br>恢复<br>ctrl + r (redo)</li>
+<li>名令设置别名(重启后无效)<br>alias ll=”ls -l”<br>取消<br>unalias ll</li>
+<li>如果想让别名重启后仍然有效需要修改<br>vi ~/.bashrc</li>
+<li>添加用户<br>useradd hadoop<br>passwd hadoop</li>
+<li>创建多个文件<br>touch a.txt b.txt<br>touch /home/{a.txt,b.txt}</li>
+<li>将一个文件的内容复制到里另一个文件中<br>cat a.txt &gt; b.txt<br>追加内容<br>cat a.txt &gt;&gt; b.txt </li>
+<li>将a.txt 与b.txt设为其拥有者和其所属同一个组者可写入，但其他以外的人则不可写入:<br>chmod ug+w,o-w a.txt b.txt<br>chmod a=wx c.txt</li>
+<li>将当前目录下的所有文件与子目录皆设为任何人可读取:<br>chmod -R a+r *</li>
+<li>将a.txt的用户拥有者设为users,组的拥有者设为jessie:<br>chown users:jessie a.txt</li>
+<li>将当前目录下的所有文件与子目录的用户的使用者为lamport,组拥有者皆设为users<br>chown -R lamport:users *</li>
+<li>将所有的java语言程式拷贝至finished子目录中:<br>cp *.java finished</li>
+<li>将目前目录及其子目录下所有扩展名是java的文件列出来。<br>find -name “*.java”<br>查找当前目录下扩展名是java 的文件<br>find -name *.java</li>
+<li>删除当前目录下扩展名是java的文件<br>rm -f *.java</li>
+</ol>
+<p>##四、系统命令</p>
+<ol>
+<li>查看主机名<br>hostname</li>
+<li>修改主机名(重启后无效)<br>hostname hadoop</li>
+<li>修改主机名(重启后永久生效)<br>vi /ect/sysconfig/network</li>
+<li>修改IP(重启后无效)<br>ifconfig eth0 192.168.12.22</li>
+<li>修改IP(重启后永久生效)<br>vi /etc/sysconfig/network-scripts/ifcfg-eth0</li>
+<li>查看系统信息<br>uname -a<br>uname -r</li>
+<li>查看ID命令<br>id -u<br>id -g</li>
+<li>日期<br>date<br>date +%Y-%m-%d<br>date +%T<br>date +%Y-%m-%d” “%T</li>
+<li>日历<br>cal 2012</li>
+<li>查看文件信息<br>file filename</li>
+<li>挂载硬盘<br>mount<br>umount<br>加载windows共享<br>mount -t cifs //192.168.1.100/tools /mnt</li>
+<li>查看文件大小<br>du -h<br>du -ah</li>
+<li>查看分区<br>df -h</li>
+<li>ssh<br>ssh <a href="mailto:hadoop@192.168.1.1" target="_blank" rel="noopener">hadoop@192.168.1.1</a></li>
+<li>关机<br>shutdown -h now /init 0<br>shutdown -r now /reboot</li>
+</ol>
+<h2 id="五、用户和组"><a href="#五、用户和组" class="headerlink" title="五、用户和组"></a>五、用户和组</h2><ol>
+<li><p>添加一个tom用户，设置它属于users组，并添加注释信息<br>分步完成：useradd tom</p>
+<pre><code>usermod -g users tom
+usermod -c &quot;hr tom&quot; tom</code></pre><p>一步完成：useradd -g users -c “hr tom” tom</p>
+</li>
+<li><p>设置tom用户的密码<br>passwd tom</p>
+</li>
+<li><p>修改tom用户的登陆名为tomcat<br>usermod -l tomcat tom</p>
+</li>
+<li><p>将tomcat添加到sys和root组中<br>usermod -G sys,root tomcat</p>
+</li>
+<li><p>查看tomcat的组信息<br>groups tomcat</p>
+</li>
+<li><p>添加一个jerry用户并设置密码<br>useradd jerry<br>passwd jerry</p>
+</li>
+<li><p>添加一个交america的组<br>groupadd america</p>
+</li>
+<li><p>将jerry添加到america组中<br>usermod -g america jerry</p>
+</li>
+<li><p>将tomcat用户从root组和sys组删除<br>gpasswd -d tomcat root<br>gpasswd -d tomcat sys</p>
+</li>
+<li><p>将america组名修改为am<br>groupmod -n am america</p>
+</li>
+</ol>
+<h2 id="六、权限"><a href="#六、权限" class="headerlink" title="六、权限"></a>六、权限</h2><p>创建a.txt和b.txt文件，将他们设为其拥有者和所在组可写入，但其他以外的人则不可写入:<br>chmod ug+w,o-w a.txt b.txt</p>
+<p>创建c.txt文件所有人都可以写和执行<br>chmod a=wx c.txt 或chmod 666 c.txt</p>
+<p>将/itcast目录下的所有文件与子目录皆设为任何人可读取<br>chmod -R a+r /itcast</p>
+<p>将/itcast目录下的所有文件与子目录的拥有者设为root，用户拥有组为users<br>chown -R root:users /itcast</p>
+<p>将当前目录下的所有文件与子目录的用户皆设为itcast，组设为users<br>chown -R itcast:users *</p>
+<h2 id="七、文件夹属性"><a href="#七、文件夹属性" class="headerlink" title="七、文件夹属性"></a>七、文件夹属性</h2><ol>
+<li><p>查看文件夹属性<br>ls -ld test</p>
+</li>
+<li><p>文件夹的rwx</p>
+</li>
+</ol>
+<p>–x:可以cd进去<br>r-x:可以cd进去并ls<br>-wx:可以cd进去并touch，rm自己的文件，并且可以vi其他用户的文件<br>-wt:可以cd进去并touch，rm自己的文件<br>ls -ld /tmp<br>drwxrwxrwt的权限值是1777(sticky)\</p>
+<h2 id="八、vim"><a href="#八、vim" class="headerlink" title="八、vim"></a>八、vim</h2><ul>
+<li>i   插入编辑操作</li>
+<li>a/A</li>
+<li>o/O</li>
+<li>r + ?替换</li>
+<li>0:文件当前行的开头</li>
+<li>$:文件当前行的末尾</li>
+<li>G:文件的最后一行开头</li>
+<li>1 + G到第一行 </li>
+<li>9 + G到第九行 = :9</li>
+<li>dd:删除一行</li>
+<li>3dd：删除3行</li>
+<li>yy:复制一行</li>
+<li>3yy:复制3行</li>
+<li>p:粘贴</li>
+<li>u:undo</li>
+<li>ctrl + r:redo</li>
+<li>“a剪切板a</li>
+<li>“b剪切板b</li>
+<li>“ap粘贴剪切板a的内容</li>
+<li>每次进入vi就有行号</li>
+<li>vi ~/.vimrc</li>
+<li>set nu</li>
+<li>:w a.txt另存为</li>
+<li>:w &gt;&gt; a.txt内容追加到a.txt</li>
+<li>:e!恢复到最初状态</li>
+<li>:1,$s/hadoop/root/g 将第一行到追后一行的hadoop替换为root</li>
+<li>:1,$s/hadoop/root/c 将第一行到追后一行的hadoop替换为root(有提示)</li>
+</ul>
+<h2 id="九、查找"><a href="#九、查找" class="headerlink" title="九、查找"></a>九、查找</h2><ol>
+<li>查找可执行的命令：<br>which ls</li>
+<li>查找可执行的命令和帮助的位置：<br>whereis ls</li>
+<li>查找文件(需要更新库:updatedb)<br>locate hadoop.txt</li>
+<li>从某个文件夹开始查找<br>find / -name “hadooop*”<br>find / -name “hadooop*” -ls</li>
+<li>查找并删除<br>find / -name “hadooop*” -ok rm {} ;<br>find / -name “hadooop*” -exec rm {} ;</li>
+<li>查找用户为hadoop的文件<br>find /usr -user hadoop -ls</li>
+<li>查找用户为hadoop并且(-a)拥有组为root的文件<br>find /usr -user hadoop -a -group root -ls</li>
+<li>查找用户为hadoop或者(-o)拥有组为root并且是文件夹类型的文件<br>find /usr -user hadoop -o -group root -a -type d</li>
+<li>查找权限为777的文件<br>find / -perm -777 -type d -ls</li>
+<li>显示命令历史<br>history</li>
+<li>grep<br>grep hadoop /etc/password</li>
+</ol>
+<h2 id="十、打包与压缩"><a href="#十、打包与压缩" class="headerlink" title="十、打包与压缩"></a>十、打包与压缩</h2><ol>
+<li>gzip压缩<br>gzip a.txt</li>
+<li>解压<br>gunzip a.txt.gz<br>gzip -d a.txt.gz</li>
+<li>bzip2压缩<br>bzip2 a</li>
+<li>解压<br>bunzip2 a.bz2<br>bzip2 -d a.bz2</li>
+<li>将当前目录的文件打包<br>tar -cvf bak.tar .<br>将/etc/password追加文件到bak.tar中(r)<br>tar -rvf bak.tar /etc/password</li>
+<li>解压<br>tar -xvf bak.tar</li>
+<li>打包并压缩gzip<br>tar -zcvf a.tar.gz</li>
+<li>解压缩<br>tar -zxvf a.tar.gz<br>解压到/usr/下<br>tar -zxvf a.tar.gz -C /usr</li>
+<li>查看压缩包内容<br>tar -ztvf a.tar.gz<br>zip/unzip</li>
+<li>打包并压缩成bz2<br>tar -jcvf a.tar.bz2</li>
+<li>解压bz2<br>tar -jxvf a.tar.bz2</li>
+</ol>
+<h2 id="十一、正则表达式"><a href="#十一、正则表达式" class="headerlink" title="十一、正则表达式"></a>十一、正则表达式</h2><ol>
+<li>cut截取以:分割保留第七段<br>grep hadoop /etc/passwd | cut -d: -f7</li>
+<li>排序<br>du | sort -n </li>
+<li>查询不包含hadoop的<br>grep -v hadoop /etc/passwd</li>
+<li>正则表达包含hadoop<br>grep ‘hadoop’ /etc/passwd</li>
+<li>正则表达(点代表任意一个字符)<br>grep ‘h.*p’ /etc/passwd</li>
+<li>正则表达以hadoop开头<br>grep ‘^hadoop’ /etc/passwd</li>
+<li>正则表达以hadoop结尾<br>grep ‘hadoop$’ /etc/passwd</li>
+</ol>
+<p>.  : 任意一个字符<br>a* : 任意多个a(零个或多个a)<br>a? : 零个或一个a<br>a+ : 一个或多个a<br>.* : 任意多个任意字符<br>查找不是以#开头的行<br>grep -v ‘^#’ a.txt | grep -v ‘^$’ <br>以h或r开头的<br>grep ‘^[hr]’ /etc/passwd<br>不是以h和r开头的<br>grep ‘^[^hr]’ /etc/passwd<br>不是以h到r开头的<br>grep ‘^[^h-r]’ /etc/passwd</p>
+<h2 id="十二、进程控制"><a href="#十二、进程控制" class="headerlink" title="十二、进程控制"></a>十二、进程控制</h2><ol>
+<li>查看用户最近登录情况<br>last<br>lastlog</li>
+<li>查看硬盘使用情况<br>df</li>
+<li>查看文件大小<br>du</li>
+<li>查看内存使用情况<br>free</li>
+<li>查看文件系统<br>/proc</li>
+<li>查看日志<br>ls /var/log/</li>
+<li>查看系统报错日志<br>tail /var/log/messages</li>
+<li>查看进程<br>top</li>
+<li>结束进程<br>kill 1234<br>kill -9 4333</li>
+</ol>
+<h2 id="十三、linux的命令操作"><a href="#十三、linux的命令操作" class="headerlink" title="十三、linux的命令操作"></a>十三、linux的命令操作</h2><p>用vi文本编辑器来编辑生成文件<br><strong>**</strong>最基本用法<br>vi  somefile.4</p>
+<ol>
+<li>首先会进入“一般模式”，此模式只接受各种快捷键，不能编辑文件内容</li>
+<li>按i键，就会从一般模式进入编辑模式，此模式下，敲入的都是文件内容</li>
+<li>编辑完成之后，按Esc键退出编辑模式，回到一般模式；</li>
+<li>再按：，进入“底行命令模式”，输入wq命令，回车即可</li>
+</ol>
+<h3 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h3><p>cat    somefile    一次性将文件内容全部输出（控制台）<br>more  somefile    可以翻页查看, 下翻一页(空格)    上翻一页（b）  退出（q）<br>less  somefile      可以翻页查看,下翻一页(空格)    上翻一页（b），上翻一行(↑)  下翻一行（↓）  可以搜索关键字（/keyword）</p>
+<p>tail -10  install.log  查看文件尾部的10行<br>tail -f install.log    小f跟踪文件的唯一inode号，就算文件改名后，还是跟踪原来这个inode表示的文件<br>tail -F install.log    大F按照文件名来跟踪<br>head -10  install.log  查看文件头部的10行</p>
+<p>文件内容查阅<br>head -10 a.log 取前10行<br>tail -10 a.log 取后10行<br>tail -f a.log 实时检测日志更新<br>tail -f30 a.log 实时监测该日志的后30行<br>tab：代码补全，文件名补全<br>文件类型权限 drwxrwx user，group / 4,2,1打分<br>查看日志var/log\</p>
+<h3 id="3、文件权限的操作"><a href="#3、文件权限的操作" class="headerlink" title="3、文件权限的操作"></a>3、文件权限的操作</h3><p>drwxr-xr-x      （也可以用二进制表示  111 101 101  –&gt;  755）<br>d：标识节点类型（d：文件夹  -：文件  l:链接）<br>r：可读  w：可写    x：可执行 <br>第一组rwx：  表示这个文件的拥有者对它的权限：可读可写可执行<br>第二组r-x：  表示这个文件的所属组对它的权限：可读，不可写，可执行<br>第三组r-x：  表示这个文件的其他用户（相对于上面两类用户）对它的权限：可读，不可写，可执行</p>
+<p>chmod g-rw haha.dat    表示将haha.dat对所属组的rw权限取消<br>chmod o-rw haha.dat    表示将haha.dat对其他人的rw权限取消<br>chmod u+x haha.dat      表示将haha.dat对所属用户的权限增加x</p>
+<p>也可以用数字的方式来修改权限<br>chmod 664 haha.dat  <br>就会修改成  rw-rw-r–</p>
+<p>如果要将一个文件夹的所有内容权限统一修改，则可以-R参数<br>chmod -R 770 aaa/<br>chown angela:angela aaa/    &lt;只有root能执行&gt;</p>
+<p>4、基本的用户管理<br>useradd  angela<br>要修改密码才能登陆<br>passwd angela  按提示输入密码即可</p>
+<p>**为用户配置sudo权限<br>用root编辑 vi /etc/sudoers<br>在文件的如下位置，为hadoop添加一行即可<br>root    ALL=(ALL)      ALL    <br>hadoop  ALL=(ALL)      ALL</p>
+<p>然后，hadoop用户就可以用sudo来执行系统级别的指令<br>[hadoop@shizhan ~]$ sudo useradd huangxiaoming</p>
+<p>5、系统管理操作</p>
+<ul>
+<li><p>查看主机名<br>hostname</p>
+</li>
+<li><p>修改主机名(重启后无效)<br>hostname hadoop</p>
+</li>
+<li><p>修改主机名(重启后永久生效)<br>vi /ect/sysconfig/network</p>
+</li>
+<li><p>修改IP(重启后无效)<br>ifconfig eth0 192.168.12.22</p>
+</li>
+<li><p>修改IP(重启后永久生效)<br>vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+</li>
+</ul>
+<p>mkdir  /mnt/cdrom      创建一个目录，用来挂载<br>mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom/    将设备/dev/cdrom挂载到 挂载点 ：  /mnt/cdrom中</p>
+<ul>
+<li><p>umount<br>umount /mnt/cdrom</p>
+</li>
+<li><p>统计文件或文件夹的大小<br>du -sh  /mnt/cdrom/Packages<br>df -h    查看磁盘的空间</p>
+</li>
+<li><p>关机<br>halt</p>
+</li>
+<li><p>重启<br>reboot</p>
+</li>
+</ul>
+<p><strong>**</strong>配置主机之间的免密ssh登陆<br>假如 A  要登陆  B<br>在A上操作：<br>%%首先生成密钥对<br>ssh-keygen  (提示时，直接回车即可)<br>%%再将A自己的公钥拷贝并追加到B的授权列表文件authorized_keys中<br>ssh-copy-id  B</p>
+<p><strong>**</strong>后台服务管理<br>service network status  查看指定服务的状态<br>service network stop    停止指定服务<br>service network start    启动指定服务<br>service network restart  重启指定服务<br>service –status-all  查看系统中所有的后台服务</p>
+<p>设置后台服务的自启配置<br>chkconfig  查看所有服务器自启配置<br>chkconfig iptables off  关掉指定服务的自动启动<br>chkconfig iptables on  开启指定服务的自动启动</p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/" class="article-next" title="各种算法优缺点"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/" class="article-prev" title="算法推导整理"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/linux",
+        distractionFreeMode: true,
+        title: "linux",
+        body: "http://yuyinxiao.github.io/2019/10/25/linux/",
+        labels: ["linux"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

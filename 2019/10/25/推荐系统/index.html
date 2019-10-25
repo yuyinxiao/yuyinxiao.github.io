@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>推荐系统 | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="推荐系统目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。热门、人工、相关、个性化推荐推荐系统比较LR：大规模离散特征LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉PNN：FM + vector produ..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#推荐系统"><span class="toc-number">1.</span> <span class="toc-text">推荐系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统比较"><span class="toc-number">1.1.</span> <span class="toc-text">推荐系统比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐的分类"><span class="toc-number">1.2.</span> <span class="toc-text">推荐的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统的评估"><span class="toc-number">1.3.</span> <span class="toc-text">推荐系统的评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#95-置信区间是什么意思"><span class="toc-number">1.3.1.</span> <span class="toc-text">95%置信区间是什么意思</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冷启动过程"><span class="toc-number">1.3.2.</span> <span class="toc-text">冷启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户冷启动"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">用户冷启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#物品冷启动"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">物品冷启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多目标排序"><span class="toc-number">1.3.3.</span> <span class="toc-text">多目标排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难点"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">难点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统架构"><span class="toc-number">1.4.</span> <span class="toc-text">推荐系统架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#online部分架构"><span class="toc-number">1.4.1.</span> <span class="toc-text">online部分架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核心模块"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">核心模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据路径"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">数据路径</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#offline部分架构"><span class="toc-number">1.4.2.</span> <span class="toc-text">offline部分架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#YouTubeDNN"><span class="toc-number">1.5.</span> <span class="toc-text">YouTubeDNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#候选集生成"><span class="toc-number">1.5.1.</span> <span class="toc-text">候选集生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#精排"><span class="toc-number">1.5.2.</span> <span class="toc-text">精排</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MMR-PostRank控制多样性"><span class="toc-number">1.6.</span> <span class="toc-text">MMR(PostRank控制多样性)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列评估与生成框架"><span class="toc-number">1.7.</span> <span class="toc-text">序列评估与生成框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标函数"><span class="toc-number">1.7.1.</span> <span class="toc-text">目标函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NavBoost"><span class="toc-number">1.8.</span> <span class="toc-text">NavBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#COEC"><span class="toc-number">1.8.1.</span> <span class="toc-text">COEC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拉普拉斯平滑"><span class="toc-number">1.8.1.1.</span> <span class="toc-text">拉普拉斯平滑</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wide-amp-Depp与DeepFM"><span class="toc-number">1.9.</span> <span class="toc-text">Wide&amp;Depp与DeepFM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Wide-amp-Deep"><span class="toc-number">1.9.1.</span> <span class="toc-text">Wide&amp;Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepFM"><span class="toc-number">1.9.2.</span> <span class="toc-text">DeepFM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#热点feed流postrank"><span class="toc-number">1.10.</span> <span class="toc-text">热点feed流postrank</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#精排得到40个，为什么还要对12个重排序？"><span class="toc-number">1.10.1.</span> <span class="toc-text">精排得到40个，为什么还要对12个重排序？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Focal-Loss-发掘困难样本"><span class="toc-number">1.10.2.</span> <span class="toc-text">Focal Loss 发掘困难样本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pointwise，pairwise，listwise"><span class="toc-number">1.10.3.</span> <span class="toc-text">pointwise，pairwise，listwise</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.10.3.1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pointwise"><span class="toc-number">1.10.3.2.</span> <span class="toc-text">pointwise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pairwise"><span class="toc-number">1.10.3.3.</span> <span class="toc-text">pairwise</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#合页损失函数"><span class="toc-number">1.10.3.3.1.</span> <span class="toc-text">合页损失函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#listwise"><span class="toc-number">1.10.3.4.</span> <span class="toc-text">listwise</span></a></li></ol></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            推荐系统
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
+<h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
+<li>LR：大规模离散特征</li>
+<li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
+<li>FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉</li>
+<li>FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量</li>
+<li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
+<li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
+<li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
+<li>AFM：FM + bi-interact + attention + MLP </li>
+<li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
+<li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
+<li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
+</ul>
+<p><img src="https://pic1.zhimg.com/v2-64554aa0899d4291ef1c4cafd1afc3fc_r.jpg" alt="avatar"></p>
+<a id="more"></a>
+<h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
+<li>基于内容的过滤、协同过滤</li>
+<li>基于用户的协同过滤、基于物品的协同过滤</li>
+</ul>
+<ol>
+<li>协同过滤的两种主要方式</li>
+</ol>
+<ul>
+<li>近邻模型<ol>
+<li>面向用户：计算用户之间的关联；</li>
+<li>面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。</li>
+<li>用余弦值表示上述用户关联，该值就是皮尔逊相关系数。</li>
+</ol>
+</li>
+<li>隐变量模型<ol>
+<li>隐变量描述用户对物品的评级。物品（类型，流派）；用户（评分，评级等）</li>
+<li>神经网络，矩阵分解实现隐变量表示。</li>
+</ol>
+</li>
+</ul>
+<h2 id="推荐系统的评估"><a href="#推荐系统的评估" class="headerlink" title="推荐系统的评估"></a>推荐系统的评估</h2><p>A/B测试：流量分发（随机，uid%100∈[0,20%]）</p>
+<h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.<br>$$P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} &lt; M &lt; \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95$$<br>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
+<p><strong>小流量的用户行为统计在流量放宽后关键指标数据可能会发生变化。故由小到大逐步增加流量分配，同时实时监控关键指标的数据走势</strong></p>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/zhixindu.gif" alt="avatar"></p>
+<h3 id="冷启动过程"><a href="#冷启动过程" class="headerlink" title="冷启动过程"></a>冷启动过程</h3><h4 id="用户冷启动"><a href="#用户冷启动" class="headerlink" title="用户冷启动"></a>用户冷启动</h4><ol>
+<li>手机用户特征；</li>
+<li>粗粒度选项引导填写；</li>
+<li>热点，保量<h4 id="物品冷启动"><a href="#物品冷启动" class="headerlink" title="物品冷启动"></a>物品冷启动</h4></li>
+<li>保量</li>
+</ol>
+<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><p>$score=CTR<em>(\alpha+CVR)</em>(\beta+price)<em>staya*rule_weight</em>…$</p>
+<h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ol>
+<li>目标重要性难以量化；</li>
+<li>超参难以学习；</li>
+<li>在线服务计算量大；</li>
+</ol>
+<h2 id="推荐系统架构"><a href="#推荐系统架构" class="headerlink" title="推荐系统架构"></a>推荐系统架构</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys.png" alt="avatar"></p>
+<h3 id="online部分架构"><a href="#online部分架构" class="headerlink" title="online部分架构"></a>online部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_online.png" alt="avatar"></p>
+<h4 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h4><p>推荐引擎，推荐系统核心，包括online逻辑，召回、过滤、特征计算、排序、 多样化等处理过程。</p>
+<h4 id="数据路径"><a href="#数据路径" class="headerlink" title="数据路径"></a>数据路径</h4><ol>
+<li><p>请求的刷新从gateway，经过流量分配模块，传到业务gateway，业务gateway支持http，tcp（使用thirtf协议或者protobuf 协议）等多种类型接口；</p>
+</li>
+<li><p>用户行为数据，从gateway到Flume agent，然后到kafka，为后面online，realtime userprofile部分的提供实时数据，也为offline部分的数据存储系统提供数据。</p>
+</li>
+</ol>
+<h3 id="offline部分架构"><a href="#offline部分架构" class="headerlink" title="offline部分架构"></a>offline部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_offline.png" alt="avatar"><br>从框架的角度看，推荐系统基本可以分为数据层、召回层、排序层。</p>
+<ul>
+<li>sessionlog：对原始数据进行清洗合并，sessionlog一般就是清洗合并后的数据，后续的算法和统计都是根据sessionlog进行再加工。</li>
+<li>userprofile：对用户属性和行为等信息进行采集和统计，为后续算法提供特征支持。</li>
+<li>itemDoc：对视频、商品等属性、曝光、点击等字段进行统计， 为后续算法提供特征支持。<br>召回层主要是从用户的历史行为、实时行为等角度利用各种触发策略产生推荐的候选集，对不同的策略和算法产生的候选集进行融合并按照产品规则进行过滤，一般融合和过滤后的候选集还是比较多的，一次线上请求过来之后线上系统无法对那么多的候选集进行排序，所以在召回层一般还会有粗排序，对融合的候选集进行一次粗排序，过滤掉粗排分数较低的候选集。</li>
+</ul>
+<h2 id="YouTubeDNN"><a href="#YouTubeDNN" class="headerlink" title="YouTubeDNN"></a>YouTubeDNN</h2><ul>
+<li>1.召回TopN：生成倒排，近似搜索；</li>
+<li>2.新视频：用该视频最近生成日志的时间example age；初始化训练时为0；就是说越短越可能为正样本（训练的trick）</li>
+<li>3.测试集作为最近一次观看行为</li>
+<li>4.优化目标非CTR，播放率而是曝光后预期播放时间</li>
+<li>5.目标函数的设定应该是一个算法模型的根本性问题</li>
+<li>6.对某些特征开方x，x，x^2处理后输入在线上serving中使用$e^{Wx+b}$做预测可以直接得到expected watch time的近似。</li>
+<li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D%5Capprox%7Bw_ip%7D%3DT_ip%3DE%28T_i%29" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
+</ul>
+<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="https://pic3.zhimg.com/80/v2-0e0f8479c5260e4c5096f730dd6ea6ba_hd.jpg" alt="avatar"></p>
+<h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="https://pic4.zhimg.com/v2-4dd8f94f0cf5becd7dd5ff4c0fd9393f_1200x500.jpg" alt="avatar"></p>
+<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="https://img-blog.csdn.net/20180725101556342?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pKUk4xMDI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
+<h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
+<p>模型fθ拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
+<p>优化函数1：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
+<p>最终优化函数2：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e4.png" alt="avatar"></p>
+<ul>
+<li>两层Transformer，4个head；最后得到某个位置item的概率。最后计算总体收益。</li>
+<li>focal loss：更多关注错分的样本；a调节权重；</li>
+</ul>
+<h2 id="NavBoost"><a href="#NavBoost" class="headerlink" title="NavBoost"></a>NavBoost</h2><ol>
+<li>取30天的数据ctx_id和rec_id之间的展点数据，impression必须大某个阈值（1W）</li>
+<li>计算ctx_id和rec_id之间的coec值</li>
+<li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
+<li>计算最终得分，ctrScore * 0.8 + ageScore * 0.2</li>
+</ol>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
+<h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
+<hr>
+<p>用户注意力一般集中在左上，因此每次 impression 能导致的 click 是与位置相关的。变现有效 impression 的方式是通过每个位置的平均 CTR（reference CTR）来处理，这样将每次 impression 乘以对应位置的 reference CTR 就获得了所谓的 EC（expected click），这样消除了 position bias 的 EC 就变成可加的了。观测到的 click 数目从统计上来看应该是分布在 EC 附近，也就是说 COEC（clicks over expected clicks）的期望应该是 1。</p>
+<p>使用 COEC 而不是 CTR 作为每个 item 的 relevance 的反应是一个不错的选择，但是实际操作中与 CTR 类似都面临着 data sparsity 的问题。一般我们也会使用 Laplace smoothing 解决 0 观测。</p>
+<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
+<h2 id="Wide-amp-Depp与DeepFM"><a href="#Wide-amp-Depp与DeepFM" class="headerlink" title="Wide&amp;Depp与DeepFM"></a>Wide&amp;Depp与DeepFM</h2><h3 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h3><ul>
+<li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
+<li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
+</ul>
+<p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)<br>$$P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}<em>{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}</em>{deep}^Ta^{\left ( l_f \right )}+b \right )$$<br><img src="https://upload-images.jianshu.io/upload_images/1500965-e5896703dd49b541.png?imageMogr2/auto-orient/" alt="avatar"></p>
+<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="https://pic2.zhimg.com/v2-976e1197ecbf5213f6db3dd8c15382c1_r.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
+<ul>
+<li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
+<li>共享原始输入特征。DeepFM模型的原始特征将作为FM和Deep模型部分的共同输入，保证模型特征的准确与一致。</li>
+<li>DeepFM模型包含FM和DNN两部分，FM模型可以抽取低阶特征，DNN可以抽取高阶特征。</li>
+<li>由于输入仅为原始特征，而且FM和DNN共享输入向量特征，DeepFM模型训练速度很快。</li>
+</ul>
+<h2 id="热点feed流postrank"><a href="#热点feed流postrank" class="headerlink" title="热点feed流postrank"></a>热点feed流postrank</h2><p>pointwise中query=user的emb</p>
+<h3 id="精排得到40个，为什么还要对12个重排序？"><a href="#精排得到40个，为什么还要对12个重排序？" class="headerlink" title="精排得到40个，为什么还要对12个重排序？"></a>精排得到40个，为什么还要对12个重排序？</h3><ol>
+<li>ctr预估，集中在预估单个item的ctr，和真实场景有一定的gap；</li>
+<li>广告位设置，多样性实验</li>
+<li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
+<li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
+</ol>
+<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="https://images2018.cnblogs.com/blog/1055519/201808/1055519-20180818174822290-765890427.png" alt="avatar"></p>
+<p>例如$\gamma$为2</p>
+<ul>
+<li>对于正类样本而言，预测结果为0.95肯定是简单样本，所以（1-0.95）的gamma次方就会很小，这时损失函数值就变得更小。而预测概率为0.3的样本其损失相对很大;</li>
+<li>对于负类样本而言同样，预测0.1的结果应当远比预测0.7的样本损失值要小得多。对于预测概率为0.5时，损失只减少了0.25倍，所以更加关注于这种难以区分的样本。</li>
+</ul>
+<p>这样减少了简单样本的影响，大量预测概率很小的正样本叠加起来后的效应才可能比较有效。此外，加入平衡因子alpha，用来平衡正负样本本身的比例不均：文中alpha取0.25，即正样本要比负样本占比小，这是因为负例易分。</p>
+<h3 id="pointwise，pairwise，listwise"><a href="#pointwise，pairwise，listwise" class="headerlink" title="pointwise，pairwise，listwise"></a>pointwise，pairwise，listwise</h3><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Pointwise、Pairwise和Listwise的本质区别是训练过程中优化的目标或者损失函数不同。Pointwise优化的目标是单条样本与用户（查询词）之间的相关性（或者是否会点），即回归的目标是label。比如对于广告排序场景，优化目标是样本是否点击这个事情，这就是Pointwise。但对于如RankNet的Pairwise方法，优化的目标是正例与负例之间的序。而对于Listwise，优化的是一个序的好坏，比如用NDCG来评价。</p>
+<h4 id="pointwise"><a href="#pointwise" class="headerlink" title="pointwise"></a>pointwise</h4><blockquote>
+<blockquote>
+<p>将排序问题当作二分类</p>
+</blockquote>
+</blockquote>
+<p>训练样本<br>$$pointwise=(q_i,c_{i,j},y_{i,j})$$<br>$q_i$为第i个query，$c_{i,j}$为第i个query中第j个候选集，$y_{i,j}$为对该候选样本真实的概率<br>预测阶段二分类模型$h_\theta$排序每个候选句子，得到$\hat{y_{i,j}}$，选取top-ranked句自作为正确答案。目标函数为：<br>$$\argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})$$</p>
+<h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
+<blockquote>
+<p>让正确答案比错误答案得分高</p>
+</blockquote>
+</blockquote>
+<p>训练样本<br>$$pairwise=(q_i,c^+_i,c^-_i)$$<br>给一个提问$q_i$，pairwise给定一对候选回答学习并预测最佳回答。$c^+$为正确回答，损失函数为合页函数<br>$$L=max{0,m-(h_\theta(q_i,c^+_i)-h_\theta(q_i,c^-_i))}$$</p>
+<ul>
+<li>对（正样本预测值-负样本预测值）&gt; m时则判断正确，损失为0；</li>
+<li>对（正样本预测值-负样本预测值）&lt; m时则判断错误，有损失。</li>
+</ul>
+<h5 id="合页损失函数"><a href="#合页损失函数" class="headerlink" title="合页损失函数"></a>合页损失函数</h5><p>促使正确答案的得分比错误答案的得分大于$m$。最后和pairwise类似，在预测阶段得分最高的候选答案被当作正确的答案。</p>
+<h4 id="listwise"><a href="#listwise" class="headerlink" title="listwise"></a>listwise</h4><p><img src="https://img-blog.csdn.net/20150205005820791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRWFzdG1vdW50/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt></p>
+<p>g设想成最优评分函数,对查询Q1来说：文档A得6分,文档B得4分,文档C得3分<br>找到一个函数,使得其对Q1的搜索结果打分顺序尽可能的接近标准函数g.其中函数f和h就是实际的评分函数,通过比较两个概率之间的KL距离,发现f比h更接近假想的最优函数g.故选择函数f为搜索的评分函数.</p>
+<blockquote>
+<blockquote>
+<p>q拟合p的分布<br>$$D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))$$</p>
+</blockquote>
+</blockquote>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="article-next" title="操作系统"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/" class="article-prev" title="各种算法优缺点"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/推荐系统",
+        distractionFreeMode: true,
+        title: "推荐系统",
+        body: "http://yuyinxiao.github.io/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/",
+        labels: ["推荐系统"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

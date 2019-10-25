@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>语言模型 | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="语言模型简要整理word2vec网页版笔记在线看层序与负采样层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；负采样：词频越大更被定为负样本，所以对生僻词更有优势补充Huffman树Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#语言模型简要整理"><span class="toc-number">1.</span> <span class="toc-text">语言模型简要整理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#word2vec"><span class="toc-number">1.1.</span> <span class="toc-text">word2vec</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#层序与负采样"><span class="toc-number">1.1.1.</span> <span class="toc-text">层序与负采样</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#补充Huffman树"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">补充Huffman树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#负采样算法"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">负采样算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络结构"><span class="toc-number">1.1.2.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CBOW与Skip-gram"><span class="toc-number">1.1.3.</span> <span class="toc-text">CBOW与Skip-gram</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CBOW"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">CBOW</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Skip-gram"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">Skip-gram</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM"><span class="toc-number">1.2.</span> <span class="toc-text">LSTM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#真实的物理结构"><span class="toc-number">1.2.1.</span> <span class="toc-text">真实的物理结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TextCNN"><span class="toc-number">1.3.</span> <span class="toc-text">TextCNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transformer"><span class="toc-number">1.4.</span> <span class="toc-text">Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编码器与解码器"><span class="toc-number">1.4.1.</span> <span class="toc-text">编码器与解码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码器结构细节"><span class="toc-number">1.4.2.</span> <span class="toc-text">编码器结构细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算任意两词的注意力加权后的向量表示"><span class="toc-number">1.4.3.</span> <span class="toc-text">计算任意两词的注意力加权后的向量表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#补充soft-attention"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">补充soft-attention</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单词的矩阵运算，获取注意力加权后的向量表示"><span class="toc-number">1.4.4.</span> <span class="toc-text">单词的矩阵运算，获取注意力加权后的向量表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解码器端动态展示"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">解码器端动态展示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EMLO——特征融合"><span class="toc-number">1.5.</span> <span class="toc-text">EMLO——特征融合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GPT——预训练-fine-tune"><span class="toc-number">1.6.</span> <span class="toc-text">GPT——预训练+fine tune</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BERT"><span class="toc-number">1.7.</span> <span class="toc-text">BERT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mask-LM"><span class="toc-number">1.7.1.</span> <span class="toc-text">Mask LM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next-Sentence-Prediction"><span class="toc-number">1.7.2.</span> <span class="toc-text">Next Sentence Prediction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QA系统基本框架"><span class="toc-number">1.8.</span> <span class="toc-text">QA系统基本框架</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            语言模型
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:44:31.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
+<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><ul>
+<li>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；</li>
+<li>负采样：词频越大更被定为负样本，所以对生僻词更有优势</li>
+</ul>
+<h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
+<a id="more"></a>
+
+<h4 id="负采样算法"><a href="#负采样算法" class="headerlink" title="负采样算法"></a>负采样算法</h4><p>任何采样算法都应该保证频次越高的样本越容易被采样出来。基本的思路是对于长度为1的线段，根据词语的词频将其公平地分配给每个词语：<br>$$len(w)=\frac{counter(w)}{\sum _{u\epsilon D} counter(u)}$$<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/35.jpg" alt="avatat"><br>counter就是w的词频。word2vec用的是一种查表的方式，将上述线段标上M个“刻度”，刻度之间的间隔是相等的，即1/M：接着生成0-M之间的整数，去这个刻度尺上一查就能抽中一个单词了。对于机器学习中的分类任务，在训练的时候不但要给正例，还要给负例。对于Hierarchical Softmax，负例是二叉树的其他路径。对于Negative Sampling，负例是随机挑选出来的。Negative Sampling能<strong>提高速度、改进模型质量。</strong></p>
+<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/w2v.jpg" alt="avatar"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/sg.jpg" alt="avatar"><br>Word2Vec模型是一个很大的神经网络；10000个单词的词汇表，如果嵌入300维的词向量，那么输入-隐层权重矩阵=隐层-输出层的权重矩阵都会有 10000 x 300 = 300万个权重。<strong>在如此庞大的神经网络中进行梯度下降是相当慢的，所以通过负采样仅对K+1个词的损失反向更新</strong>。中间隐层embedding拿出来做词向量，输入索引，U的输出就是embedding，然后再进行3.1，3.2的公式仅对K+1个词计算二分类的损失，再反向传播。</p>
+<h3 id="CBOW与Skip-gram"><a href="#CBOW与Skip-gram" class="headerlink" title="CBOW与Skip-gram"></a>CBOW与Skip-gram</h3><ul>
+<li>CBOW：输入上下文，输出中心词；训练次数等同于样本次数V(词典大小)；效率高，训练质量不够充分；梯度值会同样的作用到每个周围词的词向量当中去； 相当于该生僻词没有收到专门的训练，生僻词不太友好</li>
+<li>SKip-gram：输入中心词，输出上下文；训练次数为KV,即每个样本训练K次(窗口大小)；效率较低，训练质量充分；梯度不断的调整中心词的词向量；每个词在作为中心词的时候，都要进行K次的预测、调整，生僻词更友好<h4 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h4>给定训练样本，即一个词w和它的上下文Context(w)，Context(w)是输入，w是输出。那么w就是正例，词汇表中其他的词语的就是负例。假设我们通过某种采样方法获得了负例子集NEG(w)。对于正负样本，分别定义一个标签：正样本为1，负样本为0。<br>$$L^w(\tilde{w})=\left {<br>\begin{array}{ll}<br>1 &amp; \tilde{w}=w;\<br>0 &amp; \tilde{w} \neq w;<br>\end{array}<br>\right.$$</li>
+</ul>
+<p>对于给定正样本（Context(w),w）我们希望最大化<br>$$g(w)=\prod _{<br>    u{\epsilon {\left { w \right }} \cup NEG(w)}}<br>    p(u|Context(w))$$<br>其中，<br>$$p(u|Context(w))=[\sigma (X_w^T\theta ^u)]^{L^w(u)}\cdot [1-\sigma(X_w^T\theta ^u)]^{1-L^w(u))}$$<br>也就是说，当u是正例时，$\sigma (X_w^T\theta ^u)$越大越好，当u是负例时，$\sigma (X_w^T\theta ^u)$越小越好。因为$\sigma (X_w^T\theta ^u)$ 等于模型预测样本为正例的概率，当答案就是正的时候，我们希望这个概率越大越好，当答案是负的时候，我们希望它越小越好，模型也符合极大似然估计。<br>$$\log\prod _{w\epsilon C} g(w)=\sum _{w\epsilon C}\log g(w)$$<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/28.jpg" alt="avatat"><br>每个词都是如此，语料库有多个词，我们将g累积得到优化目标。因为对数方便计算，我们对其取对数得到目标函数：<br>训练伪码为：<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/30.jpg" alt="avatat"></p>
+<h4 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h4><p>对于(w,Context(w))我们希望最大化：<br>$$g(w)=\prod _{\tilde{w}\epsilon Context(w)} \prod _{u\epsilon \left { w \right }\cup NEG^{\tilde{w}}(w)}p(u|\tilde w)$$<br>其中，<br>$$L =\sum _{w\epsilon C} \sum _{\tilde{w}\epsilon Context(w)} \sum _{u\epsilon \left { w \right  }\cup NEG^{\tilde w }(w)} L(w,\tilde w,u)$$</p>
+<p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/34.jpg" alt="avatat"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/33.jpg" alt="avatat"><br>训练伪码为：<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/31.jpg" alt="avatat"></p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/LSTM.jpg" alt></p>
+<ul>
+<li>每个cell作为前馈网络层，num_units隐层神经元数；多值向量；不同时刻共享</li>
+<li>$h_{t-1}$和$x(t)$横向拼接输入；</li>
+<li>上面路径代表长时记忆；下面路径代表短时记忆。</li>
+</ul>
+<ol>
+<li>输入和输出都用tanh而非sigmoid？<ol>
+<li>输出保证0均值；</li>
+<li>线性部分多；</li>
+</ol>
+</li>
+</ol>
+<h3 id="真实的物理结构"><a href="#真实的物理结构" class="headerlink" title="真实的物理结构"></a>真实的物理结构</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/LSTM2.jpg" alt></p>
+<h2 id="TextCNN"><a href="#TextCNN" class="headerlink" title="TextCNN"></a>TextCNN</h2><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/27.png" alt="avatar"></p>
+<p>$$W^*=\frac{(W-f+2p)}{s}+1$$</p>
+<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="编码器与解码器"><a href="#编码器与解码器" class="headerlink" title="编码器与解码器"></a>编码器与解码器</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/17.png" alt="avatar">)<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/16.png" alt="avatar"></p>
+<p>各层结构相同，权重不共享</p>
+<h3 id="编码器结构细节"><a href="#编码器结构细节" class="headerlink" title="编码器结构细节"></a>编码器结构细节</h3><p>we+pos_en，词向量+位置编码<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/25.png" alt="avatar"></p>
+<h3 id="计算任意两词的注意力加权后的向量表示"><a href="#计算任意两词的注意力加权后的向量表示" class="headerlink" title="计算任意两词的注意力加权后的向量表示"></a>计算任意两词的注意力加权后的向量表示</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/25.png" alt="avatar"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/22.png" alt="avatar"></p>
+<h4 id="补充soft-attention"><a href="#补充soft-attention" class="headerlink" title="补充soft-attention"></a>补充soft-attention</h4><p><img src="https://upload-images.jianshu.io/upload_images/7348807-6b171e18b29f46e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/235/format/webp" alt></p>
+<h3 id="单词的矩阵运算，获取注意力加权后的向量表示"><a href="#单词的矩阵运算，获取注意力加权后的向量表示" class="headerlink" title="单词的矩阵运算，获取注意力加权后的向量表示"></a>单词的矩阵运算，获取注意力加权后的向量表示</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/24.png" alt="avatar"></p>
+<h4 id="解码器端动态展示"><a href="#解码器端动态展示" class="headerlink" title="解码器端动态展示"></a>解码器端动态展示</h4><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/23.gif" alt="avatar"></p>
+<hr>
+<h2 id="EMLO——特征融合"><a href="#EMLO——特征融合" class="headerlink" title="EMLO——特征融合"></a>EMLO——特征融合</h2><p>word embedding：无法解决多义词问题；<br>elmo：we训练后获得上下文语义了，根据这个语义调整单词的we表示；we适配语义，完成多义词问题。<br>两阶段：语言模型预训练+下游任务。<br>语言模型预训练：we输入到双层双向LSTM网络；最终得到句子每个单词对应的(单词we，单词的句法信息，单词的语义信息)。每一个we对应一个权重a，累加求和整合成一个。<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/14.jpg" alt="avatar"></p>
+<hr>
+<h2 id="GPT——预训练-fine-tune"><a href="#GPT——预训练-fine-tune" class="headerlink" title="GPT——预训练+fine tune"></a>GPT——预训练+fine tune</h2><p>重点是Transformer，特征抽取的能力强于RNN，只有单向的特征提取能力。<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/20.jpg" alt="avatar"></p>
+<hr>
+<h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/21.jpg" alt="avatar"></p>
+<h3 id="Mask-LM"><a href="#Mask-LM" class="headerlink" title="Mask LM"></a>Mask LM</h3><p>随机选择预料15%单词，用掩码覆盖，然后要求模型去正确预测被抠掉的单词。实际上80%真正被mask标记，10%替换成另外的词，10%未改。</p>
+<h3 id="Next-Sentence-Prediction"><a href="#Next-Sentence-Prediction" class="headerlink" title="Next Sentence Prediction"></a>Next Sentence Prediction</h3><p>多任务训练，增加句子关系推断。（选择两个句子：语料中真正顺序相连的两个句子；或者选择随机取两个句子）判断第二个是否是第一个句子的后续句子。考虑到单词预测粒度到不了句子关系层级。</p>
+<hr>
+<h2 id="QA系统基本框架"><a href="#QA系统基本框架" class="headerlink" title="QA系统基本框架"></a>QA系统基本框架</h2><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/18.png" alt="avatar"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/19.png" alt="avatar"></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/" class="article-next" title="Tensorflow基础"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/Transformer/" class="article-prev" title="Transformer"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/语言模型",
+        distractionFreeMode: true,
+        title: "语言模型",
+        body: "http://yuyinxiao.github.io/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/",
+        labels: ["NLP"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>优化算法 | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="优化算法梯度下降梯度下降是一种优化算法，通过迭代的方式寻找模型的最优参数；当目标函数是凸函数时，梯度下降的解是全局最优解；但在一般情况下，梯度下降无法保证全局最优。负梯度中的每一项可以认为传达了两个信息:正负号在告诉输入向量应该调大还是调小（正调大，负调小）；每一项的相对大小表明每个参数对函数值达到最值的影响程度批梯度下降（Batch SGD） VS  随机梯度下降批梯度下降在每次对模型参数进行更新时，需要遍历所有数据，得到平均损失随机梯度下降每次使用单个样本的损失来近似平..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#优化算法"><span class="toc-number">1.</span> <span class="toc-text">优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降"><span class="toc-number">1.1.</span> <span class="toc-text">梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#批梯度下降（Batch-SGD）-VS-随机梯度下降"><span class="toc-number">1.1.1.</span> <span class="toc-text">批梯度下降（Batch SGD） VS  随机梯度下降</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小批量随机梯度下降（mini-batch-SGD）"><span class="toc-number">1.1.2.</span> <span class="toc-text">小批量随机梯度下降（mini batch SGD）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“批”的大小对优化效果的影响"><span class="toc-number">1.1.3.</span> <span class="toc-text">“批”的大小对优化效果的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机梯度下降存在的问题"><span class="toc-number">1.1.4.</span> <span class="toc-text">随机梯度下降存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改进的随机梯度下降"><span class="toc-number">1.2.</span> <span class="toc-text">改进的随机梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动量算法"><span class="toc-number">1.2.1.</span> <span class="toc-text">动量算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Momentum动量"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Momentum动量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NAG-动量"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">NAG 动量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Momentum和NAG动量的区别"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Momentum和NAG动量的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自适应学习率的优化算法"><span class="toc-number">1.2.2.</span> <span class="toc-text">自适应学习率的优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AdaGrad"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">AdaGrad</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#AdaGrad-算法描述"><span class="toc-number">1.2.2.1.1.</span> <span class="toc-text">AdaGrad 算法描述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AdaGrad-存在的问题"><span class="toc-number">1.2.2.1.2.</span> <span class="toc-text">AdaGrad 存在的问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RMSProp"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">RMSProp</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#RMSProp-算法描述"><span class="toc-number">1.2.2.2.1.</span> <span class="toc-text">RMSProp 算法描述</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Adam"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Adam</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Adam-算法描述"><span class="toc-number">1.2.2.3.1.</span> <span class="toc-text">Adam 算法描述</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何选择这些优化算法"><span class="toc-number">1.3.</span> <span class="toc-text">如何选择这些优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#各优化算法的可视化"><span class="toc-number">1.3.1.</span> <span class="toc-text">各优化算法的可视化</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            优化算法
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:54:14.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p>梯度下降是一种<strong>优化算法</strong>，通过<strong>迭代</strong>的方式寻找模型的<strong>最优参数</strong>；当目标函数是<strong>凸函数</strong>时，梯度下降的解是全局最优解；但在一般情况下，<strong>梯度下降无法保证全局最优</strong>。<strong>负梯度</strong>中的每一项可以认为传达了<strong>两个信息</strong>:</p>
+<ul>
+<li>正负号在告诉输入向量应该调大还是调小（正调大，负调小）；</li>
+<li>每一项的相对大小表明每个参数对函数值达到最值的<strong>影响程度</strong></li>
+</ul>
+<a id="more"></a>
+<h3 id="批梯度下降（Batch-SGD）-VS-随机梯度下降"><a href="#批梯度下降（Batch-SGD）-VS-随机梯度下降" class="headerlink" title="批梯度下降（Batch SGD） VS  随机梯度下降"></a>批梯度下降（Batch SGD） VS  随机梯度下降</h3><ul>
+<li><strong>批梯度下降</strong>在每次对模型参数进行更新时，需要遍历所有数据，得到平均损失<br><img src="https://miro.medium.com/max/569/1*Dhr8kQr0XXKSfm0Ry_YNMw.png" alt></li>
+<li><strong>随机梯度下降</strong>每次使用单个样本的损失来近似平均损失<br><img src="https://miro.medium.com/max/614/1*upQNMC4O3J1DXslT2sT7vA.png" alt><h3 id="小批量随机梯度下降（mini-batch-SGD）"><a href="#小批量随机梯度下降（mini-batch-SGD）" class="headerlink" title="小批量随机梯度下降（mini batch SGD）"></a>小批量随机梯度下降（mini batch SGD）</h3></li>
+<li>为了降低随机梯度的<strong>方差</strong>，使模型迭代更加稳定，实践中会使用<strong>一批</strong>随机数据的损失来近似平均损失。</li>
+<li>使用批训练的另一个主要目的，是为了利用高度优化的<strong>矩阵运算</strong>以及<strong>并行计算框架</strong>。</li>
+</ul>
+<h3 id="“批”的大小对优化效果的影响"><a href="#“批”的大小对优化效果的影响" class="headerlink" title="“批”的大小对优化效果的影响"></a>“批”的大小对优化效果的影响</h3><ul>
+<li>批越小：则泛化误差更好，学习更加充分，引入噪声正则化效果，学习率小保证稳定性故收敛慢；</li>
+<li>批越大则梯度估计更加精确，训练加速</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>当批的大小为 <strong>2 的幂</strong>时能充分利用矩阵运算操作，所以批的大小一般取 32、64、128、256 等。</p>
+</blockquote>
+</blockquote>
+<h3 id="随机梯度下降存在的问题"><a href="#随机梯度下降存在的问题" class="headerlink" title="随机梯度下降存在的问题"></a>随机梯度下降存在的问题</h3><ul>
+<li>梯度下降陷入<strong>局部极值点</strong>，以及遇到“<strong>峡谷</strong>”和“<strong>鞍点</strong>”两种情况</li>
+<li><strong>峡谷</strong>：准确的梯度方向应该沿着坡的方向向下，但粗糙的梯度估计导致在两个峭壁间来回震荡。</li>
+<li><strong>鞍点</strong>：落入鞍点导致优化很可能就会停滞下来。</li>
+</ul>
+<p><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180826113534.png" alt="avatar"></p>
+<h2 id="改进的随机梯度下降"><a href="#改进的随机梯度下降" class="headerlink" title="改进的随机梯度下降"></a>改进的随机梯度下降</h2><p>SGD 的改进遵循两个方向：<strong>惯性保持</strong>和<strong>环境感知</strong></p>
+<ul>
+<li><strong>惯性保持</strong>指的是加入动量SGD 算法；针对鞍点</li>
+<li><strong>环境感知</strong>指的是<strong>自适应</strong>地确定<strong>每个参数的学习速率</strong>；针对峡谷</li>
+</ul>
+<h3 id="动量算法"><a href="#动量算法" class="headerlink" title="动量算法"></a>动量算法</h3><h4 id="Momentum动量"><a href="#Momentum动量" class="headerlink" title="Momentum动量"></a>Momentum动量</h4><p>引入<strong>动量</strong>方法一方面是为了解决“峡谷”和“鞍点”问题；一方面也可以用于SGD 加速，特别是针对<strong>高曲率</strong>、小幅但是方向一致的梯度。在鞍点处因为<strong>惯性</strong>的作用，更有可能离开平地。<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180819110834.png" alt="avatar"></p>
+<blockquote>
+<blockquote>
+<p>将过去时间steps的梯度矢量累加到当前去更新梯度，致使梯度相同的方向的维度，动量项增加，加快SGD的正确方向，并抑制震荡。<br>$$v_t = \gamma v_{t-1} + \eta \nabla_\theta J(\theta) \<br>\theta = \theta-v_t$$<br>缺点：梯度太大，略过最小值，在最小值附近震荡。</p>
+</blockquote>
+</blockquote>
+<h4 id="NAG-动量"><a href="#NAG-动量" class="headerlink" title="NAG 动量"></a>NAG 动量</h4><p>$$v_t = \gamma v_{t-1} + \eta \nabla_\theta J(\theta - \gamma v_{t-1}) \<br>\theta = \theta-v_t$$<br><img src="https://miro.medium.com/max/1076/1*kVl-Cpxzd-LmiJ_8nu5XOg.png" alt><br>具有前瞻性，前瞻位置估计梯度</p>
+<h4 id="Momentum和NAG动量的区别"><a href="#Momentum和NAG动量的区别" class="headerlink" title="Momentum和NAG动量的区别"></a>Momentum和NAG动量的区别</h4><ul>
+<li>momentum：计算梯度-&gt;加上动量加速$\gamma*v$-&gt;更新参数；</li>
+<li>nesterov：加上动量加速$\gamma<em>v$去计算梯度-&gt;加上动量加速$\gamma</em>v$-&gt;更新参数。</li>
+</ul>
+<h3 id="自适应学习率的优化算法"><a href="#自适应学习率的优化算法" class="headerlink" title="自适应学习率的优化算法"></a>自适应学习率的优化算法</h3><h4 id="AdaGrad"><a href="#AdaGrad" class="headerlink" title="AdaGrad"></a>AdaGrad</h4><ul>
+<li>该算法的思想是独立地适应模型的每个参数：具有较大偏导的参数相应有一个较大的学习率，而具有小偏导的参数则对应一个较小的学习率。学习率会反比于其<strong>历史梯度平方值总和的平方根</strong></li>
+</ul>
+<h5 id="AdaGrad-算法描述"><a href="#AdaGrad-算法描述" class="headerlink" title="AdaGrad 算法描述"></a>AdaGrad 算法描述</h5><p>$$r=r+g<em>g$$<br>$$\Delta\theta=-\frac{\eta}{\sqrt{r+\delta}}</em>g$$<br>注意：全局学习率$\eta$并没有更新，而是每次应用时被缩放</p>
+<h5 id="AdaGrad-存在的问题"><a href="#AdaGrad-存在的问题" class="headerlink" title="AdaGrad 存在的问题"></a>AdaGrad 存在的问题</h5><p>学习率是一直递减的，训练后期学习率过小会导致训练困难，甚至提前结束。</p>
+<h4 id="RMSProp"><a href="#RMSProp" class="headerlink" title="RMSProp"></a>RMSProp</h4><p>AdaGrad 根据平方梯度的<strong>整个历史</strong>来收缩学习率，可能使得学习率在达到局部最小值之前就变得太小而难以继续训练;RMSProp 主要是为了解决 AdaGrad 方法中<strong>学习率过度衰减</strong>的问题</p>
+<hr>
+<p>RMSProp 使用<strong>指数衰减平均</strong>（递归定义）以丢弃遥远的历史，使其能够在找到某个“凸”结构后快速收敛；此外，RMSProp 还加入了一个超参数 <code>ρ</code> 用于控制衰减速率。</p>
+<h5 id="RMSProp-算法描述"><a href="#RMSProp-算法描述" class="headerlink" title="RMSProp 算法描述"></a>RMSProp 算法描述</h5><p>$$r=\rho r+ (1-\rho)g<em>g$$<br>$$\Delta\theta=-\frac{\eta}{\sqrt{r+\delta}}</em>g$$</p>
+<h4 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h4><ul>
+<li>加入<strong>历史梯度平方的指数衰减平均</strong>（<code>r</code>）</li>
+<li>保留了<strong>历史梯度的指数衰减平均</strong>（<code>s</code>），相当于<strong>动量</strong>。<br>Adam=Momentum（一阶）+RMSProp（二阶）<h5 id="Adam-算法描述"><a href="#Adam-算法描述" class="headerlink" title="Adam 算法描述"></a>Adam 算法描述</h5><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180611220109.png" alt="avatar"><br>$$m_t=\gamma m_{t-1}+(1-\gamma)g_t\<br>v_t=\rho v_{t-1}+(1-\rho)g_t^2\<br>\hat{m_t}=\frac{m_t}{1-\gamma}\<br>\hat{n_t}=\frac{n_t}{1-\rho}\<br>\theta:=\theta-\frac{\eta}{\sqrt{\hat{v_t}}+\epsilon}\hat{m_t}$$</li>
+</ul>
+<h2 id="如何选择这些优化算法"><a href="#如何选择这些优化算法" class="headerlink" title="如何选择这些优化算法"></a>如何选择这些优化算法</h2><ul>
+<li>各自适应学习率的优化算法表现不分伯仲，没有哪个算法能在所有任务上脱颖而出；</li>
+<li>目前，最流行并且使用很高的优化算法包括 SGD、带动量的 SGD、RMSProp、带动量的 RMSProp、AdaDelta 和 Adam。</li>
+</ul>
+<h3 id="各优化算法的可视化"><a href="#各优化算法的可视化" class="headerlink" title="各优化算法的可视化"></a>各优化算法的可视化</h3><ul>
+<li><p>SGD 各优化方法在损失曲面上的表现<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/contours_evaluation_optimizers.gif" alt="avatar"></p>
+</li>
+<li><p>SGD 各优化方法在<strong>鞍点</strong>处上的表现<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/saddle_point_evaluation_optimizers.gif" alt="avatar"></p>
+</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/" class="article-next" title="深度学习面试"><i class="icon-arrow-right"></i></a>
+
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/优化算法",
+        distractionFreeMode: true,
+        title: "优化算法",
+        body: "http://yuyinxiao.github.io/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/",
+        labels: ["DL"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

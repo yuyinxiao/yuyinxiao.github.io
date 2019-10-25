@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Transformer | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="Transformer一、EncoderTransformer的encoder中，数据首先会经过一个叫做‘self-attention’的模块得到一个加权之后的特征向量$Z$，这个$Z$便是论文公式1中的 $\text{Attention}(Q,K,V)$$$\text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V \tag1$$得到$Z$之后，加上残差网络结构然后被送到encoder的下一个模块，即Feed..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer"><span class="toc-number">1.</span> <span class="toc-text">Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Encoder"><span class="toc-number">1.1.</span> <span class="toc-text">一、Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1、从self-Attention到MultiHead-Attention"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1、从self-Attention到MultiHead-Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、残差网络"><span class="toc-number">1.2.</span> <span class="toc-text">二、残差网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Position-encoding"><span class="toc-number">1.3.</span> <span class="toc-text">三、Position encoding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、总结"><span class="toc-number">1.4.</span> <span class="toc-text">四、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">1.4.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">1.4.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、LSTM与RNN，Transformer比较"><span class="toc-number">1.4.3.</span> <span class="toc-text">1、LSTM与RNN，Transformer比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">1.1 为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的</span></a></li></ol></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Transformer
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/Transformer/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:47:38.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"><br><img src="https://upload-images.jianshu.io/upload_images/12877808-2d01f4df4f996b8f.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="avatar"></p>
+<hr>
+<a id="more"></a>
+
+<h2 id="一、Encoder"><a href="#一、Encoder" class="headerlink" title="一、Encoder"></a>一、Encoder</h2><p><img src="https://img-blog.csdnimg.cn/20181218173013893" alt="avatar"></p>
+<p>Transformer的encoder中，数据首先会经过一个叫做‘self-attention’的模块得到一个加权之后的特征向量$Z$，这个$Z$便是论文公式1中的 $\text{Attention}(Q,K,V)$<br>$$\text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V \tag1$$<br><strong>得到$Z$之后，加上残差网络结构然后被送到encoder的下一个模块，即Feed Forward Neural Network</strong>。这个全连接有两层，第一层的激活函数是ReLU，第二层是一个线性激活函数，可以表示为：<br>$$\text{FFN}(Z) = max(0, ZW_1 +b_1)W_2 + b_2 \tag2$$<br><strong>FFN输出后加上残差网络结构输出到下一层</strong></p>
+<h3 id="1-1、从self-Attention到MultiHead-Attention"><a href="#1-1、从self-Attention到MultiHead-Attention" class="headerlink" title="1.1、从self-Attention到MultiHead-Attention"></a>1.1、从self-Attention到MultiHead-Attention</h3><p>在self-attention中，每个单词有3个不同的向量，它们分别是Query向量（ Q ），Key向量（ K ）和Value向量（ V ），长度均是64。它们是通过3个不同的权值矩阵由嵌入向量 X 乘以三个不同的权值矩阵$W^Q$，$W^K$,$W^V$ 得到，其中三个矩阵的尺寸也是相同的。均是$512\times 64$.</p>
+<ul>
+<li>图解<img src="https://img-blog.csdnimg.cn/20181218173013842" alt="avatar"></li>
+</ul>
+<ol>
+<li>根据嵌入向量得到 q ， k ， v 三个向量;</li>
+<li>为每个向量计算一个score：$\text{score} = q \cdot k$;</li>
+<li>为了梯度的稳定，Transformer使用了score归一化，即除以$\sqrt{d_k}$;</li>
+<li>对score施以softmax激活函数，归一化权重</li>
+<li>softmax点乘Value值 v，得到加权的每个输入向量的评分 v</li>
+<li>对每个词的emb相加之后得到最终的输出结果$z ： z=\sum v$.</li>
+</ol>
+<ul>
+<li>图解<br><img src="https://mmbiz.qpic.cn/mmbiz_svg/1LlgQzJVOyCYRHdn4dwoSXygoBwAIuMfSK2qa0BeSBKLKxpTSn0TdOUrrt3l7QCnoxrVul915SAAqHiavTVia3XgnmKfrXhqhic/640?wx_fmt=svg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt><br>以上为self-Attention，MultiHead-Attention如下<br><img src="https://img-blog.csdnimg.cn/20181218173013927" alt="avatar"><br>将各路self-Attention结果拼接得到MultiHead-Attention</li>
+</ul>
+<h2 id="二、残差网络"><a href="#二、残差网络" class="headerlink" title="二、残差网络"></a>二、残差网络</h2><ul>
+<li>为什么使用残差网络<ol>
+<li>实际上随着网络深度的加深，训练错误会先减少，然后增多；</li>
+<li>深度越深越难训练，冗余的网络层不是恒等映射；<strong>DNN(x)!=x不是恒等映射后面就会学偏</strong>。</li>
+</ol>
+</li>
+<li>解决：引入残差网络希望这些冗余层能够完成恒等映射，保证DNN(x)=x。有助于解决梯度消失和梯度爆炸问题，让我们在训练更深网络的同时，又能保证良好的性能。</li>
+</ul>
+<h2 id="三、Position-encoding"><a href="#三、Position-encoding" class="headerlink" title="三、Position encoding"></a>三、Position encoding</h2><p>至此无论句子的结构怎么打乱，Transformer都会得到类似的结果。换句话说，Transformer只是一个功能更强大的词袋模型而已。引入位置信息的方式是对位置进行编码论文给出的编码公式如下：<br>$$PE(pos, 2i) = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}}) \tag3$$<br>$$PE(pos, 2i+1) = cos(\frac{pos}{10000^{\frac{2i}{d_{model}}}}) \tag4<br>$$<br>在上式中， pos 表示单词的位置， i 表示单词的维度。在NLP任务重，除了单词的绝对位中，单词的相对位置也非常重要。根据公式$sin(\alpha+\beta) = sin \alpha cos \beta + cos \alpha sin\beta$以及$cos(\alpha + \beta) = cos \alpha cos \beta - sin \alpha sin\beta$这表明位置 k+p 的位置向量可以表示为位置 k 的特征向量的线性变化，这为模型捕捉单词之间的相对位置关系提供了非常大的便利。</p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>虽然Transformer最终也没有逃脱传统学习的套路，Transformer也只是一个全连接（或者是一维卷积）加Attention的结合体。抛弃了在NLP中最根本的RNN或者CNN并且取得了非常不错的效果;</li>
+<li>Transformer的设计最大的带来性能提升的关键是self_attention将任意两个单词的求取权重，解决文本处理中的长期依赖问题;</li>
+<li>Transformer可以应用更广;</li>
+<li>算法可并行，支持GPU加速。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>位置信息不够重复</li>
+</ol>
+<h3 id="1、LSTM与RNN，Transformer比较"><a href="#1、LSTM与RNN，Transformer比较" class="headerlink" title="1、LSTM与RNN，Transformer比较"></a>1、LSTM与RNN，Transformer比较</h3><ul>
+<li>RNN：易梯度消失；（梯度小于1，反向传播越乘越小）</li>
+<li>LSTM：缓解梯度消失；缓解长期依赖；但路径复杂，模型训练复杂</li>
+<li>Transformer：可并行计算，解决长期依赖</li>
+</ul>
+<h4 id="1-1-为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"><a href="#1-1-为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的" class="headerlink" title="1.1 为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"></a>1.1 为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的</h4><p>原因：链式求导法则导致梯度表示为连乘积的形式，梯度过大或者过小会造成梯度消失和爆炸<br>忘记门：通过相乘加和形式保证梯度流传播稳定；<br>输入门：与普通RNN类似仍然是连乘形式，依旧会可能发生梯度问题。<br><strong>通过改善一条路径的梯度缓解总体的远距离梯度太弱的问题。</strong></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="article-next" title="语言模型"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/" class="article-prev" title="深度学习面试"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/Transformer",
+        distractionFreeMode: true,
+        title: "Transformer",
+        body: "http://yuyinxiao.github.io/2019/10/25/Transformer/",
+        labels: ["NLP"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
