@@ -160,7 +160,7 @@
 <a id="more"></a>
 <ul>
 <li>wc 命令 - c 统计字节数 - l 统计行数 - w 统计字数。</li>
-<li>grep [string] filename grep <sup><a href="#fn_string" id="reffn_string">string</a></sup> filename</li>
+<li>grep [string] filename grep <sup><a href="#fn_string" id="reffn_string">string</a></sup> filename```</li>
 <li>nohup sh **.sh &amp; 后台运行 job -l fg bg</li>
 <li>kill -9 pid</li>
 <li><ol>
@@ -334,7 +334,10 @@
 <li>正则表达以hadoop开头<br>grep ‘^hadoop’ /etc/passwd</li>
 <li>正则表达以hadoop结尾<br>grep ‘hadoop$’ /etc/passwd</li>
 </ol>
-<p>.  : 任意一个字符\<br>a<em> : 任意多个a(零个或多个a)\<br>a? : 零个或一个a\<br>a+ : 一个或多个a\<br>.</em> : 任意多个任意字符\<br>查找不是以#开头的行\<br>grep -v ‘^#’ a.txt | grep -v ‘^$’ \<br>以h或r开头的\<br>grep ‘^[hr]’ /etc/passwd\<br>不是以h和r开头的\<br>grep ‘^<sup><a href="#fn_hr" id="reffn_hr">hr</a></sup>‘ /etc/passwd\<br>不是以h到r开头的\<br>grep ‘^<sup><a href="#fn_h-r" id="reffn_h-r">h-r</a></sup>‘ /etc/passwd</p>
+<figure class="highlight plain"><figcaption><span>: 任意一个字符```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```a* : 任意多个a(零个或多个a)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>: 零个或一个a```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```a+ : 一个或多个a</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>: 任意多个任意字符```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查找不是以#开头的行\</span><br><span class="line">```grep -v &apos;^#&apos; a.txt | grep -v &apos;^$&apos;</span><br></pre></td></tr></table></figure>
+<p>以h或r开头的\<br><figure class="highlight plain"><figcaption><span>'^[hr]'</span><a href="/etc/passwd```">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">不是以h和r开头的\</span><br><span class="line">```grep &apos;^[^hr]&apos; /etc/passwd</span><br></pre></td></tr></table></figure><br>不是以h到r开头的\<br><code>grep &#39;^[^h-r]&#39; /etc/passwd</code></p>
 <h2 id="十二、进程控制"><a href="#十二、进程控制" class="headerlink" title="十二、进程控制"></a>十二、进程控制</h2><ol>
 <li>查看用户最近登录情况<br>last<br>lastlog</li>
 <li>查看硬盘使用情况<br>df</li>
@@ -392,7 +395,7 @@
 
 
 
-<a id="pagenext" href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/" class="article-next" title="各种算法优缺点"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/10/25/Faiss/" class="article-next" title="Faiss"><i class="icon-arrow-right"></i></a>
 
 
 <a id="pageprev" href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/" class="article-prev" title="算法推导整理"><i class="icon-arrow-left"></i></a>

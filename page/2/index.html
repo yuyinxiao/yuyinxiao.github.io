@@ -149,6 +149,52 @@
     <header class="article-header">
         
         <h1 itemprop="name">
+            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/os/" rel="tag">os</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
+<li>进程：一个程序在一个数据集合上的一次运行过程。</li>
+<li>线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。</li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>进程是程序的一次执行，线程理解为进程中执行的一个程序片段；<br>进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；<br>进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。<br>线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；<br>进程间可以IPC通信，线程不可以</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
             <a href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">数学基础</a>
         </h1>
         
@@ -173,7 +219,7 @@
     <section class="article-body markdown-body">
         
         <h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="导数、偏导数与方向导数"><a href="#导数、偏导数与方向导数" class="headerlink" title="导数、偏导数与方向导数"></a>导数、偏导数与方向导数</h2><p><img src="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/37.png" alt="avatar"></p>
-<p>首先明确，导数是一个值，代表切线的斜率，而梯度是一个向量。<strong>最大方向导数的方向就是梯度代表的方向。</strong><br>梯度是$f(\bm x)$对各个自变量$\bm x = [x_1, x_2, …, x_m]^\top$每一维分别求偏导数得到的向量。<br>从式（5）和（6）中我们也可以知道，当$\bm d = \frac{\nabla f(\bm x)}{|\nabla f(\bm x)|}$方向导数最大。 <strong>最大方向导数的方向就是梯度的方向，最大的方向导数就是梯度的欧几里德范数。</strong></p>
+<p>首先明确，导数是一个值，代表切线的斜率，而梯度是一个向量。<strong>最大方向导数的方向就是梯度代表的方向。</strong><br>梯度是$f(x)$对各个自变量$ x = [x_1, x_2, …, x_m]^\top$每一维分别求偏导数得到的向量。<br>从式（5）和（6）中我们也可以知道，当$d = \frac{\nabla f(x)}{|\nabla f(x)|}$方向导数最大。 <strong>最大方向导数的方向就是梯度的方向，最大的方向导数就是梯度的欧几里德范数。</strong></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/#more">
@@ -287,50 +333,6 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E7%BB%86%E8%8A%82%E8%A1%A5%E5%85%85/">Faiss</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="http://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h2 id="Faiss"><a href="#Faiss" class="headerlink" title="Faiss"></a>Faiss</h2><blockquote>
-<blockquote>
-<p>支持两种相似性计算方法：L2距离（即欧式距离）和点乘（归一化的向量点乘即cosine相似度）</p>
-<h3 id="1-索引Index"><a href="#1-索引Index" class="headerlink" title="1. 索引Index"></a>1. 索引Index</h3><h3 id="2-PCA降维"><a href="#2-PCA降维" class="headerlink" title="2. PCA降维"></a>2. PCA降维</h3><p>PCA数据降维减少内存，加快机器学习的速度。从数据存储的角度，图片处理中通过PCA可以将图片从高维空间（p维）转换到低维空间（q维, 其中p &gt; q ），其具体操作便是是将高维空间中的图片向量（n*p）乘以一个转换矩阵M（p*q），得到一个低维空间中的向量（n*q）；转换矩阵M是与图库有关，是可以由图库数据计算出来的。在Faiss的一些预处理中，我们会引入一些参数，这些参数又无法一开始由人工来指定，只能通过喂样本来训练出来。</p>
-<h3 id="3、Product-quantization-乘积量化"><a href="#3、Product-quantization-乘积量化" class="headerlink" title="3、Product quantization(乘积量化)"></a>3、Product quantization(乘积量化)</h3><p> PQ算法可以理解为首先把原始的向量空间分解为m个低维向量空间的笛卡尔积，并对分解得到的低维向量空间分别做量化。即是把原始D维向量（比如D=128）分成m组（比如m=4），每组就是D∗=D/m维的子向量（比如D∗=D/m=128/4=32），各自用kmeans算法学习到一个码本，然后这些码本的笛卡尔积就是原始D维向量对应的码本。用qj表示第j组子向量，用Cj表示其对应学习到的码本，那么原始D维向量对应的码本就是C=C1×C2×…×Cm。用k∗表示子向量的聚类中心点数或者说码本大小，那么原始D维向量对应的聚类中心点数或者说码本大小就是k=(k∗)m。<br><img src="https://i.typcdn.com/fabwrite/c5/L56k1gZ7ZumryJrAfzzw.png" alt></p>
-</blockquote>
-</blockquote>
-<p>SDC算法：先用PQ量化器对x和y表示为对应的中心点q(x)和q(y)，然后用公式1来近似d(x,y)。这里 q 表示 PQ量化过程。</p>
-<script type="math/tex; mode=display">\hat{d}(x,y)=d(q(x),q(y))=\sqrt{\sum_j{d(q_j(x),q_j(y))^2}}</script><p>ADC算法：只对y表示为对应的中心点q(y)，然后用下述公式2来近似d(x,y)。</p>
-<script type="math/tex; mode=display">\widetilde{d}(x,y)=d(x,q(y))=\sqrt{\sum_j{d(u_j(x),q_j(u_j(y)))^2}}</script><h2 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h2><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
-
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
             <a href="/2019/10/25/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">聚类算法</a>
         </h1>
         
@@ -355,7 +357,7 @@
     <section class="article-body markdown-body">
         
         <h1 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h1><h2 id="K-Means"><a href="#K-Means" class="headerlink" title="K-Means"></a>K-Means</h2><p>K-means就是使得下列表达式最小</p>
-<script type="math/tex; mode=display">J=\sum_{i=1}^{k}\sum_{x \in S_i}(x-\mu_i)^2</script><p>复杂度：$O(k<em>n</em>t)$<br></p>
+<script type="math/tex; mode=display">J=\sum_{i=1}^{k}\sum_{x \in S_i}(x-\mu_i)^2</script><p>复杂度：$O(k <em> n </em> t)$<br></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/#more">
@@ -420,7 +422,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/">各种算法优缺点</a>
+            <a href="/2019/10/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -428,13 +430,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T05:31:36.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+    <a class="article-tag-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a>
 </div>
 
 
@@ -443,27 +445,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="各种机器学习算法优缺点总结"><a href="#各种机器学习算法优缺点总结" class="headerlink" title="各种机器学习算法优缺点总结"></a>各种机器学习算法优缺点总结</h1><h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><blockquote>
-<blockquote>
-<p>可回归，可分类</p>
-</blockquote>
-</blockquote>
-<h3 id="决策树优点"><a href="#决策树优点" class="headerlink" title="决策树优点"></a>决策树优点</h3><ol>
-<li>决策树易于理解和解释，可以可视化分析，容易提取出规则。</li>
-<li>可以同时处理标称型和数值型数据。</li>
-<li>测试数据集时，运行速度比较快。</li>
-<li>决策树可以很好的扩展到大型数据库中，同时它的大小独立于数据库大小。</li>
-</ol>
-<h3 id="决策树缺点"><a href="#决策树缺点" class="headerlink" title="决策树缺点"></a>决策树缺点</h3><ol>
-<li>对缺失数据处理比较困难。</li>
-<li>容易出现过拟合问题。</li>
-<li>忽略数据集中属性的相互关联。</li>
-<li>ID3算法计算信息增益时结果偏向数值比较多的特征。</li>
-</ol>
-<h3 id="改进措施"><a href="#改进措施" class="headerlink" title="改进措施"></a>改进措施</h3><p>剪枝，采用交叉验证法，加入正则化；bagging算法，randomforest算法，可以解决过拟合的问题。<br></p>
+        <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><p>物理层,数据链路层,网络层,传输层,会话层,表示层和应用层。<br></p>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/#more">
+            <a href="/2019/10/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -479,7 +464,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">数学基础</a>
+            <a href="/2019/10/25/bd/">大数据面试基础</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -487,13 +472,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T04:02:22.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+    <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a>
 </div>
 
 
@@ -502,11 +487,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="导数、偏导数与方向导数"><a href="#导数、偏导数与方向导数" class="headerlink" title="导数、偏导数与方向导数"></a>导数、偏导数与方向导数</h2><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/37.png" alt="avatar"></p>
-<p>首先明确，导数是一个值，代表切线的斜率，而梯度是一个向量。<strong>最大方向导数的方向就是梯度代表的方向。</strong><br>梯度是$f(\bm x)$对各个自变量$\bm x = [x_1, x_2, …, x_m]^\top$每一维分别求偏导数得到的向量。<br>从式（5）和（6）中我们也可以知道，当$\bm d = \frac{\nabla f(\bm x)}{|\nabla f(\bm x)|}$方向导数最大。 <strong>最大方向导数的方向就是梯度的方向，最大的方向导数就是梯度的欧几里德范数。</strong></p>
+        <h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><p>整理大数据的面试相关内容，主要包括namenode，hdfs读写数据，部署job流程等。<br></p>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/#more">
+            <a href="/2019/10/25/bd/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -522,7 +506,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a>
+            <a href="/2019/10/25/Sql/">Sql</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -530,13 +514,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T04:01:27.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
+    <a class="article-tag-link" href="/tags/sql/" rel="tag">sql</a>
 </div>
 
 
@@ -545,24 +529,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
-<h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
-<li>LR：大规模离散特征</li>
-<li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
-<li>FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉</li>
-<li>FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量</li>
-<li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
-<li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
-<li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
-<li>AFM：FM + bi-interact + attention + MLP </li>
-<li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
-<li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
-<li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
-</ul>
-<p><img src="https://pic1.zhimg.com/v2-64554aa0899d4291ef1c4cafd1afc3fc_r.jpg" alt="avatar"><br></p>
+        <h1 id="SQL基础"><a href="#SQL基础" class="headerlink" title="SQL基础"></a>SQL基础</h1><p>简要sql语法基础，包括添加外部脚本，基本的增删改查<br></p>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/#more">
+            <a href="/2019/10/25/Sql/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -578,7 +548,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">机器学习基础</a>
+            <a href="/2019/10/25/Java/">Java</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -586,13 +556,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T03:43:16.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
+    <a class="article-tag-link" href="/tags/Java/" rel="tag">Java</a>, <a class="article-tag-link" href="/tags/jvm/" rel="tag">jvm</a>
 </div>
 
 
@@ -601,21 +571,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="机器学习基础"><a href="#机器学习基础" class="headerlink" title="机器学习基础"></a>机器学习基础</h1><p><a href="https://www.cnblogs.com/wuliytTaotao/p/10513371.html" target="_blank" rel="noopener">机器学习之数学01</a></p>
-<p><a href="https://www.cnblogs.com/wuliytTaotao/p/10603576.html" target="_blank" rel="noopener">机器学习之数学02</a></p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong></p>
-<script type="math/tex; mode=display">P(Y|X)=\frac{P(X,Y)}{P(X)}</script><blockquote>
-<blockquote>
-<p>朴素贝叶斯、隐马尔科夫模型（HMM）。</p>
-</blockquote>
-</blockquote>
-<h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><p>由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。<strong>更为准确，隐变量失效，定义和使用特征</strong></p>
-<blockquote>
-<blockquote>
-<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。<br></p></blockquote></blockquote>
+        <h1 id="Java面试基础"><a href="#Java面试基础" class="headerlink" title="Java面试基础"></a>Java面试基础</h1><p>大数据岗会问一些Java基础和计算机基础，主要包括GC，JVM，线程进程，同步互斥等<br><img src="/2019/10/25/Java/jvm.jpg" alt="JVM"><br></p>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/#more">
+            <a href="/2019/10/25/Java/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -629,7 +588,7 @@
 
 
 <nav class="page-nav">
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &amp;raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
 </nav>
 
 

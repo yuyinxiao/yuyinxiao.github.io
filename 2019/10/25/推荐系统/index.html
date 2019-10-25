@@ -186,8 +186,7 @@
 <li>热点，保量<h4 id="物品冷启动"><a href="#物品冷启动" class="headerlink" title="物品冷启动"></a>物品冷启动</h4></li>
 <li>保量</li>
 </ol>
-<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><p>$score=CTR<em>(\alpha+CVR)</em>(\beta+price)<em>staya</em>rule_weight*…$</p>
-<h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ol>
+<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><script type="math/tex; mode=display">score=CTR*(\alpha+CVR) * (\beta+price) * staya * rule \_weight *</script><h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ol>
 <li>目标重要性难以量化；</li>
 <li>超参难以学习；</li>
 <li>在线服务计算量大；</li>
@@ -216,9 +215,9 @@
 <li>6.对某些特征开方x，x，x^2处理后输入在线上serving中使用$e^{Wx+b}$做预测可以直接得到expected watch time的近似。</li>
 <li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D%5Capprox%7Bw_ip%7D%3DT_ip%3DE%28T_i%29" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
 </ul>
-<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="https://pic3.zhimg.com/80/v2-0e0f8479c5260e4c5096f730dd6ea6ba_hd.jpg" alt="avatar"></p>
+<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
 <h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="https://pic4.zhimg.com/v2-4dd8f94f0cf5becd7dd5ff4c0fd9393f_1200x500.jpg" alt="avatar"></p>
-<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="https://img-blog.csdn.net/20180725101556342?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pKUk4xMDI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
+<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
 <h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
 <p>模型fθ拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
 <p>优化函数1：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
@@ -244,7 +243,7 @@
 <li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
 </ul>
 <p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
-<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="https://upload-images.jianshu.io/upload_images/1500965-e5896703dd49b541.png?imageMogr2/auto-orient/" alt="avatar"></p>
+<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
 <h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="https://pic2.zhimg.com/v2-976e1197ecbf5213f6db3dd8c15382c1_r.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
 <ul>
 <li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
@@ -259,7 +258,7 @@
 <li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
 <li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
 </ol>
-<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="https://images2018.cnblogs.com/blog/1055519/201808/1055519-20180818174822290-765890427.png" alt="avatar"></p>
+<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/focal.png" alt="avatar"></p>
 <p>例如$\gamma$为2</p>
 <ul>
 <li>对于正类样本而言，预测结果为0.95肯定是简单样本，所以（1-0.95）的gamma次方就会很小，这时损失函数值就变得更小。而预测概率为0.3的样本其损失相对很大;</li>
@@ -274,7 +273,7 @@
 </blockquote>
 <p>训练样本</p>
 <script type="math/tex; mode=display">pointwise=(q_i,c_{i,j},y_{i,j})</script><p>$q_i$为第i个query，$c_{i,j}$为第i个query中第j个候选集，$y_{i,j}$为对该候选样本真实的概率<br>预测阶段二分类模型$h_\theta$排序每个候选句子，得到$\hat{y_{i,j}}$，选取top-ranked句自作为正确答案。目标函数为：</p>
-<script type="math/tex; mode=display">\argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})</script><h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
+<script type="math/tex; mode=display">argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})</script><h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
 <blockquote>
 <p>让正确答案比错误答案得分高</p>
 </blockquote>

@@ -268,7 +268,7 @@
     <section class="article-body markdown-body">
         
         <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
-<h2 id><a href="#" class="headerlink" title></a><img src="https://upload-images.jianshu.io/upload_images/12877808-2d01f4df4f996b8f.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="avatar"></h2>
+<h2 id><a href="#" class="headerlink" title></a><img src="/2019/10/25/Transformer/trm.gif" alt="avatar"></h2>
         
         <p class="article-more-link">
             <a href="/2019/10/25/Transformer/#more">
@@ -488,6 +488,50 @@
     <header class="article-header">
         
         <h1 itemprop="name">
+            <a href="/2019/10/25/Faiss/">Faiss</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h2 id="Faiss"><a href="#Faiss" class="headerlink" title="Faiss"></a>Faiss</h2><blockquote>
+<blockquote>
+<p>支持两种相似性计算方法：L2距离（即欧式距离）和点乘（归一化的向量点乘即cosine相似度）</p>
+<h3 id="1-索引Index"><a href="#1-索引Index" class="headerlink" title="1. 索引Index"></a>1. 索引Index</h3><h3 id="2-PCA降维"><a href="#2-PCA降维" class="headerlink" title="2. PCA降维"></a>2. PCA降维</h3><p>PCA数据降维减少内存，加快机器学习的速度。从数据存储的角度，图片处理中通过PCA可以将图片从高维空间（p维）转换到低维空间（q维, 其中p &gt; q ），其具体操作便是是将高维空间中的图片向量（n*p）乘以一个转换矩阵M（p*q），得到一个低维空间中的向量（n*q）；转换矩阵M是与图库有关，是可以由图库数据计算出来的。在Faiss的一些预处理中，我们会引入一些参数，这些参数又无法一开始由人工来指定，只能通过喂样本来训练出来。</p>
+<h3 id="3、Product-quantization-乘积量化"><a href="#3、Product-quantization-乘积量化" class="headerlink" title="3、Product quantization(乘积量化)"></a>3、Product quantization(乘积量化)</h3><p> PQ算法可以理解为首先把原始的向量空间分解为m个低维向量空间的笛卡尔积，并对分解得到的低维向量空间分别做量化。即是把原始D维向量（比如D=128）分成m组（比如m=4），每组就是D∗=D/m维的子向量（比如D∗=D/m=128/4=32），各自用kmeans算法学习到一个码本，然后这些码本的笛卡尔积就是原始D维向量对应的码本。用qj表示第j组子向量，用Cj表示其对应学习到的码本，那么原始D维向量对应的码本就是C=C1×C2×…×Cm。用k∗表示子向量的聚类中心点数或者说码本大小，那么原始D维向量对应的聚类中心点数或者说码本大小就是k=(k∗)m。<br><img src="https://i.typcdn.com/fabwrite/c5/L56k1gZ7ZumryJrAfzzw.png" alt></p>
+</blockquote>
+</blockquote>
+<p>SDC算法：先用PQ量化器对x和y表示为对应的中心点q(x)和q(y)，然后用公式1来近似d(x,y)。这里 q 表示 PQ量化过程。</p>
+<script type="math/tex; mode=display">\hat{d}(x,y)=d(q(x),q(y))=\sqrt{\sum_j{d(q_j(x),q_j(y))^2}}</script><p>ADC算法：只对y表示为对应的中心点q(y)，然后用下述公式2来近似d(x,y)。</p>
+<script type="math/tex; mode=display">\widetilde{d}(x,y)=d(x,q(y))=\sqrt{\sum_j{d(u_j(x),q_j(u_j(y)))^2}}</script><h2 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h2><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
+
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
             <a href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/">各种算法优缺点</a>
         </h1>
         
@@ -598,56 +642,10 @@
 </article>
 
 
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="http://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/os/" rel="tag">os</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
-<li>进程：一个程序在一个数据集合上的一次运行过程。</li>
-<li>线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。</li>
-</ul>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>进程是程序的一次执行，线程理解为进程中执行的一个程序片段；<br>进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；<br>进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。<br>线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；<br>进程间可以IPC通信，线程不可以</p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
 
 
 <nav class="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &amp;raquo;</a>
 </nav>
 
 

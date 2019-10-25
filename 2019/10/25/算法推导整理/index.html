@@ -158,7 +158,7 @@
 <script type="math/tex; mode=display">
 \mathbb{E}[\log\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})})]=\log \mathbb{E}[\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}]</script><p>由期望得性质可知当</p>
 <script type="math/tex; mode=display">
-\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}=C,\ \ \ \ \ C\in\R    \ \ \ \ \ (*)</script><p>等式成立，对上述等式进行变形处理可得</p>
+\dfrac{p(x^{(i)},z^{(i)};\theta)}{Q_i(z^{(i)})}=C,C \in R  (*)</script><p>等式成立，对上述等式进行变形处理可得</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 &p(x^{(i)},z^{(i)};\theta)=CQ_i(z^{(i)})\\
@@ -182,7 +182,7 @@ Q_i(z^{(i)})&=\dfrac{p(x^{(i)},z^{(i)};\theta)}{\sum\limits_{z^{(i)}}p(x^{(i)},z
 \mathop{\arg\max}_{\theta}\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\left[\log p(x^{(i)},z^{(i)};\theta)-\log Q_i(z^{(i)})\right]\\
 &\Leftrightarrow
 \mathop{\arg\max}_{\theta}\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log p(x^{(i)},z^{(i)};\theta)
-\end{aligned}</script><p>因此EM算法的迭代形式为\<br>Repeats until it converges{\<br>$E$ step：for every  $x^{(i)}$ calculate\<br>$Q_i(z^{(i)})=p(z^{(i)}|x^{(i)};\theta)$\<br>$M$ step：update  $\theta$<br>$\begin{aligned} \theta:=\mathop{\arg\max}_{\theta}\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log p(x^{(i)},z^{(i)};\theta) \end{aligned}$\<br>}</p>
+\end{aligned}</script><p>因此EM算法的迭代形式为<br>Repeats until it converges{<br>$E$ step：for every  $x^{(i)}$ calculate<br>$Q_i(z^{(i)})=p(z^{(i)}|x^{(i)};\theta)$<br>$M$ step：update  $\theta$<br>$\begin{aligned} \theta:=\mathop{\arg\max}_{\theta}\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i(z^{(i)})\log p(x^{(i)},z^{(i)};\theta) \end{aligned}$<br>}</p>
 <h3 id="收敛性证明"><a href="#收敛性证明" class="headerlink" title="收敛性证明"></a>收敛性证明</h3><script type="math/tex; mode=display">
 \begin{aligned}
 \mathcal{L}(\theta^{(k)})&=\sum\limits_{i=1}^m\sum\limits_{z^{(i)}}Q_i^{(k)}(z^{(i)})\log \dfrac{p(x^{(i)},z^{(i)};\theta^{(k)})}{Q_i(z^{(i)})} \ \ \ \ \ \ \ \ \ \ (a)\\
@@ -274,10 +274,10 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 <li>$FM$算法降低了因数据稀疏，导致特征交叉项参数学习不充分的影响；</li>
 <li>$FM$算法提升了参数学习效率和模型预估的能力。</li>
 </ul>
-<h2 id="L1，L2正则"><a href="#L1，L2正则" class="headerlink" title="L1，L2正则"></a>L1，L2正则</h2><p>L1正则加上L1范数；L2正则加上L2范数<br>$L1$正则化和$L2$正则化的符号化描述假设待优化函数为$f(\theta)$，其中$\theta\in\R^n$，那么优化问题可以转化为求</p>
+<h2 id="L1，L2正则"><a href="#L1，L2正则" class="headerlink" title="L1，L2正则"></a>L1，L2正则</h2><p>L1正则加上L1范数；L2正则加上L2范数<br>$L1$正则化和$L2$正则化的符号化描述假设待优化函数为$f(\theta)$，其中$\theta\in R^n$，那么优化问题可以转化为求</p>
 <script type="math/tex; mode=display">\mathop{\arg\min}_{\theta}\ f(\theta)</script><p>$L1$正则化，即对参数$\theta$加上$L1$范数约束</p>
 <script type="math/tex; mode=display">\mathop{\arg\min}_{\theta}\ J_1(\theta)=f(\theta)+\color{magenta}\lambda\Vert\theta\Vert_1</script><p>$L2$正则化，即对参数$\theta$加上$L2$范数的平方约束</p>
-<script type="math/tex; mode=display">\mathop{\arg\min}_{\theta}\ J_2(\theta)=f(\theta)+\color{magenta}\lambda\Vert\theta\Vert_2^2</script><h3 id="从贝叶斯先验概率看正则化"><a href="#从贝叶斯先验概率看正则化" class="headerlink" title="从贝叶斯先验概率看正则化"></a>从贝叶斯先验概率看正则化</h3><p>假设输入空间是$X\in\R^{n}$,输出空间是$Y$，不妨假设含有$m$个样本数据($x^{(1)}$,$y^{(1)}$)、($x^{(2)}$,$y^{(2)}$)、$\cdots$、($x^{(m)}$,$y^{(m)}$)，其中$x^{(i)}\in X、y^{(i)}\in Y$。贝叶斯学派认为参数$\theta$也是服从某种概率分布的，即先给定$\theta$的先验分布为$p(\theta)$，然后根据贝叶斯定理$\color{Red}P(\theta|(X, Y))= \dfrac{P((Y,X);\theta)\times P(\theta)}{P(X,Y)}\sim P(Y|X;\theta)\times P(\theta)$（这里的$Y|X$仅仅是一种记号，代表给定的$X$对应相关的$Y$），因此通过极大似然估计可求参数$\theta$。</p>
+<script type="math/tex; mode=display">\mathop{\arg\min}_{\theta}\ J_2(\theta)=f(\theta)+\color{magenta}\lambda\Vert\theta\Vert_2^2</script><h3 id="从贝叶斯先验概率看正则化"><a href="#从贝叶斯先验概率看正则化" class="headerlink" title="从贝叶斯先验概率看正则化"></a>从贝叶斯先验概率看正则化</h3><p>假设输入空间是$X\in R^{n}$,输出空间是$Y$，不妨假设含有$m$个样本数据($x^{(1)}$,$y^{(1)}$)、($x^{(2)}$,$y^{(2)}$)、$\cdots$、($x^{(m)}$,$y^{(m)}$)，其中$x^{(i)}\in X、y^{(i)}\in Y$。贝叶斯学派认为参数$\theta$也是服从某种概率分布的，即先给定$\theta$的先验分布为$p(\theta)$，然后根据贝叶斯定理$\color{Red}P(\theta|(X, Y))= \dfrac{P((Y,X);\theta)\times P(\theta)}{P(X,Y)}\sim P(Y|X;\theta)\times P(\theta)$（这里的$Y|X$仅仅是一种记号，代表给定的$X$对应相关的$Y$），因此通过极大似然估计可求参数$\theta$。</p>
 <script type="math/tex; mode=display">
 \mathop{\arg\max}_{\theta}\ L(\theta)=\prod_{i=1}^{m}p(y^{(i)}|x^{(i)};\theta)p(\theta)</script><p>等价于求解对数化极大似然函数$L(\theta)$</p>
 <script type="math/tex; mode=display">
@@ -374,12 +374,11 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
   \begin{bmatrix}
  y_1\\y_2\\ \vdots \\ y_n
  \end{bmatrix}</script><p>可以看出通过正规方程求解线性回归模型就转化为如何构造$X$矩阵，只要$X$矩阵构造出来后剩下的就是交给计算机做矩阵乘法运算就可以了。</p>
-<h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h3 id="k-means算法的损失函数"><a href="#k-means算法的损失函数" class="headerlink" title="k-means算法的损失函数"></a>k-means算法的损失函数</h3><p>假设输入空间 $X \in \R^n$ 为$n$维向量的集合，$X=\{x^{(1)} ,x^{(2)},\cdots,x^{(m)} \}$，$\mathcal  C$为输入空间$X$的一个划分，不妨令$\mathcal C=\{ \mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K \}$，因此可以定义$k-means$算法的损失函数为</p>
+<h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h3 id="k-means算法的损失函数"><a href="#k-means算法的损失函数" class="headerlink" title="k-means算法的损失函数"></a>k-means算法的损失函数</h3><p>假设输入空间 $X \in R^n$ 为$n$维向量的集合，$X=\{x^{(1)} ,x^{(2)},\cdots,x^{(m)} \}$，$\mathcal  C$为输入空间$X$的一个划分，不妨令$\mathcal C=\{ \mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K \}$，因此可以定义$k-means$算法的损失函数为</p>
 <script type="math/tex; mode=display">
 J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>其中$\mu^{(k)}=\frac{1}{\vert \mathbb C_k \vert}\sum\limits_{x^{(i)}\in\mathbb C_k}x^{(i)}$是簇$\mathbb C_k$的聚类中心。</p>
 <h3 id="优化损失函数"><a href="#优化损失函数" class="headerlink" title="优化损失函数"></a>优化损失函数</h3><p>$k\text{-}means$算法的损失函数$J(\mathcal C)$描述了簇类样本围绕簇聚类中心的紧密程度，其值越小，则簇内样本的相似度越高。故$k\text{-}means$算法的优化目标为最小化损失函数</p>
-<script type="math/tex; mode=display">
-\mathop{\argmin}_{c}\ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
+<script type="math/tex; mode=display">\argmin_{c} J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
 <ol>
 <li>首先随机初始化$K$个聚类中心，$\mu^{(1)},\mu^{(2)},\cdots,\mu^{(K)}$；</li>
 <li>然后根据这$K$个聚类中心给出输入空间$\mathcal X$的一个划分，$\mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K$；<ul>
