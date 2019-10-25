@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>搜索 | 小于狙击手的博客</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="搜索回溯采用DFS：递归+回溯；BFS：队列BFS+队列单词接龙1234567891011121314151617181920//BFSword_set(wordList.begin(),wordList.end())q&amp;#123;beginWord&amp;#125;while(!q.empty())&amp;#123;    word=q.top();q.pop()    if(word==endWord)        return res+1;    for(inti i=0;i&amp;lt; wo..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#搜索回溯"><span class="toc-number">1.</span> <span class="toc-text">搜索回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BFS-队列"><span class="toc-number">1.1.</span> <span class="toc-text">BFS+队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单词接龙"><span class="toc-number">1.1.1.</span> <span class="toc-text">单词接龙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#朋友圈"><span class="toc-number">1.1.2.</span> <span class="toc-text">朋友圈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DFS-递归"><span class="toc-number">1.2.</span> <span class="toc-text">DFS+递归</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#岛屿数量"><span class="toc-number">1.2.1.</span> <span class="toc-text">岛屿数量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回溯"><span class="toc-number">1.3.</span> <span class="toc-text">回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串在矩阵的路径"><span class="toc-number">1.3.1.</span> <span class="toc-text">字符串在矩阵的路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#摆放火柴"><span class="toc-number">1.3.2.</span> <span class="toc-text">摆放火柴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#n括号"><span class="toc-number">1.3.3.</span> <span class="toc-text">n括号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#n皇后"><span class="toc-number">1.3.4.</span> <span class="toc-text">n皇后</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            搜索
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/%E6%90%9C%E7%B4%A2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T15:01:31.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="搜索回溯"><a href="#搜索回溯" class="headerlink" title="搜索回溯"></a>搜索回溯</h1><p>采用DFS：递归+回溯；BFS：队列</p>
+<a id="more"></a>
+<h2 id="BFS-队列"><a href="#BFS-队列" class="headerlink" title="BFS+队列"></a>BFS+队列</h2><h3 id="单词接龙"><a href="#单词接龙" class="headerlink" title="单词接龙"></a>单词接龙</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//BFS</span></span><br><span class="line">word_set(wordList.begin(),wordList.end())</span><br><span class="line">q&#123;beginWord&#125;</span><br><span class="line"><span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">    word=q.top();q.pop()</span><br><span class="line">    <span class="keyword">if</span>(word==endWord)</span><br><span class="line">        <span class="keyword">return</span> res+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(inti i=<span class="number">0</span>;i&lt; word.size();i++)&#123;</span><br><span class="line">        <span class="built_in">string</span> bak=word;</span><br><span class="line">        <span class="comment">//替换26字符，将可能的下一层可替换单词入队列</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch:a~z)&#123;</span><br><span class="line">            bak[i]=ch;</span><br><span class="line">            <span class="keyword">if</span>(word_set.count(bak) &amp;&amp; bak!=word)</span><br><span class="line">                q.push(bak);</span><br><span class="line">                word_set.erase(bak);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    res++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="朋友圈"><a href="#朋友圈" class="headerlink" title="朋友圈"></a>朋友圈</h3><blockquote>
+<blockquote>
+<p>通过BFS，将相关的人都标记，标记完作为一个朋友圈，res++;如果不标记会有重复，且一个人必定属于某个朋友圈故用一维标记即可<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findCircleNum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; M)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = M.size(), res = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; visited(n, <span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (visited[i])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        q.push(i);</span><br><span class="line">        <span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> t = q.front(); q.pop();</span><br><span class="line">            visited[t] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!M[t][j] || visited[j])</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                q.push(j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ++res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h2 id="DFS-递归"><a href="#DFS-递归" class="headerlink" title="DFS+递归"></a>DFS+递归</h2><h3 id="岛屿数量"><a href="#岛屿数量" class="headerlink" title="岛屿数量"></a>岛屿数量</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;grid.size();i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;grid[<span class="number">0</span>].size();j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(mark[i][j]==<span class="number">0</span> &amp;&amp; grid[i][j]==<span class="string">'1'</span>)</span><br><span class="line">            DFS(mark,grid,i,j);</span><br><span class="line">            count++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(&amp; mark,&amp; grid,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    mark[x][y]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> dx[]=&#123;<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> dy[]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> x_=x+dx[i];</span><br><span class="line">        <span class="keyword">int</span> y_=y+dy[i];</span><br><span class="line">        <span class="keyword">if</span>(x_&lt;<span class="number">0</span>||x_&gt;=mark.size()||y_&lt;<span class="number">0</span>||y_&gt;=mark[x_].size())&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(mark[x_][y_]==<span class="number">0</span> &amp;&amp; grid[x_][y_]==<span class="string">'1'</span>)&#123;</span><br><span class="line">            DFS(mark,grid,x_,y_);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><h3 id="字符串在矩阵的路径"><a href="#字符串在矩阵的路径" class="headerlink" title="字符串在矩阵的路径"></a>字符串在矩阵的路径</h3><blockquote>
+<blockquote>
+<p>字符串能够在矩阵中找到一条路径</p>
+</blockquote>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">hasPath</span><span class="params">(vecctor&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;matrix,<span class="built_in">string</span> str)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rows=matrix.size(),cols=matrix[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">bool</span> visited[rows][cols];</span><br><span class="line">    <span class="keyword">int</span> pathLength = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(DFS(matrix, i, j, str, pathLength, visited))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] visited;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">DFS</span><span class="params">(vecctor&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;matrix, <span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="built_in">string</span> str, <span class="keyword">int</span>&amp; pathLength, <span class="keyword">bool</span> visited[][])</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(str[pathLength] == <span class="string">'\0'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">bool</span> hasPath = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> rows=matrix.size();</span><br><span class="line">    <span class="keyword">int</span> cols=matrix[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">if</span>(row &gt;= <span class="number">0</span> &amp;&amp; row &lt; rows &amp;&amp; col &gt;= <span class="number">0</span> &amp;&amp; col &lt; cols &amp;&amp; matrix[row][col] == str[pathLength] &amp;&amp; !visited[row][col]&#123;</span><br><span class="line">        ++pathLength;</span><br><span class="line">        visited[row][col] = <span class="literal">true</span>;</span><br><span class="line">        hasPath = DFS(matrix, row, col - <span class="number">1</span>,str, pathLength, visited)</span><br><span class="line">            || DFS(matrix, row - <span class="number">1</span>, col,str, pathLength, visited)</span><br><span class="line">            || DFS(matrix, row, col + <span class="number">1</span>,str, pathLength, visited)</span><br><span class="line">            || DFS(matrix, row + <span class="number">1</span>, col,str, pathLength, visited);</span><br><span class="line">        <span class="keyword">if</span>(!hasPath)&#123;</span><br><span class="line">            --pathLength;</span><br><span class="line">            visited[row][col] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hasPath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="摆放火柴"><a href="#摆放火柴" class="headerlink" title="摆放火柴"></a>摆放火柴</h3><blockquote>
+<blockquote>
+<p>整体遍历的是火柴，但需要回溯故pos为火柴的下标；火柴需要排序，先放大的；还需要判断火柴和是否为4的倍数</p>
+</blockquote>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; sums, <span class="keyword">int</span> pos, <span class="keyword">int</span> target)</span></span></span><br><span class="line">    如果pos到末尾判断sums数组是否都为target；</span><br><span class="line">    遍历<span class="number">4</span>个边长：</span><br><span class="line">        如果当前边长+当前火柴&gt;target，则继续观察后面的边长；如果&lt;=target，则加上当前火柴；去遍历下一个火柴；</span><br><span class="line">        <span class="keyword">if</span>(helper(pos+<span class="number">1</span>)):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        否则回溯当前边长-当前火柴，有可能当前火柴不够</span><br></pre></td></tr></table></figure>
+<h3 id="n括号"><a href="#n括号" class="headerlink" title="n括号"></a>n括号</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//括号验证</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt;s;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">char</span> c:str)&#123;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="string">'('</span>)</span><br><span class="line">        s.push(c);</span><br><span class="line">    <span class="keyword">else</span>(c==<span class="string">')'</span>)</span><br><span class="line">        s.pop();</span><br><span class="line"><span class="keyword">return</span> s.empty();</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//n括号可能组合</span></span><br><span class="line">generate(item,left,right,res)&#123;</span><br><span class="line">    <span class="keyword">if</span>(left==<span class="number">0</span> &amp;&amp; right==<span class="number">0</span>)</span><br><span class="line">        res.push_back(item);</span><br><span class="line">    <span class="keyword">if</span>(left&gt;<span class="number">0</span>)</span><br><span class="line">        generate(item+<span class="string">'('</span>,left<span class="number">-1</span>,right,res);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(right&gt;<span class="number">0</span>)</span><br><span class="line">        generate(item+<span class="string">')'</span>,left,right<span class="number">-1</span>,res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="n皇后"><a href="#n皇后" class="headerlink" title="n皇后"></a>n皇后</h3><p><img src="/2019/10/25/%E6%90%9C%E7%B4%A2/nq1.png" alt="avatat"><br><img src="/2019/10/25/%E6%90%9C%E7%B4%A2/nq2.png" alt="avatat"><br><img src="/2019/10/25/%E6%90%9C%E7%B4%A2/nq3.png" alt="avatat"></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="article-next" title="二分查找"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="article-prev" title="动态规划"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/搜索",
+        distractionFreeMode: true,
+        title: "搜索",
+        body: "https://yuyinxiao.github.io/2019/10/25/%E6%90%9C%E7%B4%A2/",
+        labels: ["coding"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

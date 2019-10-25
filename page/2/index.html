@@ -149,7 +149,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/Faiss/">Faiss</a>
+            <a href="/2019/10/25/%E6%A0%91/">树</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -157,13 +157,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T09:34:45.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
 </div>
 
 
@@ -172,127 +172,17 @@
     
     <section class="article-body markdown-body">
         
-        <h2 id="Faiss"><a href="#Faiss" class="headerlink" title="Faiss"></a>Faiss</h2><blockquote>
-<blockquote>
-<p>支持两种相似性计算方法：L2距离（即欧式距离）和点乘（归一化的向量点乘即cosine相似度）</p>
-<h3 id="1-索引Index"><a href="#1-索引Index" class="headerlink" title="1. 索引Index"></a>1. 索引Index</h3><h3 id="2-PCA降维"><a href="#2-PCA降维" class="headerlink" title="2. PCA降维"></a>2. PCA降维</h3><p>PCA数据降维减少内存，加快机器学习的速度。从数据存储的角度，图片处理中通过PCA可以将图片从高维空间（p维）转换到低维空间（q维, 其中p &gt; q ），其具体操作便是是将高维空间中的图片向量（n*p）乘以一个转换矩阵M（p*q），得到一个低维空间中的向量（n*q）；转换矩阵M是与图库有关，是可以由图库数据计算出来的。在Faiss的一些预处理中，我们会引入一些参数，这些参数又无法一开始由人工来指定，只能通过喂样本来训练出来。</p>
-<h3 id="3、Product-quantization-乘积量化"><a href="#3、Product-quantization-乘积量化" class="headerlink" title="3、Product quantization(乘积量化)"></a>3、Product quantization(乘积量化)</h3><p> PQ算法可以理解为首先把原始的向量空间分解为m个低维向量空间的笛卡尔积，并对分解得到的低维向量空间分别做量化。即是把原始D维向量（比如D=128）分成m组（比如m=4），每组就是D∗=D/m维的子向量（比如D∗=D/m=128/4=32），各自用kmeans算法学习到一个码本，然后这些码本的笛卡尔积就是原始D维向量对应的码本。用qj表示第j组子向量，用Cj表示其对应学习到的码本，那么原始D维向量对应的码本就是C=C1×C2×…×Cm。用k∗表示子向量的聚类中心点数或者说码本大小，那么原始D维向量对应的聚类中心点数或者说码本大小就是k=(k∗)m。<br><img src="https://i.typcdn.com/fabwrite/c5/L56k1gZ7ZumryJrAfzzw.png" alt></p>
-</blockquote>
-</blockquote>
-<p>SDC算法：先用PQ量化器对x和y表示为对应的中心点q(x)和q(y)，然后用公式1来近似d(x,y)。这里 q 表示 PQ量化过程。</p>
-<script type="math/tex; mode=display">\hat{d}(x,y)=d(q(x),q(y))=\sqrt{\sum_j{d(q_j(x),q_j(y))^2}}</script><p>ADC算法：只对y表示为对应的中心点q(y)，然后用下述公式2来近似d(x,y)。</p>
-<script type="math/tex; mode=display">\widetilde{d}(x,y)=d(x,q(y))=\sqrt{\sum_j{d(u_j(x),q_j(u_j(y)))^2}}</script><h2 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h2><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
-
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/">各种算法优缺点</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="各种机器学习算法优缺点总结"><a href="#各种机器学习算法优缺点总结" class="headerlink" title="各种机器学习算法优缺点总结"></a>各种机器学习算法优缺点总结</h1><h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><blockquote>
-<blockquote>
-<p>可回归，可分类</p>
-</blockquote>
-</blockquote>
-<h3 id="决策树优点"><a href="#决策树优点" class="headerlink" title="决策树优点"></a>决策树优点</h3><ol>
-<li>决策树易于理解和解释，可以可视化分析，容易提取出规则。</li>
-<li>可以同时处理标称型和数值型数据。</li>
-<li>测试数据集时，运行速度比较快。</li>
-<li>决策树可以很好的扩展到大型数据库中，同时它的大小独立于数据库大小。</li>
-</ol>
-<h3 id="决策树缺点"><a href="#决策树缺点" class="headerlink" title="决策树缺点"></a>决策树缺点</h3><ol>
-<li>对缺失数据处理比较困难。</li>
-<li>容易出现过拟合问题。</li>
-<li>忽略数据集中属性的相互关联。</li>
-<li>ID3算法计算信息增益时结果偏向数值比较多的特征。</li>
-</ol>
-<h3 id="改进措施"><a href="#改进措施" class="headerlink" title="改进措施"></a>改进措施</h3><p>剪枝，采用交叉验证法，加入正则化；bagging算法，randomforest算法，可以解决过拟合的问题。<br></p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
-<h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
-<li>LR：大规模离散特征</li>
-<li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
-<li>FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉</li>
-<li>FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量</li>
-<li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
-<li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
-<li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
-<li>AFM：FM + bi-interact + attention + MLP </li>
-<li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
-<li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
-<li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
+        <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>对于树的问题，<strong>涉及两个或多个问题则考虑最终使用哪一种遍历方式解决</strong><br>默认对树的层数定义为： 1,2,3,4……k……h  总结点数N；度为0：n0，度为1：n1，度为2：n2</p>
+<ul>
+<li>性质1: 树的第 k 层至多有$2^{k-1}$个节点</li>
+<li>性质2: 树深度为 n ，总结点数至多$2^{n}-1$</li>
+<li>性质3: 叶节点数$n_0$，度数为2的结点树$n_2$ 则有${n_0}={n_2}+1$ 如果一棵完全二叉树的结点总数为N，那么叶子结点${n_0}=\frac{N}{2}$</li>
+<li>性质4: 结点总数为N，则树深为${log_2(N+1)}$</li>
 </ul>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"><br></p>
+<p><strong>对于树的删除和增加操作改变树结构时</strong><br>递归定义：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root-&gt;left=<span class="keyword">delete</span>(root-&gt;left,key);</span><br><span class="line">root-&gt;right=<span class="keyword">delete</span>(root-&gt;right,key);</span><br></pre></td></tr></table></figure><br></p>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/#more">
+            <a href="/2019/10/25/%E6%A0%91/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -308,7 +198,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+            <a href="/2019/10/25/%E9%93%BE%E8%A1%A8/">链表</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -316,13 +206,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T09:32:31.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/os/" rel="tag">os</a>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
 </div>
 
 
@@ -331,241 +221,12 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
-<li>进程：一个程序在一个数据集合上的一次运行过程。</li>
-<li>线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。</li>
-</ul>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>进程是程序的一次执行，线程理解为进程中执行的一个程序片段；<br>进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；<br>进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。<br>线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；<br>进程间可以IPC通信，线程不可以</p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">数学基础</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="导数、偏导数与方向导数"><a href="#导数、偏导数与方向导数" class="headerlink" title="导数、偏导数与方向导数"></a>导数、偏导数与方向导数</h2><p><img src="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/37.png" alt="avatar"></p>
-<p>首先明确，导数是一个值，代表切线的斜率，而梯度是一个向量。<strong>最大方向导数的方向就是梯度代表的方向。</strong><br>梯度是$f(x)$对各个自变量$ x = [x_1, x_2, …, x_m]^\top$每一维分别求偏导数得到的向量。<br>从式（5）和（6）中我们也可以知道，当$d = \frac{\nabla f(x)}{|\nabla f(x)|}$方向导数最大。 <strong>最大方向导数的方向就是梯度的方向，最大的方向导数就是梯度的欧几里德范数。</strong></p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">机器学习基础</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="机器学习基础"><a href="#机器学习基础" class="headerlink" title="机器学习基础"></a>机器学习基础</h1><p><a href="https://www.cnblogs.com/wuliytTaotao/p/10513371.html" target="_blank" rel="noopener">机器学习之数学01</a></p>
-<p><a href="https://www.cnblogs.com/wuliytTaotao/p/10603576.html" target="_blank" rel="noopener">机器学习之数学02</a></p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong></p>
-<script type="math/tex; mode=display">P(Y|X)=\frac{P(X,Y)}{P(X)}</script><blockquote>
-<blockquote>
-<p>朴素贝叶斯、隐马尔科夫模型（HMM）。</p>
-</blockquote>
-</blockquote>
-<h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><p>由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。<strong>更为准确，隐变量失效，定义和使用特征</strong></p>
-<blockquote>
-<blockquote>
-<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。<br></p></blockquote></blockquote>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/">树模型</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br></p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">聚类算法</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h1><h2 id="K-Means"><a href="#K-Means" class="headerlink" title="K-Means"></a>K-Means</h2><p>K-means就是使得下列表达式最小</p>
-<script type="math/tex; mode=display">J=\sum_{i=1}^{k}\sum_{x \in S_i}(x-\mu_i)^2</script><p>复杂度：$O(k <em> n </em> t)$<br></p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">逻辑回归</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:37:00.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h1><p><a href="https://www.cnblogs.com/ModifyRong/p/7739955.html" target="_blank" rel="noopener">逻辑回归面试整理</a></p>
-<p>逻辑回归假设数据服从<strong>伯努利</strong>分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的</p>
-<p>求解过程：按照<strong>极大似然估计求解</strong>或者<strong>交叉熵损失求解</strong>殊途同归</p>
-<p>何为极大似然：“模型已定，参数未知”；<strong>利用已知的样本结果，反推最有可能（最大概率）导致这样结果的参数值。</strong></p>
+        <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>较复杂的为链表的重排，排序<br>重排的链表：有的需要dummy辅助头指针，返回dummy-&gt;next</p>
 <hr>
+<h2 id="复杂链表深拷贝"><a href="#复杂链表深拷贝" class="headerlink" title="复杂链表深拷贝"></a>复杂链表深拷贝</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节点入列表</span></span><br><span class="line"><span class="comment">//map保存节点位置,同列表索引</span></span><br><span class="line"><span class="comment">//列表前后连接并且连接随机指针</span></span><br></pre></td></tr></table></figure>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/#more">
+            <a href="/2019/10/25/%E9%93%BE%E8%A1%A8/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -581,7 +242,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">算法基础</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -589,13 +250,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:31:36.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T09:28:41.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
 </div>
 
 
@@ -604,10 +265,346 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><p>物理层,数据链路层,网络层,传输层,会话层,表示层和应用层。<br></p>
+        <h1 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h1><p>有的一面会问数据结构与算法的基础：线性表，堆，栈，队列，树，图定义，最短路径算法等等</p>
+<hr>
+<h2 id="常用STL函数与数据结构"><a href="#常用STL函数与数据结构" class="headerlink" title="常用STL函数与数据结构"></a>常用STL函数与数据结构</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串</span></span><br><span class="line"><span class="function"><span class="built_in">istringstream</span> <span class="title">is</span><span class="params">(s)</span></span>;</span><br><span class="line">getline(is,t,<span class="string">' '</span>);<span class="comment">//迭代返回单词</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符与数字</span></span><br><span class="line">val=atoi(s.substr(<span class="number">0</span>, k))</span><br><span class="line">str=to_string(val)</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据结构</span></span><br><span class="line"><span class="built_in">multiset</span>&lt;<span class="keyword">double</span>&gt; ms(nums.begin(), nums.begin() + k);<span class="comment">//维护一个可重复有序集合。</span></span><br><span class="line"><span class="comment">//堆 empty();pop();push();top();size()</span></span><br><span class="line">priority <span class="built_in">queue</span>&lt;<span class="keyword">int</span>,vectot&lt;<span class="keyword">int</span>&gt;,greater&lt;<span class="keyword">int</span>&gt;&gt;small_heap;  <span class="comment">//构造最小堆</span></span><br><span class="line">priority <span class="built_in">queue</span>&lt;<span class="keyword">int</span>,vectot&lt;<span class="keyword">int</span>&gt;,less&lt;<span class="keyword">int</span>&gt;&gt;big_heap;  <span class="comment">//构造最大堆</span></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;p;<span class="comment">//默认最大堆。</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;q; <span class="comment">//队列</span></span><br><span class="line">dequeue&lt;<span class="keyword">int</span>&gt;q; <span class="comment">//双向队列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//二分函数</span></span><br><span class="line">lower_bound(num.begin(),num.end(),num)：<span class="comment">//二分查找第一个大于或等于num的数字，找到返回该数字的地址，不存在则返回end。通过返回的地址减去起始地址begin,得到找到数字在数组中的下标。</span></span><br><span class="line">upper_bound(num.begin(),num.end(),num)：<span class="comment">//从数组的begin位置到end-1位置二分查找第一个大于num的数字，</span></span><br></pre></td></tr></table></figure>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/#more">
+            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T09:15:28.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p>梯度下降是一种<strong>优化算法</strong>，通过<strong>迭代</strong>的方式寻找模型的<strong>最优参数</strong>；当目标函数是<strong>凸函数</strong>时，梯度下降的解是全局最优解；但在一般情况下，<strong>梯度下降无法保证全局最优</strong>。<strong>负梯度</strong>中的每一项可以认为传达了<strong>两个信息</strong>:</p>
+<ul>
+<li>正负号在告诉输入向量应该调大还是调小（正调大，负调小）；</li>
+<li>每一项的相对大小表明每个参数对函数值达到最值的<strong>影响程度</strong></li>
+</ul>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/">深度学习面试</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:53:01.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><h3 id="如何使用激活函数"><a href="#如何使用激活函数" class="headerlink" title="如何使用激活函数"></a>如何使用激活函数</h3><ul>
+<li>回归，则将sigmoid或tanh用作最后一层的非线性和平方误差作为成本函数。</li>
+<li>分类，隐层relu+尾层sigmoid+softmax归一化输出+结果交叉熵作损失</li>
+</ul>
+<h3 id="为什么非线性激活函数"><a href="#为什么非线性激活函数" class="headerlink" title="为什么非线性激活函数"></a>为什么非线性激活函数</h3><ul>
+<li><strong>神经网络万能近似定理</strong>认为神经网络具有至少一个非线性隐藏层，那么只要给予网络足够数量的隐藏单元，<strong>隐层就可以以任意的精度来拟合函数：完成任何一个有限维空间到另一个有限维空间的函数。</strong></li>
+<li>如果不使用非线性激活函数，那么每一层输出都是上层输入的线性组合，整体也是线性的，失去万能近似的性质。</li>
+<li>部分层是纯线性是可以接受的，这有助于减少网络中的参数。</li></ul>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/Transformer/">Transformer</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:47:38.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
+<h2 id><a href="#" class="headerlink" title></a><img src="/2019/10/25/Transformer/trm.gif" alt="avatar"></h2>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/Transformer/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">语言模型</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:44:31.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
+<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><ul>
+<li>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；</li>
+<li>负采样：词频越大更被定为负样本，所以对生僻词更有优势</li>
+</ul>
+<h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/">Tensorflow基础</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:42:39.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h1><ul>
+<li>首先通过将程序分为两个独立的部分，包括计算图的定义及其执行。</li>
+<li>图定义和执行的分开设计让 TensorFlow 能够多平台工作以及并行执行。</li>
+<li>计算图：是包含节点和边的网络。定义所有要使用的数据，也就是张量（tensor）对象（常量、变量和占位符），同时定义要执行的所有计算，即运算操作对象（Operation Object，简称 OP）。</li>
+<li>每个节点可以有零个或多个输入，但只有一个输出。网络中的节点表示对象（张量和运算操作），边表示运算操作之间流动的张量。</li>
+</ul>
+<hr>
+<h2 id="一、数据类型：常量、变量、占位符"><a href="#一、数据类型：常量、变量、占位符" class="headerlink" title="一、数据类型：常量、变量、占位符"></a>一、数据类型：常量、变量、占位符</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是其值不能改变的张量；常量存储在计算图的定义中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(<span class="number">4</span>);</span><br><span class="line">tf.constant([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">tf.zeros([M,N],tf.dtype)</span><br><span class="line">tf.zeros([<span class="number">2</span>,<span class="number">3</span>],tf.int32)</span><br><span class="line">tf.ones([M,N],tf,dtype)</span><br><span class="line">range_t = tf.linspace(<span class="number">2.0</span>,<span class="number">5.0</span>,<span class="number">4</span>)  <span class="comment">#等差数列，差值=(5-2)/(4-1)</span></span><br><span class="line">range_t = tf.range(<span class="number">10</span>) <span class="comment">#同python range</span></span><br><span class="line">tf.random_normal([shape],mean=<span class="number">2.0</span>,stddev=<span class="number">4</span>,seed=<span class="number">12</span>)</span><br></pre></td></tr></table></figure><br></p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/">算法推导整理</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:41:36.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat{\theta}&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log p(x^{(i)};\theta)\\
+&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)
+\end{aligned}</script><p>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/10/25/linux/">linux</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:38:01.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/linux/" rel="tag">linux</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ul>
+<li>ps：查看当前进程<ol>
+<li>ps -ef (system v 输出) </li>
+<li>ps -aux bsd 格式输出</li>
+<li>ps -ef | grep pid</li>
+</ol>
+</li>
+<li>ln：软连接，快捷方式；硬链接：同步更改。</li>
+<li>chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7</li>
+<li>vi 文件名编辑 cat file | more | less<ol>
+<li>more 分页 </li>
+<li>less 分页可回翻</li>
+<li>tail 尾部</li>
+<li>head 头部</li>
+</ol>
+</li>
+</ul>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/linux/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
@@ -621,7 +618,7 @@
 
 
 <nav class="page-nav">
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &amp;raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页 &amp;raquo;</a>
 </nav>
 
 

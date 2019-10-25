@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>子集 | 小于狙击手的博客</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="子集问题要明确的问题在于，递归+回溯得到所有子集，就是指数级复杂度，等同于brute force。将子集问题变为迭代问题，并且保证结果无重复子集。对数组取子集包含重复元素12345678910111213res=&amp;#123;&amp;#123;&amp;#125;&amp;#125;,last=s[0];sort(nums.begin(),nums.end());for(int i=0;i&amp;lt;nums.size();i++)&amp;#123;    //保存不重复起始位置，有重复则是之前的长度    ..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#子集问题"><span class="toc-number">1.</span> <span class="toc-text">子集问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对数组取子集"><span class="toc-number">1.1.</span> <span class="toc-text">对数组取子集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串全排列"><span class="toc-number">1.2.</span> <span class="toc-text">字符串全排列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对字符串取子集"><span class="toc-number">1.3.</span> <span class="toc-text">对字符串取子集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移除K个数字使得值更小"><span class="toc-number">1.4.</span> <span class="toc-text">移除K个数字使得值更小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最长上升子序列"><span class="toc-number">1.5.</span> <span class="toc-text">最长上升子序列</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            子集
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/%E5%AD%90%E9%9B%86/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T14:58:29.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="子集问题"><a href="#子集问题" class="headerlink" title="子集问题"></a>子集问题</h1><p>要明确的问题在于，递归+回溯得到所有子集，就是指数级复杂度，等同于brute force。将子集问题变为迭代问题，并且保证结果无重复子集。</p>
+<hr>
+<h2 id="对数组取子集"><a href="#对数组取子集" class="headerlink" title="对数组取子集"></a>对数组取子集</h2><blockquote>
+<blockquote>
+<p>包含重复元素</p>
+</blockquote>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">res=&#123;&#123;&#125;&#125;,last=s[<span class="number">0</span>];</span><br><span class="line">sort(nums.begin(),nums.end());</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">    <span class="comment">//保存不重复起始位置，有重复则是之前的长度</span></span><br><span class="line">    <span class="keyword">if</span>(s[i]!=last)</span><br><span class="line">        last=s[i];</span><br><span class="line">        len=res.size();</span><br><span class="line">    <span class="comment">//如果有重复则赋值后一半，再添加元素；无重复则从头赋值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=res.size()-len;j&lt; res.size();j++) </span><br><span class="line">        res.push_back(s[j]);</span><br><span class="line">        res.back().push_back(s[i])</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="字符串全排列"><a href="#字符串全排列" class="headerlink" title="字符串全排列"></a>字符串全排列</h2><p><img src="/2019/10/25/%E5%AD%90%E9%9B%86/permutation.png" alt></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> ss = <span class="string">"abc"</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">generate</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i == ss.length()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ss &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ch = i; ch &lt; ss.length(); ++ch) &#123;</span><br><span class="line">            swap(ss[ch], ss[i]);</span><br><span class="line">            generate(i + <span class="number">1</span>);</span><br><span class="line">            swap(ss[ch], ss[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">generate(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="对字符串取子集"><a href="#对字符串取子集" class="headerlink" title="对字符串取子集"></a>对字符串取子集</h2><blockquote>
+<blockquote>
+<p>转变大小写获得新的字符串</p>
+</blockquote>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">res=&#123;<span class="string">""</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">char</span> c : S) &#123;</span><br><span class="line">    <span class="keyword">int</span> len = res.size();</span><br><span class="line">    <span class="keyword">if</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">string</span> &amp;str : res) </span><br><span class="line">            str.push_back(c);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i) &#123;</span><br><span class="line">            res.push_back(res[i]);<span class="comment">//对当前备份</span></span><br><span class="line">            res[i].push_back(<span class="built_in">tolower</span>(c));<span class="comment">//对当前加小写</span></span><br><span class="line">            res.back().push_back(<span class="built_in">toupper</span>(c));<span class="comment">//对备份加大写</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+<h2 id="移除K个数字使得值更小"><a href="#移除K个数字使得值更小" class="headerlink" title="移除K个数字使得值更小"></a>移除K个数字使得值更小</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">char</span> c : num) &#123;</span><br><span class="line">    <span class="comment">//从前往后，有比当前大的就替换。保证排在前面的更小</span></span><br><span class="line">    <span class="keyword">while</span> (k &amp;&amp; res.size() &amp;&amp; res.back() &gt; c)</span><br><span class="line">        res.pop_back();</span><br><span class="line">        --k;</span><br><span class="line">    <span class="keyword">if</span> (res.size()==<span class="number">0</span> &amp;&amp; c== <span class="string">'0'</span>)</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    res.push_back(c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span> (res.size() &amp;&amp; k--) </span><br><span class="line">    res.pop_back();</span><br><span class="line"><span class="keyword">return</span> res.empty() ? <span class="string">"0"</span> : res;</span><br></pre></td></tr></table></figure>
+<h2 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span> ss&#123;nums[<span class="number">0</span>]&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> num:nums)</span><br><span class="line">    <span class="keyword">auto</span> it = lower_bound(ss.begin(), ss.end(),num);<span class="comment">//二分查找该值</span></span><br><span class="line">    <span class="keyword">if</span> (it == ss.end())</span><br><span class="line">        ss.push(num);</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        *it = num;<span class="comment">//替换该值</span></span><br><span class="line"><span class="keyword">return</span> ss.size();</span><br></pre></td></tr></table></figure>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E5%A0%86/" class="article-next" title="堆"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="article-prev" title="二分查找"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/子集",
+        distractionFreeMode: true,
+        title: "子集",
+        body: "https://yuyinxiao.github.io/2019/10/25/%E5%AD%90%E9%9B%86/",
+        labels: ["coding"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>堆 | 小于狙击手的博客</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="堆维护一个堆一般是为了使用堆排序，减去反复排序步骤。12priority_queue&amp;lt;int,vector&amp;lt;int&amp;gt;&amp;gt; big;  //默认最大堆。priority_queue&amp;lt;int,vectot&amp;lt;int&amp;gt;,greater&amp;lt;int&amp;gt;&amp;gt; small;  //构造最小堆建堆插入时间复杂度O(logN)，排序时间复杂度O(nlogn)典型的问题是topK，免去反复排序的步骤，一直入堆自动完成排序。弹出头部。合并K个有序列表O(N*..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#堆"><span class="toc-number">1.</span> <span class="toc-text">堆</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建堆"><span class="toc-number">1.1.</span> <span class="toc-text">建堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并K个有序列表O-N-logk"><span class="toc-number">1.2.</span> <span class="toc-text">合并K个有序列表O(N*logk)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据流中位数"><span class="toc-number">1.3.</span> <span class="toc-text">数据流中位数</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            堆
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/%E5%A0%86/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T14:56:10.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><p>维护一个堆一般是为了使用堆排序，减去反复排序步骤。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; big;  <span class="comment">//默认最大堆。</span></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>,vectot&lt;<span class="keyword">int</span>&gt;,greater&lt;<span class="keyword">int</span>&gt;&gt; small;  <span class="comment">//构造最小堆</span></span><br></pre></td></tr></table></figure><br><a id="more"></a></p>
+<h2 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h2><p><img src="/2019/10/25/%E5%A0%86/640_50.gif" alt="avatar"><br>插入时间复杂度O(logN)，排序时间复杂度O(nlogn)<br>典型的问题是topK，免去反复排序的步骤，一直入堆自动完成排序。弹出头部。</p>
+<h2 id="合并K个有序列表O-N-logk"><a href="#合并K个有序列表O-N-logk" class="headerlink" title="合并K个有序列表O(N*logk)"></a>合并K个有序列表O(N*logk)</h2><blockquote>
+<blockquote>
+<p>对各链表头部维护一个最小堆<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> cmp = [](ListNode*&amp; a, ListNode*&amp; b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a-&gt;val &gt; b-&gt;val;</span><br><span class="line">    &#125;;</span><br><span class="line">    priority_queue&lt;ListNode*, <span class="built_in">vector</span>&lt;ListNode*&gt;, <span class="keyword">decltype</span>(cmp) &gt; q(cmp);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> node : lists) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node) q.push(node);</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode *dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>), *cur = dummy;</span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> t = q.top();q.pop();</span><br><span class="line">        cur-&gt;next = t;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;next) </span><br><span class="line">            q.push(cur-&gt;next);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h2 id="数据流中位数"><a href="#数据流中位数" class="headerlink" title="数据流中位数"></a>数据流中位数</h2><p>数据流或者数组获取中位数不知道有什么区别，感觉可以通用<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;,greater&lt;<span class="keyword">int</span>&gt;&gt;left,right;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addNum</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    right.push(num)</span><br><span class="line">    left.push(-right.top());right.pop();<span class="comment">//负右入左</span></span><br><span class="line">    <span class="keyword">if</span> right.size &lt; left.size</span><br><span class="line">        right.push(-left.top());left.pop();<span class="comment">//负左入右</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getMedian</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(right.size()&gt;left.size())</span><br><span class="line">        <span class="keyword">return</span> right.top();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> (right.top-left.top)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//最终保证，两个最小堆。左堆绝对值递增，但实数值是减小的（符合最小堆的定义）；右堆按照最小堆递减，实数值也是递减。</span></span><br></pre></td></tr></table></figure></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-next" title="字符串"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E5%AD%90%E9%9B%86/" class="article-prev" title="子集"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/堆",
+        distractionFreeMode: true,
+        title: "堆",
+        body: "https://yuyinxiao.github.io/2019/10/25/%E5%A0%86/",
+        labels: ["coding"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

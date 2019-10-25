@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>字符串 | 小于狙击手的博客</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="字符串字符串翻转翻转句子的单词整体翻转；分割单词再次翻转左旋转字符串s1翻转，s2翻转，整体翻转移除K个数字12345678910111213141516string removeKdigits(string num, int k) &amp;#123;    string res;    int n = num.size();    for (char c : num) &amp;#123;        while (k &amp;amp;&amp;amp; res.size() &amp;amp;&amp;amp; res.b..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串"><span class="toc-number">1.</span> <span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串翻转"><span class="toc-number">1.1.</span> <span class="toc-text">字符串翻转</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#翻转句子的单词"><span class="toc-number">1.1.1.</span> <span class="toc-text">翻转句子的单词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#左旋转字符串"><span class="toc-number">1.1.2.</span> <span class="toc-text">左旋转字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移除K个数字"><span class="toc-number">1.2.</span> <span class="toc-text">移除K个数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不固定滑动窗口"><span class="toc-number">1.3.</span> <span class="toc-text">不固定滑动窗口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最长不重复子串"><span class="toc-number">1.3.1.</span> <span class="toc-text">最长不重复子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最小包含T的排列的子串"><span class="toc-number">1.3.2.</span> <span class="toc-text">最小包含T的排列的子串*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串包含另一子串的排列"><span class="toc-number">1.3.3.</span> <span class="toc-text">字符串包含另一子串的排列*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#替换K次字符后最长的重复字符构成的子串长度"><span class="toc-number">1.3.4.</span> <span class="toc-text">替换K次字符后最长的重复字符构成的子串长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重复的DNA序列"><span class="toc-number">1.3.5.</span> <span class="toc-text">重复的DNA序列</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            字符串
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T14:54:08.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><h3 id="翻转句子的单词"><a href="#翻转句子的单词" class="headerlink" title="翻转句子的单词"></a>翻转句子的单词</h3><p>整体翻转；分割单词再次翻转</p>
+<h3 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a>左旋转字符串</h3><p>s1翻转，s2翻转，整体翻转</p>
+<h2 id="移除K个数字"><a href="#移除K个数字" class="headerlink" title="移除K个数字"></a>移除K个数字</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">removeKdigits</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res;</span><br><span class="line">    <span class="keyword">int</span> n = num.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : num) &#123;</span><br><span class="line">        <span class="keyword">while</span> (k &amp;&amp; res.size() &amp;&amp; res.back() &gt; c) &#123;</span><br><span class="line">            res.pop_back();</span><br><span class="line">            --k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//前导0</span></span><br><span class="line">        <span class="keyword">if</span> (res.size() || c != <span class="string">'0'</span>)</span><br><span class="line">            res.push_back(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (res.size() &amp;&amp; k--)</span><br><span class="line">        res.pop_back();</span><br><span class="line">    <span class="keyword">return</span> res.empty() ? <span class="string">"0"</span> : res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="不固定滑动窗口"><a href="#不固定滑动窗口" class="headerlink" title="不固定滑动窗口"></a>不固定滑动窗口</h2><h3 id="最长不重复子串"><a href="#最长不重复子串" class="headerlink" title="最长不重复子串"></a>最长不重复子串</h3><p>Q1：当有重复的时候左更新；不重复的时候窗口长度累加。所以O(N)的遍历即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c[<span class="number">26</span>]=<span class="number">-1</span>,left=<span class="number">-1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++)&#123;</span><br><span class="line">    left=max(c[nums[i]-<span class="string">'a'</span>],left]); <span class="comment">//不是-1则重复</span></span><br><span class="line">    res=max(res,i-left);</span><br><span class="line">    c[nums[i]-<span class="string">'a'</span>]=i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+<h3 id="最小包含T的排列的子串"><a href="#最小包含T的排列的子串" class="headerlink" title="最小包含T的排列的子串*"></a>最小包含T的排列的子串*</h3><blockquote>
+<blockquote>
+<p>包含其他字符<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">s,t</span><br><span class="line"><span class="keyword">char</span> c[<span class="number">126</span>]=<span class="number">0</span>;<span class="comment">//对t遍历统计c各字符次数</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++)&#123;</span><br><span class="line">    c[s[i]]--;</span><br><span class="line">    <span class="keyword">if</span> c[s[i]]&gt;=<span class="number">0</span>：<span class="comment">//说明属于子串t的字符</span></span><br><span class="line">        cnt++;</span><br><span class="line">    <span class="keyword">while</span>(cnt==t.size())&#123; <span class="comment">//子串可构成t；然后左侧右移取最小窗口</span></span><br><span class="line">        minLen=min(minLen,i-left+<span class="number">1</span>);</span><br><span class="line">        res=res.substr(left,minLen);</span><br><span class="line">        c[s[left]]++; <span class="comment">//从左往右不相关加上</span></span><br><span class="line">        <span class="keyword">if</span>(c[s[left]]&gt;<span class="number">0</span>) <span class="comment">//如果加的是相关字符则跳出</span></span><br><span class="line">            cnt--;</span><br><span class="line">        left++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h3 id="字符串包含另一子串的排列"><a href="#字符串包含另一子串的排列" class="headerlink" title="字符串包含另一子串的排列*"></a>字符串包含另一子串的排列*</h3><blockquote>
+<blockquote>
+<p>不包含其他字符<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> c :t)</span><br><span class="line">    m[c]++;<span class="comment">//保存t中字符次数</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; s.length();i++)&#123;</span><br><span class="line">    m[s[i]]--;</span><br><span class="line">    <span class="keyword">if</span>(m[s[i]]&lt;<span class="number">0</span>)&#123; <span class="comment">//说明此时没匹配对</span></span><br><span class="line">        <span class="keyword">while</span>(++m[left]!=<span class="number">0</span>) <span class="comment">//则对之前匹配对的再补上+1</span></span><br><span class="line">            left++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123; </span><br><span class="line">        <span class="keyword">if</span> (i-left+<span class="number">1</span>==t.size())<span class="comment">//窗口大小==t长度相同</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> t.szie()==<span class="number">0</span>;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h3 id="替换K次字符后最长的重复字符构成的子串长度"><a href="#替换K次字符后最长的重复字符构成的子串长度" class="headerlink" title="替换K次字符后最长的重复字符构成的子串长度"></a>替换K次字符后最长的重复字符构成的子串长度</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count,res,left=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">char</span>,<span class="keyword">int</span>&gt;m;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; s.length();i++)&#123;</span><br><span class="line">    m[s[i]]++;</span><br><span class="line">    count=max(count,m[s[i]]);</span><br><span class="line">    <span class="keyword">while</span>(i-left+<span class="number">1</span> &gt; (count+k)) <span class="comment">//达到了最大长度，左边界右移</span></span><br><span class="line">        m[s[left]--;</span><br><span class="line">        left++;</span><br><span class="line">    res=max(res,i-left+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重复的DNA序列"><a href="#重复的DNA序列" class="headerlink" title="重复的DNA序列"></a>重复的DNA序列</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findRepeatedDnaSequences</span><span class="params">(self, s: str)</span> -&gt; List[str]:</span></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line">    visited = set()</span><br><span class="line">    res = set()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(s) - <span class="number">9</span>):</span><br><span class="line">        tmp = s[i:i+<span class="number">10</span>]</span><br><span class="line">        <span class="keyword">if</span> tmp <span class="keyword">in</span> visited:</span><br><span class="line">            res.add(tmp)</span><br><span class="line">        visited.add(tmp)</span><br><span class="line">    <span class="keyword">return</span> list(res)</span><br></pre></td></tr></table></figure>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/%E6%95%B0%E7%BB%84/" class="article-next" title="数组"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E5%A0%86/" class="article-prev" title="堆"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/字符串",
+        distractionFreeMode: true,
+        title: "字符串",
+        body: "https://yuyinxiao.github.io/2019/10/25/%E5%AD%97%E7%AC%A6%E4%B8%B2/",
+        labels: ["coding"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
