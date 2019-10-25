@@ -7,7 +7,7 @@
 
     
 
-    <title>小于狙击手的博客</title>
+    <title>Category: code | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
     <meta name="description" content="记录一个人的学习，成长" />
@@ -57,7 +57,7 @@
 
     <nav id="nav-inner" class="nav-inner">
         
-            <a class="nav-item active" href="/">
+            <a class="nav-item" href="/">
                 <span class="nav-text">首页</span>
             </a>
         
@@ -73,7 +73,7 @@
                 <span class="nav-text">大数据</span>
             </a>
         
-            <a class="nav-item" href="/categories/code">
+            <a class="nav-item active" href="/categories/code">
                 <span class="nav-text">coding</span>
             </a>
         
@@ -153,7 +153,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/categories/code/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -281,7 +281,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/categories/code/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -325,7 +325,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/categories/code/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -360,345 +360,7 @@
 </article>
 
 
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T09:15:28.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
 
-            
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p>梯度下降是一种<strong>优化算法</strong>，通过<strong>迭代</strong>的方式寻找模型的<strong>最优参数</strong>；当目标函数是<strong>凸函数</strong>时，梯度下降的解是全局最优解；但在一般情况下，<strong>梯度下降无法保证全局最优</strong>。<strong>负梯度</strong>中的每一项可以认为传达了<strong>两个信息</strong>:</p>
-<ul>
-<li>正负号在告诉输入向量应该调大还是调小（正调大，负调小）；</li>
-<li>每一项的相对大小表明每个参数对函数值达到最值的<strong>影响程度</strong></li>
-</ul>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/">深度学习面试</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:53:01.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><h3 id="如何使用激活函数"><a href="#如何使用激活函数" class="headerlink" title="如何使用激活函数"></a>如何使用激活函数</h3><ul>
-<li>回归，则将sigmoid或tanh用作最后一层的非线性和平方误差作为成本函数。</li>
-<li>分类，隐层relu+尾层sigmoid+softmax归一化输出+结果交叉熵作损失</li>
-</ul>
-<h3 id="为什么非线性激活函数"><a href="#为什么非线性激活函数" class="headerlink" title="为什么非线性激活函数"></a>为什么非线性激活函数</h3><ul>
-<li><strong>神经网络万能近似定理</strong>认为神经网络具有至少一个非线性隐藏层，那么只要给予网络足够数量的隐藏单元，<strong>隐层就可以以任意的精度来拟合函数：完成任何一个有限维空间到另一个有限维空间的函数。</strong></li>
-<li>如果不使用非线性激活函数，那么每一层输出都是上层输入的线性组合，整体也是线性的，失去万能近似的性质。</li>
-<li>部分层是纯线性是可以接受的，这有助于减少网络中的参数。</li></ul>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/Transformer/">Transformer</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:47:38.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
-<h2 id><a href="#" class="headerlink" title></a><img src="/2019/10/25/Transformer/trm.gif" alt="avatar"></h2>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/Transformer/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">语言模型</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:44:31.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
-<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><ul>
-<li>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；</li>
-<li>负采样：词频越大更被定为负样本，所以对生僻词更有优势</li>
-</ul>
-<h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/">Tensorflow基础</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:42:39.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h1><ul>
-<li>首先通过将程序分为两个独立的部分，包括计算图的定义及其执行。</li>
-<li>图定义和执行的分开设计让 TensorFlow 能够多平台工作以及并行执行。</li>
-<li>计算图：是包含节点和边的网络。定义所有要使用的数据，也就是张量（tensor）对象（常量、变量和占位符），同时定义要执行的所有计算，即运算操作对象（Operation Object，简称 OP）。</li>
-<li>每个节点可以有零个或多个输入，但只有一个输出。网络中的节点表示对象（张量和运算操作），边表示运算操作之间流动的张量。</li>
-</ul>
-<hr>
-<h2 id="一、数据类型：常量、变量、占位符"><a href="#一、数据类型：常量、变量、占位符" class="headerlink" title="一、数据类型：常量、变量、占位符"></a>一、数据类型：常量、变量、占位符</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是其值不能改变的张量；常量存储在计算图的定义中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(<span class="number">4</span>);</span><br><span class="line">tf.constant([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">tf.zeros([M,N],tf.dtype)</span><br><span class="line">tf.zeros([<span class="number">2</span>,<span class="number">3</span>],tf.int32)</span><br><span class="line">tf.ones([M,N],tf,dtype)</span><br><span class="line">range_t = tf.linspace(<span class="number">2.0</span>,<span class="number">5.0</span>,<span class="number">4</span>)  <span class="comment">#等差数列，差值=(5-2)/(4-1)</span></span><br><span class="line">range_t = tf.range(<span class="number">10</span>) <span class="comment">#同python range</span></span><br><span class="line">tf.random_normal([shape],mean=<span class="number">2.0</span>,stddev=<span class="number">4</span>,seed=<span class="number">12</span>)</span><br></pre></td></tr></table></figure><br></p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/">算法推导整理</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:41:36.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\hat{\theta}&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log p(x^{(i)};\theta)\\
-&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)
-\end{aligned}</script><p>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/linux/">linux</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:38:01.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/linux/" rel="tag">linux</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ul>
-<li>ps：查看当前进程<ol>
-<li>ps -ef (system v 输出) </li>
-<li>ps -aux bsd 格式输出</li>
-<li>ps -ef | grep pid</li>
-</ol>
-</li>
-<li>ln：软连接，快捷方式；硬链接：同步更改。</li>
-<li>chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7</li>
-<li>vi 文件名编辑 cat file | more | less<ol>
-<li>more 分页 </li>
-<li>less 分页可回翻</li>
-<li>tail 尾部</li>
-<li>head 头部</li>
-</ol>
-</li>
-</ul>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/linux/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-
-
-<nav class="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &amp;raquo;</a>
-</nav>
 
 
 
