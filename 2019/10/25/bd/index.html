@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>大数据面试基础 | 小于狙击手</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="大数据HadoopSecondaryNamenodeSecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。元数据包括文件镜像数据FSImage和编辑日志EditLog。FSImage相当于HDFS的检查点，namenode启动时候会读取FSImage的内容到内存，并将其与EditLog日志中的所有修改信息合并生成新的FSImage；在namenode运行过程中，所有关于HDFS的修改都将写入EditLog。这样，..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ad">
+                <span class="nav-text">计算广告</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#大数据"><span class="toc-number">1.</span> <span class="toc-text">大数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop"><span class="toc-number">1.1.</span> <span class="toc-text">Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SecondaryNamenode"><span class="toc-number">1.1.1.</span> <span class="toc-text">SecondaryNamenode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#元数据"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">元数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS读写流程"><span class="toc-number">1.1.2.</span> <span class="toc-text">HDFS读写流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交job应用流程"><span class="toc-number">1.1.3.</span> <span class="toc-text">提交job应用流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce"><span class="toc-number">1.1.4.</span> <span class="toc-text">MapReduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#详解shuffle过程"><span class="toc-number">1.1.5.</span> <span class="toc-text">详解shuffle过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">tips</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition"><span class="toc-number">1.1.6.</span> <span class="toc-text">Partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combiner"><span class="toc-number">1.1.7.</span> <span class="toc-text">Combiner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次排序"><span class="toc-number">1.1.8.</span> <span class="toc-text">二次排序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase"><span class="toc-number">1.2.</span> <span class="toc-text">HBase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive"><span class="toc-number">1.3.</span> <span class="toc-text">Hive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hive与SQL"><span class="toc-number">1.3.1.</span> <span class="toc-text">Hive与SQL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka"><span class="toc-number">1.4.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flink"><span class="toc-number">1.5.</span> <span class="toc-text">Flink</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#流处理与批处理"><span class="toc-number">1.5.1.</span> <span class="toc-text">流处理与批处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flink容错性高，快照恢复"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">Flink容错性高，快照恢复</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scala基础"><span class="toc-number">1.6.</span> <span class="toc-text">Scala基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark"><span class="toc-number">1.7.</span> <span class="toc-text">Spark</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spark-job资源分配"><span class="toc-number">1.7.1.</span> <span class="toc-text">Spark job资源分配</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            大数据面试基础
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/bd/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T04:02:22.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h3 id="SecondaryNamenode"><a href="#SecondaryNamenode" class="headerlink" title="SecondaryNamenode"></a>SecondaryNamenode</h3><p>SecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。</p>
+<h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><p>包括文件镜像数据FSImage和编辑日志EditLog。FSImage相当于HDFS的检查点，namenode启动时候会读取FSImage的内容到内存，并将其与EditLog日志中的所有修改信息合并生成新的FSImage；在namenode运行过程中，所有关于HDFS的修改都将写入EditLog。这样，如果namenode失效，可以通过SecondaryNameNode中保存的FSImage和EditLog数据恢复出namenode最近的状态。</p>
+<h3 id="HDFS读写流程"><a href="#HDFS读写流程" class="headerlink" title="HDFS读写流程"></a>HDFS读写流程</h3><ol>
+<li>向HDFS写数据<br><img src="/2019/10/25/bd/write.png" alt></li>
+<li>从HDFS读数据<br><img src="/2019/10/25/bd/read.png" alt></li>
+</ol>
+<h3 id="提交job应用流程"><a href="#提交job应用流程" class="headerlink" title="提交job应用流程"></a>提交job应用流程</h3><p>提交job的全过程：提交job给YARN，执行MapReduce、HDFS读数据，HDFS写数据。<br>提交job给YARN的过程：提交job，job的初始化，任务分配，任务运行，作业完成</p>
+<hr>
+<p><img src="/2019/10/25/bd/job.png" alt></p>
+<p>1、客户端向Resource Manager申请一个job_id和job资源的提交路径；提交后向Resource manager申请运行 MRAppMaster。</p>
+<p>2、Resource Manager将job分配给某一个空闲的NodeManager，创建容器得到MRAppmaster，再把客户端提交的资源下载到本地。</p>
+<p>3、MRAppMaster向Resource Manager申请运行多个mapTask任务资源。Resource Manager将mapTask分配给其他NodeManager。</p>
+<p>4、Resource Manager向NodeManager发送脚本启动map任务，等所有map任务运行完毕后，向Resource Manager申请容器，运行 reduce任务，运行完后向Resource Manager申请注销。</p>
+<h3 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h3><p>详解shuffle过程：<br>map-&gt;buff环形缓存区-&gt;溢出合并与归并排序-&gt;按分区号将不同的mapTask数据合并到reduceTask-&gt;同一reduceTask归并排序-&gt;对reduceTask中的value计算</p>
+<hr>
+<p>从文件中获取block<br><img src="/2019/10/25/bd/spark.png" alt></p>
+<ul>
+<li>本文件内若干个Block合并成一个输入分片split；不能跨越文件；</li>
+<li>一个split对应一个Task；</li>
+<li>一个Task执行结果对应RDD的partition<strong>增大分区数，增大task数，增大并行度</strong></li>
+<li>一个Executor数目包含多个core；</li>
+</ul>
+<p><img src="/2019/10/25/bd/mr.jpg" alt="avatar"></p>
+<p>map task读取文件写入环形缓冲区（100M），一次溢出后按照key进行hash分区，多次溢出的文件按照分区合并(归并排序)；对多个map task的相同分区内的key进行归并排序，然后传给reduce task。</p>
+<h3 id="详解shuffle过程"><a href="#详解shuffle过程" class="headerlink" title="详解shuffle过程"></a>详解shuffle过程</h3><p><img src="/2019/10/25/bd/shuffle1.png" alt><br><img src="/2019/10/25/bd/shuffle2.png" alt></p>
+<p>上面的流程是整个mapreduce最全工作流程，但是shuffle过程只是从第7步开始到第16步结束，具体shuffle过程详解，如下：</p>
+<ol>
+<li>maptask收集我们的map()方法输出的kv对，放到内存缓冲区中</li>
+<li>从内存缓冲区不断溢出本地磁盘文件，可能会溢出多个文件</li>
+<li>多个溢出文件会被合并成大的溢出文件</li>
+<li>在溢出过程中，及合并的过程中，都要调用partitoner进行分组和针对key进行排序</li>
+<li>reducetask根据自己的分区号，去各个maptask机器上取相应的结果分区数据</li>
+<li>reducetask会取到同一个分区的来自不同maptask的结果文件，reducetask会将这些文件再进行合并（归并排序）</li>
+<li>合并成大文件后，shuffle的过程也就结束了，后面进入reducetask的逻辑运算过程（从文件中取出一个一个的键值对group，调用用户自定义的reduce()方法）</li>
+</ol>
+<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><ul>
+<li>Shuffle中的缓冲区大小会影响到mapreduce程序的执行效率，原则上说，缓冲区越大，磁盘io的次数越少，执行速度就越快。</li>
+<li>缓冲区的大小可以通过参数调整，参数：io.sort.mb  默认100M</li>
+</ul>
+<p><img src="/2019/10/25/bd/mr.png" alt="avatar"></p>
+<h3 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h3><p>map端输出(k,v)对key取hash值实现分区负载均衡算法</p>
+<h3 id="Combiner"><a href="#Combiner" class="headerlink" title="Combiner"></a>Combiner</h3><p>每一个map都可能会产生大量的本地输出，Combiner的作用就是对<strong>本地的map端的输出先做一次合并</strong>key下value以list形式存储，<strong>大大减少在map和reduce节点之间的数据传输量，以提高网络IO性能</strong>是MapReduce的一种优化手段之一。就在part下对相同的key提前合并一下</p>
+<ul>
+<li>combiner是MR程序中Mapper和Reducer之外的一种组件</li>
+<li>combiner组件的父类就是Reducer</li>
+<li>combiner和reducer的区别在于运行的位置：Combiner是在每一个maptask所在的节点运行，Reducer是接收全局所有Mapper的输出结果；</li>
+<li>combiner的意义就是对每一个maptask的输出进行局部汇总，以减小网络传输量</li>
+<li>combiner能够应用的前提是不能影响最终的业务逻辑，而且，combiner的输出kv应该跟reducer的输入kv类型要对应起来</li>
+</ul>
+<h3 id="二次排序"><a href="#二次排序" class="headerlink" title="二次排序"></a>二次排序</h3><p>如何做到在Reduce阶段，先对Key排序，再对Value排序<br>该问题通常称为”二次排序“，最常用的方法是将Value放到Key中，实现一个组合Key，然后自定义Key排序规则（为Key实现一个WritableComparable）</p>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><ul>
+<li>行键：是hbase表自带的，每个行键对应一条数据。</li>
+<li>列族：是创建表时指定的，为列的集合，每个列族作为一个文件单独存储，存储的数据都是字节数组，其中数据可以有很多，通过时间戳来区分。</li>
+<li>物理模型：整个hbase表会拆分成多个region，每个region记录着行键的起始点保存在不同的节点上，查询时就是对各个节点的并行查询，当region很大时使用.META表存储各个region的起始点，-ROOT又可以存储.META的起始点。</li>
+</ul>
+<ol>
+<li>Rowkey的设计原则：各个列族数据平衡，长度原则、相邻原则，创建表的时候设置表放入regionserver缓存中，避免自动增长和时间，使用字节数组代替string，最大长度64kb，最好16字节以内，按天分表，两个字节散列，四个字节存储时分毫秒。</li>
+<li>列族的设计原则：尽可能少(按照列族进行存储，按照region进行读取，不必要的io操作)，经常和不经常使用的两类数据放入不同列族中，列族名字尽可能短</li>
+</ol>
+<h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#以某字符连接字段</span></span><br><span class="line">concat_ws：<span class="keyword">SELECT</span> <span class="keyword">CONCAT_WS</span>(<span class="string">'_'</span>,<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">AS</span> con_ws <span class="keyword">FROM</span> info;</span><br><span class="line"><span class="comment">#对字段A分组，队字段B降序且取字段B的top3</span></span><br><span class="line">row_number：<span class="keyword">select</span> <span class="keyword">id</span>,age,<span class="keyword">name</span>,sex <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">id</span>,age,<span class="keyword">name</span>,sex,row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> sex <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">desc</span>) <span class="keyword">as</span> rownumber <span class="keyword">from</span> rownumber) temp <span class="keyword">where</span> rownumber&lt;<span class="number">3</span> </span><br><span class="line"><span class="comment">#条件真值与假值</span></span><br><span class="line">case..when：<span class="keyword">case</span> tb1.os <span class="keyword">when</span> <span class="string">'android'</span> <span class="keyword">then</span> <span class="string">'android'</span> <span class="keyword">when</span> <span class="string">'ios'</span> <span class="keyword">then</span> <span class="string">'iPhone'</span> <span class="keyword">else</span> <span class="string">'PC'</span> <span class="keyword">end</span> <span class="keyword">as</span> os</span><br><span class="line"><span class="comment">##[&#123;"name":"王二狗","sex":"男","age":"25"&#125;,&#123;"name":"李狗嗨","sex":"男","age":"47"&#125;]</span></span><br><span class="line">get_json_object：</span><br><span class="line"><span class="number">1.</span><span class="keyword">SELECT</span> get_json_object(xjson,<span class="string">"$.[0]"</span>) <span class="keyword">FROM</span> person;</span><br><span class="line">2.SELECT get_json_object(xjson,"$.[0].age") FROM person;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hive与SQL"><a href="#Hive与SQL" class="headerlink" title="Hive与SQL"></a>Hive与SQL</h3><ul>
+<li>数据存储位置不同：hive是把数据存储在hdfs上，mysql数据是存储在自己的系统中</li>
+<li>数据格式：hive数据格式用户可以自定义，mysql有自己的系统定义格式</li>
+<li>数据更新：hive不支持数据更新，只可以读，不可以写，而sql支持数据更新</li>
+<li>索引：hive没有索引，因此查询数据的时候是通过mapreduce很暴力的把数据都查询一遍，也造成了hive查询数据速度很慢的原因，而mysql有索引；</li>
+<li>延迟性：hive延迟性高，原因就是上边一点所说的，而mysql延迟性低；</li>
+<li>数据规模：hive存储的数据量超级大，而mysql只是存储一些少量的业务数据；</li>
+<li>底层执行原理：hive底层是用的mapreduce，而mysql是excutor执行器</li>
+</ul>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>消息是kafka主要处理的对象，在某个主题之下，生产者向主题发布新消息，消费者从主题订阅新消息。<br>异步处理、应用解耦、流量缓冲、日志采集</p>
+<ul>
+<li>消息队列实现订单系统与库存系统的解耦，到应用层的解耦，防止短时间压垮应用；</li>
+<li>负责日志数据接收存储与转发</li>
+</ul>
+<h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><h3 id="流处理与批处理"><a href="#流处理与批处理" class="headerlink" title="流处理与批处理"></a>流处理与批处理</h3><ol>
+<li>流处理系统：一条数据被处理完成后，序列化到缓存中，通过网络传输到下一个节点，由下一个节点继续处理。</li>
+<li>批处理系统：一条数据被处理完成后，序列化到缓存中，并不会立刻通过网络传输到下一个节点，当缓存写满，就持久化到本地硬盘上，当所有数据都被处理完成后，才数据通过网络传输到下一个节点。</li>
+</ol>
+<ul>
+<li>数据传输的两个极端：流处理系统对低延迟；批处理系统对高吞吐量。</li>
+<li><strong>Flink是两个极端的折中，以固定缓存块为单位传输，且缓存块超时值是可调的</strong>。如果缓存块为0，则是低延迟的流处理系统；如果缓存块的超时值为无限大，则是高吞吐量的批处理系统。</li>
+</ul>
+<h4 id="Flink容错性高，快照恢复"><a href="#Flink容错性高，快照恢复" class="headerlink" title="Flink容错性高，快照恢复"></a>Flink容错性高，快照恢复</h4><p>Flink基于分布式快照与可部分重发的数据源实现了容错。用户可自定义对整个Job进行快照的时间间隔，当任务失败时，Flink会将整个Job恢复到最近一次快照，并从数据源重发快照之后的数据。</p>
+<h2 id="Scala基础"><a href="#Scala基础" class="headerlink" title="Scala基础"></a>Scala基础</h2><ul>
+<li>case class：自动生成常用方法(equals&amp;hashCode,toString,copy)；自动生成伴生对象；实现了 apply 方法让你不需要通过 new 来创建类实例</li>
+<li>宽依赖，窄依赖：窄依赖：map和filter，一个父RDD对应一个子RDD；宽依赖：一个父RDD对应非全部的子RDD；</li>
+<li>Transformation与Action：Transformation 操作是延迟计算的，也就是说从一个RDD 转换生成另一个 RDD 的转换操作不是马上执行，需要等到有 Action 操作的时候才会真正触发运算（map, filter）；Action是count之类的算子出发计算；</li>
+<li>存在shuffle的spark算子：distinct、groupByKey，reduceByKey、repartition，coalesce、interection，join；</li>
+</ul>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><h3 id="Spark-job资源分配"><a href="#Spark-job资源分配" class="headerlink" title="Spark job资源分配"></a>Spark job资源分配</h3><table>
+<thead>
+<tr>
+<th>config</th>
+<th>num</th>
+<th>annotation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>driver-memory</td>
+<td>4g</td>
+<td>driver使用的内存，不可超过单机的 core 总数。</td>
+</tr>
+<tr>
+<td>num-executors</td>
+<td>2</td>
+<td>创建多少个 executor。</td>
+</tr>
+<tr>
+<td>executor-memory</td>
+<td>2g</td>
+<td>各个 executor使用的最大内存，不可超过单机的最大可使用内存。</td>
+</tr>
+<tr>
+<td>executor-cores</td>
+<td>2</td>
+<td>各个 executor 使用的并发线程数目，也即每个 executor 最大可并发执行的 Task 数目。</td>
+</tr>
+</tbody></table>
+<p><img src="/2019/10/25/bd/cluster.jpg" alt="avatar"></p>
+<ul>
+<li>数据倾斜：某个key下value过多，reduce_task处理任务过重导致运行特别慢。shuffle出现在期间。造成后果：有得任务执行完毕，某个任务执行很慢而且可能出现OOM错误；一般增大执行器与核数，并行数，自定义partition</li>
+<li>尽量减少spark任务的空间占用，同时加速spark任务运行速度</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/Sql/" class="article-next" title="Sql"><i class="icon-arrow-right"></i></a>
+
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/bd",
+        distractionFreeMode: true,
+        title: "大数据面试基础",
+        body: "http://yuyinxiao.github.io/2019/10/25/bd/",
+        labels: ["大数据"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
