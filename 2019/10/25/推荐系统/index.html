@@ -95,7 +95,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://github.com/yuyinxiao/blog"></form>
 
         
         
@@ -121,7 +121,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
+            <a class="article-date" href="https://github.com/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -179,7 +179,7 @@
 <h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.</p>
 <script type="math/tex; mode=display">P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} < M < \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95</script><p>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
 <p><strong>小流量的用户行为统计在流量放宽后关键指标数据可能会发生变化。故由小到大逐步增加流量分配，同时实时监控关键指标的数据走势</strong></p>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/zhixindu.gif" alt="avatar"></p>
+<p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/zhixindu.gif" alt="avatar"></p>
 <h3 id="冷启动过程"><a href="#冷启动过程" class="headerlink" title="冷启动过程"></a>冷启动过程</h3><h4 id="用户冷启动"><a href="#用户冷启动" class="headerlink" title="用户冷启动"></a>用户冷启动</h4><ol>
 <li>手机用户特征；</li>
 <li>粗粒度选项引导填写；</li>
@@ -191,8 +191,8 @@
 <li>超参难以学习；</li>
 <li>在线服务计算量大；</li>
 </ol>
-<h2 id="推荐系统架构"><a href="#推荐系统架构" class="headerlink" title="推荐系统架构"></a>推荐系统架构</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys.png" alt="avatar"></p>
-<h3 id="online部分架构"><a href="#online部分架构" class="headerlink" title="online部分架构"></a>online部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_online.png" alt="avatar"></p>
+<h2 id="推荐系统架构"><a href="#推荐系统架构" class="headerlink" title="推荐系统架构"></a>推荐系统架构</h2><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys.png" alt="avatar"></p>
+<h3 id="online部分架构"><a href="#online部分架构" class="headerlink" title="online部分架构"></a>online部分架构</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_online.png" alt="avatar"></p>
 <h4 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h4><p>推荐引擎，推荐系统核心，包括online逻辑，召回、过滤、特征计算、排序、 多样化等处理过程。</p>
 <h4 id="数据路径"><a href="#数据路径" class="headerlink" title="数据路径"></a>数据路径</h4><ol>
 <li><p>请求的刷新从gateway，经过流量分配模块，传到业务gateway，业务gateway支持http，tcp（使用thirtf协议或者protobuf 协议）等多种类型接口；</p>
@@ -200,7 +200,7 @@
 <li><p>用户行为数据，从gateway到Flume agent，然后到kafka，为后面online，realtime userprofile部分的提供实时数据，也为offline部分的数据存储系统提供数据。</p>
 </li>
 </ol>
-<h3 id="offline部分架构"><a href="#offline部分架构" class="headerlink" title="offline部分架构"></a>offline部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_offline.png" alt="avatar"><br>从框架的角度看，推荐系统基本可以分为数据层、召回层、排序层。</p>
+<h3 id="offline部分架构"><a href="#offline部分架构" class="headerlink" title="offline部分架构"></a>offline部分架构</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_offline.png" alt="avatar"><br>从框架的角度看，推荐系统基本可以分为数据层、召回层、排序层。</p>
 <ul>
 <li>sessionlog：对原始数据进行清洗合并，sessionlog一般就是清洗合并后的数据，后续的算法和统计都是根据sessionlog进行再加工。</li>
 <li>userprofile：对用户属性和行为等信息进行采集和统计，为后续算法提供特征支持。</li>
@@ -215,13 +215,13 @@
 <li>6.对某些特征开方x，x，x^2处理后输入在线上serving中使用$e^{Wx+b}$做预测可以直接得到expected watch time的近似。</li>
 <li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D%5Capprox%7Bw_ip%7D%3DT_ip%3DE%28T_i%29" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
 </ul>
-<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
+<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
 <h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="https://pic4.zhimg.com/v2-4dd8f94f0cf5becd7dd5ff4c0fd9393f_1200x500.jpg" alt="avatar"></p>
-<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
-<h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
-<p>模型fθ拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
-<p>优化函数1：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
-<p>最终优化函数2：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e4.png" alt="avatar"></p>
+<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
+<h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
+<p>模型fθ拟合：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
+<p>优化函数1：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
+<p>最终优化函数2：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e4.png" alt="avatar"></p>
 <ul>
 <li>两层Transformer，4个head；最后得到某个位置item的概率。最后计算总体收益。</li>
 <li>focal loss：更多关注错分的样本；a调节权重；</li>
@@ -232,18 +232,18 @@
 <li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
 <li>计算最终得分，ctrScore <em> 0.8 + ageScore </em> 0.2</li>
 </ol>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
+<p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
 <h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
 <hr>
 <p>用户注意力一般集中在左上，因此每次 impression 能导致的 click 是与位置相关的。变现有效 impression 的方式是通过每个位置的平均 CTR（reference CTR）来处理，这样将每次 impression 乘以对应位置的 reference CTR 就获得了所谓的 EC（expected click），这样消除了 position bias 的 EC 就变成可加的了。观测到的 click 数目从统计上来看应该是分布在 EC 附近，也就是说 COEC（clicks over expected clicks）的期望应该是 1。</p>
 <p>使用 COEC 而不是 CTR 作为每个 item 的 relevance 的反应是一个不错的选择，但是实际操作中与 CTR 类似都面临着 data sparsity 的问题。一般我们也会使用 Laplace smoothing 解决 0 观测。</p>
-<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
+<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
 <h2 id="Wide-amp-Depp与DeepFM"><a href="#Wide-amp-Depp与DeepFM" class="headerlink" title="Wide&amp;Depp与DeepFM"></a>Wide&amp;Depp与DeepFM</h2><h3 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h3><ul>
 <li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
 <li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
 </ul>
 <p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
-<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
+<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
 <h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="https://pic2.zhimg.com/v2-976e1197ecbf5213f6db3dd8c15382c1_r.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
 <ul>
 <li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
@@ -258,7 +258,7 @@
 <li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
 <li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
 </ol>
-<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/focal.png" alt="avatar"></p>
+<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/focal.png" alt="avatar"></p>
 <p>例如$\gamma$为2</p>
 <ul>
 <li>对于正类样本而言，预测结果为0.95肯定是简单样本，所以（1-0.95）的gamma次方就会很小，这时损失函数值就变得更小。而预测概率为0.3的样本其损失相对很大;</li>
@@ -319,7 +319,7 @@
         id: "2019/10/25/推荐系统",
         distractionFreeMode: true,
         title: "推荐系统",
-        body: "http://yuyinxiao.github.io/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/",
+        body: "https://github.com/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/",
         labels: ["推荐系统"]
     }).render('comments');
     </script>

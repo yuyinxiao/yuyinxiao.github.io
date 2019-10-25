@@ -95,7 +95,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yuyinxiao.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://github.com/yuyinxiao/blog"></form>
 
         
         
@@ -121,7 +121,7 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://yuyinxiao.github.io/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/index.html">
+            <a class="article-date" href="https://github.com/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/index.html">
     
     <i class="icon-calendar"></i>
     
@@ -140,7 +140,7 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br><a id="more"></a></p>
+        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br><a id="more"></a></p>
 <h3 id="ID3算法——信息增益度量纯度"><a href="#ID3算法——信息增益度量纯度" class="headerlink" title="ID3算法——信息增益度量纯度"></a>ID3算法——信息增益度量纯度</h3><p>D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵</p>
 <ul>
 <li>信息熵：<script type="math/tex; mode=display">H(D)=-\sum_{y=k}^{K}p_k·log(p_k)</script></li>
@@ -210,7 +210,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="集成学习"><a href="#集成学习" class="headerlink" title="集成学习"></a>集成学习</h2><p>集成学习——bagging与boosting<br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/4.png" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/3.png" alt="avatar"></p>
+<h2 id="集成学习"><a href="#集成学习" class="headerlink" title="集成学习"></a>集成学习</h2><p>集成学习——bagging与boosting<br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/4.png" alt="avatar"><br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/3.png" alt="avatar"></p>
 <div class="table-container">
 <table>
 <thead>
@@ -235,7 +235,7 @@
 </div>
 <p>bagging|强|弱|并行|基学习器同阶|降方差|可回归，可分类|投票/平均|有放回抽取<br>boosting|弱|强|串行|基学习器叠加|降偏差|可回归，可分类|累加/阈值|原数据样本权重会改变    </p>
 <h3 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h3><p>多棵决策树，随机样本，随即特征进行划分。<br>分类：投票；回归：平均。<br>样本随机：63.2%（1-1/e）数据会被选区，<strong>36.8%(1/e)未被用到称为OOB样本，包外估计</strong>。<br>特征随机：从该节点特征集随机抽取K个，然后选择最优属性。<br>容易做成并行化方法</p>
-<h3 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h3><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/9.png" alt="avatar"></p>
+<h3 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/9.png" alt="avatar"></p>
 <ol>
 <li>初始化第一棵树；</li>
 <li>计算损失对前面k-1棵树的负梯度；</li>
@@ -249,7 +249,7 @@
 <h4 id="GBDT多分类以及训练过程"><a href="#GBDT多分类以及训练过程" class="headerlink" title="GBDT多分类以及训练过程"></a>GBDT多分类以及训练过程</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">X=[];label=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">(X,<span class="number">0</span>) -&gt; t1;得到预测值f1(X)</span><br><span class="line">(X,<span class="number">1</span>) -&gt; t2;得到预测值f2(X)</span><br><span class="line">(X,<span class="number">0</span>) -&gt; t3;得到预测值f3(X)</span><br><span class="line">对f1(x),f2(x),f3(x)进行softmax产生概率。</span><br><span class="line">得到残差：</span><br><span class="line">类别<span class="number">1</span>：y11(x)=<span class="number">0</span>−p1(x);</span><br><span class="line">类别<span class="number">2</span>：y22(x)=<span class="number">1</span>−p2(x);</span><br><span class="line">类别<span class="number">3</span>：y33(x)=<span class="number">0</span>−p3(x);</span><br><span class="line">-------------------------------</span><br><span class="line">(X,y11) -&gt; t11;得到预测值f11(X)</span><br><span class="line">(X,y22) -&gt; t22;得到预测值f22(X)</span><br><span class="line">(X,y33) -&gt; t33;得到预测值f33(X)</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
 <h4 id="求解树结构复杂度："><a href="#求解树结构复杂度：" class="headerlink" title="求解树结构复杂度："></a>求解树结构复杂度：</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">树深度K:</span><br><span class="line">    枚举所有特征d:</span><br><span class="line">        该特征下值排序 nlogn</span><br><span class="line">        线性扫描决定最佳分裂点</span><br><span class="line">        计算分裂后MSE或者Gini系数选择最优分裂点</span><br></pre></td></tr></table></figure>
 <p>总体复杂度：<strong>K <em> d </em> nlogn。</strong></p>
-<h3 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h3><p>xgb与gbdt的算法对比<br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/7.png" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/11.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/5.png" alt="avatar"></p>
+<h3 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h3><p>xgb与gbdt的算法对比<br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/7.png" alt="avatar"><br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/11.jpg" alt="avatar"><br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/5.png" alt="avatar"></p>
 <ul>
 <li><p>GBDT：<br>GBDT构造新的一棵树，对损失近似到一阶导，拟合负梯度；属于函数空间中利用梯度下降法进行优化</p>
 </li>
@@ -279,7 +279,7 @@
 <li>优点： 减少特征交叉的选择工作，特征参数学习更加充分，提升参数学习效率和模型预估能力。</li>
 <li>缺点：两两交叉，相比于DNN，GBDT更多特征的交叉</li>
 </ul>
-<h3 id="FM的计算"><a href="#FM的计算" class="headerlink" title="FM的计算"></a>FM的计算</h3><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.png" alt><br><img src="https://upload-images.jianshu.io/upload_images/4155986-6d08a2cdcc6668fb.png?imageMogr2/auto-orient/strip|imageView2/2/w/413/format/webp" alt></p>
+<h3 id="FM的计算"><a href="#FM的计算" class="headerlink" title="FM的计算"></a>FM的计算</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.png" alt><br><img src="https://upload-images.jianshu.io/upload_images/4155986-6d08a2cdcc6668fb.png?imageMogr2/auto-orient/strip|imageView2/2/w/413/format/webp" alt></p>
 <h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p><img src="https://images2018.cnblogs.com/blog/1473228/201809/1473228-20180907130132713-283779506.png" alt="avatar"><br><img src="https://images2018.cnblogs.com/blog/1473228/201809/1473228-20180907114648527-2084814077.png" alt="avatar"><br><img src="https://images2018.cnblogs.com/blog/1473228/201809/1473228-20180907124807939-1507262905.png" alt="avatar"></p>
 <h2 id="GBDT-FM"><a href="#GBDT-FM" class="headerlink" title="GBDT+FM"></a>GBDT+FM</h2><p>GBDT一棵树的叶子节点one-hot构成组合特征，该颗树特征对应一个K维向量作为该特$v_i$，进FM时两棵树的组合就是$v_i$和$v_j$的点成得到$w_{ij}$实际上是更多低阶特征的组合离散特征学习低维dense特征；</p>
 <hr>
@@ -325,7 +325,7 @@
         id: "2019/10/25/树模型",
         distractionFreeMode: true,
         title: "树模型",
-        body: "http://yuyinxiao.github.io/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/",
+        body: "https://github.com/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/",
         labels: ["ML"]
     }).render('comments');
     </script>
