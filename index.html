@@ -157,15 +157,10 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-10-25T05:54:14.000Z" itemprop="datePublished">2019-10-25</time>
+    <time datetime="2019-10-25T09:15:28.000Z" itemprop="datePublished">2019-10-25</time>
 </a>
 
             
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/DL/" rel="tag">DL</a>
-</div>
-
 
         </div>
     </header>
@@ -591,7 +586,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+            <a href="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -605,7 +600,7 @@
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/os/" rel="tag">os</a>
+    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
 </div>
 
 
@@ -614,14 +609,24 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
-<li>进程：一个程序在一个数据集合上的一次运行过程。</li>
-<li>线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。</li>
+        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
+<h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
+<li>LR：大规模离散特征</li>
+<li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
+<li>FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉</li>
+<li>FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量</li>
+<li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
+<li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
+<li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
+<li>AFM：FM + bi-interact + attention + MLP </li>
+<li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
+<li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
+<li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
 </ul>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>进程是程序的一次执行，线程理解为进程中执行的一个程序片段；<br>进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；<br>进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。<br>线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；<br>进程间可以IPC通信，线程不可以</p>
+<p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"><br></p>
         
         <p class="article-more-link">
-            <a href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/#more">
+            <a href="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
