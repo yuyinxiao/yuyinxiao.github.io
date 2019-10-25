@@ -7,7 +7,7 @@
 
     
 
-    <title>深度学习面试 | 小于狙击手</title>
+    <title>深度学习面试 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
     <meta name="description" content="深度学习激活函数如何使用激活函数回归，则将sigmoid或tanh用作最后一层的非线性和平方误差作为成本函数。分类，隐层relu+尾层sigmoid+softmax归一化输出+结果交叉熵作损失为什么非线性激活函数神经网络万能近似定理认为神经网络具有至少一个非线性隐藏层，那么只要给予网络足够数量的隐藏单元，隐层就可以以任意的精度来拟合函数：完成任何一个有限维空间到另一个有限维空间的函数。如果不使用非线性激活函数，那么每一层输出都是上层输入的线性组合，整体也是线性的，失去万能近似的..." />
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
     
-    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
     
     
     <link rel="icon" href="/images/favicon.ico">
@@ -51,7 +51,7 @@
     <div id="nav" class="nav">
     <div class="nav-mobile">
         <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
         <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
     </div>
 
@@ -167,12 +167,7 @@
 </ul>
 <h2 id="二、正则化"><a href="#二、正则化" class="headerlink" title="二、正则化"></a>二、正则化</h2><h3 id="1、批归一化"><a href="#1、批归一化" class="headerlink" title="1、批归一化"></a>1、批归一化</h3><ul>
 <li>什么是批归一化<ul>
-<li>公式<img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/%E5%85%AC%E5%BC%8F_20180903224323.png" alt="avatar"></li>
 <li>每一批数据层层传播，致使网络在每次迭代中都需要拟合不同的数据分布，增大了网络的训练难度与过拟合的风险。对某层的神经元进行归一化（标准正态）处理，使其限制在统一分布下。相当于<strong>对数据分布进行额外的约束，降低拟合能力，破坏已学到的特征分布，从而增强模型的泛化能力。</strong></li>
-</ul>
-</li>
-<li>如何恢复？<ul>
-<li>公式<img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/%E5%85%AC%E5%BC%8F_20180831165516.png" alt="avatar"></li>
 </ul>
 </li>
 <li>批归一化的作用<ol>
@@ -195,10 +190,10 @@
 <p>训练时丢失，预测时都加上</p>
 </blockquote>
 </blockquote>
-<p>隐藏层的采样概率为 0.5，输入的采样概率为 0.8；<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180611152559.png" alt="avatar"></p>
+<p>隐藏层的采样概率为 0.5，输入的采样概率为 0.8；<br><img src="/yuyinxiao/blog/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/bn.png" alt="avatar"></p>
 <h3 id="4、参数初始化"><a href="#4、参数初始化" class="headerlink" title="4、参数初始化"></a>4、参数初始化</h3><ol>
 <li>一般使用服从的高斯分布（mean=0, stddev=1）或均匀分布的随机值作为权重的初始化参数；使用 0 作为偏置的初始化参数</li>
-<li>一些启发式方法会根据输入与输出的单元数来决定初始值的范围；比如<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/%E5%85%AC%E5%BC%8F_20180706115540.png" alt="avatar"><br>Keras 全连接层默认的权重初始化方法</li>
+<li>一些启发式方法会根据输入与输出的单元数来决定初始值的范围；比如<br><img src="/yuyinxiao/blog/2019/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95/1.png" alt="avatar"><br>Keras 全连接层默认的权重初始化方法</li>
 </ol>
 <h2 id="神经网络的偏置项b"><a href="#神经网络的偏置项b" class="headerlink" title="神经网络的偏置项b"></a>神经网络的偏置项b</h2><script type="math/tex; mode=display">\hat y=\sum_i w_i x_i</script><script type="math/tex; mode=display">y=1,if\hat{y}>= threshold</script><script type="math/tex; mode=display">y=0,if\hat{y}<= threshold</script><p>$threshold$度量神经元正负激励的难易程度，$threshold$越大产生正向激励难度越大。通过移项作为$-b$加入最终的值中判断是否大于0即可。所以<strong>$b$的大小，度量了神经元产生正（负）激励的难易程度</strong></p>
 <h2 id="NN的参数初始化"><a href="#NN的参数初始化" class="headerlink" title="NN的参数初始化"></a>NN的参数初始化</h2><p>如果无隐层则参数可以都初始化为0；其他不会使用0初始化；</p>

@@ -7,7 +7,7 @@
 
     
 
-    <title>语言模型 | 小于狙击手</title>
+    <title>语言模型 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
     <meta name="description" content="语言模型简要整理word2vec网页版笔记在线看层序与负采样层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；负采样：词频越大更被定为负样本，所以对生僻词更有优势补充Huffman树Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算..." />
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
     
-    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
     
     
     <link rel="icon" href="/images/favicon.ico">
@@ -51,7 +51,7 @@
     <div id="nav" class="nav">
     <div class="nav-mobile">
         <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
         <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
     </div>
 
@@ -187,7 +187,7 @@
 <p>各层结构相同，权重不共享</p>
 <h3 id="编码器结构细节"><a href="#编码器结构细节" class="headerlink" title="编码器结构细节"></a>编码器结构细节</h3><p>we+pos_en，词向量+位置编码<br><img src="/yuyinxiao/blog/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/25.png" alt="avatar"></p>
 <h3 id="计算任意两词的注意力加权后的向量表示"><a href="#计算任意两词的注意力加权后的向量表示" class="headerlink" title="计算任意两词的注意力加权后的向量表示"></a>计算任意两词的注意力加权后的向量表示</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/25.png" alt="avatar"><br><img src="/yuyinxiao/blog/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/22.png" alt="avatar"></p>
-<h4 id="补充soft-attention"><a href="#补充soft-attention" class="headerlink" title="补充soft-attention"></a>补充soft-attention</h4><p><img src="https://upload-images.jianshu.io/upload_images/7348807-6b171e18b29f46e4.png?imageMogr2/auto-orient/strip|imageView2/2/w/235/format/webp" alt></p>
+<h4 id="补充soft-attention"><a href="#补充soft-attention" class="headerlink" title="补充soft-attention"></a>补充soft-attention</h4><p><img src="/yuyinxiao/blog/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/soft.webp" alt></p>
 <h3 id="单词的矩阵运算，获取注意力加权后的向量表示"><a href="#单词的矩阵运算，获取注意力加权后的向量表示" class="headerlink" title="单词的矩阵运算，获取注意力加权后的向量表示"></a>单词的矩阵运算，获取注意力加权后的向量表示</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/24.png" alt="avatar"></p>
 <h4 id="解码器端动态展示"><a href="#解码器端动态展示" class="headerlink" title="解码器端动态展示"></a>解码器端动态展示</h4><p><img src="/yuyinxiao/blog/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/23.gif" alt="avatar"></p>
 <hr>

@@ -7,7 +7,7 @@
 
     
 
-    <title>优化算法 | 小于狙击手</title>
+    <title>优化算法 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
     <meta name="description" content="优化算法梯度下降梯度下降是一种优化算法，通过迭代的方式寻找模型的最优参数；当目标函数是凸函数时，梯度下降的解是全局最优解；但在一般情况下，梯度下降无法保证全局最优。负梯度中的每一项可以认为传达了两个信息:正负号在告诉输入向量应该调大还是调小（正调大，负调小）；每一项的相对大小表明每个参数对函数值达到最值的影响程度批梯度下降（Batch SGD） VS  随机梯度下降批梯度下降在每次对模型参数进行更新时，需要遍历所有数据，得到平均损失随机梯度下降每次使用单个样本的损失来近似平..." />
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
     
-    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
     
     
     <link rel="icon" href="/images/favicon.ico">
@@ -51,7 +51,7 @@
     <div id="nav" class="nav">
     <div class="nav-mobile">
         <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
         <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
     </div>
 
@@ -147,8 +147,8 @@
 </ul>
 <a id="more"></a>
 <h3 id="批梯度下降（Batch-SGD）-VS-随机梯度下降"><a href="#批梯度下降（Batch-SGD）-VS-随机梯度下降" class="headerlink" title="批梯度下降（Batch SGD） VS  随机梯度下降"></a>批梯度下降（Batch SGD） VS  随机梯度下降</h3><ul>
-<li><strong>批梯度下降</strong>在每次对模型参数进行更新时，需要遍历所有数据，得到平均损失<br><img src="https://miro.medium.com/max/569/1*Dhr8kQr0XXKSfm0Ry_YNMw.png" alt></li>
-<li><strong>随机梯度下降</strong>每次使用单个样本的损失来近似平均损失<br><img src="https://miro.medium.com/max/614/1*upQNMC4O3J1DXslT2sT7vA.png" alt><h3 id="小批量随机梯度下降（mini-batch-SGD）"><a href="#小批量随机梯度下降（mini-batch-SGD）" class="headerlink" title="小批量随机梯度下降（mini batch SGD）"></a>小批量随机梯度下降（mini batch SGD）</h3></li>
+<li><strong>批梯度下降</strong>在每次对模型参数进行更新时，需要遍历所有数据，得到平均损失<br><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/e1.png" alt></li>
+<li><strong>随机梯度下降</strong>每次使用单个样本的损失来近似平均损失<br><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/e2.png" alt><h3 id="小批量随机梯度下降（mini-batch-SGD）"><a href="#小批量随机梯度下降（mini-batch-SGD）" class="headerlink" title="小批量随机梯度下降（mini batch SGD）"></a>小批量随机梯度下降（mini batch SGD）</h3></li>
 <li>为了降低随机梯度的<strong>方差</strong>，使模型迭代更加稳定，实践中会使用<strong>一批</strong>随机数据的损失来近似平均损失。</li>
 <li>使用批训练的另一个主要目的，是为了利用高度优化的<strong>矩阵运算</strong>以及<strong>并行计算框架</strong>。</li>
 </ul>
@@ -166,20 +166,20 @@
 <li><strong>峡谷</strong>：准确的梯度方向应该沿着坡的方向向下，但粗糙的梯度估计导致在两个峭壁间来回震荡。</li>
 <li><strong>鞍点</strong>：落入鞍点导致优化很可能就会停滞下来。</li>
 </ul>
-<p><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180826113534.png" alt="avatar"></p>
+<p><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/an.png" alt="avatar"></p>
 <h2 id="改进的随机梯度下降"><a href="#改进的随机梯度下降" class="headerlink" title="改进的随机梯度下降"></a>改进的随机梯度下降</h2><p>SGD 的改进遵循两个方向：<strong>惯性保持</strong>和<strong>环境感知</strong></p>
 <ul>
 <li><strong>惯性保持</strong>指的是加入动量SGD 算法；针对鞍点</li>
 <li><strong>环境感知</strong>指的是<strong>自适应</strong>地确定<strong>每个参数的学习速率</strong>；针对峡谷</li>
 </ul>
-<h3 id="动量算法"><a href="#动量算法" class="headerlink" title="动量算法"></a>动量算法</h3><h4 id="Momentum动量"><a href="#Momentum动量" class="headerlink" title="Momentum动量"></a>Momentum动量</h4><p>引入<strong>动量</strong>方法一方面是为了解决“峡谷”和“鞍点”问题；一方面也可以用于SGD 加速，特别是针对<strong>高曲率</strong>、小幅但是方向一致的梯度。在鞍点处因为<strong>惯性</strong>的作用，更有可能离开平地。<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180819110834.png" alt="avatar"></p>
+<h3 id="动量算法"><a href="#动量算法" class="headerlink" title="动量算法"></a>动量算法</h3><h4 id="Momentum动量"><a href="#Momentum动量" class="headerlink" title="Momentum动量"></a>Momentum动量</h4><p>引入<strong>动量</strong>方法一方面是为了解决“峡谷”和“鞍点”问题；一方面也可以用于SGD 加速，特别是针对<strong>高曲率</strong>、小幅但是方向一致的梯度。在鞍点处因为<strong>惯性</strong>的作用，更有可能离开平地。<br><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/line.png" alt="avatar"></p>
 <blockquote>
 <blockquote>
 <p>将过去时间steps的梯度矢量累加到当前去更新梯度，致使梯度相同的方向的维度，动量项增加，加快SGD的正确方向，并抑制震荡。</p>
 <script type="math/tex; mode=display">v_t = \gamma v_{t-1} + \eta \nabla_\theta J(\theta) \\
 \theta = \theta-v_t</script><p>缺点：梯度太大，略过最小值，在最小值附近震荡。</p>
 <h4 id="NAG-动量"><a href="#NAG-动量" class="headerlink" title="NAG 动量"></a>NAG 动量</h4><script type="math/tex; mode=display">v_t = \gamma v_{t-1} + \eta \nabla_\theta J(\theta - \gamma v_{t-1}) \\
-\theta = \theta-v_t</script><p><img src="https://miro.medium.com/max/1076/1*kVl-Cpxzd-LmiJ_8nu5XOg.png" alt><br>具有前瞻性，前瞻位置估计梯度</p>
+\theta = \theta-v_t</script><p><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/mn.png" alt><br>具有前瞻性，前瞻位置估计梯度</p>
 </blockquote>
 </blockquote>
 <h4 id="Momentum和NAG动量的区别"><a href="#Momentum和NAG动量的区别" class="headerlink" title="Momentum和NAG动量的区别"></a>Momentum和NAG动量的区别</h4><ul>
@@ -196,7 +196,7 @@
 <p>RMSProp 使用<strong>指数衰减平均</strong>（递归定义）以丢弃遥远的历史，使其能够在找到某个“凸”结构后快速收敛；此外，RMSProp 还加入了一个超参数 <code>ρ</code> 用于控制衰减速率。</p>
 <h5 id="RMSProp-算法描述"><a href="#RMSProp-算法描述" class="headerlink" title="RMSProp 算法描述"></a>RMSProp 算法描述</h5><script type="math/tex; mode=display">r=\rho r+ (1-\rho)g*g</script><script type="math/tex; mode=display">\Delta\theta=-\frac{\eta}{\sqrt{r+\delta}}*g</script><h4 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h4><ul>
 <li>加入<strong>历史梯度平方的指数衰减平均</strong>（<code>r</code>）</li>
-<li>保留了<strong>历史梯度的指数衰减平均</strong>（<code>s</code>），相当于<strong>动量</strong>。<br>Adam=Momentum（一阶）+RMSProp（二阶）<h5 id="Adam-算法描述"><a href="#Adam-算法描述" class="headerlink" title="Adam 算法描述"></a>Adam 算法描述</h5><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180611220109.png" alt="avatar"><script type="math/tex; mode=display">m_t=\gamma m_{t-1}+(1-\gamma)g_t\\
+<li>保留了<strong>历史梯度的指数衰减平均</strong>（<code>s</code>），相当于<strong>动量</strong>。<br>Adam=Momentum（一阶）+RMSProp（二阶）<h5 id="Adam-算法描述"><a href="#Adam-算法描述" class="headerlink" title="Adam 算法描述"></a>Adam 算法描述</h5><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/adam.png" alt="avatar"><script type="math/tex; mode=display">m_t=\gamma m_{t-1}+(1-\gamma)g_t\\
 v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 \hat{m_t}=\frac{m_t}{1-\gamma}\\
 \hat{n_t}=\frac{n_t}{1-\rho}\\
@@ -207,9 +207,9 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 <li>目前，最流行并且使用很高的优化算法包括 SGD、带动量的 SGD、RMSProp、带动量的 RMSProp、AdaDelta 和 Adam。</li>
 </ul>
 <h3 id="各优化算法的可视化"><a href="#各优化算法的可视化" class="headerlink" title="各优化算法的可视化"></a>各优化算法的可视化</h3><ul>
-<li><p>SGD 各优化方法在损失曲面上的表现<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/contours_evaluation_optimizers.gif" alt="avatar"></p>
+<li><p>SGD 各优化方法在损失曲面上的表现<br><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/com.gif" alt="avatar"></p>
 </li>
-<li><p>SGD 各优化方法在<strong>鞍点</strong>处上的表现<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/saddle_point_evaluation_optimizers.gif" alt="avatar"></p>
+<li><p>SGD 各优化方法在<strong>鞍点</strong>处上的表现<br><img src="/yuyinxiao/blog/2019/10/25/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/comp.gif" alt="avatar"></p>
 </li>
 </ul>
 

@@ -7,7 +7,7 @@
 
     
 
-    <title>推荐系统 | 小于狙击手</title>
+    <title>推荐系统 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
     <meta name="description" content="推荐系统目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。热门、人工、相关、个性化推荐推荐系统比较LR：大规模离散特征LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉PNN：FM + vector produ..." />
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
     
-    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
     
     
     <link rel="icon" href="/images/favicon.ico">
@@ -51,7 +51,7 @@
     <div id="nav" class="nav">
     <div class="nav-mobile">
         <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
         <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
     </div>
 
@@ -154,7 +154,7 @@
 <li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
 <li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
 </ul>
-<p><img src="https://pic1.zhimg.com/v2-64554aa0899d4291ef1c4cafd1afc3fc_r.jpg" alt="avatar"><br><a id="more"></a></p>
+<p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"><br><a id="more"></a></p>
 <h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
 <li>基于内容的过滤、协同过滤</li>
 <li>基于用户的协同过滤、基于物品的协同过滤</li>
@@ -213,10 +213,10 @@
 <li>4.优化目标非CTR，播放率而是曝光后预期播放时间</li>
 <li>5.目标函数的设定应该是一个算法模型的根本性问题</li>
 <li>6.对某些特征开方x，x，x^2处理后输入在线上serving中使用$e^{Wx+b}$做预测可以直接得到expected watch time的近似。</li>
-<li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="https://www.zhihu.com/equation?tex=Odds%28i%29%3D%5Cfrac%7Bw_ip%7D%7B1-w_ip%7D%5Capprox%7Bw_ip%7D%3DT_ip%3DE%28T_i%29" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
+<li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/equation1.svg" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/equation2.svg" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
 </ul>
 <h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
-<h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="https://pic4.zhimg.com/v2-4dd8f94f0cf5becd7dd5ff4c0fd9393f_1200x500.jpg" alt="avatar"></p>
+<h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/youtube.jpg" alt="avatar"></p>
 <h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
 <h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
 <p>模型fθ拟合：<img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
@@ -244,7 +244,7 @@
 </ul>
 <p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
 <script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
-<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="https://pic2.zhimg.com/v2-976e1197ecbf5213f6db3dd8c15382c1_r.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
+<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/fm.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
 <ul>
 <li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
 <li>共享原始输入特征。DeepFM模型的原始特征将作为FM和Deep模型部分的共同输入，保证模型特征的准确与一致。</li>
@@ -285,7 +285,7 @@
 <li>对（正样本预测值-负样本预测值）&lt; m时则判断错误，有损失。</li>
 </ul>
 <h5 id="合页损失函数"><a href="#合页损失函数" class="headerlink" title="合页损失函数"></a>合页损失函数</h5><p>促使正确答案的得分比错误答案的得分大于$m$。最后和pairwise类似，在预测阶段得分最高的候选答案被当作正确的答案。</p>
-<h4 id="listwise"><a href="#listwise" class="headerlink" title="listwise"></a>listwise</h4><p><img src="https://img-blog.csdn.net/20150205005820791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRWFzdG1vdW50/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt></p>
+<h4 id="listwise"><a href="#listwise" class="headerlink" title="listwise"></a>listwise</h4><p><img src="/yuyinxiao/blog/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/listwise.jpg" alt></p>
 <p>g设想成最优评分函数,对查询Q1来说：文档A得6分,文档B得4分,文档C得3分<br>找到一个函数,使得其对Q1的搜索结果打分顺序尽可能的接近标准函数g.其中函数f和h就是实际的评分函数,通过比较两个概率之间的KL距离,发现f比h更接近假想的最优函数g.故选择函数f为搜索的评分函数.</p>
 <blockquote>
 <blockquote>
@@ -299,10 +299,10 @@
 
 
 
-<a id="pagenext" href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="article-next" title="操作系统"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" class="article-next" title="数学基础"><i class="icon-arrow-right"></i></a>
 
 
-<a id="pageprev" href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/" class="article-prev" title="各种算法优缺点"><i class="icon-arrow-left"></i></a>
+<a id="pageprev" href="/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="article-prev" title="操作系统"><i class="icon-arrow-left"></i></a>
 
 
 

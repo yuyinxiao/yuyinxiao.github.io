@@ -7,7 +7,7 @@
 
     
 
-    <title>树模型 | 小于狙击手</title>
+    <title>树模型 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
     <meta name="description" content="树模型总结决策树ID3,C4.5,CART树特征枚举：根据规则选择特征划分节点：根据特征进一步分裂叶子节点根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征ID3算法——信息增益度量纯度D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵信息熵：H(D)=-\sum_{y=k}^{K}p_k·log(p_k)条件熵：H(D|f)=-\sum_{v\epsilon V_f}\frac..." />
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
     
-    <link rel="alternate" href="/atom.xml" title="小于狙击手" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
     
     
     <link rel="icon" href="/images/favicon.ico">
@@ -51,7 +51,7 @@
     <div id="nav" class="nav">
     <div class="nav-mobile">
         <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手</h1>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
         <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
     </div>
 
@@ -279,8 +279,8 @@
 <li>优点： 减少特征交叉的选择工作，特征参数学习更加充分，提升参数学习效率和模型预估能力。</li>
 <li>缺点：两两交叉，相比于DNN，GBDT更多特征的交叉</li>
 </ul>
-<h3 id="FM的计算"><a href="#FM的计算" class="headerlink" title="FM的计算"></a>FM的计算</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.png" alt><br><img src="https://upload-images.jianshu.io/upload_images/4155986-6d08a2cdcc6668fb.png?imageMogr2/auto-orient/strip|imageView2/2/w/413/format/webp" alt></p>
-<h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p><img src="https://images2018.cnblogs.com/blog/1473228/201809/1473228-20180907130132713-283779506.png" alt="avatar"><br><img src="https://images2018.cnblogs.com/blog/1473228/201809/1473228-20180907114648527-2084814077.png" alt="avatar"><br><img src="https://images2018.cnblogs.com/blog/1473228/201809/1473228-20180907124807939-1507262905.png" alt="avatar"></p>
+<h3 id="FM的计算"><a href="#FM的计算" class="headerlink" title="FM的计算"></a>FM的计算</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.png" alt><br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.webp" alt></p>
+<h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/m1.png" alt="avatar"><br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/m2.png" alt="avatar"><br><img src="/yuyinxiao/blog/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/m3.png" alt="avatar"></p>
 <h2 id="GBDT-FM"><a href="#GBDT-FM" class="headerlink" title="GBDT+FM"></a>GBDT+FM</h2><p>GBDT一棵树的叶子节点one-hot构成组合特征，该颗树特征对应一个K维向量作为该特$v_i$，进FM时两棵树的组合就是$v_i$和$v_j$的点成得到$w_{ij}$实际上是更多低阶特征的组合离散特征学习低维dense特征；</p>
 <hr>
 <ol>
