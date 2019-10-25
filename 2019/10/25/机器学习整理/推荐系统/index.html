@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,7 +9,7 @@
 
     <title>推荐系统 | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="推荐系统目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。热门、人工、相关、个性化推荐推荐系统比较LR：大规模离散特征LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉PNN：FM + vector produ..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -154,8 +154,7 @@
 <li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
 <li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
 </ul>
-<p><img src="https://pic1.zhimg.com/v2-64554aa0899d4291ef1c4cafd1afc3fc_r.jpg" alt="avatar"></p>
-<a id="more"></a>
+<p><img src="https://pic1.zhimg.com/v2-64554aa0899d4291ef1c4cafd1afc3fc_r.jpg" alt="avatar"><br><a id="more"></a></p>
 <h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
 <li>基于内容的过滤、协同过滤</li>
 <li>基于用户的协同过滤、基于物品的协同过滤</li>
@@ -177,7 +176,8 @@
 </li>
 </ul>
 <h2 id="推荐系统的评估"><a href="#推荐系统的评估" class="headerlink" title="推荐系统的评估"></a>推荐系统的评估</h2><p>A/B测试：流量分发（随机，uid%100∈[0,20%]）</p>
-<h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.<br>$$P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} &lt; M &lt; \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95$$<br>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
+<h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.</p>
+<script type="math/tex; mode=display">P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} < M < \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95</script><p>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
 <p><strong>小流量的用户行为统计在流量放宽后关键指标数据可能会发生变化。故由小到大逐步增加流量分配，同时实时监控关键指标的数据走势</strong></p>
 <p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/zhixindu.gif" alt="avatar"></p>
 <h3 id="冷启动过程"><a href="#冷启动过程" class="headerlink" title="冷启动过程"></a>冷启动过程</h3><h4 id="用户冷启动"><a href="#用户冷启动" class="headerlink" title="用户冷启动"></a>用户冷启动</h4><ol>
@@ -186,7 +186,7 @@
 <li>热点，保量<h4 id="物品冷启动"><a href="#物品冷启动" class="headerlink" title="物品冷启动"></a>物品冷启动</h4></li>
 <li>保量</li>
 </ol>
-<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><p>$score=CTR<em>(\alpha+CVR)</em>(\beta+price)<em>staya*rule_weight</em>…$</p>
+<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><p>$score=CTR<em>(\alpha+CVR)</em>(\beta+price)<em>staya</em>rule_weight*…$</p>
 <h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ol>
 <li>目标重要性难以量化；</li>
 <li>超参难以学习；</li>
@@ -231,7 +231,7 @@
 <li>取30天的数据ctx_id和rec_id之间的展点数据，impression必须大某个阈值（1W）</li>
 <li>计算ctx_id和rec_id之间的coec值</li>
 <li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
-<li>计算最终得分，ctrScore * 0.8 + ageScore * 0.2</li>
+<li>计算最终得分，ctrScore <em> 0.8 + ageScore </em> 0.2</li>
 </ol>
 <p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
 <h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
@@ -243,7 +243,8 @@
 <li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
 <li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
 </ul>
-<p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)<br>$$P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}<em>{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}</em>{deep}^Ta^{\left ( l_f \right )}+b \right )$$<br><img src="https://upload-images.jianshu.io/upload_images/1500965-e5896703dd49b541.png?imageMogr2/auto-orient/" alt="avatar"></p>
+<p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
+<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="https://upload-images.jianshu.io/upload_images/1500965-e5896703dd49b541.png?imageMogr2/auto-orient/" alt="avatar"></p>
 <h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="https://pic2.zhimg.com/v2-976e1197ecbf5213f6db3dd8c15382c1_r.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
 <ul>
 <li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
@@ -271,14 +272,16 @@
 <p>将排序问题当作二分类</p>
 </blockquote>
 </blockquote>
-<p>训练样本<br>$$pointwise=(q_i,c_{i,j},y_{i,j})$$<br>$q_i$为第i个query，$c_{i,j}$为第i个query中第j个候选集，$y_{i,j}$为对该候选样本真实的概率<br>预测阶段二分类模型$h_\theta$排序每个候选句子，得到$\hat{y_{i,j}}$，选取top-ranked句自作为正确答案。目标函数为：<br>$$\argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})$$</p>
-<h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
+<p>训练样本</p>
+<script type="math/tex; mode=display">pointwise=(q_i,c_{i,j},y_{i,j})</script><p>$q_i$为第i个query，$c_{i,j}$为第i个query中第j个候选集，$y_{i,j}$为对该候选样本真实的概率<br>预测阶段二分类模型$h_\theta$排序每个候选句子，得到$\hat{y_{i,j}}$，选取top-ranked句自作为正确答案。目标函数为：</p>
+<script type="math/tex; mode=display">\argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})</script><h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
 <blockquote>
 <p>让正确答案比错误答案得分高</p>
 </blockquote>
 </blockquote>
-<p>训练样本<br>$$pairwise=(q_i,c^+_i,c^-_i)$$<br>给一个提问$q_i$，pairwise给定一对候选回答学习并预测最佳回答。$c^+$为正确回答，损失函数为合页函数<br>$$L=max{0,m-(h_\theta(q_i,c^+_i)-h_\theta(q_i,c^-_i))}$$</p>
-<ul>
+<p>训练样本</p>
+<script type="math/tex; mode=display">pairwise=(q_i,c^+_i,c^-_i)</script><p>给一个提问$q_i$，pairwise给定一对候选回答学习并预测最佳回答。$c^+$为正确回答，损失函数为合页函数</p>
+<script type="math/tex; mode=display">L=max\{0,m-(h_\theta(q_i,c^+_i)-h_\theta(q_i,c^-_i))\}</script><ul>
 <li>对（正样本预测值-负样本预测值）&gt; m时则判断正确，损失为0；</li>
 <li>对（正样本预测值-负样本预测值）&lt; m时则判断错误，有损失。</li>
 </ul>
@@ -287,8 +290,8 @@
 <p>g设想成最优评分函数,对查询Q1来说：文档A得6分,文档B得4分,文档C得3分<br>找到一个函数,使得其对Q1的搜索结果打分顺序尽可能的接近标准函数g.其中函数f和h就是实际的评分函数,通过比较两个概率之间的KL距离,发现f比h更接近假想的最优函数g.故选择函数f为搜索的评分函数.</p>
 <blockquote>
 <blockquote>
-<p>q拟合p的分布<br>$$D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))$$</p>
-</blockquote>
+<p>q拟合p的分布</p>
+<script type="math/tex; mode=display">D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))</script></blockquote>
 </blockquote>
 
         
@@ -297,10 +300,10 @@
 
 
 
-<a id="pagenext" href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/" class="article-next" title="各种算法优缺点"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="article-next" title="机器学习基础"><i class="icon-arrow-right"></i></a>
 
 
-<a id="pageprev" href="/2019/10/25/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="article-prev" title="逻辑回归"><i class="icon-arrow-left"></i></a>
+<a id="pageprev" href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" class="article-prev" title="数学基础"><i class="icon-arrow-left"></i></a>
 
 
 
@@ -412,5 +415,20 @@
         </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

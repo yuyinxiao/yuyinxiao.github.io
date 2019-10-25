@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,8 +9,8 @@
 
     <title>机器学习基础 | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="机器学习基础机器学习之数学01机器学习之数学02模型生成式模型由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。收敛更快，隐变量时仍然能用$$P(Y|X)=\frac{P(X,Y)}{P(X)}$$朴素贝叶斯、隐马尔科夫模型（HMM）。判别式模型由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。更为准确，隐变量失效，定义和使用..." />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="机器学习基础机器学习之数学01机器学习之数学02模型生成式模型由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。收敛更快，隐变量时仍然能用P(Y|X)=\frac{P(X,Y)}{P(X)}朴素贝叶斯、隐马尔科夫模型（HMM）。判别式模型由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。更为准确，隐变量失效，定义和使用特征..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -142,8 +142,8 @@
         
         <h1 id="机器学习基础"><a href="#机器学习基础" class="headerlink" title="机器学习基础"></a>机器学习基础</h1><p><a href="https://www.cnblogs.com/wuliytTaotao/p/10513371.html" target="_blank" rel="noopener">机器学习之数学01</a></p>
 <p><a href="https://www.cnblogs.com/wuliytTaotao/p/10603576.html" target="_blank" rel="noopener">机器学习之数学02</a></p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong><br>$$P(Y|X)=\frac{P(X,Y)}{P(X)}$$</p>
-<blockquote>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong></p>
+<script type="math/tex; mode=display">P(Y|X)=\frac{P(X,Y)}{P(X)}</script><blockquote>
 <blockquote>
 <p>朴素贝叶斯、隐马尔科夫模型（HMM）。</p>
 </blockquote>
@@ -151,12 +151,11 @@
 <h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><p>由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。<strong>更为准确，隐变量失效，定义和使用特征</strong></p>
 <blockquote>
 <blockquote>
-<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。</p>
+<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。<br><a id="more"></a></p>
+<h3 id="模型的泛化能力-泛化误差上界"><a href="#模型的泛化能力-泛化误差上界" class="headerlink" title="模型的泛化能力-泛化误差上界"></a>模型的泛化能力-泛化误差上界</h3></blockquote>
 </blockquote>
-</blockquote>
-<a id="more"></a>
-<h3 id="模型的泛化能力-泛化误差上界"><a href="#模型的泛化能力-泛化误差上界" class="headerlink" title="模型的泛化能力-泛化误差上界"></a>模型的泛化能力-泛化误差上界</h3><p>对任意函数f，至少以概率$1-\delta$使得不等式成立<br>$$\delta=d*\exp(-2N\epsilon^2)$$<br>$$\epsilon(d,N,\delta)=\sqrt{\frac{1}{2N}(\log d+\log \frac{1}{\delta})}$$<br>$$R(f_N)&lt;R_{f_N}^{train}+\epsilon(d,N,\delta)$$</p>
-<ol>
+<p>对任意函数f，至少以概率$1-\delta$使得不等式成立</p>
+<script type="math/tex; mode=display">\delta=d*\exp(-2N\epsilon^2)</script><script type="math/tex; mode=display">\epsilon(d,N,\delta)=\sqrt{\frac{1}{2N}(\log d+\log \frac{1}{\delta})}</script><script type="math/tex; mode=display">R(f_N)<R_{f_N}^{train}+\epsilon(d,N,\delta)</script><ol>
 <li>训练误差越小，则泛化误差越小；</li>
 <li>样本容量N越大，则训练误差与泛化误差越接近；</li>
 <li>假设空间中包含的函数越多，则泛化误差上界越大。</li>
@@ -168,30 +167,25 @@
 <li>boosting</li>
 <li>stacking 精排得分入重排序</li>
 </ol>
-<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><p>$$\theta^*=\argmin_{\theta}\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i;\theta))+\lambda\Omega(\theta)$$</p>
-<hr>
+<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><script type="math/tex; mode=display">\theta^*=\argmin_{\theta}\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i;\theta))+\lambda\Omega(\theta)</script><hr>
 <h3 id="Loss-损失函数"><a href="#Loss-损失函数" class="headerlink" title="Loss 损失函数"></a>Loss 损失函数</h3><blockquote>
 <blockquote>
 <p>0-1损失、平方损失、绝对损失、对数损失、</p>
-</blockquote>
-</blockquote>
 <ol>
-<li><p>对数损失-交叉熵取均值</p>
-<ol>
-<li>$$J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]$$</li>
-<li>$$CrossEntropy(\theta)=-\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]$$</li>
+<li>对数损失-交叉熵取均值<ol>
+<li><script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
+<li><script type="math/tex; mode=display">CrossEntropy(\theta)=-\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 </ol>
 </li>
-<li><p>平方损失-回归<br>$$MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2$$</p>
-</li>
-<li><p>指数损失-Adaboost<br>$$L(y,f(x))=\frac{1}{N}\sum_{i=1}^{N}e^{-y_if(x_i)}$$</p>
-</li>
-<li><p>合页损失-SVM<br>$$L(y·(w<em>x+b))=\sum_{i=1}^{N}[1-y(w</em>x+b)]_++\lambda||w||^2$$</p>
-</li>
-<li><p>决策树<br>$$C_\alpha(T)=\sum_{t=1}^{T}N_tH_t(T)+\alpha|T|$$</p>
-</li>
-<li><p>focal loss- 推荐挖掘困难样本<br>$$L_{fl}=-\alpha(1-p)^\gamma \log(p); p=1$$<br>$$L_{fl}=-(1-\alpha)p^\gamma \log(1-p); p=0$$</p>
-</li>
+</ol>
+</blockquote>
+</blockquote>
+<ol>
+<li>平方损失-回归<script type="math/tex; mode=display">MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2</script></li>
+<li>指数损失-Adaboost<script type="math/tex; mode=display">L(y,f(x))=\frac{1}{N}\sum_{i=1}^{N}e^{-y_if(x_i)}</script></li>
+<li>合页损失-SVM<script type="math/tex; mode=display">L(y·(w*x+b))=\sum_{i=1}^{N}[1-y(w*x+b)]_++\lambda||w||^2</script></li>
+<li>决策树<script type="math/tex; mode=display">C_\alpha(T)=\sum_{t=1}^{T}N_tH_t(T)+\alpha|T|</script></li>
+<li>focal loss- 推荐挖掘困难样本<script type="math/tex; mode=display">L_{fl}=-\alpha(1-p)^\gamma \log(p); p=1</script><script type="math/tex; mode=display">L_{fl}=-(1-\alpha)p^\gamma \log(1-p); p=0</script></li>
 </ol>
 <h3 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h3><blockquote>
 <blockquote>
@@ -207,8 +201,8 @@
 </blockquote>
 </blockquote>
 </li>
-<li>均方根误差：异常点影响大<br>$$RMSE=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2}$$</li>
-<li>MAPE：平均绝对百分比误差，每个点误差进行归一化<br>$$MAPE=\sum_{i=1}^{N}|\frac{y_i^{true}-y_i^{pred}}{y_i^{true}}|*\frac{100}{N}$$</li>
+<li>均方根误差：异常点影响大<script type="math/tex; mode=display">RMSE=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2}</script></li>
+<li>MAPE：平均绝对百分比误差，每个点误差进行归一化<script type="math/tex; mode=display">MAPE=\sum_{i=1}^{N}|\frac{y_i^{true}-y_i^{pred}}{y_i^{true}}|*\frac{100}{N}</script></li>
 </ul>
 <h3 id="3、ROC曲线"><a href="#3、ROC曲线" class="headerlink" title="3、ROC曲线"></a>3、ROC曲线</h3><ul>
 <li>优点：不受类分布的影响，适合与评估、比较类分布不平衡的数据集。</li>
@@ -219,7 +213,7 @@
 <li>AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。<h4 id="3-2、AUC值的物理意义"><a href="#3-2、AUC值的物理意义" class="headerlink" title="3.2、AUC值的物理意义"></a>3.2、AUC值的物理意义</h4>假设分类器的输出是样本属于正类的socre（置信度），则AUC的物理意义为，任取一对（正、负）样本，正样本的score大于负样本的score的概率。<h4 id="3-3、AUC值的计算"><a href="#3-3、AUC值的计算" class="headerlink" title="3.3、AUC值的计算"></a>3.3、AUC值的计算</h4></li>
 <li>第一种方法：AUC为ROC曲线下的面积，那我们直接计算面积可得。面积为一个个小的梯形面积之和，计算的精度与阈值的精度有关。</li>
 <li>第二种方法：根据AUC的物理意义，我们计算正样本score大于负样本的score的概率。取N*M（M为正样本数，N为负样本数）个二元组，比较score，最后得到AUC。时间复杂度为O(N*M)。</li>
-<li><strong>第三种方法</strong>：<a href="https://www.cnblogs.com/van19/p/5494908.html" target="_blank" rel="noopener">AUC计算</a>首先对score从大到小排序，然后令最大score对应的sample的rank值为n，第二大score对应sample的rank值为n-1，以此类推从n到1。然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。得到的结果就是有多少对正类样本的score值大于负类样本的score值，最后再除以M×N即可。值得注意的是，当存在score相等的时候，对于score相等的样本，需要赋予相同的rank值(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。<br>(正类与分数低者比较次数，正类与正类比较的次数)<br>(n,m),<br>(n-1,m-1),<br>(n-2,m-2),<br>,,,<br>(n-(m-1),1)<br>左求和，右求和再相减即为下式<br>$$AUC=\frac{\sum_{i \in posClass}rank_i - \frac{M(M+1)}{2}}{M*N}$$<blockquote>
+<li><strong>第三种方法</strong>：<a href="https://www.cnblogs.com/van19/p/5494908.html" target="_blank" rel="noopener">AUC计算</a>首先对score从大到小排序，然后令最大score对应的sample的rank值为n，第二大score对应sample的rank值为n-1，以此类推从n到1。然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。得到的结果就是有多少对正类样本的score值大于负类样本的score值，最后再除以M×N即可。值得注意的是，当存在score相等的时候，对于score相等的样本，需要赋予相同的rank值(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。\<br>(正类与分数低者比较次数，正类与正类比较的次数)\<br>(n,m),\<br>(n-1,m-1),\<br>(n-2,m-2),\<br>,,,\<br>(n-(m-1),1)<br>左求和，右求和再相减即为下式<script type="math/tex; mode=display">AUC=\frac{\sum_{i \in posClass}rank_i - \frac{M(M+1)}{2}}{M*N}</script><blockquote>
 <blockquote>
 <p>时间复杂度为O(N+M)。</p>
 </blockquote>
@@ -227,17 +221,21 @@
 </li>
 </ul>
 <h4 id="3-4、ROC与P-R曲线对比"><a href="#3-4、ROC与P-R曲线对比" class="headerlink" title="3.4、ROC与P-R曲线对比"></a>3.4、ROC与P-R曲线对比</h4><p>ROC明显降低不同测试集带来的干扰，困难样本下，ROC更加稳定反应模型的排序效果。</p>
-<h3 id="4、排序指标"><a href="#4、排序指标" class="headerlink" title="4、排序指标"></a>4、排序指标</h3><h4 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h4><p>对用户u的返回结果I（item的顺序1,2,,,10）的平均准确率（AP）<br>$$AP_u = \frac{1}{|I_u|}\sum_{i \in I_u}\frac{\sum_{j \in I_u}\delta(p_{uj} &lt; p_{ui}) + 1}{p_{ui}}$$<br>MAP(Mean Average Precision)即为所有用户取AP的均值有：<br>$$MAP = \frac{\sum_{u \in U}AP_u}{|{U}|}$$</p>
-<h4 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h4><blockquote>
+<h3 id="4、排序指标"><a href="#4、排序指标" class="headerlink" title="4、排序指标"></a>4、排序指标</h3><h4 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h4><p>对用户u的返回结果I（item的顺序1,2,,,10）的平均准确率（AP）</p>
+<script type="math/tex; mode=display">AP_u = \frac{1}{|I_u|}\sum_{i \in I_u}\frac{\sum_{j \in I_u}\delta(p_{uj} < p_{ui}) + 1}{p_{ui}}</script><p>MAP(Mean Average Precision)即为所有用户取AP的均值有：</p>
+<script type="math/tex; mode=display">MAP = \frac{\sum_{u \in U}AP_u}{|{U}|}</script><h4 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h4><blockquote>
 <blockquote>
 <p>$命中的pos对应precision=\frac{pos及以上的命中个数}{pos}$，没命中的为0</p>
 </blockquote>
 </blockquote>
 <p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AP.png" alt><br>在对所有用户求均值</p>
-<h4 id="NDCG"><a href="#NDCG" class="headerlink" title="NDCG"></a>NDCG</h4><p>计算该位置和item的相关性得分；<br>$$累计收益：CG_k = \sum_{i=1}^k rel_i$$<br>没有考虑不同位置，靠后得分应该低；故增加pos的罚项对排名靠后的收益打折：<br>$$贴现累计收益：DCG_k = \sum_{i=1}^k \frac{2^{rel_i}-1}{\log_2 (i+1)}$$<br>不同用户的推荐列表进行评估，需要以最好的收益IDCG为base进行归一化<br>$$归一化贴现累计收益：NDCG_u@k = \frac{DCG_u@k}{IDCG_u} ，k=list.size$$</p>
-<h2 id="三、方法"><a href="#三、方法" class="headerlink" title="三、方法"></a>三、方法</h2><p>梯度下降、牛顿法</p>
+<h4 id="NDCG"><a href="#NDCG" class="headerlink" title="NDCG"></a>NDCG</h4><p>计算该位置和item的相关性得分；</p>
+<script type="math/tex; mode=display">累计收益：CG_k = \sum_{i=1}^k rel_i</script><p>没有考虑不同位置，靠后得分应该低；故增加pos的罚项对排名靠后的收益打折：</p>
+<script type="math/tex; mode=display">贴现累计收益：DCG_k = \sum_{i=1}^k \frac{2^{rel_i}-1}{\log_2 (i+1)}</script><p>不同用户的推荐列表进行评估，需要以最好的收益IDCG为base进行归一化</p>
+<script type="math/tex; mode=display">归一化贴现累计收益：NDCG_u@k = \frac{DCG_u@k}{IDCG_u} ，k=list.size</script><h2 id="三、方法"><a href="#三、方法" class="headerlink" title="三、方法"></a>三、方法</h2><p>梯度下降、牛顿法</p>
 <hr>
-<h3 id="1、机器学习中的梯度下降"><a href="#1、机器学习中的梯度下降" class="headerlink" title="1、机器学习中的梯度下降"></a>1、机器学习中的梯度下降</h3><p>梯度下降首先需要明确损失函数Loss function（一个样本损失）和代价函数Cost function（统计平均意义下的损失）。<br>$$\bm w^{(k+1)} = \bm w^{(k)} - \alpha \cdot  \nabla C(\bm w^{(k)})$$<br>f(x,y)=x²+y²<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/tidu1.png" alt="avatar"><br>将f(x,y)=x²+y²看做<strong>二维等高图</strong><br><strong>对于二维曲面来说，切线的方向有上有下描述的是函数值的方向；梯度代表使函数值增大时，各个自变量的变化方向；梯度下降就是梯度反方向更新各个自变量可以使得函数值减小。梯度方向与切线方向垂直。</strong></p>
+<h3 id="1、机器学习中的梯度下降"><a href="#1、机器学习中的梯度下降" class="headerlink" title="1、机器学习中的梯度下降"></a>1、机器学习中的梯度下降</h3><p>梯度下降首先需要明确损失函数Loss function（一个样本损失）和代价函数Cost function（统计平均意义下的损失）。</p>
+<script type="math/tex; mode=display">\bm w^{(k+1)} = \bm w^{(k)} - \alpha \cdot  \nabla C(\bm w^{(k)})</script><p>f(x,y)=x²+y²<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/tidu1.png" alt="avatar"><br>将f(x,y)=x²+y²看做<strong>二维等高图</strong><br><strong>对于二维曲面来说，切线的方向有上有下描述的是函数值的方向；梯度代表使函数值增大时，各个自变量的变化方向；梯度下降就是梯度反方向更新各个自变量可以使得函数值减小。梯度方向与切线方向垂直。</strong></p>
 <p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/tidu2.png" alt="avatar"></p>
 <h4 id="1-1、批梯度下降比较"><a href="#1-1、批梯度下降比较" class="headerlink" title="1.1、批梯度下降比较"></a>1.1、批梯度下降比较</h4><ol>
 <li>批梯度下降会获得全局最优解，缺点是在更新每个参数的时候需要遍历所有的数据，计算量会很大，并且会有很多的冗余计算，导致的结果是当数据量大的时候，每个参数的更新都会很慢。</li>
@@ -249,15 +247,22 @@
 <p><strong>全局最优</strong>&lt;=&gt;通过梯度下降得到的最小值在全局Loss中也是最小值&lt;=&gt;Loss函数是否是凸的&lt;=&gt;<strong>二阶导(海森矩阵)判断是否正定</strong></p>
 </blockquote>
 </blockquote>
-<h4 id="1-2、最速下降"><a href="#1-2、最速下降" class="headerlink" title="1.2、最速下降"></a>1.2、最速下降</h4><p>最速下降法（Steepest descent）是梯度下降法的一种更具体实现形式，其理念为在每次迭代中选择合适的步长$\alpha_k$使得目标函数值能够得到最大程度的减少。<br>每一次迭代，沿梯度的反方向，我们总可以找到一个<br>$$\bm w^{(k+1)} = \bm w^{(k)} - \alpha_k \cdot  \nabla C(\bm w^{(k)})$$<br>使得在这个方向上$f(\bm x^{(k+1)})$取最小值。<br>$$\alpha_k = \mathop{\arg\min}_{\alpha \ge 0} f(\bm x^{(k)} - \alpha \nabla f(\bm x^{(k)}))$$<br>有意思的是，最速下降法每次更新的轨迹都和上一次垂直。而且只要梯度$\nabla f(\bm x^{(k)}) \not = 0$则$f(\bm x^{(k+1)}) &lt; f(\bm x^{(k)})$<br>（即梯度不等于 0 时，肯定会下降。）</p>
-<h4 id="1-3、多分类梯度下降"><a href="#1-3、多分类梯度下降" class="headerlink" title="1.3、多分类梯度下降"></a>1.3、多分类梯度下降</h4><p>softmax 函数的表达式为:<br>$$y_i = \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}$$<br>$$\frac{\partial y_i}{\partial z_j}<br>= \frac{\partial \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}}{\partial z_j}<br>\tag{2}$$<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/38.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/39.jpg" alt="avatar"></p>
-<h3 id="2、牛顿法"><a href="#2、牛顿法" class="headerlink" title="2、牛顿法"></a>2、牛顿法</h3><p>在确定搜索方向时，<strong>梯度下降和最速下降只用到了目标函数的一阶导数（梯度），而牛顿法（Newton’s method）用到了二阶（偏）导数。</strong><br>牛顿法的基本思路是在每次迭代中，利用二次型函数来局部近似目标函数f，并求解近似函数的极小点作为下一个迭代点，牛顿法自变量x的更新公式为：<br>$$\bm x^{(k+1)} = \bm x^{(k)} - F(\bm x^{(k)})^{-1}\nabla f(\bm x^{(k)})$$<br>当前点离min点较近趋势可能不会错，但较远时会带偏。</p>
+<h4 id="1-2、最速下降"><a href="#1-2、最速下降" class="headerlink" title="1.2、最速下降"></a>1.2、最速下降</h4><p>最速下降法（Steepest descent）是梯度下降法的一种更具体实现形式，其理念为在每次迭代中选择合适的步长$\alpha_k$使得目标函数值能够得到最大程度的减少。<br>每一次迭代，沿梯度的反方向，我们总可以找到一个</p>
+<script type="math/tex; mode=display">\bm w^{(k+1)} = \bm w^{(k)} - \alpha_k \cdot  \nabla C(\bm w^{(k)})</script><p>使得在这个方向上$f(\bm x^{(k+1)})$取最小值。</p>
+<script type="math/tex; mode=display">\alpha_k = \mathop{\arg\min}_{\alpha \ge 0} f(\bm x^{(k)} - \alpha \nabla f(\bm x^{(k)}))</script><p>有意思的是，最速下降法每次更新的轨迹都和上一次垂直。而且只要梯度$\nabla f(\bm x^{(k)}) \not = 0$则$f(\bm x^{(k+1)}) &lt; f(\bm x^{(k)})$<br>（即梯度不等于 0 时，肯定会下降。）</p>
+<h4 id="1-3、多分类梯度下降"><a href="#1-3、多分类梯度下降" class="headerlink" title="1.3、多分类梯度下降"></a>1.3、多分类梯度下降</h4><p>softmax 函数的表达式为:</p>
+<script type="math/tex; mode=display">y_i = \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}</script><script type="math/tex; mode=display">\frac{\partial y_i}{\partial z_j} 
+= \frac{\partial \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}}{\partial z_j}
+\tag{2}</script><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/38.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/39.jpg" alt="avatar"></p>
+<h3 id="2、牛顿法"><a href="#2、牛顿法" class="headerlink" title="2、牛顿法"></a>2、牛顿法</h3><p>在确定搜索方向时，<strong>梯度下降和最速下降只用到了目标函数的一阶导数（梯度），而牛顿法（Newton’s method）用到了二阶（偏）导数。</strong><br>牛顿法的基本思路是在每次迭代中，利用二次型函数来局部近似目标函数f，并求解近似函数的极小点作为下一个迭代点，牛顿法自变量x的更新公式为：</p>
+<script type="math/tex; mode=display">\bm x^{(k+1)} = \bm x^{(k)} - F(\bm x^{(k)})^{-1}\nabla f(\bm x^{(k)})</script><p>当前点离min点较近趋势可能不会错，但较远时会带偏。</p>
 <h3 id="3-Levenberg-Marquardt修正"><a href="#3-Levenberg-Marquardt修正" class="headerlink" title="3.Levenberg-Marquardt修正"></a>3.Levenberg-Marquardt修正</h3><ul>
 <li>牛顿法引入二阶导数拟合f，依据f的变化趋势去梯度下降，收敛更快，迭代次数更少。但同时会引入问题，拟合会有误差，当前离min点较远时，趋势可能不对。</li>
 <li>多元函数的Hessian矩阵就类似一元函数的二阶导。多元函数Hessian矩阵半正定就相当于一元函数二阶导非负，半负定就相当于一元函数二阶导非正</li>
 </ul>
 <hr>
-<p>如果黑塞矩阵$F(\bm x^{(k)})$不正定，那么搜索方向$\bm d^{(k)} = - F(\bm x^{(k)})^{-1}\nabla f(\bm x^{(k)})$可能不会是下降方向。 牛顿法的 Levenberg-Marquardt 修正可以解决这个问题：<br>$$\bm x^{(k+1)} = \bm x^{(k)} - \alpha_k(F(\bm x^{(k)})  + \mu_k \bm I)^{-1}\nabla f(\bm x^{(k)})$$<br>其中，$\mu_k \ge 0$，I为单位矩阵。在该修正中，$F(\bm x^{(k)})$可以不正定，但是$\bm G = F(\bm x^{(k)}) + \mu_k ,\bm I$需要是正定的，所以，取适当的$\mu_k$使得$\bm G$正定即可。（矩阵正定，当前仅当所有特征值大于 0。）</p>
+<p>如果黑塞矩阵$F(\bm x^{(k)})$不正定，那么搜索方向$\bm d^{(k)} = - F(\bm x^{(k)})^{-1}\nabla f(\bm x^{(k)})$可能不会是下降方向。 牛顿法的 Levenberg-Marquardt 修正可以解决这个问题：</p>
+<script type="math/tex; mode=display">\bm x^{(k+1)} = \bm x^{(k)} - \alpha_k(F(\bm x^{(k)})  + \mu_k \bm I)^{-1}\nabla f(\bm x^{(k)})</script><p>其中，$\mu_k \ge 0$，I为单位矩阵。在该修正中，$F(\bm x^{(k)})$可以不正定，但是$\bm G = F(\bm x^{(k)}) + \mu_k ,\bm I$需要是正定的，所以，取适当的$\mu_k$使得$\bm G$正定即可。（矩阵正定，当前仅当所有特征值大于 0。）</p>
 <h4 id="牛顿法-vs-梯度下降"><a href="#牛顿法-vs-梯度下降" class="headerlink" title="牛顿法 vs 梯度下降"></a>牛顿法 vs 梯度下降</h4><ul>
 <li>牛顿法是二阶收敛，梯度下降法是一阶收敛，所以牛顿法就更快。</li>
 <li>更通俗地，梯度下降法只从当前位置选择一个坡度最大的方向走一步，而牛顿法在选择方向时，不仅会考虑坡度是否够大，还会考虑走了一步后，坡度是否会变得更大。</li>
@@ -265,13 +270,14 @@
 </ul>
 <h3 id="4-拟牛顿法-牛顿法hessian矩阵的优化求解"><a href="#4-拟牛顿法-牛顿法hessian矩阵的优化求解" class="headerlink" title="4.拟牛顿法-牛顿法hessian矩阵的优化求解"></a>4.拟牛顿法-牛顿法hessian矩阵的优化求解</h3><p>在每次迭代的时候计算一个矩阵，其逼近海塞矩阵的逆。最重要的是，该逼近值只是使用损失函数的一阶偏导来计算</p>
 <hr>
-<p>求出$\bm H_{k+1}$给出 $\bm H_{k}$，梯度$f(\bm x^{(k)})$，$\bm d^{(k)}$，$\alpha_k$找到 $\bm H_{k+1}$的递推式，那么在迭代过程中就不需要涉及到黑塞矩阵也不会求逆。<br>$$\boldsymbol{H}<em>{k+1}=\boldsymbol{H}</em>{k}+\frac{\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}<em>{k} \Delta \boldsymbol{g}^{(k)}\right)\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}</em>{k} \Delta \boldsymbol{g}^{(k)}\right)^{\top}}{\Delta \boldsymbol{g}^{(k) \top}\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}<em>{k} \Delta \boldsymbol{g}^{(k)}\right)}$$<br>$\Delta x^{(k)}=\alpha</em>{k} d^{(k)}$，$\Delta \boldsymbol{g}^{(k)}=\boldsymbol{g}^{(k+1)}-\boldsymbol{g}^{(k)}$<br>$\bm H_0$可以取任一对称正定实矩阵。</p>
+<p>求出$\bm H_{k+1}$给出 $\bm H_{k}$，梯度$f(\bm x^{(k)})$，$\bm d^{(k)}$，$\alpha_k$找到 $\bm H_{k+1}$的递推式，那么在迭代过程中就不需要涉及到黑塞矩阵也不会求逆。</p>
+<script type="math/tex; mode=display">\boldsymbol{H}_{k+1}=\boldsymbol{H}_{k}+\frac{\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)^{\top}}{\Delta \boldsymbol{g}^{(k) \top}\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)}</script><p>$\Delta x^{(k)}=\alpha_{k} d^{(k)}$，$\Delta \boldsymbol{g}^{(k)}=\boldsymbol{g}^{(k+1)}-\boldsymbol{g}^{(k)}$<br>$\bm H_0$可以取任一对称正定实矩阵。</p>
 <h2 id="四、偏差与方差"><a href="#四、偏差与方差" class="headerlink" title="四、偏差与方差"></a>四、偏差与方差</h2><p><a href="http://liuchengxu.org/blog-cn/posts/bias-variance/" target="_blank" rel="noopener">参考链接</a></p>
 <ol>
-<li>泛化误差：以回归任务为例, 学习算法的平方预测误差期望为:<br>$$Err(\mathbf{x}) = E\left[\left( y - f(\mathbf{x}; D) \right)^2\right]$$</li>
-<li>方差：在一个训练集 D上模型 f 对测试样本 x 的预测输出为 f(x;D), 那么学习算法 f 对测试样本 x 的 期望预测和使用样本数相同的不同训练集产生的方差为:<br>$$\overline{f}(\mathbf{x}) = E_D\left[f\left(\mathbf{x}; D\right)\right]$$<br>$$var(\mathbf{x}) = E_D\left[\left( f(\mathbf{x}; D) - \overline{f}(\mathbf{x}) \right)^2\right]$$</li>
-<li>偏差：期望预测与真实标记的误差称为偏差(bias), 为了方便起见, 我们直接取偏差的平方:<br>$$bias^2(\mathbf{x}) = \left( \overline{f}(\mathbf{x}) - y \right)^2$$</li>
-<li>噪声：噪声为真实标记与数据集中的实际标记间的偏差:<br>$$\epsilon^2 = E_D\left[ (y_D - y)^2 \right]$$</li>
+<li>泛化误差：以回归任务为例, 学习算法的平方预测误差期望为:<script type="math/tex; mode=display">Err(\mathbf{x}) = E\left[\left( y - f(\mathbf{x}; D) \right)^2\right]</script></li>
+<li>方差：在一个训练集 D上模型 f 对测试样本 x 的预测输出为 f(x;D), 那么学习算法 f 对测试样本 x 的 期望预测和使用样本数相同的不同训练集产生的方差为:<script type="math/tex; mode=display">\overline{f}(\mathbf{x}) = E_D\left[f\left(\mathbf{x}; D\right)\right]</script><script type="math/tex; mode=display">var(\mathbf{x}) = E_D\left[\left( f(\mathbf{x}; D) - \overline{f}(\mathbf{x}) \right)^2\right]</script></li>
+<li>偏差：期望预测与真实标记的误差称为偏差(bias), 为了方便起见, 我们直接取偏差的平方:<script type="math/tex; mode=display">bias^2(\mathbf{x}) = \left( \overline{f}(\mathbf{x}) - y \right)^2</script></li>
+<li>噪声：噪声为真实标记与数据集中的实际标记间的偏差:<script type="math/tex; mode=display">\epsilon^2 = E_D\left[ (y_D - y)^2 \right]</script></li>
 </ol>
 <h3 id="4-1、方差与偏差推导"><a href="#4-1、方差与偏差推导" class="headerlink" title="4.1、方差与偏差推导"></a>4.1、方差与偏差推导</h3><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/38.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/39.png" alt="avatar"></p>
 <ul>
@@ -284,8 +290,12 @@
 <li>L1大部分特征的权重降为0，变稀疏矩阵，只保留少量特征。目标函数等高线与L1正则的解空间决定，“棱”状更能碰撞出稀疏值。类似减少特征的方式解决过拟合</li>
 <li>L2少量降为0，大部分权重减小。降低所有特征的权重。整体减小所有特征权重，来解决过拟合</li>
 </ul>
-<p>L0范数指向量中非零元素的个数<br>$$|w|<em>0=\sum</em>{w_i!=0}^{W}{|w_i|}$$<br>L1范数：向量中每个元素绝对值的和<br>$$|w|<em>1=\sum</em>{i=1}^{N}{|w_i|}$$<br>L2范数：向量元素绝对值的平方和再开平方<br>$$|w|<em>2=\sqrt{\sum</em>{i=1}^{N}{w_i^2}}$$<br>L1正则公式<br>$$L=L_{0}+\lambda\sum_j|w_j|$$<br>L2正则公式<br>$$L=L_{0}+\lambda\sum_jw_j^2$$</p>
-<h3 id="解的稀疏性"><a href="#解的稀疏性" class="headerlink" title="解的稀疏性"></a>解的稀疏性</h3><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/l1l2.png" alt="avatar"></p>
+<p>L0范数指向量中非零元素的个数</p>
+<script type="math/tex; mode=display">\|w\|_0=\sum_{w_i!=0}^{W}{|w_i|}</script><p>L1范数：向量中每个元素绝对值的和</p>
+<script type="math/tex; mode=display">\|w\|_1=\sum_{i=1}^{N}{|w_i|}</script><p>L2范数：向量元素绝对值的平方和再开平方</p>
+<script type="math/tex; mode=display">\|w\|_2=\sqrt{\sum_{i=1}^{N}{w_i^2}}</script><p>L1正则公式</p>
+<script type="math/tex; mode=display">L=L_{0}+\lambda\sum_j|w_j|</script><p>L2正则公式</p>
+<script type="math/tex; mode=display">L=L_{0}+\lambda\sum_jw_j^2</script><h3 id="解的稀疏性"><a href="#解的稀疏性" class="headerlink" title="解的稀疏性"></a>解的稀疏性</h3><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/l1l2.png" alt="avatar"></p>
 <h2 id="六、优化过拟合和欠拟合"><a href="#六、优化过拟合和欠拟合" class="headerlink" title="六、优化过拟合和欠拟合"></a>六、优化过拟合和欠拟合</h2><h3 id="降低过拟合"><a href="#降低过拟合" class="headerlink" title="降低过拟合"></a>降低过拟合</h3><ol>
 <li>更多的数据；</li>
 <li>降低模型复杂度；</li>
@@ -296,7 +306,15 @@
 <li>增加模型复杂度；</li>
 <li>减少正则化系数</li>
 </ol>
-<h2 id="七、拉格朗日乘法"><a href="#七、拉格朗日乘法" class="headerlink" title="七、拉格朗日乘法"></a>七、拉格朗日乘法</h2><p>$$ \begin{aligned}<br>&amp;{}\max f(x, y), \<br>&amp;{}\text{s.t. } g(x, y) = c.<br>\end{aligned}$$<br>$$\mathcal{L}(x, y, \lambda) \overset{\text{def}}{=}f(x, y) + \lambda\cdot g(x, y).$$<br>$$\begin{cases}<br>\frac{\partial \mathcal{L}}{\partial x} = 0, \<br>\frac{\partial \mathcal{L}}{\partial y} = 0, \<br>\frac{\partial \mathcal{L}}{\partial \lambda} = 0.<br>\end{cases}$$<br>函数 f(x,y)=x²+y² 是曲面<strong>特别地，对于序列 {d1,d2,…} 来说，f(x,y)=dk 形成了一系列的曲线。若将 dk 理解为高度，则这一系列的曲线即是函数 f(x,y) 的等高线组。</strong> 同样，对于约束 g(x,y)=x²-y=C 来说它也是一条曲线，我们称之为约束曲线。对g曲线求导得到法向量，对f也如此；故有下式成立<br>$$\Bigl(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\Bigr) = \lambda\Bigl(\frac{\partial g}{\partial x}, \frac{\partial g}{\partial y}\Bigr)$$<br>函数曲线相切，意味着两个函数的法线在切点重合，也就是两个函数的法向量相差一个系数 λ，这也就是说两个函数在切点的梯度向量相差一个系数 λ </p>
+<h2 id="七、拉格朗日乘法"><a href="#七、拉格朗日乘法" class="headerlink" title="七、拉格朗日乘法"></a>七、拉格朗日乘法</h2><script type="math/tex; mode=display">\begin{aligned}
+&{}\max f(x, y), \\
+&{}\text{s.t. } g(x, y) = c.
+\end{aligned}</script><script type="math/tex; mode=display">\mathcal{L}(x, y, \lambda) \overset{\text{def}}{=}f(x, y) + \lambda\cdot g(x, y).</script><script type="math/tex; mode=display">\begin{cases}
+\frac{\partial \mathcal{L}}{\partial x} = 0, \\
+\frac{\partial \mathcal{L}}{\partial y} = 0, \\
+\frac{\partial \mathcal{L}}{\partial \lambda} = 0.
+\end{cases}</script><p>函数 f(x,y)=x²+y² 是曲面<strong>特别地，对于序列 {d1,d2,…} 来说，f(x,y)=dk 形成了一系列的曲线。若将 dk 理解为高度，则这一系列的曲线即是函数 f(x,y) 的等高线组。</strong> 同样，对于约束 g(x,y)=x²-y=C 来说它也是一条曲线，我们称之为约束曲线。对g曲线求导得到法向量，对f也如此；故有下式成立</p>
+<script type="math/tex; mode=display">\Bigl(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\Bigr) = \lambda\Bigl(\frac{\partial g}{\partial x}, \frac{\partial g}{\partial y}\Bigr)</script><p>函数曲线相切，意味着两个函数的法线在切点重合，也就是两个函数的法向量相差一个系数 λ，这也就是说两个函数在切点的梯度向量相差一个系数 λ </p>
 <h3 id="7-1、KKT条件"><a href="#7-1、KKT条件" class="headerlink" title="7.1、KKT条件"></a>7.1、KKT条件</h3><p><img src="https://ask.qcloudimg.com/http-save/yehe-1000017/1z9l345mwl.jpeg?imageView2/2/w/1620" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/lglr.jpg" alt="avatar"><br>因此我们说，拉格朗日乘数法有很直观的物理意义。<br>对于h(x)&gt;=0的设定如下<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/hx1.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/hx2.jpg" alt="avatar"></p>
 <h2 id="八、特征选择"><a href="#八、特征选择" class="headerlink" title="八、特征选择"></a>八、特征选择</h2><p>特征选取包含一些特征处理的操作：</p>
 <ul>
@@ -457,5 +475,20 @@
         </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

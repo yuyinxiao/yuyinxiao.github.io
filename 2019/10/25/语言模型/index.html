@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,7 +9,7 @@
 
     <title>语言模型 | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="语言模型简要整理word2vec网页版笔记在线看层序与负采样层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；负采样：词频越大更被定为负样本，所以对生僻词更有优势补充Huffman树Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -147,16 +147,27 @@
 </ul>
 <h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
 <a id="more"></a>
-
-<h4 id="负采样算法"><a href="#负采样算法" class="headerlink" title="负采样算法"></a>负采样算法</h4><p>任何采样算法都应该保证频次越高的样本越容易被采样出来。基本的思路是对于长度为1的线段，根据词语的词频将其公平地分配给每个词语：<br>$$len(w)=\frac{counter(w)}{\sum _{u\epsilon D} counter(u)}$$<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/35.jpg" alt="avatat"><br>counter就是w的词频。word2vec用的是一种查表的方式，将上述线段标上M个“刻度”，刻度之间的间隔是相等的，即1/M：接着生成0-M之间的整数，去这个刻度尺上一查就能抽中一个单词了。对于机器学习中的分类任务，在训练的时候不但要给正例，还要给负例。对于Hierarchical Softmax，负例是二叉树的其他路径。对于Negative Sampling，负例是随机挑选出来的。Negative Sampling能<strong>提高速度、改进模型质量。</strong></p>
+<h4 id="负采样算法"><a href="#负采样算法" class="headerlink" title="负采样算法"></a>负采样算法</h4><p>任何采样算法都应该保证频次越高的样本越容易被采样出来。基本的思路是对于长度为1的线段，根据词语的词频将其公平地分配给每个词语：</p>
+<script type="math/tex; mode=display">len(w)=\frac{counter(w)}{\sum _{u\epsilon D} counter(u)}</script><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/35.jpg" alt="avatat"><br>counter就是w的词频。word2vec用的是一种查表的方式，将上述线段标上M个“刻度”，刻度之间的间隔是相等的，即1/M：接着生成0-M之间的整数，去这个刻度尺上一查就能抽中一个单词了。对于机器学习中的分类任务，在训练的时候不但要给正例，还要给负例。对于Hierarchical Softmax，负例是二叉树的其他路径。对于Negative Sampling，负例是随机挑选出来的。Negative Sampling能<strong>提高速度、改进模型质量。</strong></p>
 <h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/w2v.jpg" alt="avatar"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/sg.jpg" alt="avatar"><br>Word2Vec模型是一个很大的神经网络；10000个单词的词汇表，如果嵌入300维的词向量，那么输入-隐层权重矩阵=隐层-输出层的权重矩阵都会有 10000 x 300 = 300万个权重。<strong>在如此庞大的神经网络中进行梯度下降是相当慢的，所以通过负采样仅对K+1个词的损失反向更新</strong>。中间隐层embedding拿出来做词向量，输入索引，U的输出就是embedding，然后再进行3.1，3.2的公式仅对K+1个词计算二分类的损失，再反向传播。</p>
 <h3 id="CBOW与Skip-gram"><a href="#CBOW与Skip-gram" class="headerlink" title="CBOW与Skip-gram"></a>CBOW与Skip-gram</h3><ul>
 <li>CBOW：输入上下文，输出中心词；训练次数等同于样本次数V(词典大小)；效率高，训练质量不够充分；梯度值会同样的作用到每个周围词的词向量当中去； 相当于该生僻词没有收到专门的训练，生僻词不太友好</li>
-<li>SKip-gram：输入中心词，输出上下文；训练次数为KV,即每个样本训练K次(窗口大小)；效率较低，训练质量充分；梯度不断的调整中心词的词向量；每个词在作为中心词的时候，都要进行K次的预测、调整，生僻词更友好<h4 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h4>给定训练样本，即一个词w和它的上下文Context(w)，Context(w)是输入，w是输出。那么w就是正例，词汇表中其他的词语的就是负例。假设我们通过某种采样方法获得了负例子集NEG(w)。对于正负样本，分别定义一个标签：正样本为1，负样本为0。<br>$$L^w(\tilde{w})=\left {<br>\begin{array}{ll}<br>1 &amp; \tilde{w}=w;\<br>0 &amp; \tilde{w} \neq w;<br>\end{array}<br>\right.$$</li>
+<li>SKip-gram：输入中心词，输出上下文；训练次数为KV,即每个样本训练K次(窗口大小)；效率较低，训练质量充分；梯度不断的调整中心词的词向量；每个词在作为中心词的时候，都要进行K次的预测、调整，生僻词更友好<h4 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h4>给定训练样本，即一个词w和它的上下文Context(w)，Context(w)是输入，w是输出。那么w就是正例，词汇表中其他的词语的就是负例。假设我们通过某种采样方法获得了负例子集NEG(w)。对于正负样本，分别定义一个标签：正样本为1，负样本为0。<script type="math/tex; mode=display">L^w(\tilde{w})=\left \{ 
+\begin{array}{ll} 
+1 & \tilde{w}=w;\\ 
+0 & \tilde{w} \neq w;
+\end{array}
+\right.</script></li>
 </ul>
-<p>对于给定正样本（Context(w),w）我们希望最大化<br>$$g(w)=\prod _{<br>    u{\epsilon {\left { w \right }} \cup NEG(w)}}<br>    p(u|Context(w))$$<br>其中，<br>$$p(u|Context(w))=[\sigma (X_w^T\theta ^u)]^{L^w(u)}\cdot [1-\sigma(X_w^T\theta ^u)]^{1-L^w(u))}$$<br>也就是说，当u是正例时，$\sigma (X_w^T\theta ^u)$越大越好，当u是负例时，$\sigma (X_w^T\theta ^u)$越小越好。因为$\sigma (X_w^T\theta ^u)$ 等于模型预测样本为正例的概率，当答案就是正的时候，我们希望这个概率越大越好，当答案是负的时候，我们希望它越小越好，模型也符合极大似然估计。<br>$$\log\prod _{w\epsilon C} g(w)=\sum _{w\epsilon C}\log g(w)$$<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/28.jpg" alt="avatat"><br>每个词都是如此，语料库有多个词，我们将g累积得到优化目标。因为对数方便计算，我们对其取对数得到目标函数：<br>训练伪码为：<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/30.jpg" alt="avatat"></p>
-<h4 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h4><p>对于(w,Context(w))我们希望最大化：<br>$$g(w)=\prod _{\tilde{w}\epsilon Context(w)} \prod _{u\epsilon \left { w \right }\cup NEG^{\tilde{w}}(w)}p(u|\tilde w)$$<br>其中，<br>$$L =\sum _{w\epsilon C} \sum _{\tilde{w}\epsilon Context(w)} \sum _{u\epsilon \left { w \right  }\cup NEG^{\tilde w }(w)} L(w,\tilde w,u)$$</p>
-<p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/34.jpg" alt="avatat"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/33.jpg" alt="avatat"><br>训练伪码为：<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/31.jpg" alt="avatat"></p>
+<p>对于给定正样本（Context(w),w）我们希望最大化</p>
+<script type="math/tex; mode=display">g(w)=\prod _{
+    u{\epsilon {\left \{ w \right \}} \cup NEG(w)}}
+    p(u|Context(w))</script><p>其中，</p>
+<script type="math/tex; mode=display">p(u|Context(w))=[\sigma (X_w^T\theta ^u)]^{L^w(u)}\cdot [1-\sigma(X_w^T\theta ^u)]^{1-L^w(u))}</script><p>也就是说，当u是正例时，$\sigma (X_w^T\theta ^u)$越大越好，当u是负例时，$\sigma (X_w^T\theta ^u)$越小越好。因为$\sigma (X_w^T\theta ^u)$ 等于模型预测样本为正例的概率，当答案就是正的时候，我们希望这个概率越大越好，当答案是负的时候，我们希望它越小越好，模型也符合极大似然估计。</p>
+<script type="math/tex; mode=display">\log\prod _{w\epsilon C} g(w)=\sum _{w\epsilon C}\log g(w)</script><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/28.jpg" alt="avatat"><br>每个词都是如此，语料库有多个词，我们将g累积得到优化目标。因为对数方便计算，我们对其取对数得到目标函数：<br>训练伪码为：<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/30.jpg" alt="avatat"></p>
+<h4 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h4><p>对于(w,Context(w))我们希望最大化：</p>
+<script type="math/tex; mode=display">g(w)=\prod _{\tilde{w}\epsilon Context(w)} \prod _{u\epsilon \left \{ w \right \}\cup NEG^{\tilde{w}}(w)}p(u|\tilde w)</script><p>其中，</p>
+<script type="math/tex; mode=display">L =\sum _{w\epsilon C} \sum _{\tilde{w}\epsilon Context(w)} \sum _{u\epsilon \left \{ w \right  \}\cup NEG^{\tilde w }(w)} L(w,\tilde w,u)</script><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/34.jpg" alt="avatat"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/33.jpg" alt="avatat"><br>训练伪码为：<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/31.jpg" alt="avatat"></p>
 <h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/LSTM.jpg" alt></p>
 <ul>
 <li>每个cell作为前馈网络层，num_units隐层神经元数；多值向量；不同时刻共享</li>
@@ -172,12 +183,11 @@
 </ol>
 <h3 id="真实的物理结构"><a href="#真实的物理结构" class="headerlink" title="真实的物理结构"></a>真实的物理结构</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/LSTM2.jpg" alt></p>
 <h2 id="TextCNN"><a href="#TextCNN" class="headerlink" title="TextCNN"></a>TextCNN</h2><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/27.png" alt="avatar"></p>
-<p>$$W^*=\frac{(W-f+2p)}{s}+1$$</p>
-<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="编码器与解码器"><a href="#编码器与解码器" class="headerlink" title="编码器与解码器"></a>编码器与解码器</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/17.png" alt="avatar">)<img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/16.png" alt="avatar"></p>
+<script type="math/tex; mode=display">W^*=\frac{(W-f+2p)}{s}+1</script><h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="编码器与解码器"><a href="#编码器与解码器" class="headerlink" title="编码器与解码器"></a>编码器与解码器</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/17.png" alt="avatar"><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/16.png" alt="avatar"></p>
 <p>各层结构相同，权重不共享</p>
 <h3 id="编码器结构细节"><a href="#编码器结构细节" class="headerlink" title="编码器结构细节"></a>编码器结构细节</h3><p>we+pos_en，词向量+位置编码<br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/25.png" alt="avatar"></p>
 <h3 id="计算任意两词的注意力加权后的向量表示"><a href="#计算任意两词的注意力加权后的向量表示" class="headerlink" title="计算任意两词的注意力加权后的向量表示"></a>计算任意两词的注意力加权后的向量表示</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/25.png" alt="avatar"><br><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/22.png" alt="avatar"></p>
-<h4 id="补充soft-attention"><a href="#补充soft-attention" class="headerlink" title="补充soft-attention"></a>补充soft-attention</h4><p><img src="https://upload-images.jianshu.io/upload_images/7348807-6b171e18b29f46e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/235/format/webp" alt></p>
+<h4 id="补充soft-attention"><a href="#补充soft-attention" class="headerlink" title="补充soft-attention"></a>补充soft-attention</h4><p><img src="https://upload-images.jianshu.io/upload_images/7348807-6b171e18b29f46e4.png?imageMogr2/auto-orient/strip|imageView2/2/w/235/format/webp" alt></p>
 <h3 id="单词的矩阵运算，获取注意力加权后的向量表示"><a href="#单词的矩阵运算，获取注意力加权后的向量表示" class="headerlink" title="单词的矩阵运算，获取注意力加权后的向量表示"></a>单词的矩阵运算，获取注意力加权后的向量表示</h3><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/24.png" alt="avatar"></p>
 <h4 id="解码器端动态展示"><a href="#解码器端动态展示" class="headerlink" title="解码器端动态展示"></a>解码器端动态展示</h4><p><img src="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/23.gif" alt="avatar"></p>
 <hr>
@@ -312,5 +322,20 @@
         </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,7 +9,7 @@
 
     <title>数学基础 | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="数学基础导数、偏导数与方向导数首先明确，导数是一个值，代表切线的斜率，而梯度是一个向量。最大方向导数的方向就是梯度代表的方向。梯度是$f(\bm x)$对各个自变量$\bm x = [x_1, x_2, …, x_m]^\top$每一维分别求偏导数得到的向量。从式（5）和（6）中我们也可以知道，当$\bm d = \frac{\nabla f(\bm x)}{|\nabla f(\bm x)|}$方向导数最大。 最大方向导数的方向就是梯度的方向，最大的方向导数就是梯度的欧几里德范数。..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -155,11 +155,11 @@
 </ul>
 <h3 id="概率分布"><a href="#概率分布" class="headerlink" title="概率分布"></a>概率分布</h3><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/bern.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/er.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/gauss.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/junyun.png" alt="avatar"></p>
 <h3 id="条件概率与链式法则"><a href="#条件概率与链式法则" class="headerlink" title="条件概率与链式法则"></a>条件概率与链式法则</h3><ol>
-<li>协方差矩阵<br>$$cov(X,Y)= E{(X_i-E(X))(Y_i-E(Y)},i=1,2,……n;j=i,2,……n$$</li>
-<li>全概率公式<br>$$P(X=x)=\sum_{k=1}^{K}P(X=x|Y=c_k)P(Y=c_k)$$</li>
+<li>协方差矩阵<script type="math/tex; mode=display">cov(X,Y)= E\{(X_i-E(X))(Y_i-E(Y)\},i=1,2,……n;j=i,2,……n</script></li>
+<li>全概率公式<script type="math/tex; mode=display">P(X=x)=\sum_{k=1}^{K}P(X=x|Y=c_k)P(Y=c_k)</script></li>
 <li>朴素贝叶斯=贝叶斯公式+条件独立性假设<ol>
-<li>贝叶斯公式<br>$$y=\argmax_{c_k}\frac{P(Y=c_k)P(X=x|Y=c_k)}{\displaystyle\sum_{k}^KP(Y=c_k)P(X=x|Y=c_k)}$$</li>
-<li>条件独立性假设<br>$$P(X=x|Y=c_k)=\prod_{j=1}^nP(X_j=x_j|Y=c_k)P(Y=c_k)$$</li>
+<li>贝叶斯公式<script type="math/tex; mode=display">y=\argmax_{c_k}\frac{P(Y=c_k)P(X=x|Y=c_k)}{\displaystyle\sum_{k}^KP(Y=c_k)P(X=x|Y=c_k)}</script></li>
+<li>条件独立性假设<script type="math/tex; mode=display">P(X=x|Y=c_k)=\prod_{j=1}^nP(X_j=x_j|Y=c_k)P(Y=c_k)</script></li>
 </ol>
 </li>
 </ol>
@@ -170,31 +170,27 @@
 </blockquote>
 <h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p> 如果$P(x_i|y=c_k)$中的某一项为0，则其联合概率的乘积也为0.如果是k类分母+k，分子+1；分母加k的原因是使之满足全概率公式。</p>
 <h3 id="置信度与置信区间"><a href="#置信度与置信区间" class="headerlink" title="置信度与置信区间"></a>置信度与置信区间</h3><p>置信度：95%，置信区间(u-a,u+a)样本数目不变的情况下，做100次试验，有95个置信区间包含了总体真值(虚线)。</p>
-<p>$$P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} &lt; M &lt; \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95$$</p>
-<p>样本均值为整体均值的一个点估计。<strong>置信水平95%表示，有100个样本，每个样本会计算出一个置信区间。其中有95个置信区间包含了总体均值。也就是包含总体平均值的概率为95%。样本估计总体–核心思想</strong><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/zhixindu.gif" alt="avatar"></p>
+<script type="math/tex; mode=display">P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} < M < \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95</script><p>样本均值为整体均值的一个点估计。<strong>置信水平95%表示，有100个样本，每个样本会计算出一个置信区间。其中有95个置信区间包含了总体均值。也就是包含总体平均值的概率为95%。样本估计总体—核心思想</strong><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/zhixindu.gif" alt="avatar"></p>
 <h3 id="各种熵"><a href="#各种熵" class="headerlink" title="各种熵"></a>各种熵</h3><ul>
-<li><p>信息熵：<br>$$H(D)=-\sum_{y=k}^{K}p_k·log(p_k)$$</p>
-</li>
-<li><p>联合熵：<br>$$H(X,Y)=-\sum_{x,y}p(x,y)\log p(x,y)$$</p>
-</li>
-<li><p>条件熵：条件熵=联合熵-熵<br>$$H(Y|X)=H(X,Y)-H(X)$$<br>$$H(D|f)=\sum_{v\epsilon V_f}\frac{|D_v|}{|D|}H(D_v)$$</p>
-</li>
-<li><p>信息增益：<br>$$Gain(D,f)=H(D)-H(D|f)$$</p>
-</li>
-<li><p>交叉熵：<br>$$H(p,q)=-\sum_x p(x)\log q(x)$$</p>
-</li>
-<li><p>KL散度（相对熵）=交叉熵-熵<br>$$D_{KL}(p||q)=H(p,q)-H(p)$$</p>
+<li><p>信息熵：</p>
+<script type="math/tex; mode=display">H(D)=-\sum_{y=k}^{K}p_k·log(p_k)</script></li>
+<li><p>联合熵：</p>
+<script type="math/tex; mode=display">H(X,Y)=-\sum_{x,y}p(x,y)\log p(x,y)</script></li>
+<li><p>条件熵：条件熵=联合熵-熵</p>
+<script type="math/tex; mode=display">H(Y|X)=H(X,Y)-H(X)</script><script type="math/tex; mode=display">H(D|f)=\sum_{v\epsilon V_f}\frac{|D_v|}{|D|}H(D_v)</script></li>
+<li>信息增益：<script type="math/tex; mode=display">Gain(D,f)=H(D)-H(D|f)</script></li>
+<li>交叉熵：<script type="math/tex; mode=display">H(p,q)=-\sum_x p(x)\log q(x)</script></li>
+<li>KL散度（相对熵）=交叉熵-熵<script type="math/tex; mode=display">D_{KL}(p||q)=H(p,q)-H(p)</script><blockquote>
 <blockquote>
-<blockquote>
-<p>p对q的相对熵,q拟合p的分布情况<br>$$D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))$$<br>相对熵可以用来衡量两个概率分布之间的差异，上面公式的意义就是求 p 与 q 之间的对数差在 p 上的期望值。</p>
+<p>p对q的相对熵,q拟合p的分布情况</p>
+<script type="math/tex; mode=display">D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))</script><p>相对熵可以用来衡量两个概率分布之间的差异，上面公式的意义就是求 p 与 q 之间的对数差在 p 上的期望值。</p>
 </blockquote>
 </blockquote>
 </li>
 </ul>
 <h2 id="矩阵论"><a href="#矩阵论" class="headerlink" title="矩阵论"></a>矩阵论</h2><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/Matrix.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/Matrix2.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/Matrix3.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/Matrix4.png" alt="avatar"></p>
 <h3 id="向量与矩阵求导"><a href="#向量与矩阵求导" class="headerlink" title="向量与矩阵求导"></a>向量与矩阵求导</h3><ul>
-<li><p>包含元素x的求导就是元素x对矩阵的各元素a求导,或者矩阵各元素a对元素x的求导。</p>
-</li>
+<li>包含元素x的求导就是元素x对矩阵的各元素a求导,或者矩阵各元素a对元素x的求导。</li>
 <li><p>向量对向量求导</p>
 <ol>
 <li>行向量m对列向量n：行的每一个元素对列向量求导，导数矩阵：n*m;</li>
@@ -221,13 +217,15 @@
 </ol>
 </li>
 </ul>
-<h3 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h3><h4 id="2-1-矩阵分解为特征值与特征向量"><a href="#2-1-矩阵分解为特征值与特征向量" class="headerlink" title="2.1 矩阵分解为特征值与特征向量"></a>2.1 矩阵分解为特征值与特征向量</h4><p>$$Av=\lambda v$$<br>$V=[v_1,v_2,v_3,,,,v_n]$,$\Lambda=[\lambda_1,\lambda_2,\lambda_3,,,]$则有</p>
+<h3 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h3><h4 id="2-1-矩阵分解为特征值与特征向量"><a href="#2-1-矩阵分解为特征值与特征向量" class="headerlink" title="2.1 矩阵分解为特征值与特征向量"></a>2.1 矩阵分解为特征值与特征向量</h4><script type="math/tex; mode=display">Av=\lambda v</script><p>$V=[v_1,v_2,v_3,,,,v_n]$,$\Lambda=[\lambda_1,\lambda_2,\lambda_3,,,]$则有</p>
 <blockquote>
 <blockquote>
-<p>$\lambda$降序排列<br>$$A=V * diag(\lambda)<em>V^{-1}$$<br>正定矩阵的转置就是正定矩阵的逆<br>$$A=Q \Lambda Q^{T}$$<br>Q是正交矩阵，将A看作沿方向$v^i$延展$\lambda ^i$倍的空间。所有的特征值都是正数则正定，非负数半正定。*</em>但是仅对于方阵才行**</p>
+<p>$\lambda$降序排列</p>
+<script type="math/tex; mode=display">A=V * diag(\lambda)*V^{-1}</script><p>正定矩阵的转置就是正定矩阵的逆</p>
+<script type="math/tex; mode=display">A=Q \Lambda Q^{T}</script><p>Q是正交矩阵，将A看作沿方向$v^i$延展$\lambda ^i$倍的空间。所有的特征值都是正数则正定，非负数半正定。<strong>但是仅对于方阵才行</strong></p>
 </blockquote>
 </blockquote>
-<h4 id="矩阵分解为奇异值与奇异向量SVD"><a href="#矩阵分解为奇异值与奇异向量SVD" class="headerlink" title="矩阵分解为奇异值与奇异向量SVD"></a>矩阵分解为奇异值与奇异向量SVD</h4><p>$$A_{m,n}=U_{m,m}D_{m,n}V^T_{n,n}$$<br>U,V正交矩阵，D对角矩阵，对角线元素为为奇异值，U,V列向量为奇异向量<br>U是$AA^T$的特征向量；V是$A^TA$的特征向量。$AA^T$特征值的平方根就是D的非0奇异值<strong>只有非方阵，才行</strong></p>
+<h4 id="矩阵分解为奇异值与奇异向量SVD"><a href="#矩阵分解为奇异值与奇异向量SVD" class="headerlink" title="矩阵分解为奇异值与奇异向量SVD"></a>矩阵分解为奇异值与奇异向量SVD</h4><script type="math/tex; mode=display">A_{m,n}=U_{m,m}D_{m,n}V^T_{n,n}</script><p>U,V正交矩阵，D对角矩阵，对角线元素为为奇异值，U,V列向量为奇异向量<br>U是$AA^T$的特征向量；V是$A^TA$的特征向量。$AA^T$特征值的平方根就是D的非0奇异值<strong>只有非方阵，才行</strong></p>
 
         
     </section>
@@ -235,7 +233,7 @@
 
 
 
-<a id="pagenext" href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="article-next" title="机器学习基础"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="article-next" title="推荐系统"><i class="icon-arrow-right"></i></a>
 
 
 <a id="pageprev" href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/" class="article-prev" title="各种算法优缺点"><i class="icon-arrow-left"></i></a>
@@ -350,5 +348,20 @@
         </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

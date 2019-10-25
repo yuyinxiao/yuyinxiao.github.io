@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,8 +9,8 @@
 
     <title>Faiss | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="Faiss支持两种相似性计算方法：L2距离（即欧式距离）和点乘（归一化的向量点乘即cosine相似度）1. 索引Index2. PCA降维PCA数据降维减少内存，加快机器学习的速度。从数据存储的角度，图片处理中通过PCA可以将图片从高维空间（p维）转换到低维空间（q维, 其中p &amp;gt; q ），其具体操作便是是将高维空间中的图片向量（n*p）乘以一个转换矩阵M（p*q），得到一个低维空间中的向量（n*q）；转换矩阵M是与图库有关，是可以由图库数据计算出来的。在Faiss的一些预..." />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="Faiss支持两种相似性计算方法：L2距离（即欧式距离）和点乘（归一化的向量点乘即cosine相似度）1. 索引Index2. PCA降维PCA数据降维减少内存，加快机器学习的速度。从数据存储的角度，图片处理中通过PCA可以将图片从高维空间（p维）转换到低维空间（q维, 其中p &amp;gt; q ），其具体操作便是是将高维空间中的图片向量（n*p）乘以一个转换矩阵M（p*q），得到一个低维空间中的向量（n*q）；转换矩阵M是与图库有关，是可以由图库数据计算出来的。在Faiss的一些预处理..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -143,12 +143,13 @@
         <h2 id="Faiss"><a href="#Faiss" class="headerlink" title="Faiss"></a>Faiss</h2><blockquote>
 <blockquote>
 <p>支持两种相似性计算方法：L2距离（即欧式距离）和点乘（归一化的向量点乘即cosine相似度）</p>
-</blockquote>
-</blockquote>
 <h3 id="1-索引Index"><a href="#1-索引Index" class="headerlink" title="1. 索引Index"></a>1. 索引Index</h3><h3 id="2-PCA降维"><a href="#2-PCA降维" class="headerlink" title="2. PCA降维"></a>2. PCA降维</h3><p>PCA数据降维减少内存，加快机器学习的速度。从数据存储的角度，图片处理中通过PCA可以将图片从高维空间（p维）转换到低维空间（q维, 其中p &gt; q ），其具体操作便是是将高维空间中的图片向量（n*p）乘以一个转换矩阵M（p*q），得到一个低维空间中的向量（n*q）；转换矩阵M是与图库有关，是可以由图库数据计算出来的。在Faiss的一些预处理中，我们会引入一些参数，这些参数又无法一开始由人工来指定，只能通过喂样本来训练出来。</p>
 <h3 id="3、Product-quantization-乘积量化"><a href="#3、Product-quantization-乘积量化" class="headerlink" title="3、Product quantization(乘积量化)"></a>3、Product quantization(乘积量化)</h3><p> PQ算法可以理解为首先把原始的向量空间分解为m个低维向量空间的笛卡尔积，并对分解得到的低维向量空间分别做量化。即是把原始D维向量（比如D=128）分成m组（比如m=4），每组就是D∗=D/m维的子向量（比如D∗=D/m=128/4=32），各自用kmeans算法学习到一个码本，然后这些码本的笛卡尔积就是原始D维向量对应的码本。用qj表示第j组子向量，用Cj表示其对应学习到的码本，那么原始D维向量对应的码本就是C=C1×C2×…×Cm。用k∗表示子向量的聚类中心点数或者说码本大小，那么原始D维向量对应的聚类中心点数或者说码本大小就是k=(k∗)m。<br><img src="https://i.typcdn.com/fabwrite/c5/L56k1gZ7ZumryJrAfzzw.png" alt></p>
-<p>SDC算法：先用PQ量化器对x和y表示为对应的中心点q(x)和q(y)，然后用公式1来近似d(x,y)。这里 q 表示 PQ量化过程。<br>$$\hat{d}(x,y)=d(q(x),q(y))=\sqrt{\sum_j{d(q_j(x),q_j(y))^2}}$$<br>ADC算法：只对y表示为对应的中心点q(y)，然后用下述公式2来近似d(x,y)。<br>$$\widetilde{d}(x,y)=d(x,q(y))=\sqrt{\sum_j{d(u_j(x),q_j(u_j(y)))^2}}$$</p>
-<h2 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h2><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
+</blockquote>
+</blockquote>
+<p>SDC算法：先用PQ量化器对x和y表示为对应的中心点q(x)和q(y)，然后用公式1来近似d(x,y)。这里 q 表示 PQ量化过程。</p>
+<script type="math/tex; mode=display">\hat{d}(x,y)=d(q(x),q(y))=\sqrt{\sum_j{d(q_j(x),q_j(y))^2}}</script><p>ADC算法：只对y表示为对应的中心点q(y)，然后用下述公式2来近似d(x,y)。</p>
+<script type="math/tex; mode=display">\widetilde{d}(x,y)=d(x,q(y))=\sqrt{\sum_j{d(u_j(x),q_j(u_j(y)))^2}}</script><h2 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h2><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
 
         
     </section>
@@ -156,10 +157,10 @@
 
 
 
-<a id="pagenext" href="/2019/10/25/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="article-next" title="逻辑回归"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/10/25/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" class="article-next" title="聚类算法"><i class="icon-arrow-right"></i></a>
 
 
-<a id="pageprev" href="/2019/10/25/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" class="article-prev" title="聚类算法"><i class="icon-arrow-left"></i></a>
+<a id="pageprev" href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/" class="article-prev" title="树模型"><i class="icon-arrow-left"></i></a>
 
 
 
@@ -271,5 +272,20 @@
         </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

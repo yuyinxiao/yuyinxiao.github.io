@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,7 +9,7 @@
 
     <title>深度学习面试 | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="深度学习激活函数如何使用激活函数回归，则将sigmoid或tanh用作最后一层的非线性和平方误差作为成本函数。分类，隐层relu+尾层sigmoid+softmax归一化输出+结果交叉熵作损失为什么非线性激活函数神经网络万能近似定理认为神经网络具有至少一个非线性隐藏层，那么只要给予网络足够数量的隐藏单元，隐层就可以以任意的精度来拟合函数：完成任何一个有限维空间到另一个有限维空间的函数。如果不使用非线性激活函数，那么每一层输出都是上层输入的线性组合，整体也是线性的，失去万能近似的..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -200,18 +200,18 @@
 <li>一般使用服从的高斯分布（mean=0, stddev=1）或均匀分布的随机值作为权重的初始化参数；使用 0 作为偏置的初始化参数</li>
 <li>一些启发式方法会根据输入与输出的单元数来决定初始值的范围；比如<br><img src="https://github.com/imhuay/Algorithm_Interview_Notes-Chinese/raw/master/_assets/%E5%85%AC%E5%BC%8F_20180706115540.png" alt="avatar"><br>Keras 全连接层默认的权重初始化方法</li>
 </ol>
-<h2 id="神经网络的偏置项b"><a href="#神经网络的偏置项b" class="headerlink" title="神经网络的偏置项b"></a>神经网络的偏置项b</h2><p>$$\hat y=\sum_i w_i x_i$$<br>$$y=1,if\hat{y}&gt;= threshold$$<br>$$y=0,if\hat{y}&lt;= threshold$$<br>$threshold$度量神经元正负激励的难易程度，$threshold$越大产生正向激励难度越大。通过移项作为$-b$加入最终的值中判断是否大于0即可。所以<strong>$b$的大小，度量了神经元产生正（负）激励的难易程度</strong></p>
+<h2 id="神经网络的偏置项b"><a href="#神经网络的偏置项b" class="headerlink" title="神经网络的偏置项b"></a>神经网络的偏置项b</h2><script type="math/tex; mode=display">\hat y=\sum_i w_i x_i</script><script type="math/tex; mode=display">y=1,if\hat{y}>= threshold</script><script type="math/tex; mode=display">y=0,if\hat{y}<= threshold</script><p>$threshold$度量神经元正负激励的难易程度，$threshold$越大产生正向激励难度越大。通过移项作为$-b$加入最终的值中判断是否大于0即可。所以<strong>$b$的大小，度量了神经元产生正（负）激励的难易程度</strong></p>
 <h2 id="NN的参数初始化"><a href="#NN的参数初始化" class="headerlink" title="NN的参数初始化"></a>NN的参数初始化</h2><p>如果无隐层则参数可以都初始化为0；其他不会使用0初始化；</p>
 <h2 id="交叉熵损失与平方差损失"><a href="#交叉熵损失与平方差损失" class="headerlink" title="交叉熵损失与平方差损失"></a>交叉熵损失与平方差损失</h2><blockquote>
 <blockquote>
 <p>对分类问题</p>
-</blockquote>
-</blockquote>
 <ul>
 <li>交叉熵度量两个分布的相似性；平方差损失度量两个数据距离；</li>
 <li>交叉熵对概率更为敏感；平方差对数值敏感；</li>
 <li>分类问题最后是sigmoid的输出，交叉熵可以使误差越大时学习率越大收敛快；平方差损失学习则慢；</li>
 </ul>
+</blockquote>
+</blockquote>
 <p>平方损失用在输出连续，最后一层无sigmoid和softmax层的NN中。</p>
 <h2 id="神经网络和SVM的区别"><a href="#神经网络和SVM的区别" class="headerlink" title="神经网络和SVM的区别"></a>神经网络和SVM的区别</h2><p>SVM和NN都可实现非线性分类模型。</p>
 <ul>
@@ -342,5 +342,20 @@
         </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

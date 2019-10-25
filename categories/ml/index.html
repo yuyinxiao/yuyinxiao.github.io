@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
 
     
 
@@ -9,7 +9,7 @@
 
     <title>Category: ml | 小于狙击手</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="记录一个人的学习，成长" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -42,11 +42,11 @@
     .search-form {height:36px;}
     </style>
     <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body>
 
-    <main class="app">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
         <header id="header" class="header clearfix">
     <div id="nav" class="nav">
     <div class="nav-mobile">
@@ -267,8 +267,8 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"><br><img src="https://upload-images.jianshu.io/upload_images/12877808-2d01f4df4f996b8f.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="avatar"></p>
-<hr>
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
+<h2 id><a href="#" class="headerlink" title></a><img src="https://upload-images.jianshu.io/upload_images/12877808-2d01f4df4f996b8f.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="avatar"></h2>
         
         <p class="article-more-link">
             <a href="/2019/10/25/Transformer/#more">
@@ -364,8 +364,7 @@
 <li>每个节点可以有零个或多个输入，但只有一个输出。网络中的节点表示对象（张量和运算操作），边表示运算操作之间流动的张量。</li>
 </ul>
 <hr>
-<h2 id="一、数据类型：常量、变量、占位符"><a href="#一、数据类型：常量、变量、占位符" class="headerlink" title="一、数据类型：常量、变量、占位符"></a>一、数据类型：常量、变量、占位符</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是其值不能改变的张量；常量存储在计算图的定义中</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(<span class="number">4</span>);</span><br><span class="line">tf.constant([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">tf.zeros([M,N],tf.dtype)</span><br><span class="line">tf.zeros([<span class="number">2</span>,<span class="number">3</span>],tf.int32)</span><br><span class="line">tf.ones([M,N],tf,dtype)</span><br><span class="line">range_t = tf.linspace(<span class="number">2.0</span>,<span class="number">5.0</span>,<span class="number">4</span>)  <span class="comment">#等差数列，差值=(5-2)/(4-1)</span></span><br><span class="line">range_t = tf.range(<span class="number">10</span>) <span class="comment">#同python range</span></span><br><span class="line">tf.random_normal([shape],mean=<span class="number">2.0</span>,stddev=<span class="number">4</span>,seed=<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="一、数据类型：常量、变量、占位符"><a href="#一、数据类型：常量、变量、占位符" class="headerlink" title="一、数据类型：常量、变量、占位符"></a>一、数据类型：常量、变量、占位符</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是其值不能改变的张量；常量存储在计算图的定义中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(<span class="number">4</span>);</span><br><span class="line">tf.constant([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">tf.zeros([M,N],tf.dtype)</span><br><span class="line">tf.zeros([<span class="number">2</span>,<span class="number">3</span>],tf.int32)</span><br><span class="line">tf.ones([M,N],tf,dtype)</span><br><span class="line">range_t = tf.linspace(<span class="number">2.0</span>,<span class="number">5.0</span>,<span class="number">4</span>)  <span class="comment">#等差数列，差值=(5-2)/(4-1)</span></span><br><span class="line">range_t = tf.range(<span class="number">10</span>) <span class="comment">#同python range</span></span><br><span class="line">tf.random_normal([shape],mean=<span class="number">2.0</span>,stddev=<span class="number">4</span>,seed=<span class="number">12</span>)</span><br></pre></td></tr></table></figure><br></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/#more">
@@ -407,7 +406,12 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为<br>$$<br>\begin{aligned}<br>\hat{\theta}&amp;= \mathop{\arg\max}<em>{\theta} \sum\limits</em>{i=1}^m\log p(x^{(i)};\theta)\<br>&amp;= \mathop{\arg\max}<em>{\theta} \sum\limits</em>{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)<br>\end{aligned}<br>$$<br>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
+        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat{\theta}&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log p(x^{(i)};\theta)\\
+&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)
+\end{aligned}</script><p>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/#more">
@@ -466,7 +470,7 @@
 <li>忽略数据集中属性的相互关联。</li>
 <li>ID3算法计算信息增益时结果偏向数值比较多的特征。</li>
 </ol>
-<h3 id="改进措施"><a href="#改进措施" class="headerlink" title="改进措施"></a>改进措施</h3><p>剪枝，采用交叉验证法，加入正则化；bagging算法，randomforest算法，可以解决过拟合的问题。</p>
+<h3 id="改进措施"><a href="#改进措施" class="headerlink" title="改进措施"></a>改进措施</h3><p>剪枝，采用交叉验证法，加入正则化；bagging算法，randomforest算法，可以解决过拟合的问题。<br></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93/#more">
@@ -553,8 +557,8 @@
         
         <h1 id="机器学习基础"><a href="#机器学习基础" class="headerlink" title="机器学习基础"></a>机器学习基础</h1><p><a href="https://www.cnblogs.com/wuliytTaotao/p/10513371.html" target="_blank" rel="noopener">机器学习之数学01</a></p>
 <p><a href="https://www.cnblogs.com/wuliytTaotao/p/10603576.html" target="_blank" rel="noopener">机器学习之数学02</a></p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong><br>$$P(Y|X)=\frac{P(X,Y)}{P(X)}$$</p>
-<blockquote>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong></p>
+<script type="math/tex; mode=display">P(Y|X)=\frac{P(X,Y)}{P(X)}</script><blockquote>
 <blockquote>
 <p>朴素贝叶斯、隐马尔科夫模型（HMM）。</p>
 </blockquote>
@@ -562,9 +566,7 @@
 <h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><p>由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。<strong>更为准确，隐变量失效，定义和使用特征</strong></p>
 <blockquote>
 <blockquote>
-<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。</p>
-</blockquote>
-</blockquote>
+<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。<br></p></blockquote></blockquote>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/#more">
@@ -606,7 +608,7 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong></p>
+        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/#more">
@@ -691,5 +693,20 @@
     </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
