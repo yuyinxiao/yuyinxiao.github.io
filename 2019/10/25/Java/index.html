@@ -10,7 +10,7 @@
     <title>Java | 小于狙击手</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="" />
-    <meta name="description" content="Java面试基础JVM与GCJVM程序计数器–与每个线程线程执行字节码行号有关–线程私有虚拟机栈–与Java方法有关创建栈帧–线程私有本地方法栈–与Java的native方法有关–线程私有Java堆–与Java对象实例有关/垃圾收集器管理的主要区域–GC堆Java方法区——线程共享；存储被虚拟机加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。GC引用计数：对象被引用时，计数器加1，引用失效时减1，当计数器值为0时则回收；但难以解决对象之间相互循环引用的问题；..." />
+    <meta name="description" content="Java面试基础大数据岗会问一些Java基础和计算机基础，主要包括GC，JVM，线程进程，同步互斥等JVM与GCJVM程序计数器–与每个线程线程执行字节码行号有关–线程私有虚拟机栈–与Java方法有关创建栈帧–线程私有本地方法栈–与Java的native方法有关–线程私有Java堆–与Java对象实例有关/垃圾收集器管理的主要区域–GC堆Java方法区——线程共享；存储被虚拟机加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。GC引用计数：对象被引用时，计..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -140,7 +140,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="Java面试基础"><a href="#Java面试基础" class="headerlink" title="Java面试基础"></a>Java面试基础</h1><p><img src="/2019/10/25/Java/jvm.jpg" alt="JVM"></p>
+        <h1 id="Java面试基础"><a href="#Java面试基础" class="headerlink" title="Java面试基础"></a>Java面试基础</h1><p>大数据岗会问一些Java基础和计算机基础，主要包括GC，JVM，线程进程，同步互斥等<br><img src="/2019/10/25/Java/jvm.jpg" alt="JVM"></p>
+<a id="more"></a>
+
+<hr>
 <h2 id="JVM与GC"><a href="#JVM与GC" class="headerlink" title="JVM与GC"></a>JVM与GC</h2><h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><ol>
 <li>程序计数器–与每个线程线程执行字节码行号有关–线程私有</li>
 <li>虚拟机栈–与Java方法有关创建栈帧–线程私有</li>
@@ -166,13 +169,14 @@
 <h3 id="关于内存分配与回收原则"><a href="#关于内存分配与回收原则" class="headerlink" title="关于内存分配与回收原则"></a>关于内存分配与回收原则</h3><p>对于Java堆中对所有对象的内存分配，首先在Eden中分配；然后大的对象直接老年代;在survivor中存活时间过长也进入老年代；新生代的对象满足老年代连续空间则进入老年代,否则对老年代Full_GC。在给对象分配内存区域的时候，也时刻进行着判断内存回收，对新生代Minor_GC(复制算法)，对老年代Full_GC(标记-整理算法)。</p>
 <h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><ol>
 <li>集合中的每一个进程都在等待只能由本集合中的其他进程才能引发的事件，那么该组进程是死锁的。</li>
-<li>指两个或两个以上的进程（或线程）在执行过程中，因争夺资源而造成的一种相互等待的现象，若无外力作用，他们将无法推进下去。<br>产生锁的资源：线程池、网络连接池、通知事件，磁盘、带宽</li>
+<li>指两个或两个以上的进程（或线程）在执行过程中，因争夺资源而造成的一种相互等待的现象，若无外力作用，他们将无法推进下去。</li>
 </ol>
+<p>产生锁的资源：线程池、网络连接池、通知事件，磁盘、带宽</p>
 <h3 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h3><ol>
-<li>资源互斥条件： 进程对于所分配到的资源具有排他性，一个资源只能由一个进程占用，知道该进程释放该资源。</li>
-<li>不可剥夺条件： 进程无法剥夺其他进程的资源，知道其他进程释放资源后才可能请求到。</li>
-<li>请求保持条件： 进程会请求所有需要的资源，如果过程中因为缺少资源而阻塞，已请求到的资源不会释放。</li>
-<li>循环等待条件： 死锁发生时，一定有两个或以上的进程形成环路，在等待下一个进程的某些资源，导致永久阻塞。</li>
+<li>资源互斥条件：进程对于所分配到的资源具有排他性，一个资源只能由一个进程占用，知道该进程释放该资源。</li>
+<li>不可剥夺条件：进程无法剥夺其他进程的资源，知道其他进程释放资源后才可能请求到。</li>
+<li>请求保持条件：进程会请求所有需要的资源，如果过程中因为缺少资源而阻塞，已请求到的资源不会释放。</li>
+<li>循环等待条件：死锁发生时，一定有两个或以上的进程形成环路，在等待下一个进程的某些资源，导致永久阻塞。</li>
 </ol>
 <h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3><ol>
 <li>以确定顺序获得锁<br>hashCode排序，顺序获得；多进程时使用银行家算法试探是否安全。<br><strong>银行家算法</strong>：当一个进程申请使用资源的时候，银行家算法通过先试探分配给该进程资源，然后通过安全性算法判断分配后的系统是否处于安全状态，若不安全则试探分配作废，让该进程继续等待。</li>

@@ -10,7 +10,7 @@
     <title>大数据面试基础 | 小于狙击手</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="" />
-    <meta name="description" content="大数据HadoopSecondaryNamenodeSecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。元数据包括文件镜像数据FSImage和编辑日志EditLog。FSImage相当于HDFS的检查点，namenode启动时候会读取FSImage的内容到内存，并将其与EditLog日志中的所有修改信息合并生成新的FSImage；在namenode运行过程中，所有关于HDFS的修改都将写入EditLog。这样，..." />
+    <meta name="description" content="大数据整理大数据的面试相关内容，主要包括namenode，hdfs读写数据，部署job流程等。 HadoopSecondaryNamenodeSecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。元数据包括文件镜像数据FSImage和编辑日志EditLog。FSImage相当于HDFS的检查点，namenode启动时候会读取FSImage的内容到内存，并将其与EditLog日志中的所有修改信息合并生成新的..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -140,7 +140,11 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h3 id="SecondaryNamenode"><a href="#SecondaryNamenode" class="headerlink" title="SecondaryNamenode"></a>SecondaryNamenode</h3><p>SecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。</p>
+        <h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><p>整理大数据的面试相关内容，主要包括namenode，hdfs读写数据，部署job流程等。</p>
+<a id="more"></a> 
+
+<hr>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h3 id="SecondaryNamenode"><a href="#SecondaryNamenode" class="headerlink" title="SecondaryNamenode"></a>SecondaryNamenode</h3><p>SecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。</p>
 <h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><p>包括文件镜像数据FSImage和编辑日志EditLog。FSImage相当于HDFS的检查点，namenode启动时候会读取FSImage的内容到内存，并将其与EditLog日志中的所有修改信息合并生成新的FSImage；在namenode运行过程中，所有关于HDFS的修改都将写入EditLog。这样，如果namenode失效，可以通过SecondaryNameNode中保存的FSImage和EditLog数据恢复出namenode最近的状态。</p>
 <h3 id="HDFS读写流程"><a href="#HDFS读写流程" class="headerlink" title="HDFS读写流程"></a>HDFS读写流程</h3><ol>
 <li>向HDFS写数据<br><img src="/2019/10/25/bd/write.png" alt></li>
