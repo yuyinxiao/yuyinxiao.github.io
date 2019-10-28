@@ -10,7 +10,7 @@
     <title>推荐系统 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
-    <meta name="description" content="推荐系统目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。热门、人工、相关、个性化推荐推荐系统比较LR：大规模离散特征LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉PNN：FM + vector produ..." />
+    <meta name="description" content="推荐系统目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。热门、人工、相关、个性化推荐推荐的分类基于内容的过滤、协同过滤基于用户的协同过滤、基于物品的协同过滤协同过滤的两种主要方式近邻模型面向用户：计算用户之间的关联；面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。用余弦值表示上述用户关联，该值就是皮尔逊相关系数。隐变量模型隐变量描述用户对物品的评级。物品（类型，流派）；用户（评分，评级等）神经网络，矩阵分解实现隐变量表示..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -57,7 +57,7 @@
 
     <nav id="nav-inner" class="nav-inner">
         
-            <a class="nav-item" href="/">
+            <a class="nav-item" href="/home">
                 <span class="nav-text">首页</span>
             </a>
         
@@ -103,7 +103,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#推荐系统"><span class="toc-number">1.</span> <span class="toc-text">推荐系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统比较"><span class="toc-number">1.1.</span> <span class="toc-text">推荐系统比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐的分类"><span class="toc-number">1.2.</span> <span class="toc-text">推荐的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统的评估"><span class="toc-number">1.3.</span> <span class="toc-text">推荐系统的评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#95-置信区间是什么意思"><span class="toc-number">1.3.1.</span> <span class="toc-text">95%置信区间是什么意思</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冷启动过程"><span class="toc-number">1.3.2.</span> <span class="toc-text">冷启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户冷启动"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">用户冷启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#物品冷启动"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">物品冷启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多目标排序"><span class="toc-number">1.3.3.</span> <span class="toc-text">多目标排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难点"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">难点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统架构"><span class="toc-number">1.4.</span> <span class="toc-text">推荐系统架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#online部分架构"><span class="toc-number">1.4.1.</span> <span class="toc-text">online部分架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核心模块"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">核心模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据路径"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">数据路径</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#offline部分架构"><span class="toc-number">1.4.2.</span> <span class="toc-text">offline部分架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#YouTubeDNN"><span class="toc-number">1.5.</span> <span class="toc-text">YouTubeDNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#候选集生成"><span class="toc-number">1.5.1.</span> <span class="toc-text">候选集生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#精排"><span class="toc-number">1.5.2.</span> <span class="toc-text">精排</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MMR-PostRank控制多样性"><span class="toc-number">1.6.</span> <span class="toc-text">MMR(PostRank控制多样性)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列评估与生成框架"><span class="toc-number">1.7.</span> <span class="toc-text">序列评估与生成框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标函数"><span class="toc-number">1.7.1.</span> <span class="toc-text">目标函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NavBoost"><span class="toc-number">1.8.</span> <span class="toc-text">NavBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#COEC"><span class="toc-number">1.8.1.</span> <span class="toc-text">COEC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拉普拉斯平滑"><span class="toc-number">1.8.1.1.</span> <span class="toc-text">拉普拉斯平滑</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wide-amp-Depp与DeepFM"><span class="toc-number">1.9.</span> <span class="toc-text">Wide&amp;Depp与DeepFM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Wide-amp-Deep"><span class="toc-number">1.9.1.</span> <span class="toc-text">Wide&amp;Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepFM"><span class="toc-number">1.9.2.</span> <span class="toc-text">DeepFM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#热点feed流postrank"><span class="toc-number">1.10.</span> <span class="toc-text">热点feed流postrank</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#精排得到40个，为什么还要对12个重排序？"><span class="toc-number">1.10.1.</span> <span class="toc-text">精排得到40个，为什么还要对12个重排序？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Focal-Loss-发掘困难样本"><span class="toc-number">1.10.2.</span> <span class="toc-text">Focal Loss 发掘困难样本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pointwise，pairwise，listwise"><span class="toc-number">1.10.3.</span> <span class="toc-text">pointwise，pairwise，listwise</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.10.3.1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pointwise"><span class="toc-number">1.10.3.2.</span> <span class="toc-text">pointwise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pairwise"><span class="toc-number">1.10.3.3.</span> <span class="toc-text">pairwise</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#合页损失函数"><span class="toc-number">1.10.3.3.1.</span> <span class="toc-text">合页损失函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#listwise"><span class="toc-number">1.10.3.4.</span> <span class="toc-text">listwise</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#推荐系统"><span class="toc-number">1.</span> <span class="toc-text">推荐系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐的分类"><span class="toc-number">1.1.</span> <span class="toc-text">推荐的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#协同过滤的两种主要方式"><span class="toc-number">1.1.1.</span> <span class="toc-text">协同过滤的两种主要方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding在推荐中的应用"><span class="toc-number">1.1.2.</span> <span class="toc-text">embedding在推荐中的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#embedding质量评估"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">embedding质量评估</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#word-embedding"><span class="toc-number">1.1.2.1.1.</span> <span class="toc-text">word embedding</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#item-embedding"><span class="toc-number">1.1.2.1.2.</span> <span class="toc-text">item embedding</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTR预估算法比较"><span class="toc-number">1.2.</span> <span class="toc-text">CTR预估算法比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统比较"><span class="toc-number">1.3.</span> <span class="toc-text">推荐系统比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统的评估"><span class="toc-number">1.4.</span> <span class="toc-text">推荐系统的评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#95-置信区间是什么意思"><span class="toc-number">1.4.1.</span> <span class="toc-text">95%置信区间是什么意思</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冷启动过程"><span class="toc-number">1.4.2.</span> <span class="toc-text">冷启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户冷启动"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">用户冷启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#物品冷启动"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">物品冷启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多目标排序"><span class="toc-number">1.4.3.</span> <span class="toc-text">多目标排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难点"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">难点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐系统架构"><span class="toc-number">1.5.</span> <span class="toc-text">推荐系统架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#online部分架构"><span class="toc-number">1.5.1.</span> <span class="toc-text">online部分架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核心模块"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">核心模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据路径"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">数据路径</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#offline部分架构"><span class="toc-number">1.5.2.</span> <span class="toc-text">offline部分架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#YouTubeDNN"><span class="toc-number">1.6.</span> <span class="toc-text">YouTubeDNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#候选集生成"><span class="toc-number">1.6.1.</span> <span class="toc-text">候选集生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#精排"><span class="toc-number">1.6.2.</span> <span class="toc-text">精排</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MMR-PostRank控制多样性"><span class="toc-number">1.7.</span> <span class="toc-text">MMR(PostRank控制多样性)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wide-amp-Depp与DeepFM"><span class="toc-number">1.8.</span> <span class="toc-text">Wide&amp;Depp与DeepFM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wide——LR、FM"><span class="toc-number">1.8.1.</span> <span class="toc-text">wide——LR、FM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deep——DNN"><span class="toc-number">1.8.2.</span> <span class="toc-text">deep——DNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Wide-amp-Deep"><span class="toc-number">1.8.3.</span> <span class="toc-text">Wide&amp;Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepFM"><span class="toc-number">1.8.4.</span> <span class="toc-text">DeepFM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#wide-amp-deep和deepFM区别"><span class="toc-number">1.8.4.1.</span> <span class="toc-text">wide&amp;deep和deepFM区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#热点feed流postrank"><span class="toc-number">1.9.</span> <span class="toc-text">热点feed流postrank</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#精排得到40个，为什么还要对12个重排序？"><span class="toc-number">1.9.1.</span> <span class="toc-text">精排得到40个，为什么还要对12个重排序？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列评估与生成框架"><span class="toc-number">1.10.</span> <span class="toc-text">序列评估与生成框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标函数"><span class="toc-number">1.10.1.</span> <span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-DNN"><span class="toc-number">1.10.2.</span> <span class="toc-text">Transformer+DNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Focal-Loss-发掘困难样本"><span class="toc-number">1.10.3.</span> <span class="toc-text">Focal Loss 发掘困难样本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pointwise，pairwise，listwise"><span class="toc-number">1.10.4.</span> <span class="toc-text">pointwise，pairwise，listwise</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.10.4.1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pointwise"><span class="toc-number">1.10.4.2.</span> <span class="toc-text">pointwise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pairwise"><span class="toc-number">1.10.4.3.</span> <span class="toc-text">pairwise</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#合页损失函数"><span class="toc-number">1.10.4.3.1.</span> <span class="toc-text">合页损失函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#listwise"><span class="toc-number">1.10.4.4.</span> <span class="toc-text">listwise</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NavBoost"><span class="toc-number">1.11.</span> <span class="toc-text">NavBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#COEC"><span class="toc-number">1.11.1.</span> <span class="toc-text">COEC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拉普拉斯平滑"><span class="toc-number">1.11.1.1.</span> <span class="toc-text">拉普拉斯平滑</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
@@ -141,6 +141,81 @@
     <section class="article-body markdown-body">
         
         <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
+<h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
+<li>基于内容的过滤、协同过滤</li>
+<li>基于用户的协同过滤、基于物品的协同过滤<h3 id="协同过滤的两种主要方式"><a href="#协同过滤的两种主要方式" class="headerlink" title="协同过滤的两种主要方式"></a>协同过滤的两种主要方式</h3></li>
+<li>近邻模型<ol>
+<li>面向用户：计算用户之间的关联；</li>
+<li>面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。</li>
+<li>用余弦值表示上述用户关联，该值就是皮尔逊相关系数。</li>
+</ol>
+</li>
+<li>隐变量模型<ol>
+<li>隐变量描述用户对物品的评级。物品（类型，流派）；用户（评分，评级等）</li>
+<li>神经网络，矩阵分解实现隐变量表示。</li>
+</ol>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="embedding在推荐中的应用"><a href="#embedding在推荐中的应用" class="headerlink" title="embedding在推荐中的应用"></a>embedding在推荐中的应用</h3><p><a href="https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html" target="_blank" rel="noopener">embedding在推荐系统的应用</a></p>
+<blockquote>
+<blockquote>
+<p>基于内容的推荐：理解内容（挖掘内容属性）去挖掘用户兴趣点构建推荐模型。对用户行为去挖掘内容。以物品的共现性，作为自然语言的上下文关系，构建神经网络学习物品在隐空间的向量表示。</p>
+</blockquote>
+</blockquote>
+<p>Embedding通过给定关联（时序上下文，共现集合）信息，使用极大似然估计方式计算这些关系发生概率最大时的参数，再借助参数赋予个体抽象的隐含属性，对隐含属性编码赋值，最后用编码表征或者代替个体。通过隐含属性编码方式。</p>
+<h4 id="embedding质量评估"><a href="#embedding质量评估" class="headerlink" title="embedding质量评估"></a>embedding质量评估</h4><p>单词的评估一般比较相似度距离；推荐系统中没有一定完美的方案，以具体任务的实际收益作为评价标准。</p>
+<h5 id="word-embedding"><a href="#word-embedding" class="headerlink" title="word embedding"></a>word embedding</h5><ul>
+<li>相似度</li>
+<li>king-queue=man-woman</li>
+<li>类别分类</li>
+<li>聚类</li>
+</ul>
+<h5 id="item-embedding"><a href="#item-embedding" class="headerlink" title="item embedding"></a>item embedding</h5><ul>
+<li>TOP N的相似度</li>
+<li>随机抽取，人工判别</li>
+<li>聚类</li>
+<li>上线AB</li>
+</ul>
+<h2 id="CTR预估算法比较"><a href="#CTR预估算法比较" class="headerlink" title="CTR预估算法比较"></a>CTR预估算法比较</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>介绍</th>
+<th>不足</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LR</td>
+<td>$\sigma(x)$将函数值映射到0~1；大数据下易并行化</td>
+<td>线性模型学习有限 ，人工特征与特征较差补充非线性，耗费人力</td>
+<td></td>
+</tr>
+<tr>
+<td>Kernel函数法</td>
+<td>低维映射到高维</td>
+<td>复杂度太高不易实现</td>
+</tr>
+<tr>
+<td>树模型</td>
+<td>GBDT+LR解决特征组合</td>
+<td>对历史行为，旧规则的记忆，新规则缺乏推广性</td>
+</tr>
+<tr>
+<td>FM模型</td>
+<td>自动学习高阶属性，解放人工挖掘特征</td>
+<td>只能拟合特定的非线性，二阶</td>
+</tr>
+<tr>
+<td>DNN</td>
+<td>NN拟合非线性，能力足够强</td>
+<td>适合业务数据，具备推广性的网络结构，端到端规模化</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
 <li>LR：大规模离散特征</li>
 <li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
@@ -154,27 +229,7 @@
 <li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
 <li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
 </ul>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"><br><a id="more"></a></p>
-<h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
-<li>基于内容的过滤、协同过滤</li>
-<li>基于用户的协同过滤、基于物品的协同过滤</li>
-</ul>
-<ol>
-<li>协同过滤的两种主要方式</li>
-</ol>
-<ul>
-<li>近邻模型<ol>
-<li>面向用户：计算用户之间的关联；</li>
-<li>面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。</li>
-<li>用余弦值表示上述用户关联，该值就是皮尔逊相关系数。</li>
-</ol>
-</li>
-<li>隐变量模型<ol>
-<li>隐变量描述用户对物品的评级。物品（类型，流派）；用户（评分，评级等）</li>
-<li>神经网络，矩阵分解实现隐变量表示。</li>
-</ol>
-</li>
-</ul>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"></p>
 <h2 id="推荐系统的评估"><a href="#推荐系统的评估" class="headerlink" title="推荐系统的评估"></a>推荐系统的评估</h2><p>A/B测试：流量分发（随机，uid%100∈[0,20%]）</p>
 <h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.</p>
 <script type="math/tex; mode=display">P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} < M < \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95</script><p>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
@@ -218,46 +273,41 @@
 <h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
 <h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/youtube.jpg" alt="avatar"></p>
 <h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
+<h2 id="Wide-amp-Depp与DeepFM"><a href="#Wide-amp-Depp与DeepFM" class="headerlink" title="Wide&amp;Depp与DeepFM"></a>Wide&amp;Depp与DeepFM</h2><h3 id="wide——LR、FM"><a href="#wide——LR、FM" class="headerlink" title="wide——LR、FM"></a>wide——LR、FM</h3><p>wide部分主要使用LR或者FM；<br>特征方面：one-hot稀疏特征，基础特征，交叉特征；通过加入宽泛类特征实现一定泛化能力，受限训练数据，wide模型无法实现未曾出现的泛化</p>
+<h3 id="deep——DNN"><a href="#deep——DNN" class="headerlink" title="deep——DNN"></a>deep——DNN</h3><p>前馈神经网络，特征首先转换为低维稠密向量，<strong>维度O(10)~O(100)</strong>，向量随机初始化，经过最小化损失函数训练，中间激活用relu。<br>DNN学习低维稠密特征实现模型泛化能力，包括未出现内容，有泛化推荐的能力<br>手机型号，年龄等这类实体特征，几百类或几十类，最后映射为低维稠密特征</p>
+<h3 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h3><ul>
+<li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
+<li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
+</ul>
+<p>平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
+<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
+<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/fm.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。<br>Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse -Features。</p>
+<ul>
+<li>稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。</li>
+<li>FM：LR的权重为一阶权重，组合特征权重为高阶权重。</li>
+<li>Dense Embeddings：有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</li>
+</ul>
+<h4 id="wide-amp-deep和deepFM区别"><a href="#wide-amp-deep和deepFM区别" class="headerlink" title="wide&amp;deep和deepFM区别"></a>wide&amp;deep和deepFM区别</h4><ul>
+<li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
+<li>共享原始输入特征。DeepFM模型的原始特征将作为FM和Deep模型部分的共同输入，保证模型特征的准确与一致。</li>
+<li>DeepFM模型包含FM和DNN两部分，FM模型可以抽取低阶特征，DNN可以抽取高阶特征。</li>
+<li>由于输入仅为原始特征，而且FM和DNN共享输入向量特征，DeepFM模型训练速度很快。</li>
+</ul>
+<h2 id="热点feed流postrank"><a href="#热点feed流postrank" class="headerlink" title="热点feed流postrank"></a>热点feed流postrank</h2><h3 id="精排得到40个，为什么还要对12个重排序？"><a href="#精排得到40个，为什么还要对12个重排序？" class="headerlink" title="精排得到40个，为什么还要对12个重排序？"></a>精排得到40个，为什么还要对12个重排序？</h3><ol>
+<li>ctr预估，集中在预估单个item的ctr，和真实场景有一定的gap；</li>
+<li>广告位设置，多样性实验</li>
+<li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
+<li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
+</ol>
 <h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
-<p>模型fθ拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
+<p>模型$f_θ$拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
 <p>优化函数1：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
 <p>最终优化函数2：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e4.png" alt="avatar"></p>
 <ul>
 <li>两层Transformer，4个head；最后得到某个位置item的概率。最后计算总体收益。</li>
 <li>focal loss：更多关注错分的样本；a调节权重；</li>
 </ul>
-<h2 id="NavBoost"><a href="#NavBoost" class="headerlink" title="NavBoost"></a>NavBoost</h2><ol>
-<li>取30天的数据ctx_id和rec_id之间的展点数据，impression必须大某个阈值（1W）</li>
-<li>计算ctx_id和rec_id之间的coec值</li>
-<li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
-<li>计算最终得分，ctrScore <em> 0.8 + ageScore </em> 0.2</li>
-</ol>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
-<h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
-<hr>
-<p>用户注意力一般集中在左上，因此每次 impression 能导致的 click 是与位置相关的。变现有效 impression 的方式是通过每个位置的平均 CTR（reference CTR）来处理，这样将每次 impression 乘以对应位置的 reference CTR 就获得了所谓的 EC（expected click），这样消除了 position bias 的 EC 就变成可加的了。观测到的 click 数目从统计上来看应该是分布在 EC 附近，也就是说 COEC（clicks over expected clicks）的期望应该是 1。</p>
-<p>使用 COEC 而不是 CTR 作为每个 item 的 relevance 的反应是一个不错的选择，但是实际操作中与 CTR 类似都面临着 data sparsity 的问题。一般我们也会使用 Laplace smoothing 解决 0 观测。</p>
-<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
-<h2 id="Wide-amp-Depp与DeepFM"><a href="#Wide-amp-Depp与DeepFM" class="headerlink" title="Wide&amp;Depp与DeepFM"></a>Wide&amp;Depp与DeepFM</h2><h3 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h3><ul>
-<li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
-<li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
-</ul>
-<p>W&amp;D模型，平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
-<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
-<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/fm.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。图中的Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse Features。稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。FM：LR的权重为一阶权重，组合特征权重为高阶权重。Dense Embeddings也有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</p>
-<ul>
-<li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
-<li>共享原始输入特征。DeepFM模型的原始特征将作为FM和Deep模型部分的共同输入，保证模型特征的准确与一致。</li>
-<li>DeepFM模型包含FM和DNN两部分，FM模型可以抽取低阶特征，DNN可以抽取高阶特征。</li>
-<li>由于输入仅为原始特征，而且FM和DNN共享输入向量特征，DeepFM模型训练速度很快。</li>
-</ul>
-<h2 id="热点feed流postrank"><a href="#热点feed流postrank" class="headerlink" title="热点feed流postrank"></a>热点feed流postrank</h2><p>pointwise中query=user的emb</p>
-<h3 id="精排得到40个，为什么还要对12个重排序？"><a href="#精排得到40个，为什么还要对12个重排序？" class="headerlink" title="精排得到40个，为什么还要对12个重排序？"></a>精排得到40个，为什么还要对12个重排序？</h3><ol>
-<li>ctr预估，集中在预估单个item的ctr，和真实场景有一定的gap；</li>
-<li>广告位设置，多样性实验</li>
-<li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
-<li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
-</ol>
+<h3 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h3><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
 <h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/focal.png" alt="avatar"></p>
 <p>例如$\gamma$为2</p>
 <ul>
@@ -292,6 +342,18 @@
 <p>q拟合p的分布</p>
 <script type="math/tex; mode=display">D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))</script></blockquote>
 </blockquote>
+<h2 id="NavBoost"><a href="#NavBoost" class="headerlink" title="NavBoost"></a>NavBoost</h2><ol>
+<li>取30天的数据ctx_id和rec_id之间的展点数据，impression必须大某个阈值（1W）</li>
+<li>计算ctx_id和rec_id之间的coec值</li>
+<li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
+<li>计算最终得分，ctrScore <em> 0.8 + ageScore </em> 0.2</li>
+</ol>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
+<h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
+<hr>
+<p>用户注意力一般集中在左上，因此每次 impression 能导致的 click 是与位置相关的。变现有效 impression 的方式是通过每个位置的平均 CTR（reference CTR）来处理，这样将每次 impression 乘以对应位置的 reference CTR 就获得了所谓的 EC（expected click），这样消除了 position bias 的 EC 就变成可加的了。观测到的 click 数目从统计上来看应该是分布在 EC 附近，也就是说 COEC（clicks over expected clicks）的期望应该是 1。</p>
+<p>使用 COEC 而不是 CTR 作为每个 item 的 relevance 的反应是一个不错的选择，但是实际操作中与 CTR 类似都面临着 data sparsity 的问题。一般我们也会使用 Laplace smoothing 解决 0 观测。</p>
+<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
 
         
     </section>

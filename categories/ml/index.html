@@ -57,7 +57,7 @@
 
     <nav id="nav-inner" class="nav-inner">
         
-            <a class="nav-item" href="/">
+            <a class="nav-item" href="/home">
                 <span class="nav-text">首页</span>
             </a>
         
@@ -264,11 +264,21 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
-<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><ul>
-<li>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；</li>
-<li>负采样：词频越大更被定为负样本，所以对生僻词更有优势</li>
+        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="万物皆可Embedding"><a href="#万物皆可Embedding" class="headerlink" title="万物皆可Embedding"></a>万物皆可Embedding</h2><blockquote>
+<blockquote>
+<p>将one-hot映射为embedding，能够很好挖掘嵌入实体间的内部关联</p>
+</blockquote>
+</blockquote>
+<p>1、高维-&gt;低维<br>2、稀疏-&gt;稠密<br>3、离散-&gt;连续<br>4、整数-&gt;实数</p>
+<h3 id="高维稀疏"><a href="#高维稀疏" class="headerlink" title="高维稀疏"></a>高维稀疏</h3><p>不利于机器学习参数学习和相关计算；维度灾难；复杂度增加，过拟合；稀疏造成梯度消失；</p>
+<h3 id="向量化好处"><a href="#向量化好处" class="headerlink" title="向量化好处"></a>向量化好处</h3><ul>
+<li>不丢失信息降维</li>
+<li>矩阵运算便于并行</li>
+<li>向量空间比较相似性</li>
 </ul>
+<h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
+<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><h4 id="层序"><a href="#层序" class="headerlink" title="层序"></a>层序</h4><p>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；<br>将原来的softmax层拆解，将N分类问题转化成$log_2N$个二分类问题。<strong>用哈夫曼树代替隐藏层到softmax层的映射，左为1，右为0，且左子树权重&gt;=右子树权重</strong>哈夫曼树叶子节点起到输出层神经元的作用，内部节点起到隐层神经元的作用。</p>
+<h4 id="负采样"><a href="#负采样" class="headerlink" title="负采样"></a>负采样</h4><p>原理：将softmax多分类问题转化成多次二分类问题，使得LR让一个训练样本每次仅更新一小部分的权重。<br>输入到输出，输出V中某个词对应节点输出1，其他V-1个节点输出0（负词）.随机选择5个来更新权重。<br>负采样：词频越大更被定为负样本，所以对生僻词更有优势<br><strong>提高训练速度，改善词向量质量</strong></p>
 <h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
         
         <p class="article-more-link">
@@ -511,6 +521,14 @@
         
         <h1 id="机器学习基础"><a href="#机器学习基础" class="headerlink" title="机器学习基础"></a>机器学习基础</h1><p><a href="https://www.cnblogs.com/wuliytTaotao/p/10513371.html" target="_blank" rel="noopener">机器学习之数学01</a></p>
 <p><a href="https://www.cnblogs.com/wuliytTaotao/p/10603576.html" target="_blank" rel="noopener">机器学习之数学02</a></p>
+<h2 id="机器学习和深度学习的区别"><a href="#机器学习和深度学习的区别" class="headerlink" title="机器学习和深度学习的区别"></a>机器学习和深度学习的区别</h2><ul>
+<li>特征工程：机器学习中专家识别，业务数据人工编码，性能取决于特征提取准确程度；深度学习尝试提取低层次特征，自动化</li>
+<li>深度学习的可解释性较差，机器学习的决策树算法规则清晰</li>
+<li>深度学习是端到端</li>
+<li>数据相关性：深度学习需要的更多</li>
+<li>硬件依赖性：深度学习依赖高端机器</li>
+<li>执行时间深度学习更长</li>
+</ul>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><p>由数据学到联合概率分布$P(X,Y)$,然后求出条件概率分布$P(Y|X)$作为预测模型。给定输入$X$产生输出$Y$的生成关系。<strong>收敛更快，隐变量时仍然能用</strong></p>
 <script type="math/tex; mode=display">P(Y|X)=\frac{P(X,Y)}{P(X)}</script><blockquote>
 <blockquote>
@@ -520,7 +538,9 @@
 <h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><p>由数据学习到决策函数$f(X)$或者条件概率模型$P(Y|X)$作为预测的模型。给定输入$X$，预测什么样的输出$Y$。<strong>更为准确，隐变量失效，定义和使用特征</strong></p>
 <blockquote>
 <blockquote>
-<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。<br></p></blockquote></blockquote>
+<p>KNN、感知机、逻辑斯蒂回归（Logistic Regression）、最大熵、支持向量机（SVM）、条件随机场（CRF）、决策树。</p>
+</blockquote>
+</blockquote>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/#more">
@@ -539,7 +559,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/">树模型</a>
+            <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/">树模型与集成学习</a>
         </h1>
         
         <div class="article-meta clearfix">
@@ -562,7 +582,7 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br></p>
+        <h1 id="树模型与集成学习"><a href="#树模型与集成学习" class="headerlink" title="树模型与集成学习"></a>树模型与集成学习</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/#more">

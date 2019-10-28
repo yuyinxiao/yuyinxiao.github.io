@@ -7,10 +7,10 @@
 
     
 
-    <title>树模型 | 小于狙击手的博客</title>
+    <title>树模型与集成学习 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
-    <meta name="description" content="树模型总结决策树ID3,C4.5,CART树特征枚举：根据规则选择特征划分节点：根据特征进一步分裂叶子节点根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征ID3算法——信息增益度量纯度D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵信息熵：H(D)=-\sum_{y=k}^{K}p_k·log(p_k)条件熵：H(D|f)=-\sum_{v\epsilon V_f}\frac..." />
+    <meta name="description" content="树模型与集成学习决策树ID3,C4.5,CART树特征枚举：根据规则选择特征划分节点：根据特征进一步分裂叶子节点根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征ID3算法——信息增益度量纯度D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵信息熵：H(D)=-\sum_{y=k}^{K}p_k·log(p_k)条件熵：H(D|f)=-\sum_{v\epsilon V_f}\f..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -57,7 +57,7 @@
 
     <nav id="nav-inner" class="nav-inner">
         
-            <a class="nav-item" href="/">
+            <a class="nav-item" href="/home">
                 <span class="nav-text">首页</span>
             </a>
         
@@ -103,7 +103,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#树模型总结"><span class="toc-number">1.</span> <span class="toc-text">树模型总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策树ID3-C4-5-CART树"><span class="toc-number">1.1.</span> <span class="toc-text">决策树ID3,C4.5,CART树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ID3算法——信息增益度量纯度"><span class="toc-number">1.1.1.</span> <span class="toc-text">ID3算法——信息增益度量纯度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-5算法——信息增益比度量纯度"><span class="toc-number">1.1.2.</span> <span class="toc-text">C4.5算法——信息增益比度量纯度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CART树——Gini系数度量纯度"><span class="toc-number">1.1.3.</span> <span class="toc-text">CART树——Gini系数度量纯度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CART树，ID3，C4-5对比"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">CART树，ID3，C4.5对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成学习"><span class="toc-number">1.2.</span> <span class="toc-text">集成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Random-Forest"><span class="toc-number">1.2.1.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT"><span class="toc-number">1.2.2.</span> <span class="toc-text">GBDT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GBDT多分类以及训练过程"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">GBDT多分类以及训练过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求解树结构复杂度："><span class="toc-number">1.2.2.2.</span> <span class="toc-text">求解树结构复杂度：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XGBoost"><span class="toc-number">1.2.3.</span> <span class="toc-text">XGBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GBDT-vs-XGB"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">GBDT vs XGB</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FM算法"><span class="toc-number">1.3.</span> <span class="toc-text">FM算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FM的计算"><span class="toc-number">1.3.1.</span> <span class="toc-text">FM的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算过程"><span class="toc-number">1.3.2.</span> <span class="toc-text">计算过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GBDT-FM"><span class="toc-number">1.4.</span> <span class="toc-text">GBDT+FM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#稀疏特征进FM"><span class="toc-number">1.4.1.</span> <span class="toc-text">稀疏特征进FM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连续特征进GBDT"><span class="toc-number">1.4.2.</span> <span class="toc-text">连续特征进GBDT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNN的应用"><span class="toc-number">1.4.3.</span> <span class="toc-text">DNN的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT-FM为什么不是RF-FM"><span class="toc-number">1.4.4.</span> <span class="toc-text">GBDT+FM为什么不是RF+FM</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#树模型与集成学习"><span class="toc-number">1.</span> <span class="toc-text">树模型与集成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策树ID3-C4-5-CART树"><span class="toc-number">1.1.</span> <span class="toc-text">决策树ID3,C4.5,CART树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ID3算法——信息增益度量纯度"><span class="toc-number">1.1.1.</span> <span class="toc-text">ID3算法——信息增益度量纯度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-5算法——信息增益比度量纯度"><span class="toc-number">1.1.2.</span> <span class="toc-text">C4.5算法——信息增益比度量纯度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CART树——Gini系数度量纯度"><span class="toc-number">1.1.3.</span> <span class="toc-text">CART树——Gini系数度量纯度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CART树，ID3，C4-5对比"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">CART树，ID3，C4.5对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成学习"><span class="toc-number">1.2.</span> <span class="toc-text">集成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Random-Forest"><span class="toc-number">1.2.1.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT"><span class="toc-number">1.2.2.</span> <span class="toc-text">GBDT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GBDT多分类以及训练过程"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">GBDT多分类以及训练过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求解树结构复杂度："><span class="toc-number">1.2.2.2.</span> <span class="toc-text">求解树结构复杂度：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XGBoost"><span class="toc-number">1.2.3.</span> <span class="toc-text">XGBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GBDT-vs-XGB"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">GBDT vs XGB</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FM算法"><span class="toc-number">1.3.</span> <span class="toc-text">FM算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FM的计算"><span class="toc-number">1.3.1.</span> <span class="toc-text">FM的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算过程"><span class="toc-number">1.3.2.</span> <span class="toc-text">计算过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GBDT-FM"><span class="toc-number">1.4.</span> <span class="toc-text">GBDT+FM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#稀疏特征进FM"><span class="toc-number">1.4.1.</span> <span class="toc-text">稀疏特征进FM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连续特征进GBDT"><span class="toc-number">1.4.2.</span> <span class="toc-text">连续特征进GBDT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNN的应用"><span class="toc-number">1.4.3.</span> <span class="toc-text">DNN的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT-FM为什么不是RF-FM"><span class="toc-number">1.4.4.</span> <span class="toc-text">GBDT+FM为什么不是RF+FM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">1.5.</span> <span class="toc-text">reference</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#非参考，仅推荐"><span class="toc-number">1.5.1.</span> <span class="toc-text">非参考，仅推荐</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
@@ -117,7 +117,7 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            树模型
+            树模型与集成学习
         </h1>
         
         <div class="article-meta clearfix">
@@ -140,7 +140,7 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="树模型总结"><a href="#树模型总结" class="headerlink" title="树模型总结"></a>树模型总结</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br><a id="more"></a></p>
+        <h1 id="树模型与集成学习"><a href="#树模型与集成学习" class="headerlink" title="树模型与集成学习"></a>树模型与集成学习</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br><a id="more"></a></p>
 <h3 id="ID3算法——信息增益度量纯度"><a href="#ID3算法——信息增益度量纯度" class="headerlink" title="ID3算法——信息增益度量纯度"></a>ID3算法——信息增益度量纯度</h3><p>D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵</p>
 <ul>
 <li>信息熵：<script type="math/tex; mode=display">H(D)=-\sum_{y=k}^{K}p_k·log(p_k)</script></li>
@@ -298,6 +298,7 @@
 <li>GBDT前面的树侧重对多数样本有区分度的特征；后面的树针对经过前面的树仍然残差大的少数样本</li>
 <li>从bias and variance角度，RF降低variance而不改变bias, 而LR线性模型的variance足够低，需要更多的组合特征降低bias</li>
 </ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><h3 id="非参考，仅推荐"><a href="#非参考，仅推荐" class="headerlink" title="非参考，仅推荐"></a>非参考，仅推荐</h3><p><a href="https://blog.csdn.net/program_developer/article/details/102763481" target="_blank" rel="noopener">深入理解GBDT算法</a><br><a href="https://blog.csdn.net/program_developer/article/details/102539034" target="_blank" rel="noopener">梯度提升树</a><br><a href="https://mp.weixin.qq.com/s/7n1nzGL7r789P9sv0GEkDA" target="_blank" rel="noopener">XGB详细推导</a></p>
 
         
     </section>
@@ -324,7 +325,7 @@
         admin: ["yuyinxiao"],
         id: "2019/10/25/树模型",
         distractionFreeMode: true,
-        title: "树模型",
+        title: "树模型与集成学习",
         body: "https://yuyinxiao.github.io/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/",
         labels: ["ML"]
     }).render('comments');
