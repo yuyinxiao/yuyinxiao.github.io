@@ -149,6 +149,77 @@
     <header class="article-header">
         
         <h1 itemprop="name">
+            <a href="/2019/10/29/geo-hash/">geo_hash</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-29T09:50:18.000Z" itemprop="datePublished">2019-10-29</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="Geohash"><a href="#Geohash" class="headerlink" title="Geohash"></a>Geohash</h1><p>Geohash算法将经纬度二维数据编码为一个字符串，本质是一个降维的过程<br><a href="https://www.cnblogs.com/feiquan/p/11380461.html" target="_blank" rel="noopener">参考网址</a></p>
+<h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">地点</th>
+<th style="text-align:center">经纬度</th>
+<th style="text-align:center">Geohash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">鸟巢</td>
+<td style="text-align:center">116.402843,39.999375</td>
+<td style="text-align:center">wx4g8c9v</td>
+</tr>
+<tr>
+<td style="text-align:center">水立方</td>
+<td style="text-align:center">116.3967,39.99932</td>
+<td style="text-align:center">wx4g89tk</td>
+</tr>
+<tr>
+<td style="text-align:center">故宫</td>
+<td style="text-align:center">116.40382,39.918118</td>
+<td style="text-align:center">wx4g0ffe</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>鸟巢和水立方的前五位是一样的，而鸟巢和故宫只有前4位是一样的。也就是说<strong>Geohash前面相同的越多，两个位置越近，但是反过来说，却不一定</strong></p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/29/geo-hash/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
             <a href="/2019/10/28/home/">主页</a>
         </h1>
         
@@ -386,6 +457,7 @@
     <section class="article-body markdown-body">
         
         <h1 id="搜索回溯"><a href="#搜索回溯" class="headerlink" title="搜索回溯"></a>搜索回溯</h1><p>采用DFS：递归+回溯；BFS：队列</p>
+<h2 id="DFS-递归"><a href="#DFS-递归" class="headerlink" title="DFS+递归"></a>DFS+递归</h2><h3 id="岛屿数量"><a href="#岛屿数量" class="headerlink" title="岛屿数量"></a>岛屿数量</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;grid.size();i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;grid[<span class="number">0</span>].size();j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(mark[i][j]==<span class="number">0</span> &amp;&amp; grid[i][j]==<span class="string">'1'</span>)</span><br><span class="line">            DFS(mark,grid,i,j);</span><br><span class="line">            count++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(&amp; mark,&amp; grid,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    mark[x][y]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> dx[]=&#123;<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> dy[]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> x_=x+dx[i];</span><br><span class="line">        <span class="keyword">int</span> y_=y+dy[i];</span><br><span class="line">        <span class="keyword">if</span>(x_&lt;<span class="number">0</span>||x_&gt;=mark.size()||y_&lt;<span class="number">0</span>||y_&gt;=mark[x_].size())&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(mark[x_][y_]==<span class="number">0</span> &amp;&amp; grid[x_][y_]==<span class="string">'1'</span>)&#123;</span><br><span class="line">            DFS(mark,grid,x_,y_);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E6%90%9C%E7%B4%A2/#more">
@@ -472,12 +544,7 @@
         
         <h1 id="子集问题"><a href="#子集问题" class="headerlink" title="子集问题"></a>子集问题</h1><p>要明确的问题在于，递归+回溯得到所有子集，就是指数级复杂度，等同于brute force。将子集问题变为迭代问题，并且保证结果无重复子集。</p>
 <hr>
-<h2 id="对数组取子集"><a href="#对数组取子集" class="headerlink" title="对数组取子集"></a>对数组取子集</h2><blockquote>
-<blockquote>
-<p>包含重复元素</p>
-</blockquote>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">res=&#123;&#123;&#125;&#125;,last=s[<span class="number">0</span>];</span><br><span class="line">sort(nums.begin(),nums.end());</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">    <span class="comment">//保存不重复起始位置，有重复则是之前的长度</span></span><br><span class="line">    <span class="keyword">if</span>(s[i]!=last)</span><br><span class="line">        last=s[i];</span><br><span class="line">        len=res.size();</span><br><span class="line">    <span class="comment">//如果有重复则赋值后一半，再添加元素；无重复则从头赋值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=res.size()-len;j&lt; res.size();j++) </span><br><span class="line">        res.push_back(s[j]);</span><br><span class="line">        res.back().push_back(s[i])</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+<h2 id="对数组取子集"><a href="#对数组取子集" class="headerlink" title="对数组取子集"></a>对数组取子集</h2><p>包含重复元素<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">res=&#123;&#123;&#125;&#125;,last=s[<span class="number">0</span>];</span><br><span class="line">sort(nums.begin(),nums.end());</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">    <span class="comment">//保存不重复起始位置，有重复则是之前的长度</span></span><br><span class="line">    <span class="keyword">if</span>(s[i]!=last)</span><br><span class="line">        last=s[i];</span><br><span class="line">        len=res.size();</span><br><span class="line">    <span class="comment">//如果有重复则赋值后一半，再添加元素；无重复则从头赋值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=res.size()-len;j&lt; res.size();j++) </span><br><span class="line">        res.push_back(s[j]);</span><br><span class="line">        res.back().push_back(s[i])</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure><br></p>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E5%AD%90%E9%9B%86/#more">
@@ -561,9 +628,7 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><h3 id="翻转句子的单词"><a href="#翻转句子的单词" class="headerlink" title="翻转句子的单词"></a>翻转句子的单词</h3><p>整体翻转；分割单词再次翻转</p>
-<h3 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a>左旋转字符串</h3><p>s1翻转，s2翻转，整体翻转</p>
-<h2 id="移除K个数字"><a href="#移除K个数字" class="headerlink" title="移除K个数字"></a>移除K个数字</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">removeKdigits</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res;</span><br><span class="line">    <span class="keyword">int</span> n = num.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : num) &#123;</span><br><span class="line">        <span class="keyword">while</span> (k &amp;&amp; res.size() &amp;&amp; res.back() &gt; c) &#123;</span><br><span class="line">            res.pop_back();</span><br><span class="line">            --k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//前导0</span></span><br><span class="line">        <span class="keyword">if</span> (res.size() || c != <span class="string">'0'</span>)</span><br><span class="line">            res.push_back(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (res.size() &amp;&amp; k--)</span><br><span class="line">        res.pop_back();</span><br><span class="line">    <span class="keyword">return</span> res.empty() ? <span class="string">"0"</span> : res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="移除K个数字"><a href="#移除K个数字" class="headerlink" title="移除K个数字"></a>移除K个数字</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">removeKdigits</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res;</span><br><span class="line">    <span class="keyword">int</span> n = num.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : num) &#123;</span><br><span class="line">        <span class="keyword">while</span> (k &amp;&amp; res.size() &amp;&amp; res.back() &gt; c) &#123;</span><br><span class="line">            res.pop_back();</span><br><span class="line">            --k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//前导0</span></span><br><span class="line">        <span class="keyword">if</span> (res.size() || c != <span class="string">'0'</span>)</span><br><span class="line">            res.push_back(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (res.size() &amp;&amp; k--)</span><br><span class="line">        res.pop_back();</span><br><span class="line">    <span class="keyword">return</span> res.empty() ? <span class="string">"0"</span> : res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
         <p class="article-more-link">
             <a href="/2019/10/25/%E5%AD%97%E7%AC%A6%E4%B8%B2/#more">
@@ -992,53 +1057,6 @@
         
         <p class="article-more-link">
             <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/#more">
-                <span class="vm">阅读更多</span>
-                <i class="icon-arrow-double-right vm"></i>    
-            </a>
-        </p>
-        
-        
-    </section>
-</article>
-
-
-    <article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/">算法推导整理</a>
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/index.html">
-    
-    <i class="icon-calendar"></i>
-    
-    <time datetime="2019-10-25T05:41:36.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <h1 id="公式推导整理"><a href="#公式推导整理" class="headerlink" title="公式推导整理"></a>公式推导整理</h1><h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\hat{\theta}&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log p(x^{(i)};\theta)\\
-&= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)
-\end{aligned}</script><p>因为含有隐变量$z$故极大似然估计并不能够求解上述模型。</p>
-        
-        <p class="article-more-link">
-            <a href="/2019/10/25/%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC%E6%95%B4%E7%90%86/#more">
                 <span class="vm">阅读更多</span>
                 <i class="icon-arrow-double-right vm"></i>    
             </a>
