@@ -21,10 +21,12 @@
 </ol>
 <h2 id="xgb"><a href="#xgb" class="headerlink" title="xgb"></a>xgb</h2><p>训练的时候过程是相似的，牛顿法计算残差+显示正则+特征直方图选择</p>
 <ol>
-<li>标准：平方损失+显式正则项；</li>
-<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；</li>
+<li>标准：平方损失+显式正则项=&gt;Gain结构分数；</li>
+<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；特征预排序+缓存；并行</li>
 <li>计算叶子节点下残差和$w_j=-\frac{G}{H}$</li>
+<li>停止生长：Gain&lt;0；最大深度；最小样本权重和；</li>
 </ol>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MzY0MzE4Mg==&amp;mid=2247485159&amp;idx=1&amp;sn=d429aac8370ca5127e1e786995d4e8ec&amp;chksm=e9d01626dea79f30043ab80652c4a859760c1ebc0d602e58e13490bf525ad7608a9610495b3d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">XGB精选面试题</a></p>
 ]]></content>
       <categories>
         <category>ml</category>
@@ -1669,254 +1671,6 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
       </tags>
   </entry>
   <entry>
-    <title>推荐系统</title>
-    <url>/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
-<h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
-<li>基于内容的过滤、协同过滤</li>
-<li>基于用户的协同过滤、基于物品的协同过滤<h3 id="协同过滤的两种主要方式"><a href="#协同过滤的两种主要方式" class="headerlink" title="协同过滤的两种主要方式"></a>协同过滤的两种主要方式</h3></li>
-<li>近邻模型<ol>
-<li>面向用户：计算用户之间的关联；</li>
-<li>面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。</li>
-<li>用余弦值表示上述用户关联，该值就是皮尔逊相关系数。</li>
-</ol>
-</li>
-<li>隐变量模型<ol>
-<li>隐变量描述用户对物品的评级。物品（类型，流派）；用户（评分，评级等）</li>
-<li>神经网络，矩阵分解实现隐变量表示。</li>
-</ol>
-</li>
-</ul>
-<a id="more"></a>
-<h3 id="embedding在推荐中的应用"><a href="#embedding在推荐中的应用" class="headerlink" title="embedding在推荐中的应用"></a>embedding在推荐中的应用</h3><p><a href="https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html" target="_blank" rel="noopener">embedding在推荐系统的应用</a></p>
-<blockquote>
-<blockquote>
-<p>基于内容的推荐：理解内容（挖掘内容属性）去挖掘用户兴趣点构建推荐模型。对用户行为去挖掘内容。以物品的共现性，作为自然语言的上下文关系，构建神经网络学习物品在隐空间的向量表示。</p>
-</blockquote>
-</blockquote>
-<p>Embedding通过给定关联（时序上下文，共现集合）信息，使用极大似然估计方式计算这些关系发生概率最大时的参数，再借助参数赋予个体抽象的隐含属性，对隐含属性编码赋值，最后用编码表征或者代替个体。通过隐含属性编码方式。</p>
-<h4 id="embedding质量评估"><a href="#embedding质量评估" class="headerlink" title="embedding质量评估"></a>embedding质量评估</h4><p>单词的评估一般比较相似度距离；推荐系统中没有一定完美的方案，以具体任务的实际收益作为评价标准。</p>
-<h5 id="word-embedding"><a href="#word-embedding" class="headerlink" title="word embedding"></a>word embedding</h5><ul>
-<li>相似度</li>
-<li>king-queue=man-woman</li>
-<li>类别分类</li>
-<li>聚类</li>
-</ul>
-<h5 id="item-embedding"><a href="#item-embedding" class="headerlink" title="item embedding"></a>item embedding</h5><ul>
-<li>TOP N的相似度</li>
-<li>随机抽取，人工判别</li>
-<li>聚类</li>
-<li>上线AB</li>
-</ul>
-<h2 id="CTR预估算法比较"><a href="#CTR预估算法比较" class="headerlink" title="CTR预估算法比较"></a>CTR预估算法比较</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>介绍</th>
-<th>不足</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>LR</td>
-<td>$\sigma(x)$将函数值映射到0~1；大数据下易并行化</td>
-<td>线性模型学习有限 ，人工特征与特征较差补充非线性，耗费人力</td>
-<td></td>
-</tr>
-<tr>
-<td>Kernel函数法</td>
-<td>低维映射到高维</td>
-<td>复杂度太高不易实现</td>
-</tr>
-<tr>
-<td>树模型</td>
-<td>GBDT+LR解决特征组合</td>
-<td>对历史行为，旧规则的记忆，新规则缺乏推广性</td>
-</tr>
-<tr>
-<td>FM模型</td>
-<td>自动学习高阶属性，解放人工挖掘特征</td>
-<td>只能拟合特定的非线性，二阶</td>
-</tr>
-<tr>
-<td>DNN</td>
-<td>NN拟合非线性，能力足够强</td>
-<td>适合业务数据，具备推广性的网络结构，端到端规模化</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
-<li>LR：大规模离散特征</li>
-<li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
-<li>FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉</li>
-<li>FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量</li>
-<li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
-<li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
-<li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
-<li>AFM：FM + bi-interact + attention + MLP </li>
-<li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
-<li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
-<li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
-</ul>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"></p>
-<h2 id="推荐系统的评估"><a href="#推荐系统的评估" class="headerlink" title="推荐系统的评估"></a>推荐系统的评估</h2><p>A/B测试：流量分发（随机，uid%100∈[0,20%]）</p>
-<h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.</p>
-<script type="math/tex; mode=display">P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} < M < \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95</script><p>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
-<p><strong>小流量的用户行为统计在流量放宽后关键指标数据可能会发生变化。故由小到大逐步增加流量分配，同时实时监控关键指标的数据走势</strong></p>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/zhixindu.gif" alt="avatar"></p>
-<h3 id="冷启动过程"><a href="#冷启动过程" class="headerlink" title="冷启动过程"></a>冷启动过程</h3><h4 id="用户冷启动"><a href="#用户冷启动" class="headerlink" title="用户冷启动"></a>用户冷启动</h4><ol>
-<li>手机用户特征；</li>
-<li>粗粒度选项引导填写；</li>
-<li>热点，保量<h4 id="物品冷启动"><a href="#物品冷启动" class="headerlink" title="物品冷启动"></a>物品冷启动</h4></li>
-<li>保量</li>
-</ol>
-<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><script type="math/tex; mode=display">score=CTR*(\alpha+CVR) * (\beta+price) * staya * rule \_weight *</script><h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ol>
-<li>目标重要性难以量化；</li>
-<li>超参难以学习；</li>
-<li>在线服务计算量大；</li>
-</ol>
-<h2 id="推荐系统架构"><a href="#推荐系统架构" class="headerlink" title="推荐系统架构"></a>推荐系统架构</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys.png" alt="avatar"></p>
-<h3 id="online部分架构"><a href="#online部分架构" class="headerlink" title="online部分架构"></a>online部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_online.png" alt="avatar"></p>
-<h4 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h4><p>推荐引擎，推荐系统核心，包括online逻辑，召回、过滤、特征计算、排序、 多样化等处理过程。</p>
-<h4 id="数据路径"><a href="#数据路径" class="headerlink" title="数据路径"></a>数据路径</h4><ol>
-<li><p>请求的刷新从gateway，经过流量分配模块，传到业务gateway，业务gateway支持http，tcp（使用thirtf协议或者protobuf 协议）等多种类型接口；</p>
-</li>
-<li><p>用户行为数据，从gateway到Flume agent，然后到kafka，为后面online，realtime userprofile部分的提供实时数据，也为offline部分的数据存储系统提供数据。</p>
-</li>
-</ol>
-<h3 id="offline部分架构"><a href="#offline部分架构" class="headerlink" title="offline部分架构"></a>offline部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_offline.png" alt="avatar"><br>从框架的角度看，推荐系统基本可以分为数据层、召回层、排序层。</p>
-<ul>
-<li>sessionlog：对原始数据进行清洗合并，sessionlog一般就是清洗合并后的数据，后续的算法和统计都是根据sessionlog进行再加工。</li>
-<li>userprofile：对用户属性和行为等信息进行采集和统计，为后续算法提供特征支持。</li>
-<li>itemDoc：对视频、商品等属性、曝光、点击等字段进行统计， 为后续算法提供特征支持。<br>召回层主要是从用户的历史行为、实时行为等角度利用各种触发策略产生推荐的候选集，对不同的策略和算法产生的候选集进行融合并按照产品规则进行过滤，一般融合和过滤后的候选集还是比较多的，一次线上请求过来之后线上系统无法对那么多的候选集进行排序，所以在召回层一般还会有粗排序，对融合的候选集进行一次粗排序，过滤掉粗排分数较低的候选集。</li>
-</ul>
-<h2 id="YouTubeDNN"><a href="#YouTubeDNN" class="headerlink" title="YouTubeDNN"></a>YouTubeDNN</h2><ul>
-<li>1.召回TopN：生成倒排，近似搜索；</li>
-<li>2.新视频：用该视频最近生成日志的时间example age；初始化训练时为0；就是说越短越可能为正样本（训练的trick）</li>
-<li>3.测试集作为最近一次观看行为</li>
-<li>4.优化目标非CTR，播放率而是曝光后预期播放时间</li>
-<li>5.目标函数的设定应该是一个算法模型的根本性问题</li>
-<li>6.对某些特征开方x，x，x^2处理后输入在线上serving中使用$e^{Wx+b}$做预测可以直接得到expected watch time的近似。</li>
-<li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/equation1.svg" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/equation2.svg" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
-</ul>
-<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
-<h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/youtube.jpg" alt="avatar"></p>
-<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
-<h2 id="Wide-amp-Depp与DeepFM"><a href="#Wide-amp-Depp与DeepFM" class="headerlink" title="Wide&amp;Depp与DeepFM"></a>Wide&amp;Depp与DeepFM</h2><h3 id="wide——LR、FM"><a href="#wide——LR、FM" class="headerlink" title="wide——LR、FM"></a>wide——LR、FM</h3><p>wide部分主要使用LR或者FM；<br>特征方面：one-hot稀疏特征，基础特征，交叉特征；通过加入宽泛类特征实现一定泛化能力，受限训练数据，wide模型无法实现未曾出现的泛化</p>
-<h3 id="deep——DNN"><a href="#deep——DNN" class="headerlink" title="deep——DNN"></a>deep——DNN</h3><p>前馈神经网络，特征首先转换为低维稠密向量，<strong>维度O(10)~O(100)</strong>，向量随机初始化，经过最小化损失函数训练，中间激活用relu。<br>DNN学习低维稠密特征实现模型泛化能力，包括未出现内容，有泛化推荐的能力<br>手机型号，年龄等这类实体特征，几百类或几十类，最后映射为低维稠密特征</p>
-<h3 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h3><ul>
-<li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
-<li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
-</ul>
-<p>平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
-<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
-<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/fm.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。<br>Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse -Features。</p>
-<ul>
-<li>稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。</li>
-<li>FM：LR的权重为一阶权重，组合特征权重为高阶权重。</li>
-<li>Dense Embeddings：有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</li>
-</ul>
-<h4 id="wide-amp-deep和deepFM区别"><a href="#wide-amp-deep和deepFM区别" class="headerlink" title="wide&amp;deep和deepFM区别"></a>wide&amp;deep和deepFM区别</h4><ul>
-<li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
-<li>共享原始输入特征。DeepFM模型的原始特征将作为FM和Deep模型部分的共同输入，保证模型特征的准确与一致。</li>
-<li>DeepFM模型包含FM和DNN两部分，FM模型可以抽取低阶特征，DNN可以抽取高阶特征。</li>
-<li>由于输入仅为原始特征，而且FM和DNN共享输入向量特征，DeepFM模型训练速度很快。</li>
-</ul>
-<h2 id="热点feed流postrank"><a href="#热点feed流postrank" class="headerlink" title="热点feed流postrank"></a>热点feed流postrank</h2><h3 id="精排得到40个，为什么还要对12个重排序？"><a href="#精排得到40个，为什么还要对12个重排序？" class="headerlink" title="精排得到40个，为什么还要对12个重排序？"></a>精排得到40个，为什么还要对12个重排序？</h3><ol>
-<li>ctr预估，集中在预估单个item的ctr，和真实场景有一定的gap；</li>
-<li>广告位设置，多样性实验</li>
-<li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
-<li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
-</ol>
-<h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
-<p>模型$f_θ$拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
-<p>优化函数1：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
-<p>最终优化函数2：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e4.png" alt="avatar"></p>
-<ul>
-<li>两层Transformer，4个head；最后得到某个位置item的概率。最后计算总体收益。</li>
-<li>focal loss：更多关注错分的样本；a调节权重；</li>
-</ul>
-<h3 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h3><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
-<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/focal.png" alt="avatar"></p>
-<p>例如$\gamma$为2</p>
-<ul>
-<li>对于正类样本而言，预测结果为0.95肯定是简单样本，所以（1-0.95）的gamma次方就会很小，这时损失函数值就变得更小。而预测概率为0.3的样本其损失相对很大;</li>
-<li>对于负类样本而言同样，预测0.1的结果应当远比预测0.7的样本损失值要小得多。对于预测概率为0.5时，损失只减少了0.25倍，所以更加关注于这种难以区分的样本。</li>
-</ul>
-<p>这样减少了简单样本的影响，大量预测概率很小的正样本叠加起来后的效应才可能比较有效。此外，加入平衡因子alpha，用来平衡正负样本本身的比例不均：文中alpha取0.25，即正样本要比负样本占比小，这是因为负例易分。</p>
-<h3 id="pointwise，pairwise，listwise"><a href="#pointwise，pairwise，listwise" class="headerlink" title="pointwise，pairwise，listwise"></a>pointwise，pairwise，listwise</h3><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Pointwise、Pairwise和Listwise的本质区别是训练过程中优化的目标或者损失函数不同。Pointwise优化的目标是单条样本与用户（查询词）之间的相关性（或者是否会点），即回归的目标是label。比如对于广告排序场景，优化目标是样本是否点击这个事情，这就是Pointwise。但对于如RankNet的Pairwise方法，优化的目标是正例与负例之间的序。而对于Listwise，优化的是一个序的好坏，比如用NDCG来评价。</p>
-<h4 id="pointwise"><a href="#pointwise" class="headerlink" title="pointwise"></a>pointwise</h4><blockquote>
-<blockquote>
-<p>将排序问题当作二分类</p>
-</blockquote>
-</blockquote>
-<p>训练样本</p>
-<script type="math/tex; mode=display">pointwise=(q_i,c_{i,j},y_{i,j})</script><p>$q_i$为第i个query，$c_{i,j}$为第i个query中第j个候选集，$y_{i,j}$为对该候选样本真实的概率<br>预测阶段二分类模型$h_\theta$排序每个候选句子，得到$\hat{y_{i,j}}$，选取top-ranked句自作为正确答案。目标函数为：</p>
-<script type="math/tex; mode=display">argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})</script><h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
-<blockquote>
-<p>让正确答案比错误答案得分高</p>
-</blockquote>
-</blockquote>
-<p>训练样本</p>
-<script type="math/tex; mode=display">pairwise=(q_i,c^+_i,c^-_i)</script><p>给一个提问$q_i$，pairwise给定一对候选回答学习并预测最佳回答。$c^+$为正确回答，损失函数为合页函数</p>
-<script type="math/tex; mode=display">L=max\{0,m-(h_\theta(q_i,c^+_i)-h_\theta(q_i,c^-_i))\}</script><ul>
-<li>对（正样本预测值-负样本预测值）&gt; m时则判断正确，损失为0；</li>
-<li>对（正样本预测值-负样本预测值）&lt; m时则判断错误，有损失。</li>
-</ul>
-<h5 id="合页损失函数"><a href="#合页损失函数" class="headerlink" title="合页损失函数"></a>合页损失函数</h5><p>促使正确答案的得分比错误答案的得分大于$m$。最后和pairwise类似，在预测阶段得分最高的候选答案被当作正确的答案。</p>
-<h4 id="listwise"><a href="#listwise" class="headerlink" title="listwise"></a>listwise</h4><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/listwise.jpg" alt></p>
-<p>g设想成最优评分函数,对查询Q1来说：文档A得6分,文档B得4分,文档C得3分<br>找到一个函数,使得其对Q1的搜索结果打分顺序尽可能的接近标准函数g.其中函数f和h就是实际的评分函数,通过比较两个概率之间的KL距离,发现f比h更接近假想的最优函数g.故选择函数f为搜索的评分函数.</p>
-<blockquote>
-<blockquote>
-<p>q拟合p的分布</p>
-<script type="math/tex; mode=display">D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))</script></blockquote>
-</blockquote>
-<h2 id="NavBoost"><a href="#NavBoost" class="headerlink" title="NavBoost"></a>NavBoost</h2><ol>
-<li>取30天的数据ctx_id和rec_id之间的展点数据，impression必须大某个阈值（1W）</li>
-<li>计算ctx_id和rec_id之间的coec值</li>
-<li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
-<li>计算最终得分，ctrScore <em> 0.8 + ageScore </em> 0.2</li>
-</ol>
-<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
-<h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
-<hr>
-<p>用户注意力一般集中在左上，因此每次 impression 能导致的 click 是与位置相关的。变现有效 impression 的方式是通过每个位置的平均 CTR（reference CTR）来处理，这样将每次 impression 乘以对应位置的 reference CTR 就获得了所谓的 EC（expected click），这样消除了 position bias 的 EC 就变成可加的了。观测到的 click 数目从统计上来看应该是分布在 EC 附近，也就是说 COEC（clicks over expected clicks）的期望应该是 1。</p>
-<p>使用 COEC 而不是 CTR 作为每个 item 的 relevance 的反应是一个不错的选择，但是实际操作中与 CTR 类似都面临着 data sparsity 的问题。一般我们也会使用 Laplace smoothing 解决 0 观测。</p>
-<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
-]]></content>
-      <categories>
-        <category>rec</category>
-      </categories>
-      <tags>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统</title>
-    <url>/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
-<li>进程：一个程序在一个数据集合上的一次运行过程。</li>
-<li>线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。</li>
-</ul>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>进程是程序的一次执行，线程理解为进程中执行的一个程序片段；<br>进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；<br>进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。<br>线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；<br>进程间可以IPC通信，线程不可以</p>
-<a id="more"></a>
-<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>信号，信号量，消息队列，共享内存</p>
-<p>本地之间：文件映射、共享内存、匿名管道、剪切板<br>跨服务器：命名管道、socket、邮件槽</p>
-<h3 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h3><p>全局变量、自定义消息响应</p>
-<h2 id="多线程并行和并发的区别"><a href="#多线程并行和并发的区别" class="headerlink" title="多线程并行和并发的区别"></a>多线程并行和并发的区别</h2><p>并行：多个处理器或者多核处理器同时执行多个不同的任务。<br>并发：一个处理器处理多个任务。</p>
-<h2 id="同步与互斥"><a href="#同步与互斥" class="headerlink" title="同步与互斥"></a>同步与互斥</h2><h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><p>某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。</p>
-<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>在互斥的基础上，通过其它机制实现访问者对资源的有序访问。在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源</p>
-]]></content>
-      <categories>
-        <category>BD</category>
-      </categories>
-      <tags>
-        <tag>os</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数学基础</title>
     <url>/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="导数、偏导数与方向导数"><a href="#导数、偏导数与方向导数" class="headerlink" title="导数、偏导数与方向导数"></a>导数、偏导数与方向导数</h2><p><img src="/2019/10/25/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/37.png" alt="avatar"></p>
@@ -2011,6 +1765,29 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
       </categories>
       <tags>
         <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统</title>
+    <url>/2019/10/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
+<li>进程：一个程序在一个数据集合上的一次运行过程。</li>
+<li>线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。</li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>进程是程序的一次执行，线程理解为进程中执行的一个程序片段；<br>进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；<br>进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。<br>线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；<br>进程间可以IPC通信，线程不可以</p>
+<a id="more"></a>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>信号，信号量，消息队列，共享内存</p>
+<p>本地之间：文件映射、共享内存、匿名管道、剪切板<br>跨服务器：命名管道、socket、邮件槽</p>
+<h3 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h3><p>全局变量、自定义消息响应</p>
+<h2 id="多线程并行和并发的区别"><a href="#多线程并行和并发的区别" class="headerlink" title="多线程并行和并发的区别"></a>多线程并行和并发的区别</h2><p>并行：多个处理器或者多核处理器同时执行多个不同的任务。<br>并发：一个处理器处理多个任务。</p>
+<h2 id="同步与互斥"><a href="#同步与互斥" class="headerlink" title="同步与互斥"></a>同步与互斥</h2><h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><p>某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。</p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>在互斥的基础上，通过其它机制实现访问者对资源的有序访问。在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源</p>
+]]></content>
+      <categories>
+        <category>BD</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
       </tags>
   </entry>
   <entry>
@@ -2411,6 +2188,231 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
       </categories>
       <tags>
         <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>推荐系统</title>
+    <url>/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
+<h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
+<li>基于内容的过滤、协同过滤</li>
+<li>基于用户的协同过滤、基于物品的协同过滤<h3 id="协同过滤的两种主要方式"><a href="#协同过滤的两种主要方式" class="headerlink" title="协同过滤的两种主要方式"></a>协同过滤的两种主要方式</h3></li>
+<li>近邻模型<ol>
+<li>面向用户：计算用户之间的关联；</li>
+<li>面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。</li>
+<li>用余弦值表示上述用户关联，该值就是皮尔逊相关系数。</li>
+</ol>
+</li>
+<li>隐变量模型<ol>
+<li>隐变量描述用户对物品的评级。物品（类型，流派）；用户（评分，评级等）</li>
+<li>神经网络，矩阵分解实现隐变量表示。</li>
+</ol>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="embedding在推荐中的应用"><a href="#embedding在推荐中的应用" class="headerlink" title="embedding在推荐中的应用"></a>embedding在推荐中的应用</h3><p><a href="https://lumingdong.cn/application-practice-of-embedding-in-recommendation-system.html" target="_blank" rel="noopener">embedding在推荐系统的应用</a></p>
+<blockquote>
+<blockquote>
+<p>基于内容的推荐：理解内容（挖掘内容属性）去挖掘用户兴趣点构建推荐模型。对用户行为去挖掘内容。以物品的共现性，作为自然语言的上下文关系，构建神经网络学习物品在隐空间的向量表示。</p>
+</blockquote>
+</blockquote>
+<p>Embedding通过给定关联（时序上下文，共现集合）信息，使用极大似然估计方式计算这些关系发生概率最大时的参数，再借助参数赋予个体抽象的隐含属性，对隐含属性编码赋值，最后用编码表征或者代替个体。通过隐含属性编码方式。</p>
+<h4 id="embedding质量评估"><a href="#embedding质量评估" class="headerlink" title="embedding质量评估"></a>embedding质量评估</h4><p>单词的评估一般比较相似度距离；推荐系统中没有一定完美的方案，以具体任务的实际收益作为评价标准。</p>
+<h5 id="word-embedding"><a href="#word-embedding" class="headerlink" title="word embedding"></a>word embedding</h5><ul>
+<li>相似度</li>
+<li>king-queue=man-woman</li>
+<li>类别分类</li>
+<li>聚类</li>
+</ul>
+<h5 id="item-embedding"><a href="#item-embedding" class="headerlink" title="item embedding"></a>item embedding</h5><ul>
+<li>TOP N的相似度</li>
+<li>随机抽取，人工判别</li>
+<li>聚类</li>
+<li>上线AB</li>
+</ul>
+<h2 id="CTR预估算法比较"><a href="#CTR预估算法比较" class="headerlink" title="CTR预估算法比较"></a>CTR预估算法比较</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>介绍</th>
+<th>不足</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LR</td>
+<td>$\sigma(x)$将函数值映射到0~1；大数据下易并行化</td>
+<td>线性模型学习有限 ，人工特征与特征较差补充非线性，耗费人力</td>
+<td></td>
+</tr>
+<tr>
+<td>Kernel函数法</td>
+<td>低维映射到高维</td>
+<td>复杂度太高不易实现</td>
+</tr>
+<tr>
+<td>树模型</td>
+<td>GBDT+LR解决特征组合</td>
+<td>对历史行为，旧规则的记忆，新规则缺乏推广性</td>
+</tr>
+<tr>
+<td>FM模型</td>
+<td>自动学习高阶属性，解放人工挖掘特征</td>
+<td>只能拟合特定的非线性，二阶</td>
+</tr>
+<tr>
+<td>DNN</td>
+<td>NN拟合非线性，能力足够强</td>
+<td>适合业务数据，具备推广性的网络结构，端到端规模化</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="推荐系统比较"><a href="#推荐系统比较" class="headerlink" title="推荐系统比较"></a>推荐系统比较</h2><ul>
+<li>LR：大规模离散特征</li>
+<li>LR + GBDT：GBDT叶子节点编码离散化连续值特征，同时实现特征交叉</li>
+<li>FM：特征交叉权重矩阵分解，交叉结果属于向量维度的交叉</li>
+<li>FFM：隐向量分filed，不同field 特征交叉时使用对应field的向量</li>
+<li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
+<li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
+<li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
+<li>AFM：FM + bi-interact + attention + MLP </li>
+<li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
+<li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
+<li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
+</ul>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/com.jpg" alt="avatar"></p>
+<h2 id="推荐系统的评估"><a href="#推荐系统的评估" class="headerlink" title="推荐系统的评估"></a>推荐系统的评估</h2><p>A/B测试：流量分发（随机，uid%100∈[0,20%]）</p>
+<h3 id="95-置信区间是什么意思"><a href="#95-置信区间是什么意思" class="headerlink" title="95%置信区间是什么意思"></a>95%置信区间是什么意思</h3><p><strong>置信区间是指试验用户的优化指标vs所有用户下指标均值的区间估计</strong>展现的是指标的真实值与试验用户指标的相似度。95%是置信度，置信度越高，置信区间就越大。<br>分位数1.96处对应的阴影部分的面积(概率)为0.025，中间概率就为0.95.</p>
+<script type="math/tex; mode=display">P(\mu - 1.96 \frac{\sigma}{\sqrt{n}} < M < \mu + 1.96 \frac{\sigma}{\sqrt{n}} ) = 0.95</script><p>10%流量实验每一小时计算一次实验结果的置信区间，最后所有置信区间中有95%的置信区间包含了总体均值，则说明实验结果置信。</p>
+<p><strong>小流量的用户行为统计在流量放宽后关键指标数据可能会发生变化。故由小到大逐步增加流量分配，同时实时监控关键指标的数据走势</strong></p>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/zhixindu.gif" alt="avatar"></p>
+<h3 id="冷启动过程"><a href="#冷启动过程" class="headerlink" title="冷启动过程"></a>冷启动过程</h3><h4 id="用户冷启动"><a href="#用户冷启动" class="headerlink" title="用户冷启动"></a>用户冷启动</h4><ol>
+<li>手机用户特征；</li>
+<li>粗粒度选项引导填写；</li>
+<li>热点，保量<h4 id="物品冷启动"><a href="#物品冷启动" class="headerlink" title="物品冷启动"></a>物品冷启动</h4></li>
+<li>保量</li>
+</ol>
+<h3 id="多目标排序"><a href="#多目标排序" class="headerlink" title="多目标排序"></a>多目标排序</h3><script type="math/tex; mode=display">score=CTR*(\alpha+CVR) * (\beta+price) * staya * rule \_weight *</script><h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ol>
+<li>目标重要性难以量化；</li>
+<li>超参难以学习；</li>
+<li>在线服务计算量大；</li>
+</ol>
+<h2 id="推荐系统架构"><a href="#推荐系统架构" class="headerlink" title="推荐系统架构"></a>推荐系统架构</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys.png" alt="avatar"></p>
+<h3 id="online部分架构"><a href="#online部分架构" class="headerlink" title="online部分架构"></a>online部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_online.png" alt="avatar"></p>
+<h4 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h4><p>推荐引擎，推荐系统核心，包括online逻辑，召回、过滤、特征计算、排序、 多样化等处理过程。</p>
+<h4 id="数据路径"><a href="#数据路径" class="headerlink" title="数据路径"></a>数据路径</h4><ol>
+<li><p>请求的刷新从gateway，经过流量分配模块，传到业务gateway，业务gateway支持http，tcp（使用thirtf协议或者protobuf 协议）等多种类型接口；</p>
+</li>
+<li><p>用户行为数据，从gateway到Flume agent，然后到kafka，为后面online，realtime userprofile部分的提供实时数据，也为offline部分的数据存储系统提供数据。</p>
+</li>
+</ol>
+<h3 id="offline部分架构"><a href="#offline部分架构" class="headerlink" title="offline部分架构"></a>offline部分架构</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/rec_sys_offline.png" alt="avatar"><br>从框架的角度看，推荐系统基本可以分为数据层、召回层、排序层。</p>
+<ul>
+<li>sessionlog：对原始数据进行清洗合并，sessionlog一般就是清洗合并后的数据，后续的算法和统计都是根据sessionlog进行再加工。</li>
+<li>userprofile：对用户属性和行为等信息进行采集和统计，为后续算法提供特征支持。</li>
+<li>itemDoc：对视频、商品等属性、曝光、点击等字段进行统计， 为后续算法提供特征支持。<br>召回层主要是从用户的历史行为、实时行为等角度利用各种触发策略产生推荐的候选集，对不同的策略和算法产生的候选集进行融合并按照产品规则进行过滤，一般融合和过滤后的候选集还是比较多的，一次线上请求过来之后线上系统无法对那么多的候选集进行排序，所以在召回层一般还会有粗排序，对融合的候选集进行一次粗排序，过滤掉粗排分数较低的候选集。</li>
+</ul>
+<h2 id="YouTubeDNN"><a href="#YouTubeDNN" class="headerlink" title="YouTubeDNN"></a>YouTubeDNN</h2><ul>
+<li>1.召回TopN：生成倒排，近似搜索；</li>
+<li>2.新视频：用该视频最近生成日志的时间example age；初始化训练时为0；就是说越短越可能为正样本（训练的trick）</li>
+<li>3.测试集作为最近一次观看行为</li>
+<li>4.优化目标非CTR，播放率而是曝光后预期播放时间</li>
+<li>5.目标函数的设定应该是一个算法模型的根本性问题</li>
+<li>6.对某些特征开方x，x，x^2处理后输入在线上serving中使用$e^{Wx+b}$做预测可以直接得到expected watch time的近似。</li>
+<li>7.Weighted LR的特点是，正样本权重w的加入会让正样本发生的几率变成原来的w倍，也就是说样本i的Odds变成了下面的式子：<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/equation1.svg" alt="avatar"><br>由于在视频推荐场景中，用户打开一个视频的概率p往往是一个很小的值，因此上式可以继续简化：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/equation2.svg" alt="avatar"><br>因此，Model Serving过程中[公式] 计算的正是观看时长的期望。</li>
+</ul>
+<h3 id="候选集生成"><a href="#候选集生成" class="headerlink" title="候选集生成"></a>候选集生成</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/houxuan.jpg" alt="avatar"></p>
+<h3 id="精排"><a href="#精排" class="headerlink" title="精排"></a>精排</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/youtube.jpg" alt="avatar"></p>
+<h2 id="MMR-PostRank控制多样性"><a href="#MMR-PostRank控制多样性" class="headerlink" title="MMR(PostRank控制多样性)"></a>MMR(PostRank控制多样性)</h2><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/mmr.png" alt="avatar"><br>lambad 越大，准确性越大；<br>lambda 越小，多样性越好。</p>
+<h2 id="Wide-amp-Depp与DeepFM"><a href="#Wide-amp-Depp与DeepFM" class="headerlink" title="Wide&amp;Depp与DeepFM"></a>Wide&amp;Depp与DeepFM</h2><h3 id="wide——LR、FM"><a href="#wide——LR、FM" class="headerlink" title="wide——LR、FM"></a>wide——LR、FM</h3><p>wide部分主要使用LR或者FM；<br>特征方面：one-hot稀疏特征，基础特征，交叉特征；通过加入宽泛类特征实现一定泛化能力，受限训练数据，wide模型无法实现未曾出现的泛化</p>
+<h3 id="deep——DNN"><a href="#deep——DNN" class="headerlink" title="deep——DNN"></a>deep——DNN</h3><p>前馈神经网络，特征首先转换为低维稠密向量，<strong>维度O(10)~O(100)</strong>，向量随机初始化，经过最小化损失函数训练，中间激活用relu。<br>DNN学习低维稠密特征实现模型泛化能力，包括未出现内容，有泛化推荐的能力<br>手机型号，年龄等这类实体特征，几百类或几十类，最后映射为低维稠密特征</p>
+<h3 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h3><ul>
+<li>Wide模型利用交叉特征高效的实现记忆能力，实现精准推荐</li>
+<li>Embedding类的模型通过学习到的低维稠密向量，实现模型的泛化推荐（未见过的内容）</li>
+</ul>
+<p>平衡Wide模型和Deep模型的Memorization 与 Generalization(记忆与泛化)</p>
+<script type="math/tex; mode=display">P\left ( Y=1\mid \mathbf{x} \right )=\sigma \left ( \mathbf{w}_{wide}^T\left [ \mathbf{x},\phi \left ( \mathbf{x} \right ) \right ] + \mathbf{w}_{deep}^Ta^{\left ( l_f \right )}+b \right )</script><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/w&amp;d.png" alt="avatar"></p>
+<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/fm.jpg" alt="avatar"><br>黑色线表示带有权重的连接，红色线表示权重为1的连接，蓝色线表示one-hot映射到对应的embedding。<br>Field表示一个特征类别,每个field用one-hot表示，构成最下面的Sparse -Features。</p>
+<ul>
+<li>稀疏特征有两部分输出，一部分是加权求和得到FM Layer中的第一个节点，另一部分索引对应的embedding得到Dense Embeddings。</li>
+<li>FM：LR的权重为一阶权重，组合特征权重为高阶权重。</li>
+<li>Dense Embeddings：有两部分输出，一部分是两两做点积输出到FM Layer，另外一部分是拼接起来作为Hidden Layer的输入</li>
+</ul>
+<h4 id="wide-amp-deep和deepFM区别"><a href="#wide-amp-deep和deepFM区别" class="headerlink" title="wide&amp;deep和deepFM区别"></a>wide&amp;deep和deepFM区别</h4><ul>
+<li>wide模型部分由LR替换为FM,FM模型学习交叉特征的能力</li>
+<li>共享原始输入特征。DeepFM模型的原始特征将作为FM和Deep模型部分的共同输入，保证模型特征的准确与一致。</li>
+<li>DeepFM模型包含FM和DNN两部分，FM模型可以抽取低阶特征，DNN可以抽取高阶特征。</li>
+<li>由于输入仅为原始特征，而且FM和DNN共享输入向量特征，DeepFM模型训练速度很快。</li>
+</ul>
+<h2 id="热点feed流postrank"><a href="#热点feed流postrank" class="headerlink" title="热点feed流postrank"></a>热点feed流postrank</h2><h3 id="精排得到40个，为什么还要对12个重排序？"><a href="#精排得到40个，为什么还要对12个重排序？" class="headerlink" title="精排得到40个，为什么还要对12个重排序？"></a>精排得到40个，为什么还要对12个重排序？</h3><ol>
+<li>ctr预估，集中在预估单个item的ctr，和真实场景有一定的gap；</li>
+<li>广告位设置，多样性实验</li>
+<li>在真实的list顺序下，item被选中的概率与预测兴趣有差别</li>
+<li>多个item作为序列联合排序，整体提升排在前面被点击的概率，用户更多的关注前几个。</li>
+</ol>
+<h2 id="序列评估与生成框架"><a href="#序列评估与生成框架" class="headerlink" title="序列评估与生成框架"></a>序列评估与生成框架</h2><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>总收益函数：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e1.png" alt="avatar"></p>
+<p>模型$f_θ$拟合：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e2.png" alt="avatar"></p>
+<p>优化函数1：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e3.png" alt="avatar"></p>
+<p>最终优化函数2：<img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/e4.png" alt="avatar"></p>
+<ul>
+<li>两层Transformer，4个head；最后得到某个位置item的概率。最后计算总体收益。</li>
+<li>focal loss：更多关注错分的样本；a调节权重；</li>
+</ul>
+<h3 id="Transformer-DNN"><a href="#Transformer-DNN" class="headerlink" title="Transformer+DNN"></a>Transformer+DNN</h3><p>1、偏差较大：精排得分，确定下限；<br>2、测试机较差时怀疑过拟合，dropout后测试集效果好于训练评估；<br>3、测试集不够具有全天代表性，扩充；<br>4、最终保证测试与训练相差不大。</p>
+<h3 id="Focal-Loss-发掘困难样本"><a href="#Focal-Loss-发掘困难样本" class="headerlink" title="Focal Loss 发掘困难样本"></a>Focal Loss 发掘困难样本</h3><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/focal.png" alt="avatar"></p>
+<p>例如$\gamma$为2</p>
+<ul>
+<li>对于正类样本而言，预测结果为0.95肯定是简单样本，所以（1-0.95）的gamma次方就会很小，这时损失函数值就变得更小。而预测概率为0.3的样本其损失相对很大;</li>
+<li>对于负类样本而言同样，预测0.1的结果应当远比预测0.7的样本损失值要小得多。对于预测概率为0.5时，损失只减少了0.25倍，所以更加关注于这种难以区分的样本。</li>
+</ul>
+<p>这样减少了简单样本的影响，大量预测概率很小的正样本叠加起来后的效应才可能比较有效。此外，加入平衡因子alpha，用来平衡正负样本本身的比例不均：文中alpha取0.25，即正样本要比负样本占比小，这是因为负例易分。</p>
+<h3 id="pointwise，pairwise，listwise"><a href="#pointwise，pairwise，listwise" class="headerlink" title="pointwise，pairwise，listwise"></a>pointwise，pairwise，listwise</h3><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Pointwise、Pairwise和Listwise的本质区别是训练过程中优化的目标或者损失函数不同。Pointwise优化的目标是单条样本与用户（查询词）之间的相关性（或者是否会点），即回归的目标是label。比如对于广告排序场景，优化目标是样本是否点击这个事情，这就是Pointwise。但对于如RankNet的Pairwise方法，优化的目标是正例与负例之间的序。而对于Listwise，优化的是一个序的好坏，比如用NDCG来评价。</p>
+<h4 id="pointwise"><a href="#pointwise" class="headerlink" title="pointwise"></a>pointwise</h4><blockquote>
+<blockquote>
+<p>将排序问题当作二分类</p>
+</blockquote>
+</blockquote>
+<p>训练样本</p>
+<script type="math/tex; mode=display">pointwise=(q_i,c_{i,j},y_{i,j})</script><p>$q_i$为第i个query，$c_{i,j}$为第i个query中第j个候选集，$y_{i,j}$为对该候选样本真实的概率<br>预测阶段二分类模型$h_\theta$排序每个候选句子，得到$\hat{y_{i,j}}$，选取top-ranked句自作为正确答案。目标函数为：</p>
+<script type="math/tex; mode=display">argmax_{c_{i,j}} h_{\theta}(q_i,c_{i,j})</script><h4 id="pairwise"><a href="#pairwise" class="headerlink" title="pairwise"></a>pairwise</h4><blockquote>
+<blockquote>
+<p>让正确答案比错误答案得分高</p>
+</blockquote>
+</blockquote>
+<p>训练样本</p>
+<script type="math/tex; mode=display">pairwise=(q_i,c^+_i,c^-_i)</script><p>给一个提问$q_i$，pairwise给定一对候选回答学习并预测最佳回答。$c^+$为正确回答，损失函数为合页函数</p>
+<script type="math/tex; mode=display">L=max\{0,m-(h_\theta(q_i,c^+_i)-h_\theta(q_i,c^-_i))\}</script><ul>
+<li>对（正样本预测值-负样本预测值）&gt; m时则判断正确，损失为0；</li>
+<li>对（正样本预测值-负样本预测值）&lt; m时则判断错误，有损失。</li>
+</ul>
+<h5 id="合页损失函数"><a href="#合页损失函数" class="headerlink" title="合页损失函数"></a>合页损失函数</h5><p>促使正确答案的得分比错误答案的得分大于$m$。最后和pairwise类似，在预测阶段得分最高的候选答案被当作正确的答案。</p>
+<h4 id="listwise"><a href="#listwise" class="headerlink" title="listwise"></a>listwise</h4><p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/listwise.jpg" alt></p>
+<p>g设想成最优评分函数,对查询Q1来说：文档A得6分,文档B得4分,文档C得3分<br>找到一个函数,使得其对Q1的搜索结果打分顺序尽可能的接近标准函数g.其中函数f和h就是实际的评分函数,通过比较两个概率之间的KL距离,发现f比h更接近假想的最优函数g.故选择函数f为搜索的评分函数.</p>
+<blockquote>
+<blockquote>
+<p>q拟合p的分布</p>
+<script type="math/tex; mode=display">D_{KL}(p||q)=\sum_{x}p(x)\log \frac{p(x)}{q(x)}=-\sum_x p(x)\log q(x)-(-\sum_x p(x)\log p(x))</script></blockquote>
+</blockquote>
+<h2 id="NavBoost"><a href="#NavBoost" class="headerlink" title="NavBoost"></a>NavBoost</h2><ol>
+<li>取30天的数据ctx_id和rec_id之间的展点数据，impression必须大某个阈值（1W）</li>
+<li>计算ctx_id和rec_id之间的coec值</li>
+<li>计算最大的ctr，归一化所有的ctr；计算新鲜度值$=1.5 - \frac{1}{1 + \exp(-\frac{age}{100})}$</li>
+<li>计算最终得分，ctrScore <em> 0.8 + ageScore </em> 0.2</li>
+</ol>
+<p><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/28.png" alt="avatar"></p>
+<h3 id="COEC"><a href="#COEC" class="headerlink" title="COEC"></a>COEC</h3><p>解决item在页面上位置的不同造成CTR的差异性</p>
+<hr>
+<p>用户注意力一般集中在左上，因此每次 impression 能导致的 click 是与位置相关的。变现有效 impression 的方式是通过每个位置的平均 CTR（reference CTR）来处理，这样将每次 impression 乘以对应位置的 reference CTR 就获得了所谓的 EC（expected click），这样消除了 position bias 的 EC 就变成可加的了。观测到的 click 数目从统计上来看应该是分布在 EC 附近，也就是说 COEC（clicks over expected clicks）的期望应该是 1。</p>
+<p>使用 COEC 而不是 CTR 作为每个 item 的 relevance 的反应是一个不错的选择，但是实际操作中与 CTR 类似都面临着 data sparsity 的问题。一般我们也会使用 Laplace smoothing 解决 0 观测。</p>
+<h4 id="拉普拉斯平滑"><a href="#拉普拉斯平滑" class="headerlink" title="拉普拉斯平滑"></a>拉普拉斯平滑</h4><p>分子+1；分母+可取值范围大小<br><img src="/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/36.png" alt="avatar"></p>
+]]></content>
+      <categories>
+        <category>rec</category>
+      </categories>
+      <tags>
+        <tag>推荐系统</tag>
       </tags>
   </entry>
   <entry>

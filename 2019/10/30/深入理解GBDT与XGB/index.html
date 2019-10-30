@@ -158,10 +158,12 @@
 </ol>
 <h2 id="xgb"><a href="#xgb" class="headerlink" title="xgb"></a>xgb</h2><p>训练的时候过程是相似的，牛顿法计算残差+显示正则+特征直方图选择</p>
 <ol>
-<li>标准：平方损失+显式正则项；</li>
-<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；</li>
+<li>标准：平方损失+显式正则项=&gt;Gain结构分数；</li>
+<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；特征预排序+缓存；并行</li>
 <li>计算叶子节点下残差和$w_j=-\frac{G}{H}$</li>
+<li>停止生长：Gain&lt;0；最大深度；最小样本权重和；</li>
 </ol>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MzY0MzE4Mg==&amp;mid=2247485159&amp;idx=1&amp;sn=d429aac8370ca5127e1e786995d4e8ec&amp;chksm=e9d01626dea79f30043ab80652c4a859760c1ebc0d602e58e13490bf525ad7608a9610495b3d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">XGB精选面试题</a></p>
 
         
     </section>
