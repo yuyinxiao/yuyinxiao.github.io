@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>深入理解GBDT与XGB</title>
+    <url>/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/</url>
+    <content><![CDATA[<h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究</p>
+<p><a href="https://blog.csdn.net/program_developer/article/details/102763481" target="_blank" rel="noopener">深入理解GBDT</a></p>
+<ul>
+<li>训练一棵树：(特征排序-&gt;划分节点)*n—[分裂截止]—&gt;叶子节点内样本求残差和$\sum_{j \in I_j} y_j-\hat{y_j}$作为叶子节点的值。</li>
+<li>训练多棵树：<strong>最开始样本均值作为所有样本预测值</strong>，训练完后每个样本预测值+=步长(0.1)*叶子节点值作为训练下一棵树的预测值；</li>
+<li>划分节点：遍历特征选择损失小的特征；</li>
+</ul>
+<a id="more"></a>
+<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w<em>=-G$<br>XGB：$w</em>=-\frac{G}{H}$</p>
+<h2 id="gbdt"><a href="#gbdt" class="headerlink" title="gbdt"></a>gbdt</h2><ol>
+<li>初始时，样本预测值为所有样本真实结果的均值；</li>
+<li>划分叶子节点：贪心试探，得到叶子节点划分后平方损失最小的最佳特征与值；</li>
+<li>分裂截止后，对每个叶子节点求样本残差和$w_j=\sum_{i \in I_j} y_i-\hat{y_i}$作为节点值；</li>
+<li>所有样本值由上一轮预测值$y^{pred}+=0.1*w_j$；</li>
+<li>重复2，3，4</li>
+</ol>
+<h2 id="xgb"><a href="#xgb" class="headerlink" title="xgb"></a>xgb</h2><p>训练的时候过程是相似的，牛顿法计算残差+显示正则+特征直方图选择</p>
+<ol>
+<li>标准：平方损失+显式正则项；</li>
+<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；</li>
+<li>计算叶子节点下残差和$w_j=-\frac{G}{H}$</li>
+</ol>
+]]></content>
+      <categories>
+        <category>ml</category>
+      </categories>
+      <tags>
+        <tag>推荐系统</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>geo_hash</title>
     <url>/2019/10/29/geo-hash/</url>
     <content><![CDATA[<h1 id="Geohash"><a href="#Geohash" class="headerlink" title="Geohash"></a>Geohash</h1><p>Geohash算法将经纬度二维数据编码为一个字符串，本质是一个降维的过程<br><a href="https://www.cnblogs.com/feiquan/p/11380461.html" target="_blank" rel="noopener">参考网址</a></p>
@@ -38,12 +72,12 @@
 <ul>
 <li>用 39.918118 举例，由于39.918118 属于 (0, 90)，所以编码为1，然后我们继续将(0, 90)分成(0, 45)、(45, 90)两个区间，而39.918118 位于(0, 45)，所以编码是0，依次类推，我们进行20次拆分，最后计算39.918118 的编码是 10111000110001011011；经度的处理也是类似，只是经度的范围是(-180, 180)，116.40382的编码是<strong>11010010110001101010</strong></li>
 <li>经纬度的编码合并，从0开始，奇数为是纬度，偶数为是经度，得到的编码是<strong>1110011101001000111100000011100111001101</strong></li>
-<li>对经纬度合并后的编码，进行base32编码，最终得到<strong>wx4g0ffe</strong><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">geo_Hash</span><span class="params">(lng,lat,length)</span>:</span></span><br><span class="line">    Min_Lat = <span class="number">-90.00</span></span><br><span class="line">    Max_Lat = <span class="number">90.00</span></span><br><span class="line">    Min_Lng= <span class="number">-180.00</span></span><br><span class="line">    Max_Lng= <span class="number">180.00</span></span><br><span class="line">    geo_length=length*<span class="number">5</span>/<span class="number">2</span></span><br><span class="line">    base32Lookup =[<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>,<span class="string">"j"</span>, <span class="string">"k"</span>, <span class="string">"m"</span>, <span class="string">"n"</span>, <span class="string">"p"</span>, <span class="string">"q"</span>, <span class="string">"r"</span>, <span class="string">"s"</span>, <span class="string">"t"</span>, <span class="string">"u"</span>, <span class="string">"v"</span>, <span class="string">"w"</span>, <span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(begin, end, value, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> (len(result) &gt; (geo_length - <span class="number">1</span>)):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        mid = (end + begin) / <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> (value &lt; mid):</span><br><span class="line">            result.append(<span class="string">'0'</span>)</span><br><span class="line">            convert(begin, mid, value, result)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result.append(<span class="string">'1'</span>)</span><br><span class="line">            convert(mid, end, value, result)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">convertToIndex</span><span class="params">(unit)</span>:</span></span><br><span class="line">        length =len(unit)</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(length):</span><br><span class="line">            <span class="keyword">if</span> unit[index] == <span class="string">'0'</span>:</span><br><span class="line">                num+=<span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                num+=(<span class="number">1</span> &lt;&lt; (length - <span class="number">1</span> - index))</span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    </span><br><span class="line">    latList = []</span><br><span class="line">    lngList = []</span><br><span class="line">    result=<span class="string">""</span></span><br><span class="line">    convert(Min_Lat, Max_Lat, lat, latList)</span><br><span class="line">    convert(Min_Lng, Max_Lng, lng, lngList)</span><br><span class="line">    code_str=<span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(len(latList)):</span><br><span class="line">        code_str+=(lngList[index]+latList[index])</span><br><span class="line">    <span class="keyword">for</span> start <span class="keyword">in</span> range(<span class="number">0</span>,len(code_str),<span class="number">5</span>):</span><br><span class="line">        unit = code_str[start:start + <span class="number">5</span>]</span><br><span class="line">        result+=base32Lookup[convertToIndex(unit)]</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-将经纬度转换为二进制编码<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(<span class="keyword">double</span> min, <span class="keyword">double</span> max, <span class="keyword">double</span> value, List&lt;Character&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (list.size() &gt; (length - <span class="number">1</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">double</span> mid = (max + min) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; mid) &#123;</span><br><span class="line">        list.add(<span class="string">'0'</span>);</span><br><span class="line">        convert(min, mid, value, list);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        list.add(<span class="string">'1'</span>);</span><br><span class="line">        convert(mid, max, value, list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-合并经纬度的二进制编码<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Character&gt; latList = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</span><br><span class="line">List&lt;Character&gt; lngList = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</span><br><span class="line">convert(Min_Lat, Max_Lat, lat, latList);</span><br><span class="line">convert(Min_Lng, Max_Lng, lng, lngList);</span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; latList.size(); index++) &#123;</span><br><span class="line">    sb.append(lngList.get(index)).append(latList.get(index));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-base32编码<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String[] base32Lookup =&#123;<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>,<span class="string">"j"</span>, <span class="string">"k"</span>,<span class="string">"m"</span>, <span class="string">"n"</span>, <span class="string">"p"</span>, <span class="string">"q"</span>, <span class="string">"r"</span>, <span class="string">"s"</span>, <span class="string">"t"</span>, <span class="string">"u"</span>, <span class="string">"v"</span>, <span class="string">"w"</span>, <span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">base32Encode</span><span class="params">(<span class="keyword">final</span> String str)</span> </span>&#123;</span><br><span class="line">    String unit = <span class="string">""</span>;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> start = <span class="number">0</span>; start &lt; str.length(); start = start + <span class="number">5</span>) &#123;</span><br><span class="line">        unit = str.substring(start, start + <span class="number">5</span>);</span><br><span class="line">        sb.append(base32Lookup[convertToIndex(unit.split(<span class="string">""</span>))]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">convertToIndex</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = str.length();</span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; length; index++) &#123;</span><br><span class="line">        result += str.charAt(index) == <span class="string">'0'</span> ? <span class="number">0</span> : <span class="number">1</span> &lt;&lt; (length - <span class="number">1</span> - index);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>对经纬度合并后的编码，进行base32编码，最终得到<strong>wx4g0ffe</strong></li>
 </ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">geo_Hash</span><span class="params">(lng,lat,length)</span>:</span></span><br><span class="line">    Min_Lat = <span class="number">-90.00</span></span><br><span class="line">    Max_Lat = <span class="number">90.00</span></span><br><span class="line">    Min_Lng= <span class="number">-180.00</span></span><br><span class="line">    Max_Lng= <span class="number">180.00</span></span><br><span class="line">    geo_length=length*<span class="number">5</span>/<span class="number">2</span></span><br><span class="line">    base32Lookup =[<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>,<span class="string">"j"</span>, <span class="string">"k"</span>, <span class="string">"m"</span>, <span class="string">"n"</span>, <span class="string">"p"</span>, <span class="string">"q"</span>, <span class="string">"r"</span>, <span class="string">"s"</span>, <span class="string">"t"</span>, <span class="string">"u"</span>, <span class="string">"v"</span>, <span class="string">"w"</span>, <span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(begin, end, value, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> (len(result) &gt; (geo_length - <span class="number">1</span>)):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        mid = (end + begin) / <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> (value &lt; mid):</span><br><span class="line">            result.append(<span class="string">'0'</span>)</span><br><span class="line">            convert(begin, mid, value, result)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result.append(<span class="string">'1'</span>)</span><br><span class="line">            convert(mid, end, value, result)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">convertToIndex</span><span class="params">(unit)</span>:</span></span><br><span class="line">        length =len(unit)</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(length):</span><br><span class="line">            <span class="keyword">if</span> unit[index] == <span class="string">'0'</span>:</span><br><span class="line">                num+=<span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                num+=(<span class="number">1</span> &lt;&lt; (length - <span class="number">1</span> - index))</span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    </span><br><span class="line">    latList = []</span><br><span class="line">    lngList = []</span><br><span class="line">    result=<span class="string">""</span></span><br><span class="line">    convert(Min_Lat, Max_Lat, lat, latList)</span><br><span class="line">    convert(Min_Lng, Max_Lng, lng, lngList)</span><br><span class="line">    code_str=<span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(len(latList)):</span><br><span class="line">        code_str+=(lngList[index]+latList[index])</span><br><span class="line">    <span class="keyword">for</span> start <span class="keyword">in</span> range(<span class="number">0</span>,len(code_str),<span class="number">5</span>):</span><br><span class="line">        unit = code_str[start:start + <span class="number">5</span>]</span><br><span class="line">        result+=base32Lookup[convertToIndex(unit)]</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<p>将经纬度转换为二进制编码<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(<span class="keyword">double</span> min, <span class="keyword">double</span> max, <span class="keyword">double</span> value, List&lt;Character&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (list.size() &gt; (length - <span class="number">1</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">double</span> mid = (max + min) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; mid) &#123;</span><br><span class="line">        list.add(<span class="string">'0'</span>);</span><br><span class="line">        convert(min, mid, value, list);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        list.add(<span class="string">'1'</span>);</span><br><span class="line">        convert(mid, max, value, list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>合并经纬度的二进制编码<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Character&gt; latList = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</span><br><span class="line">List&lt;Character&gt; lngList = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</span><br><span class="line">convert(Min_Lat, Max_Lat, lat, latList);</span><br><span class="line">convert(Min_Lng, Max_Lng, lng, lngList);</span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; latList.size(); index++) &#123;</span><br><span class="line">    sb.append(lngList.get(index)).append(latList.get(index));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>base32编码<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String[] base32Lookup =&#123;<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>,<span class="string">"j"</span>, <span class="string">"k"</span>,<span class="string">"m"</span>, <span class="string">"n"</span>, <span class="string">"p"</span>, <span class="string">"q"</span>, <span class="string">"r"</span>, <span class="string">"s"</span>, <span class="string">"t"</span>, <span class="string">"u"</span>, <span class="string">"v"</span>, <span class="string">"w"</span>, <span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">base32Encode</span><span class="params">(<span class="keyword">final</span> String str)</span> </span>&#123;</span><br><span class="line">    String unit = <span class="string">""</span>;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> start = <span class="number">0</span>; start &lt; str.length(); start = start + <span class="number">5</span>) &#123;</span><br><span class="line">        unit = str.substring(start, start + <span class="number">5</span>);</span><br><span class="line">        sb.append(base32Lookup[convertToIndex(unit.split(<span class="string">""</span>))]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">convertToIndex</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = str.length();</span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; length; index++) &#123;</span><br><span class="line">        result += str.charAt(index) == <span class="string">'0'</span> ? <span class="number">0</span> : <span class="number">1</span> &lt;&lt; (length - <span class="number">1</span> - index);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="边界问题"><a href="#边界问题" class="headerlink" title="边界问题"></a>边界问题</h3><p>两个位置距离得越近是否意味着Geohash前面相同的越多呢？答案是否定的，两个很近的地点[116.3967,44.9999]和[116.3967,45.0009]的Geohash分别是<strong>wxfzbxvr</strong>和<strong>y84b08j2</strong>，这就是Geohash存在的边界问题，这两个地点虽然很近，但是刚好在分界点45两侧，导致Geohash完全不同，单纯依靠Geohash匹配前缀的方式并不能解决这种问题</p>
 <p>在一维空间解决不了这个问题，回到二维空间中，将当前Geohash这块区域周围的八块区域的Geohash计算出来<br>[116.3967,44.9999] 周围8块区域的Geohash</p>
 <blockquote>
@@ -824,16 +858,12 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 </ol>
 <h2 id="神经网络的偏置项b"><a href="#神经网络的偏置项b" class="headerlink" title="神经网络的偏置项b"></a>神经网络的偏置项b</h2><script type="math/tex; mode=display">\hat y=\sum_i w_i x_i</script><script type="math/tex; mode=display">y=1,if\hat{y}>= threshold</script><script type="math/tex; mode=display">y=0,if\hat{y}<= threshold</script><p>$threshold$度量神经元正负激励的难易程度，$threshold$越大产生正向激励难度越大。通过移项作为$-b$加入最终的值中判断是否大于0即可。所以<strong>$b$的大小，度量了神经元产生正（负）激励的难易程度</strong></p>
 <h2 id="NN的参数初始化"><a href="#NN的参数初始化" class="headerlink" title="NN的参数初始化"></a>NN的参数初始化</h2><p>如果无隐层则参数可以都初始化为0；其他不会使用0初始化；</p>
-<h2 id="交叉熵损失与平方差损失"><a href="#交叉熵损失与平方差损失" class="headerlink" title="交叉熵损失与平方差损失"></a>交叉熵损失与平方差损失</h2><blockquote>
-<blockquote>
-<p>对分类问题</p>
+<h2 id="交叉熵损失与平方差损失"><a href="#交叉熵损失与平方差损失" class="headerlink" title="交叉熵损失与平方差损失"></a>交叉熵损失与平方差损失</h2><p>对分类问题</p>
 <ul>
 <li>交叉熵度量两个分布的相似性；平方差损失度量两个数据距离；</li>
 <li>交叉熵对概率更为敏感；平方差对数值敏感；</li>
 <li>分类问题最后是sigmoid的输出，交叉熵可以使误差越大时学习率越大收敛快；平方差损失学习则慢；</li>
 </ul>
-</blockquote>
-</blockquote>
 <p>平方损失用在输出连续，最后一层无sigmoid和softmax层的NN中。</p>
 <h2 id="神经网络和SVM的区别"><a href="#神经网络和SVM的区别" class="headerlink" title="神经网络和SVM的区别"></a>神经网络和SVM的区别</h2><p>SVM和NN都可实现非线性分类模型。</p>
 <ul>
@@ -853,9 +883,10 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
   <entry>
     <title>Transformer</title>
     <url>/2019/10/25/Transformer/</url>
-    <content><![CDATA[<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"></p>
-<h2 id><a href="#" class="headerlink" title></a><img src="/2019/10/25/Transformer/trm.gif" alt="avatar"></h2><a id="more"></a>
-<h2 id="一、Encoder"><a href="#一、Encoder" class="headerlink" title="一、Encoder"></a>一、Encoder</h2><p><img src="/2019/10/25/Transformer/encoder.jpg" alt="avatar"></p>
+    <content><![CDATA[<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/2019/10/25/Transformer/trm.jpg" alt="avatar"><br><img src="/2019/10/25/Transformer/trm.gif" alt="avatar"></p>
+<hr>
+<a id="more"></a>
+<h2 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h2><p><img src="/2019/10/25/Transformer/encoder.jpg" alt="avatar"></p>
 <p>Transformer的encoder中，数据首先会经过一个叫做‘self-attention’的模块得到一个加权之后的特征向量$Z$，这个$Z$便是论文公式1中的 $\text{Attention}(Q,K,V)$</p>
 <script type="math/tex; mode=display">\text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V \tag1</script><p><strong>得到$Z$之后，加上残差网络结构然后被送到encoder的下一个模块，即Feed Forward Neural Network</strong>。这个全连接有两层，第一层的激活函数是ReLU，第二层是一个线性激活函数，可以表示为：</p>
 <script type="math/tex; mode=display">\text{FFN}(Z) = max(0, ZW_1 +b_1)W_2 + b_2 \tag2</script><p><strong>FFN输出后加上残差网络结构输出到下一层</strong></p>
@@ -874,7 +905,7 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 <ul>
 <li>图解<br><img src="/2019/10/25/Transformer/attention2.png" alt><br>以上为self-Attention，MultiHead-Attention如下<br><img src="/2019/10/25/Transformer/mattention.jpg" alt="avatar"><br>将各路self-Attention结果拼接得到MultiHead-Attention</li>
 </ul>
-<h2 id="二、残差网络"><a href="#二、残差网络" class="headerlink" title="二、残差网络"></a>二、残差网络</h2><ul>
+<h2 id="残差网络"><a href="#残差网络" class="headerlink" title="残差网络"></a>残差网络</h2><ul>
 <li>为什么使用残差网络<ol>
 <li>实际上随着网络深度的加深，训练错误会先减少，然后增多；</li>
 <li>深度越深越难训练，冗余的网络层不是恒等映射；<strong>DNN(x)!=x不是恒等映射后面就会学偏</strong>。</li>
@@ -882,9 +913,9 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 </li>
 <li>解决：引入残差网络希望这些冗余层能够完成恒等映射，保证DNN(x)=x。有助于解决梯度消失和梯度爆炸问题，让我们在训练更深网络的同时，又能保证良好的性能。</li>
 </ul>
-<h2 id="三、Position-encoding"><a href="#三、Position-encoding" class="headerlink" title="三、Position encoding"></a>三、Position encoding</h2><p>至此无论句子的结构怎么打乱，Transformer都会得到类似的结果。换句话说，Transformer只是一个功能更强大的词袋模型而已。引入位置信息的方式是对位置进行编码论文给出的编码公式如下：</p>
+<h2 id="Position-encoding"><a href="#Position-encoding" class="headerlink" title="Position encoding"></a>Position encoding</h2><p>至此无论句子的结构怎么打乱，Transformer都会得到类似的结果。换句话说，Transformer只是一个功能更强大的词袋模型而已。引入位置信息的方式是对位置进行编码论文给出的编码公式如下：</p>
 <script type="math/tex; mode=display">PE(pos, 2i) = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}}) \tag3</script><script type="math/tex; mode=display">PE(pos, 2i+1) = cos(\frac{pos}{10000^{\frac{2i}{d_{model}}}}) \tag4</script><p>在上式中， pos 表示单词的位置， i 表示单词的维度。在NLP任务重，除了单词的绝对位中，单词的相对位置也非常重要。根据公式$sin(\alpha+\beta) = sin \alpha cos \beta + cos \alpha sin\beta$以及$cos(\alpha + \beta) = cos \alpha cos \beta - sin \alpha sin\beta$这表明位置 k+p 的位置向量可以表示为位置 k 的特征向量的线性变化，这为模型捕捉单词之间的相对位置关系提供了非常大的便利。</p>
-<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
 <li>虽然Transformer最终也没有逃脱传统学习的套路，Transformer也只是一个全连接（或者是一维卷积）加Attention的结合体。抛弃了在NLP中最根本的RNN或者CNN并且取得了非常不错的效果;</li>
 <li>Transformer的设计最大的带来性能提升的关键是self_attention将任意两个单词的求取权重，解决文本处理中的长期依赖问题;</li>
 <li>Transformer可以应用更广;</li>
@@ -893,12 +924,12 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
 <li>位置信息不够重复</li>
 </ol>
-<h3 id="1、LSTM与RNN，Transformer比较"><a href="#1、LSTM与RNN，Transformer比较" class="headerlink" title="1、LSTM与RNN，Transformer比较"></a>1、LSTM与RNN，Transformer比较</h3><ul>
+<h3 id="LSTM与RNN，Transformer比较"><a href="#LSTM与RNN，Transformer比较" class="headerlink" title="LSTM与RNN，Transformer比较"></a>LSTM与RNN，Transformer比较</h3><ul>
 <li>RNN：易梯度消失；（梯度小于1，反向传播越乘越小）</li>
 <li>LSTM：缓解梯度消失；缓解长期依赖；但路径复杂，模型训练复杂</li>
 <li>Transformer：可并行计算，解决长期依赖</li>
 </ul>
-<h4 id="1-1-为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"><a href="#1-1-为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的" class="headerlink" title="1.1 为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"></a>1.1 为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的</h4><p>原因：链式求导法则导致梯度表示为连乘积的形式，梯度过大或者过小会造成梯度消失和爆炸<br>忘记门：通过相乘加和形式保证梯度流传播稳定；<br>输入门：与普通RNN类似仍然是连乘形式，依旧会可能发生梯度问题。<br><strong>通过改善一条路径的梯度缓解总体的远距离梯度太弱的问题。</strong></p>
+<h3 id="为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"><a href="#为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的" class="headerlink" title="为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的"></a>为何出现梯度消失和梯度爆炸，LSTM又是如何解决（改善）的</h3><p>原因：链式求导法则导致梯度表示为连乘积的形式，梯度过大或者过小会造成梯度消失和爆炸<br>忘记门：通过相乘加和形式保证梯度流传播稳定；<br>输入门：与普通RNN类似仍然是连乘形式，依旧会可能发生梯度问题。<br><strong>通过改善一条路径的梯度缓解总体的远距离梯度太弱的问题。</strong></p>
 ]]></content>
       <categories>
         <category>ml</category>
@@ -2025,17 +2056,17 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <h3 id="Loss-损失函数"><a href="#Loss-损失函数" class="headerlink" title="Loss 损失函数"></a>Loss 损失函数</h3><blockquote>
 <blockquote>
 <p>0-1损失、平方损失、绝对损失、对数损失、</p>
+</blockquote>
+</blockquote>
 <ol>
-<li>对数损失-交叉熵取均值<ol>
+<li><p>对数损失-交叉熵取均值</p>
+<ol>
 <li><script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 <li><script type="math/tex; mode=display">CrossEntropy(\theta)=-\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 </ol>
 </li>
-</ol>
-</blockquote>
-</blockquote>
-<ol>
-<li>平方损失-回归<script type="math/tex; mode=display">MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2</script></li>
+<li><p>平方损失-回归</p>
+<script type="math/tex; mode=display">MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2</script></li>
 <li>指数损失-Adaboost<script type="math/tex; mode=display">L(y,f(x))=\frac{1}{N}\sum_{i=1}^{N}e^{-y_if(x_i)}</script></li>
 <li>合页损失-SVM<script type="math/tex; mode=display">L(y·(w*x+b))=\sum_{i=1}^{N}[1-y(w*x+b)]_++\lambda||w||^2</script></li>
 <li>决策树<script type="math/tex; mode=display">C_\alpha(T)=\sum_{t=1}^{T}N_tH_t(T)+\alpha|T|</script></li>
@@ -2049,39 +2080,41 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <ul>
 <li>准确率：正负样本不均衡时，大类别特别影响准确率；</li>
 <li>精确率：$Precision=\frac{TP}{TP+FP}$</li>
-<li>召回率：$Recall=\frac{TP}{TP+FN}$<blockquote>
+<li>召回率：$Recall=\frac{TP}{TP+FN}$</li>
+</ul>
+<blockquote>
 <blockquote>
 <p>由此得到P-R曲线越右上角越好；且$F_1=\frac{2pr}{p+r}$</p>
 </blockquote>
 </blockquote>
-</li>
+<ul>
 <li>均方根误差：异常点影响大<script type="math/tex; mode=display">RMSE=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2}</script></li>
 <li>MAPE：平均绝对百分比误差，每个点误差进行归一化<script type="math/tex; mode=display">MAPE=\sum_{i=1}^{N}|\frac{y_i^{true}-y_i^{pred}}{y_i^{true}}|*\frac{100}{N}</script></li>
 </ul>
 <h3 id="3、ROC曲线"><a href="#3、ROC曲线" class="headerlink" title="3、ROC曲线"></a>3、ROC曲线</h3><ul>
 <li>优点：不受类分布的影响，适合与评估、比较类分布不平衡的数据集。</li>
-<li>缺点：ROC和AUC仅适合于两类问题 ,对多类问题 ,无法直接应用。<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AUC.gif" alt><h4 id="3-1、AUC"><a href="#3-1、AUC" class="headerlink" title="3.1、AUC"></a>3.1、AUC</h4>定义：AUC值为ROC曲线所覆盖的区域面积，显然，AUC越大，分类器分类效果越好。</li>
+<li>缺点：ROC和AUC仅适合于两类问题 ,对多类问题 ,无法直接应用。</li>
+</ul>
+<p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AUC.gif" alt></p>
+<h4 id="3-1、AUC"><a href="#3-1、AUC" class="headerlink" title="3.1、AUC"></a>3.1、AUC</h4><p>定义：AUC值为ROC曲线所覆盖的区域面积，显然，AUC越大，分类器分类效果越好。</p>
+<ul>
 <li>AUC = 1，是完美分类器，采用这个预测模型时，不管设定什么阈值都能得出完美预测。绝大多数预测的场合，不存在完美分类器。</li>
 <li>0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。</li>
 <li>AUC = 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。</li>
-<li>AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。<h4 id="3-2、AUC值的物理意义"><a href="#3-2、AUC值的物理意义" class="headerlink" title="3.2、AUC值的物理意义"></a>3.2、AUC值的物理意义</h4>假设分类器的输出是样本属于正类的socre（置信度），则AUC的物理意义为，任取一对（正、负）样本，正样本的score大于负样本的score的概率。<h4 id="3-3、AUC值的计算"><a href="#3-3、AUC值的计算" class="headerlink" title="3.3、AUC值的计算"></a>3.3、AUC值的计算</h4></li>
+<li>AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</li>
+</ul>
+<h4 id="3-2、AUC值的物理意义"><a href="#3-2、AUC值的物理意义" class="headerlink" title="3.2、AUC值的物理意义"></a>3.2、AUC值的物理意义</h4><p>假设分类器的输出是样本属于正类的socre（置信度），<strong>AUC的物理意义为：任取一对（正、负）样本，正样本的score大于负样本的score的概率。</strong></p>
+<h4 id="3-3、AUC值的计算"><a href="#3-3、AUC值的计算" class="headerlink" title="3.3、AUC值的计算"></a>3.3、AUC值的计算</h4><ul>
 <li>第一种方法：AUC为ROC曲线下的面积，那我们直接计算面积可得。面积为一个个小的梯形面积之和，计算的精度与阈值的精度有关。</li>
 <li>第二种方法：根据AUC的物理意义，我们计算正样本score大于负样本的score的概率。取N*M（M为正样本数，N为负样本数）个二元组，比较score，最后得到AUC。时间复杂度为O(N*M)。</li>
-<li><strong>第三种方法</strong>：<a href="https://www.cnblogs.com/van19/p/5494908.html" target="_blank" rel="noopener">AUC计算</a>首先对score从大到小排序，然后令最大score对应的sample的rank值为n，第二大score对应sample的rank值为n-1，以此类推从n到1。然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。得到的结果就是有多少对正类样本的score值大于负类样本的score值，最后再除以M×N即可。值得注意的是，当存在score相等的时候，对于score相等的样本，需要赋予相同的rank值(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。\<br>(正类与分数低者比较次数，正类与正类比较的次数)\<br>(n,m),\<br>(n-1,m-1),\<br>(n-2,m-2),\<br>,,,\<br>(n-(m-1),1)<br>左求和，右求和再相减即为下式<script type="math/tex; mode=display">AUC=\frac{\sum_{i \in posClass}rank_i - \frac{M(M+1)}{2}}{M*N}</script><blockquote>
-<blockquote>
-<p>时间复杂度为O(N+M)。</p>
-</blockquote>
-</blockquote>
-</li>
+<li><strong>第三种方法</strong>：<a href="https://www.cnblogs.com/van19/p/5494908.html" target="_blank" rel="noopener">AUC计算</a>首先对score从大到小排序，然后令最大score对应的sample的rank值为n，第二大score对应sample的rank值为n-1，以此类推从n到1。然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。得到的结果就是有多少对正类样本的score值大于负类样本的score值，最后再除以M×N即可。值得注意的是，当存在score相等的时候，对于score相等的样本，需要赋予相同的rank值(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。\</li>
 </ul>
+<p>(正类与分数低者比较次数，正类与正类比较的次数)\<br>(n,m),\<br>(n-1,m-1),\<br>(n-2,m-2),\<br>,,,\<br>(n-(m-1),1)<br>左求和，右求和再相减即为下式</p>
+<script type="math/tex; mode=display">AUC=\frac{\sum_{i \in posClass}rank_i - \frac{M(M+1)}{2}}{M*N}</script><p>时间复杂度为O(N+M)。</p>
 <h4 id="3-4、ROC与P-R曲线对比"><a href="#3-4、ROC与P-R曲线对比" class="headerlink" title="3.4、ROC与P-R曲线对比"></a>3.4、ROC与P-R曲线对比</h4><p>ROC明显降低不同测试集带来的干扰，困难样本下，ROC更加稳定反应模型的排序效果。</p>
 <h3 id="4、排序指标"><a href="#4、排序指标" class="headerlink" title="4、排序指标"></a>4、排序指标</h3><h4 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h4><p>对用户u的返回结果I（item的顺序1,2,,,10）的平均准确率（AP）</p>
 <script type="math/tex; mode=display">AP_u = \frac{1}{|I_u|}\sum_{i \in I_u}\frac{\sum_{j \in I_u}\delta(p_{uj} < p_{ui}) + 1}{p_{ui}}</script><p>MAP(Mean Average Precision)即为所有用户取AP的均值有：</p>
-<script type="math/tex; mode=display">MAP = \frac{\sum_{u \in U}AP_u}{|{U}|}</script><h4 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h4><blockquote>
-<blockquote>
-<p>$命中的pos对应precision=\frac{pos及以上的命中个数}{pos}$，没命中的为0</p>
-</blockquote>
-</blockquote>
+<script type="math/tex; mode=display">MAP = \frac{\sum_{u \in U}AP_u}{|{U}|}</script><h4 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h4><p>$命中的pos对应precision=\frac{pos及以上的命中个数}{pos}$，没命中的为0</p>
 <p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AP.png" alt><br>在对所有用户求均值</p>
 <h4 id="NDCG"><a href="#NDCG" class="headerlink" title="NDCG"></a>NDCG</h4><p>计算该位置和item的相关性得分；</p>
 <script type="math/tex; mode=display">累计收益：CG_k = \sum_{i=1}^k rel_i</script><p>没有考虑不同位置，靠后得分应该低；故增加pos的罚项对排名靠后的收益打折：</p>
@@ -2114,7 +2147,6 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>牛顿法引入二阶导数拟合f，依据f的变化趋势去梯度下降，收敛更快，迭代次数更少。但同时会引入问题，拟合会有误差，当前离min点较远时，趋势可能不对。</li>
 <li>多元函数的Hessian矩阵就类似一元函数的二阶导。多元函数Hessian矩阵半正定就相当于一元函数二阶导非负，半负定就相当于一元函数二阶导非正</li>
 </ul>
-<hr>
 <p>如果黑塞矩阵$F(x^{(k)})$不正定，那么搜索方向$ d^{(k)} = - F( x^{(k)})^{-1}\nabla f( x^{(k)})$可能不会是下降方向。 牛顿法的 Levenberg-Marquardt 修正可以解决这个问题：</p>
 <script type="math/tex; mode=display">x^{(k+1)} = x^{(k)} - \alpha_k(F( x^{(k)})  + \mu_k I)^{-1}\nabla f(x^{(k)})</script><p>其中，$\mu_k \ge 0$，I为单位矩阵。在该修正中，$F( x^{(k)})$可以不正定，但是$ G = F( x^{(k)}) + \mu_k , I$需要是正定的，所以，取适当的$\mu_k$使得$ G$正定即可。（矩阵正定，当前仅当所有特征值大于 0。）</p>
 <h4 id="牛顿法-vs-梯度下降"><a href="#牛顿法-vs-梯度下降" class="headerlink" title="牛顿法 vs 梯度下降"></a>牛顿法 vs 梯度下降</h4><ul>
@@ -2122,9 +2154,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>更通俗地，梯度下降法只从当前位置选择一个坡度最大的方向走一步，而牛顿法在选择方向时，不仅会考虑坡度是否够大，还会考虑走了一步后，坡度是否会变得更大。</li>
 <li>从几何上说，牛顿法就是用一个二次曲面去拟合当前位置的的局部曲面，而梯度下降法用的是一个平面去拟合，通常情况下，二次曲面的拟合会比平面更好，所以牛顿法选择的下降路径会更符合真实的最优下降路径。</li>
 </ul>
-<h3 id="4-拟牛顿法-牛顿法hessian矩阵的优化求解"><a href="#4-拟牛顿法-牛顿法hessian矩阵的优化求解" class="headerlink" title="4.拟牛顿法-牛顿法hessian矩阵的优化求解"></a>4.拟牛顿法-牛顿法hessian矩阵的优化求解</h3><p>在每次迭代的时候计算一个矩阵，其逼近海塞矩阵的逆。最重要的是，该逼近值只是使用损失函数的一阶偏导来计算</p>
-<hr>
-<p>求出$  H_{k+1}$给出 $  H_{k}$，梯度$f(  x^{(k)})$，$  d^{(k)}$，$\alpha_k$找到 $  H_{k+1}$的递推式，那么在迭代过程中就不需要涉及到黑塞矩阵也不会求逆。</p>
+<h3 id="4-拟牛顿法-牛顿法hessian矩阵的优化求解"><a href="#4-拟牛顿法-牛顿法hessian矩阵的优化求解" class="headerlink" title="4.拟牛顿法-牛顿法hessian矩阵的优化求解"></a>4.拟牛顿法-牛顿法hessian矩阵的优化求解</h3><p>在每次迭代的时候计算一个矩阵，其逼近海塞矩阵的逆。最重要的是，该逼近值只是使用损失函数的一阶偏导来计算求出$  H_{k+1}$给出 $  H_{k}$，梯度$f(  x^{(k)})$，$  d^{(k)}$，$\alpha_k$找到 $  H_{k+1}$的递推式，那么在迭代过程中就不需要涉及到黑塞矩阵也不会求逆。</p>
 <script type="math/tex; mode=display">\boldsymbol{H}_{k+1}=\boldsymbol{H}_{k}+\frac{\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)^{\top}}{\Delta \boldsymbol{g}^{(k) \top}\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)}</script><p>$\Delta x^{(k)}=\alpha_{k} d^{(k)}$，$\Delta \boldsymbol{g}^{(k)}=\boldsymbol{g}^{(k+1)}-\boldsymbol{g}^{(k)}$<br>$  H_0$可以取任一对称正定实矩阵。</p>
 <h2 id="四、偏差与方差"><a href="#四、偏差与方差" class="headerlink" title="四、偏差与方差"></a>四、偏差与方差</h2><p><a href="http://liuchengxu.org/blog-cn/posts/bias-variance/" target="_blank" rel="noopener">参考链接</a></p>
 <ol>
@@ -2173,9 +2203,9 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <h2 id="八、特征选择"><a href="#八、特征选择" class="headerlink" title="八、特征选择"></a>八、特征选择</h2><p>特征选取包含一些特征处理的操作：</p>
 <ul>
 <li>特征清洗（缺失，异常，样本比例权重）</li>
-<li><strong>标准化</strong>和归一化）<h3 id="为何标准化和归一化"><a href="#为何标准化和归一化" class="headerlink" title="为何标准化和归一化"></a>为何标准化和归一化</h3><h4 id="模型求解需要"><a href="#模型求解需要" class="headerlink" title="模型求解需要"></a>模型求解需要</h4></li>
+<li><strong>标准化</strong>和归一化）</li>
 </ul>
-<ol>
+<h3 id="为何标准化和归一化"><a href="#为何标准化和归一化" class="headerlink" title="为何标准化和归一化"></a>为何标准化和归一化</h3><h4 id="模型求解需要"><a href="#模型求解需要" class="headerlink" title="模型求解需要"></a>模型求解需要</h4><ol>
 <li>归一化后加速学习，不同特征方向上收敛同步；</li>
 <li>距离求解<h4 id="无量纲化"><a href="#无量纲化" class="headerlink" title="无量纲化"></a>无量纲化</h4></li>
 <li>不同特征没有量纲不具有比较意义<h4 id="避免数值bias"><a href="#避免数值bias" class="headerlink" title="避免数值bias"></a>避免数值bias</h4></li>
@@ -2219,14 +2249,14 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
     <title>树模型与集成学习</title>
     <url>/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="树模型与集成学习"><a href="#树模型与集成学习" class="headerlink" title="树模型与集成学习"></a>树模型与集成学习</h1><h2 id="决策树ID3-C4-5-CART树"><a href="#决策树ID3-C4-5-CART树" class="headerlink" title="决策树ID3,C4.5,CART树"></a>决策树ID3,C4.5,CART树</h2><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/1.png" alt="avatar"><br>特征枚举：根据规则选择特征<br>划分节点：根据特征进一步分裂叶子节点<br><strong>根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征</strong><br><a id="more"></a></p>
-<h3 id="ID3算法——信息增益度量纯度"><a href="#ID3算法——信息增益度量纯度" class="headerlink" title="ID3算法——信息增益度量纯度"></a>ID3算法——信息增益度量纯度</h3><p>D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵</p>
+<h3 id="ID3算法——信息增益"><a href="#ID3算法——信息增益" class="headerlink" title="ID3算法——信息增益"></a>ID3算法——信息增益</h3><p>D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵</p>
 <ul>
 <li>信息熵：<script type="math/tex; mode=display">H(D)=-\sum_{y=k}^{K}p_k·log(p_k)</script></li>
 <li>条件熵：<script type="math/tex; mode=display">H(D|f)=-\sum_{v\epsilon V_f}\frac{|D_v|}{|D|}H(D_v)</script></li>
 <li>信息增益：<script type="math/tex; mode=display">Gain(D,f)=H(D)-H(D|f)</script></li>
 <li>缺点：<strong>信息增益准则倾向于选取多值特征！</strong>假如把“编号”也作为一个候选划分属性，因为每一个样本的编号都是不同的（由于编号独特唯一，条件熵为0，每一个结点中只有一类，纯度非常高），也就是说，来了一个预测样本，你只要告诉我编号，其它特征就没有用了，这样生成的决策树显然不具有泛化能力。</li>
 </ul>
-<h3 id="C4-5算法——信息增益比度量纯度"><a href="#C4-5算法——信息增益比度量纯度" class="headerlink" title="C4.5算法——信息增益比度量纯度"></a>C4.5算法——信息增益比度量纯度</h3><p>信息增益比：</p>
+<h3 id="C4-5算法——信息增益比"><a href="#C4-5算法——信息增益比" class="headerlink" title="C4.5算法——信息增益比"></a>C4.5算法——信息增益比</h3><p>信息增益比：</p>
 <script type="math/tex; mode=display">Gain\_ratio(D,f)=\frac{Gain(D,f)}{IV(f)}</script><script type="math/tex; mode=display">IV(f)=-\sum_{y=k}^{K}p_{k,f}·log(p_{k,f})</script><p>IV(f)表明：某属性分成的K类别数越大，IV(f)就越大；是对多值属性的罚项，描述该特征下类别的离散程度。C4.5算法不直接选择增益率最大的候选划分属性，候选划分属性中找出信息增益高于平均水平的属性（这样保证了大部分好的的特征），再从中选择增益率最高的（又保证了不会出现编号特征这种极端的情况）</p>
 <ul>
 <li>优点<ol>
@@ -2234,7 +2264,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 </ol>
 </li>
 </ul>
-<h3 id="CART树——Gini系数度量纯度"><a href="#CART树——Gini系数度量纯度" class="headerlink" title="CART树——Gini系数度量纯度"></a>CART树——Gini系数度量纯度</h3><ul>
+<h3 id="CART树——Gini系数"><a href="#CART树——Gini系数" class="headerlink" title="CART树——Gini系数"></a>CART树——Gini系数</h3><ul>
 <li>总体样本的Gini系数：<script type="math/tex; mode=display">Gini(D)=1-\sum_{y=k}^{K}(\frac{D_k}{D})^2</script></li>
 <li>特征f下的Gini系数<script type="math/tex; mode=display">Gini(D|f)=1-\sum_{v\epsilon V_f}\frac{D_v}{D}Gini(D_v)</script><strong>无论是回归还是分类问题，无论特征是离散的还是连续的，无论特征取值有多个还是两个，CART树内部节点只能根据属性值进行二分</strong></li>
 <li>作为回归树：使用最小化MSE来选择特征并进行划分。遍历特征以及取值尝试划分，每一个叶子节点给出的预测值，是该叶子节点中所有样本的均值，计算最小平方误差。回归树生成使用平方误差最小化准则。</li>
@@ -2322,10 +2352,11 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 </ol>
 <ul>
 <li>函数空间的梯度下降，函数拟合的是负梯度；最终函数等于每次迭代的增量的累加和。</li>
-<li>参数空间的梯度下降，参数更新方向为负梯度方向；最终参数等于每次迭代的增量累加和。<br>新的一棵树拟合的是模型的整体损失对前面k-1棵树的负梯度。</li>
+<li>参数空间的梯度下降，参数更新方向为负梯度方向；最终参数等于每次迭代的增量累加和。</li>
 </ul>
-<h4 id="GBDT多分类以及训练过程"><a href="#GBDT多分类以及训练过程" class="headerlink" title="GBDT多分类以及训练过程"></a>GBDT多分类以及训练过程</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">X=[];label=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">(X,<span class="number">0</span>) -&gt; t1;得到预测值f1(X)</span><br><span class="line">(X,<span class="number">1</span>) -&gt; t2;得到预测值f2(X)</span><br><span class="line">(X,<span class="number">0</span>) -&gt; t3;得到预测值f3(X)</span><br><span class="line">对f1(x),f2(x),f3(x)进行softmax产生概率。</span><br><span class="line">得到残差：</span><br><span class="line">类别<span class="number">1</span>：y11(x)=<span class="number">0</span>−p1(x);</span><br><span class="line">类别<span class="number">2</span>：y22(x)=<span class="number">1</span>−p2(x);</span><br><span class="line">类别<span class="number">3</span>：y33(x)=<span class="number">0</span>−p3(x);</span><br><span class="line">-------------------------------</span><br><span class="line">(X,y11) -&gt; t11;得到预测值f11(X)</span><br><span class="line">(X,y22) -&gt; t22;得到预测值f22(X)</span><br><span class="line">(X,y33) -&gt; t33;得到预测值f33(X)</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
-<h4 id="求解树结构复杂度："><a href="#求解树结构复杂度：" class="headerlink" title="求解树结构复杂度："></a>求解树结构复杂度：</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">树深度K:</span><br><span class="line">    枚举所有特征d:</span><br><span class="line">        该特征下值排序 nlogn</span><br><span class="line">        线性扫描决定最佳分裂点</span><br><span class="line">        计算分裂后MSE或者Gini系数选择最优分裂点</span><br></pre></td></tr></table></figure>
+<p>新的一棵树拟合的是模型的整体损失对前面k-1棵树的负梯度。</p>
+<h4 id="GBDT多分类以及训练过程"><a href="#GBDT多分类以及训练过程" class="headerlink" title="GBDT多分类以及训练过程"></a>GBDT多分类以及训练过程</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X=[];label=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">(X,0) -&gt; t1;#得到预测值f1(X)</span><br><span class="line">(X,1) -&gt; t2;#得到预测值f2(X)</span><br><span class="line">(X,0) -&gt; t3;#得到预测值f3(X)</span><br><span class="line">对f1(x),f2(x),f3(x)进行softmax产生概率。得到残差：</span><br><span class="line">类别<span class="number">1</span>：y11(x)=<span class="number">0</span>−p1(x);</span><br><span class="line">类别<span class="number">2</span>：y22(x)=<span class="number">1</span>−p2(x);</span><br><span class="line">类别<span class="number">3</span>：y33(x)=<span class="number">0</span>−p3(x);</span><br><span class="line">-------------------------------</span><br><span class="line">(X,y11) -&gt; t11;#得到预测值f11(X)</span><br><span class="line">(X,y22) -&gt; t22;#得到预测值f22(X)</span><br><span class="line">(X,y33) -&gt; t33;#得到预测值f33(X)</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<h4 id="求解树复杂度"><a href="#求解树复杂度" class="headerlink" title="求解树复杂度"></a>求解树复杂度</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">树深度K:</span><br><span class="line">    枚举所有特征d:</span><br><span class="line">        该特征下值排序 nlogn</span><br><span class="line">        线性扫描决定最佳分裂点</span><br><span class="line">        计算分裂后MSE或者Gini系数选择最优分裂点</span><br></pre></td></tr></table></figure>
 <p>总体复杂度：<strong>K <em> d </em> nlogn。</strong></p>
 <h3 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h3><p>xgb与gbdt的算法对比<br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/7.png" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/11.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/5.png" alt="avatar"></p>
 <ul>
@@ -2360,17 +2391,14 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <h3 id="FM的计算"><a href="#FM的计算" class="headerlink" title="FM的计算"></a>FM的计算</h3><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.png" alt><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/fm.webp" alt></p>
 <h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/m1.png" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/m2.png" alt="avatar"><br><img src="/2019/10/25/%E6%A0%91%E6%A8%A1%E5%9E%8B/m3.png" alt="avatar"></p>
 <h2 id="GBDT-FM"><a href="#GBDT-FM" class="headerlink" title="GBDT+FM"></a>GBDT+FM</h2><p>GBDT一棵树的叶子节点one-hot构成组合特征，该颗树特征对应一个K维向量作为该特$v_i$，进FM时两棵树的组合就是$v_i$和$v_j$的点成得到$w_{ij}$实际上是更多低阶特征的组合离散特征学习低维dense特征；</p>
-<hr>
 <ol>
 <li>提取统计类特征使用gbdt模型快速拿到收益;</li>
 <li>加入海量离散类特征（个性化），使用LR/FM模型进一步提升效果。</li>
-<li>至于原有的统计类特征可以通过gbdt叶子节点转换成离散特征一并加入到LR/FM中。<h3 id="稀疏特征进FM"><a href="#稀疏特征进FM" class="headerlink" title="稀疏特征进FM"></a>稀疏特征进FM</h3><strong>高维稀疏特征适合线性模型；LR+L2正则可以使得权重降低，不容易对稀疏特征过拟合。</strong><h3 id="连续特征进GBDT"><a href="#连续特征进GBDT" class="headerlink" title="连续特征进GBDT"></a>连续特征进GBDT</h3><strong>统计特征，低维稠密特征适合树模型</strong>；一般统计特征具有总体的特征效果或全局性的因素</li>
+<li>至于原有的统计类特征可以通过gbdt叶子节点转换成离散特征一并加入到LR/FM中。</li>
 </ol>
-<blockquote>
-<blockquote>
+<h3 id="稀疏特征进FM"><a href="#稀疏特征进FM" class="headerlink" title="稀疏特征进FM"></a>稀疏特征进FM</h3><p>高维稀疏特征适合线性模型；LR+L2正则可以使得权重降低，不容易对稀疏特征过拟合。</p>
+<h3 id="连续特征进GBDT"><a href="#连续特征进GBDT" class="headerlink" title="连续特征进GBDT"></a>连续特征进GBDT</h3><p><strong>统计特征，低维稠密特征适合树模型</strong>；一般统计特征具有总体的特征效果或全局性的因素</p>
 <p>离散特征进GBDT时根据0，1划分节点偶然性太大，很容易过拟合；特征太多，树模型不易训练</p>
-</blockquote>
-</blockquote>
 <h3 id="DNN的应用"><a href="#DNN的应用" class="headerlink" title="DNN的应用"></a>DNN的应用</h3><p>解决FM特征交叉能力受限的问题。<strong>DNN较容易学习到高阶非线性特征</strong></p>
 <h3 id="GBDT-FM为什么不是RF-FM"><a href="#GBDT-FM为什么不是RF-FM" class="headerlink" title="GBDT+FM为什么不是RF+FM"></a>GBDT+FM为什么不是RF+FM</h3><ul>
 <li>GBDT前面的树侧重对多数样本有区分度的特征；后面的树针对经过前面的树仍然残差大的少数样本</li>

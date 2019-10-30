@@ -180,17 +180,17 @@
 <h3 id="Loss-损失函数"><a href="#Loss-损失函数" class="headerlink" title="Loss 损失函数"></a>Loss 损失函数</h3><blockquote>
 <blockquote>
 <p>0-1损失、平方损失、绝对损失、对数损失、</p>
+</blockquote>
+</blockquote>
 <ol>
-<li>对数损失-交叉熵取均值<ol>
+<li><p>对数损失-交叉熵取均值</p>
+<ol>
 <li><script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 <li><script type="math/tex; mode=display">CrossEntropy(\theta)=-\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 </ol>
 </li>
-</ol>
-</blockquote>
-</blockquote>
-<ol>
-<li>平方损失-回归<script type="math/tex; mode=display">MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2</script></li>
+<li><p>平方损失-回归</p>
+<script type="math/tex; mode=display">MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2</script></li>
 <li>指数损失-Adaboost<script type="math/tex; mode=display">L(y,f(x))=\frac{1}{N}\sum_{i=1}^{N}e^{-y_if(x_i)}</script></li>
 <li>合页损失-SVM<script type="math/tex; mode=display">L(y·(w*x+b))=\sum_{i=1}^{N}[1-y(w*x+b)]_++\lambda||w||^2</script></li>
 <li>决策树<script type="math/tex; mode=display">C_\alpha(T)=\sum_{t=1}^{T}N_tH_t(T)+\alpha|T|</script></li>
@@ -204,39 +204,41 @@
 <ul>
 <li>准确率：正负样本不均衡时，大类别特别影响准确率；</li>
 <li>精确率：$Precision=\frac{TP}{TP+FP}$</li>
-<li>召回率：$Recall=\frac{TP}{TP+FN}$<blockquote>
+<li>召回率：$Recall=\frac{TP}{TP+FN}$</li>
+</ul>
+<blockquote>
 <blockquote>
 <p>由此得到P-R曲线越右上角越好；且$F_1=\frac{2pr}{p+r}$</p>
 </blockquote>
 </blockquote>
-</li>
+<ul>
 <li>均方根误差：异常点影响大<script type="math/tex; mode=display">RMSE=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2}</script></li>
 <li>MAPE：平均绝对百分比误差，每个点误差进行归一化<script type="math/tex; mode=display">MAPE=\sum_{i=1}^{N}|\frac{y_i^{true}-y_i^{pred}}{y_i^{true}}|*\frac{100}{N}</script></li>
 </ul>
 <h3 id="3、ROC曲线"><a href="#3、ROC曲线" class="headerlink" title="3、ROC曲线"></a>3、ROC曲线</h3><ul>
 <li>优点：不受类分布的影响，适合与评估、比较类分布不平衡的数据集。</li>
-<li>缺点：ROC和AUC仅适合于两类问题 ,对多类问题 ,无法直接应用。<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AUC.gif" alt><h4 id="3-1、AUC"><a href="#3-1、AUC" class="headerlink" title="3.1、AUC"></a>3.1、AUC</h4>定义：AUC值为ROC曲线所覆盖的区域面积，显然，AUC越大，分类器分类效果越好。</li>
+<li>缺点：ROC和AUC仅适合于两类问题 ,对多类问题 ,无法直接应用。</li>
+</ul>
+<p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AUC.gif" alt></p>
+<h4 id="3-1、AUC"><a href="#3-1、AUC" class="headerlink" title="3.1、AUC"></a>3.1、AUC</h4><p>定义：AUC值为ROC曲线所覆盖的区域面积，显然，AUC越大，分类器分类效果越好。</p>
+<ul>
 <li>AUC = 1，是完美分类器，采用这个预测模型时，不管设定什么阈值都能得出完美预测。绝大多数预测的场合，不存在完美分类器。</li>
 <li>0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。</li>
 <li>AUC = 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。</li>
-<li>AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。<h4 id="3-2、AUC值的物理意义"><a href="#3-2、AUC值的物理意义" class="headerlink" title="3.2、AUC值的物理意义"></a>3.2、AUC值的物理意义</h4>假设分类器的输出是样本属于正类的socre（置信度），则AUC的物理意义为，任取一对（正、负）样本，正样本的score大于负样本的score的概率。<h4 id="3-3、AUC值的计算"><a href="#3-3、AUC值的计算" class="headerlink" title="3.3、AUC值的计算"></a>3.3、AUC值的计算</h4></li>
+<li>AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</li>
+</ul>
+<h4 id="3-2、AUC值的物理意义"><a href="#3-2、AUC值的物理意义" class="headerlink" title="3.2、AUC值的物理意义"></a>3.2、AUC值的物理意义</h4><p>假设分类器的输出是样本属于正类的socre（置信度），<strong>AUC的物理意义为：任取一对（正、负）样本，正样本的score大于负样本的score的概率。</strong></p>
+<h4 id="3-3、AUC值的计算"><a href="#3-3、AUC值的计算" class="headerlink" title="3.3、AUC值的计算"></a>3.3、AUC值的计算</h4><ul>
 <li>第一种方法：AUC为ROC曲线下的面积，那我们直接计算面积可得。面积为一个个小的梯形面积之和，计算的精度与阈值的精度有关。</li>
 <li>第二种方法：根据AUC的物理意义，我们计算正样本score大于负样本的score的概率。取N*M（M为正样本数，N为负样本数）个二元组，比较score，最后得到AUC。时间复杂度为O(N*M)。</li>
-<li><strong>第三种方法</strong>：<a href="https://www.cnblogs.com/van19/p/5494908.html" target="_blank" rel="noopener">AUC计算</a>首先对score从大到小排序，然后令最大score对应的sample的rank值为n，第二大score对应sample的rank值为n-1，以此类推从n到1。然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。得到的结果就是有多少对正类样本的score值大于负类样本的score值，最后再除以M×N即可。值得注意的是，当存在score相等的时候，对于score相等的样本，需要赋予相同的rank值(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。\<br>(正类与分数低者比较次数，正类与正类比较的次数)\<br>(n,m),\<br>(n-1,m-1),\<br>(n-2,m-2),\<br>,,,\<br>(n-(m-1),1)<br>左求和，右求和再相减即为下式<script type="math/tex; mode=display">AUC=\frac{\sum_{i \in posClass}rank_i - \frac{M(M+1)}{2}}{M*N}</script><blockquote>
-<blockquote>
-<p>时间复杂度为O(N+M)。</p>
-</blockquote>
-</blockquote>
-</li>
+<li><strong>第三种方法</strong>：<a href="https://www.cnblogs.com/van19/p/5494908.html" target="_blank" rel="noopener">AUC计算</a>首先对score从大到小排序，然后令最大score对应的sample的rank值为n，第二大score对应sample的rank值为n-1，以此类推从n到1。然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。得到的结果就是有多少对正类样本的score值大于负类样本的score值，最后再除以M×N即可。值得注意的是，当存在score相等的时候，对于score相等的样本，需要赋予相同的rank值(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。\</li>
 </ul>
+<p>(正类与分数低者比较次数，正类与正类比较的次数)\<br>(n,m),\<br>(n-1,m-1),\<br>(n-2,m-2),\<br>,,,\<br>(n-(m-1),1)<br>左求和，右求和再相减即为下式</p>
+<script type="math/tex; mode=display">AUC=\frac{\sum_{i \in posClass}rank_i - \frac{M(M+1)}{2}}{M*N}</script><p>时间复杂度为O(N+M)。</p>
 <h4 id="3-4、ROC与P-R曲线对比"><a href="#3-4、ROC与P-R曲线对比" class="headerlink" title="3.4、ROC与P-R曲线对比"></a>3.4、ROC与P-R曲线对比</h4><p>ROC明显降低不同测试集带来的干扰，困难样本下，ROC更加稳定反应模型的排序效果。</p>
 <h3 id="4、排序指标"><a href="#4、排序指标" class="headerlink" title="4、排序指标"></a>4、排序指标</h3><h4 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h4><p>对用户u的返回结果I（item的顺序1,2,,,10）的平均准确率（AP）</p>
 <script type="math/tex; mode=display">AP_u = \frac{1}{|I_u|}\sum_{i \in I_u}\frac{\sum_{j \in I_u}\delta(p_{uj} < p_{ui}) + 1}{p_{ui}}</script><p>MAP(Mean Average Precision)即为所有用户取AP的均值有：</p>
-<script type="math/tex; mode=display">MAP = \frac{\sum_{u \in U}AP_u}{|{U}|}</script><h4 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h4><blockquote>
-<blockquote>
-<p>$命中的pos对应precision=\frac{pos及以上的命中个数}{pos}$，没命中的为0</p>
-</blockquote>
-</blockquote>
+<script type="math/tex; mode=display">MAP = \frac{\sum_{u \in U}AP_u}{|{U}|}</script><h4 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h4><p>$命中的pos对应precision=\frac{pos及以上的命中个数}{pos}$，没命中的为0</p>
 <p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AP.png" alt><br>在对所有用户求均值</p>
 <h4 id="NDCG"><a href="#NDCG" class="headerlink" title="NDCG"></a>NDCG</h4><p>计算该位置和item的相关性得分；</p>
 <script type="math/tex; mode=display">累计收益：CG_k = \sum_{i=1}^k rel_i</script><p>没有考虑不同位置，靠后得分应该低；故增加pos的罚项对排名靠后的收益打折：</p>
@@ -269,7 +271,6 @@
 <li>牛顿法引入二阶导数拟合f，依据f的变化趋势去梯度下降，收敛更快，迭代次数更少。但同时会引入问题，拟合会有误差，当前离min点较远时，趋势可能不对。</li>
 <li>多元函数的Hessian矩阵就类似一元函数的二阶导。多元函数Hessian矩阵半正定就相当于一元函数二阶导非负，半负定就相当于一元函数二阶导非正</li>
 </ul>
-<hr>
 <p>如果黑塞矩阵$F(x^{(k)})$不正定，那么搜索方向$ d^{(k)} = - F( x^{(k)})^{-1}\nabla f( x^{(k)})$可能不会是下降方向。 牛顿法的 Levenberg-Marquardt 修正可以解决这个问题：</p>
 <script type="math/tex; mode=display">x^{(k+1)} = x^{(k)} - \alpha_k(F( x^{(k)})  + \mu_k I)^{-1}\nabla f(x^{(k)})</script><p>其中，$\mu_k \ge 0$，I为单位矩阵。在该修正中，$F( x^{(k)})$可以不正定，但是$ G = F( x^{(k)}) + \mu_k , I$需要是正定的，所以，取适当的$\mu_k$使得$ G$正定即可。（矩阵正定，当前仅当所有特征值大于 0。）</p>
 <h4 id="牛顿法-vs-梯度下降"><a href="#牛顿法-vs-梯度下降" class="headerlink" title="牛顿法 vs 梯度下降"></a>牛顿法 vs 梯度下降</h4><ul>
@@ -277,9 +278,7 @@
 <li>更通俗地，梯度下降法只从当前位置选择一个坡度最大的方向走一步，而牛顿法在选择方向时，不仅会考虑坡度是否够大，还会考虑走了一步后，坡度是否会变得更大。</li>
 <li>从几何上说，牛顿法就是用一个二次曲面去拟合当前位置的的局部曲面，而梯度下降法用的是一个平面去拟合，通常情况下，二次曲面的拟合会比平面更好，所以牛顿法选择的下降路径会更符合真实的最优下降路径。</li>
 </ul>
-<h3 id="4-拟牛顿法-牛顿法hessian矩阵的优化求解"><a href="#4-拟牛顿法-牛顿法hessian矩阵的优化求解" class="headerlink" title="4.拟牛顿法-牛顿法hessian矩阵的优化求解"></a>4.拟牛顿法-牛顿法hessian矩阵的优化求解</h3><p>在每次迭代的时候计算一个矩阵，其逼近海塞矩阵的逆。最重要的是，该逼近值只是使用损失函数的一阶偏导来计算</p>
-<hr>
-<p>求出$  H_{k+1}$给出 $  H_{k}$，梯度$f(  x^{(k)})$，$  d^{(k)}$，$\alpha_k$找到 $  H_{k+1}$的递推式，那么在迭代过程中就不需要涉及到黑塞矩阵也不会求逆。</p>
+<h3 id="4-拟牛顿法-牛顿法hessian矩阵的优化求解"><a href="#4-拟牛顿法-牛顿法hessian矩阵的优化求解" class="headerlink" title="4.拟牛顿法-牛顿法hessian矩阵的优化求解"></a>4.拟牛顿法-牛顿法hessian矩阵的优化求解</h3><p>在每次迭代的时候计算一个矩阵，其逼近海塞矩阵的逆。最重要的是，该逼近值只是使用损失函数的一阶偏导来计算求出$  H_{k+1}$给出 $  H_{k}$，梯度$f(  x^{(k)})$，$  d^{(k)}$，$\alpha_k$找到 $  H_{k+1}$的递推式，那么在迭代过程中就不需要涉及到黑塞矩阵也不会求逆。</p>
 <script type="math/tex; mode=display">\boldsymbol{H}_{k+1}=\boldsymbol{H}_{k}+\frac{\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)^{\top}}{\Delta \boldsymbol{g}^{(k) \top}\left(\Delta \boldsymbol{x}^{(k)}-\boldsymbol{H}_{k} \Delta \boldsymbol{g}^{(k)}\right)}</script><p>$\Delta x^{(k)}=\alpha_{k} d^{(k)}$，$\Delta \boldsymbol{g}^{(k)}=\boldsymbol{g}^{(k+1)}-\boldsymbol{g}^{(k)}$<br>$  H_0$可以取任一对称正定实矩阵。</p>
 <h2 id="四、偏差与方差"><a href="#四、偏差与方差" class="headerlink" title="四、偏差与方差"></a>四、偏差与方差</h2><p><a href="http://liuchengxu.org/blog-cn/posts/bias-variance/" target="_blank" rel="noopener">参考链接</a></p>
 <ol>
@@ -328,9 +327,9 @@
 <h2 id="八、特征选择"><a href="#八、特征选择" class="headerlink" title="八、特征选择"></a>八、特征选择</h2><p>特征选取包含一些特征处理的操作：</p>
 <ul>
 <li>特征清洗（缺失，异常，样本比例权重）</li>
-<li><strong>标准化</strong>和归一化）<h3 id="为何标准化和归一化"><a href="#为何标准化和归一化" class="headerlink" title="为何标准化和归一化"></a>为何标准化和归一化</h3><h4 id="模型求解需要"><a href="#模型求解需要" class="headerlink" title="模型求解需要"></a>模型求解需要</h4></li>
+<li><strong>标准化</strong>和归一化）</li>
 </ul>
-<ol>
+<h3 id="为何标准化和归一化"><a href="#为何标准化和归一化" class="headerlink" title="为何标准化和归一化"></a>为何标准化和归一化</h3><h4 id="模型求解需要"><a href="#模型求解需要" class="headerlink" title="模型求解需要"></a>模型求解需要</h4><ol>
 <li>归一化后加速学习，不同特征方向上收敛同步；</li>
 <li>距离求解<h4 id="无量纲化"><a href="#无量纲化" class="headerlink" title="无量纲化"></a>无量纲化</h4></li>
 <li>不同特征没有量纲不具有比较意义<h4 id="避免数值bias"><a href="#避免数值bias" class="headerlink" title="避免数值bias"></a>避免数值bias</h4></li>
