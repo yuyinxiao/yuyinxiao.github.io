@@ -149,6 +149,100 @@
     <header class="article-header">
         
         <h1 itemprop="name">
+            <a href="/2019/11/19/Shell/">Shell基础</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/categories/BD/index.html">
+    
+        <!-- 不蒜子统计 -->
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">阅读数 <span id="busuanzi_value_site_pv"></span>次</span>
+    
+
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-11-19T09:15:28.000Z" itemprop="datePublished">2019-11-19</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h1><h2 id="vim命令"><a href="#vim命令" class="headerlink" title="vim命令"></a>vim命令</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>跳转到文件开头</td>
+</tr>
+<tr>
+<td>/</td>
+<td>向后搜索</td>
+</tr>
+<tr>
+<td>n</td>
+<td>查找下一处</td>
+</tr>
+<tr>
+<td>N</td>
+<td>查找上一处</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除光标所在的行</td>
+</tr>
+<tr>
+<td>D</td>
+<td>删除至行末（从光标位置开始）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="工程内shell执行流程"><a href="#工程内shell执行流程" class="headerlink" title="工程内shell执行流程"></a>工程内shell执行流程</h2><ol>
+<li>workflow定时执行 s1 .sh；</li>
+<li>source .conf：获取相关配置（hive表，token等）；</li>
+<li>source gear_common.sh：读取gear流所需参数，check local和hdfs的路径，以及读取输入脚本的参数；</li>
+<li>source batch_config_parser.sh：读取.ini等该脚本执行的配置，[section]形式</li>
+<li>执行main${@}，source的文件中变量与函数已编译，且s1.sh中重写了部分函数(get_custom_params,run)。</li>
+</ol>
+        
+        <p class="article-more-link">
+            <a href="/2019/11/19/Shell/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
             <a href="/2019/10/25/linux/">linux</a>
         </h1>
         

@@ -149,6 +149,69 @@
     <header class="article-header">
         
         <h1 itemprop="name">
+            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">语言模型</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/page/2/index.html">
+    
+        <!-- 不蒜子统计 -->
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">阅读数 <span id="busuanzi_value_site_pv"></span>次</span>
+    
+
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T05:44:31.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="语言模型简要整理"><a href="#语言模型简要整理" class="headerlink" title="语言模型简要整理"></a>语言模型简要整理</h1><h2 id="万物皆可Embedding"><a href="#万物皆可Embedding" class="headerlink" title="万物皆可Embedding"></a>万物皆可Embedding</h2><blockquote>
+<blockquote>
+<p>将one-hot映射为embedding，能够很好挖掘嵌入实体间的内部关联</p>
+</blockquote>
+</blockquote>
+<p>1、高维-&gt;低维<br>2、稀疏-&gt;稠密<br>3、离散-&gt;连续<br>4、整数-&gt;实数</p>
+<h3 id="高维稀疏"><a href="#高维稀疏" class="headerlink" title="高维稀疏"></a>高维稀疏</h3><p>不利于机器学习参数学习和相关计算；维度灾难；复杂度增加，过拟合；稀疏造成梯度消失；</p>
+<h3 id="向量化好处"><a href="#向量化好处" class="headerlink" title="向量化好处"></a>向量化好处</h3><ul>
+<li>不丢失信息降维</li>
+<li>矩阵运算便于并行</li>
+<li>向量空间比较相似性</li>
+</ul>
+<h2 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h2><p><a href="http://www.hankcs.com/nlp/word2vec.html" target="_blank" rel="noopener">网页版笔记在线看</a></p>
+<h3 id="层序与负采样"><a href="#层序与负采样" class="headerlink" title="层序与负采样"></a>层序与负采样</h3><h4 id="层序"><a href="#层序" class="headerlink" title="层序"></a>层序</h4><p>层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，搜索树深更深；多个LR二分类；<br>将原来的softmax层拆解，将N分类问题转化成$log_2N$个二分类问题。<strong>用哈夫曼树代替隐藏层到softmax层的映射，左为1，右为0，且左子树权重&gt;=右子树权重</strong>哈夫曼树叶子节点起到输出层神经元的作用，内部节点起到隐层神经元的作用。</p>
+<h4 id="负采样"><a href="#负采样" class="headerlink" title="负采样"></a>负采样</h4><p>原理：将softmax多分类问题转化成多次二分类问题，使得LR让一个训练样本每次仅更新一小部分的权重。<br>输入到输出，输出V中某个词对应节点输出1，其他V-1个节点输出0（负词）.随机选择5个来更新权重。<br>负采样：词频越大更被定为负样本，所以对生僻词更有优势<br><strong>提高训练速度，改善词向量质量</strong></p>
+<h4 id="补充Huffman树"><a href="#补充Huffman树" class="headerlink" title="补充Huffman树"></a>补充Huffman树</h4><p>Huffman树只是二叉树中具体的一种，word2vec训练的时候按照词频将每个词语Huffman编码，由于Huffman编码中词频越高的词语对应的编码越短。所以越高频的词语在Hierarchical Softmax过程中经过的二分类节点就越少，整体计算量就更少了。</p>
+        
+        <p class="article-more-link">
+            <a href="/2019/10/25/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
             <a href="/2019/10/25/Tensorflow%E5%9F%BA%E7%A1%80/">Tensorflow基础</a>
         </h1>
         

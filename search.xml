@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Shell基础</title>
+    <url>/2019/11/19/Shell/</url>
+    <content><![CDATA[<h1 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h1><h2 id="vim命令"><a href="#vim命令" class="headerlink" title="vim命令"></a>vim命令</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>跳转到文件开头</td>
+</tr>
+<tr>
+<td>/</td>
+<td>向后搜索</td>
+</tr>
+<tr>
+<td>n</td>
+<td>查找下一处</td>
+</tr>
+<tr>
+<td>N</td>
+<td>查找上一处</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除光标所在的行</td>
+</tr>
+<tr>
+<td>D</td>
+<td>删除至行末（从光标位置开始）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="工程内shell执行流程"><a href="#工程内shell执行流程" class="headerlink" title="工程内shell执行流程"></a>工程内shell执行流程</h2><ol>
+<li>workflow定时执行 s1 .sh；</li>
+<li>source .conf：获取相关配置（hive表，token等）；</li>
+<li>source gear_common.sh：读取gear流所需参数，check local和hdfs的路径，以及读取输入脚本的参数；</li>
+<li>source batch_config_parser.sh：读取.ini等该脚本执行的配置，[section]形式</li>
+<li>执行main${@}，source的文件中变量与函数已编译，且s1.sh中重写了部分函数(get_custom_params,run)。</li>
+</ol>
+<a id="more"></a>
+<h2 id="source"><a href="#source" class="headerlink" title="source"></a>source</h2><ul>
+<li>sh check. sh == ./check.sh</li>
+<li>source.check .sh == .check.sh</li>
+</ul>
+<p>source(或点)命令通常用于重新执行刚修改的初始化文档，如 .bash_profile和 .profile。<br><strong>在check.sh的子shell中source 几个文件，将文件中的变量和函数编译加载，然后子shell使用。</strong></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ol>
+<li>当shell脚本具有可执行权限时，sh check与./check执行脚本一样；</li>
+<li>sh check 新建子shell执行脚本，该子shell继承父shell的环境变量，但子shell新建的、改变的变量不会被带回父shell，除非使用export；</li>
+<li>source check.sh：读取脚本里面的语句依次在当前shell里面首先执行（一般放在shell前面）。没有建立新的子shell。脚本内所有变量的语句都会保存在当前shell里面。当前shell中可以直接用check中定义的变量，函数。</li>
+<li>执行脚本是在一个子shell环境运行的，脚本执行完后该子shell自动退出。</li>
+<li>执行脚本中的系统环境变量（用export定义的变量）才会被复制到子shell中。</li>
+<li>一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。</li>
+<li>不用export定义的变量只对该shell有效，对子shell也是无效的。 直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。source可以让脚本影响它们的父shell环境,这和export去影响子shell环境相反。</li>
+</ol>
+<h2 id="关于-参数"><a href="#关于-参数" class="headerlink" title="关于$ 参数"></a>关于$ 参数</h2><ul>
+<li>$1~9：函数内获取第1-9个参数；</li>
+<li>$0：文件名；</li>
+<li>$# ：命令行参数个数；</li>
+<li>$@ ：所有参数；</li>
+<li>$* ：所有命令行参数；</li>
+<li>$? ：前一个命令的退出状态，可用于获取函数返回值；</li>
+<li>$$ ：执行的进程 ID。</li>
+</ul>
+<h2 id="工程内部常用shell整理"><a href="#工程内部常用shell整理" class="headerlink" title="工程内部常用shell整理"></a>工程内部常用shell整理</h2><ul>
+<li>执行脚本输出：+表示的是Shell调试器的输出日志，不带 + 表示程序内的输出；</li>
+<li>‘’单引号严格，双引号“”可以嵌套单引号；</li>
+<li>local定义本地变量；输出字符串’$引用变量’；</li>
+<li>source /../../**.conf 当作shell脚本获取.conf文件中的变量</li>
+<li>basename：取文件名；dirname：取路径名</li>
+<li>date -d t1 -range +F :定义时间-d / +F 定义格式</li>
+<li>rn -r -skipTrash 删除文件时确定不放入回收站，直接删除</li>
+<li>shift 位置参数可以用shift命令左移。默认为1</li>
+</ul>
+]]></content>
+      <categories>
+        <category>BD</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深入理解GBDT与XGB</title>
     <url>/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/</url>
     <content><![CDATA[<h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究</p>
@@ -11,7 +104,7 @@
 <li>划分节点：遍历特征选择损失小的特征；</li>
 </ul>
 <a id="more"></a>
-<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w<em>=-G$<br>XGB：$w</em>=-\frac{G}{H}$</p>
+<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w=-G$<br>XGB：$w=-\frac{G}{H}$</p>
 <h2 id="gbdt"><a href="#gbdt" class="headerlink" title="gbdt"></a>gbdt</h2><ol>
 <li>初始时，样本预测值为所有样本真实结果的均值；</li>
 <li>划分叶子节点：贪心试探，得到叶子节点划分后平方损失最小的最佳特征与值；</li>
@@ -715,6 +808,7 @@
 <hr>
 <p>根据2^10=1024，所以10个老鼠可以确定1000个瓶子具体哪个瓶子有毒。具体实现跟3个老鼠确定8个瓶子原理一样。</p>
 <p><img src="/2019/10/25/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/mouse.png" alt></p>
+<h3 id="算法面试中的趣味题总结"><a href="#算法面试中的趣味题总结" class="headerlink" title="算法面试中的趣味题总结"></a>算法面试中的趣味题总结</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MzY0MzE4Mg==&amp;mid=2247485018&amp;idx=1&amp;sn=c803466f48ba64919495f9a7d89473fb&amp;chksm=e9d0169bdea79f8dc97b35b5892d176b0fb51de5554aaf08eba920a45e782355dea8b81bbfd0&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">智力题补充</a></p>
 ]]></content>
       <categories>
         <category>code</category>
@@ -1083,7 +1177,7 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)=C\sum\limits_{z^{(i)}}Q_i(z^{(i)})=C\\
 &\Leftrightarrow
 \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)=C \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \   (**)
-\end{aligned}</script><p>把$\ (<em>*)\ ​$式带入$\ (</em>)\ ​$化简可知</p>
+\end{aligned}</script><p>把$<em>*​$式带入$</em>​$化简可知</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 Q_i(z^{(i)})&=\dfrac{p(x^{(i)},z^{(i)};\theta)}{\sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)}\\
@@ -1112,7 +1206,7 @@ Q_i(z^{(i)})&=\dfrac{p(x^{(i)},z^{(i)};\theta)}{\sum\limits_{z^{(i)}}p(x^{(i)},z
 \begin{aligned}
 P(X=x^{(i)}|Y=c_k)&=P(X_1^{(i)}=x_1^{(i)},\cdots,X_n^{(i)}=x_n^{(i)}|Y=c_k)\\
 &=\prod_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)
-\end{aligned} \ \ \ \ \    (**)</script><p>将$(<em>*)$式带入$(</em>)$式中得到朴素贝叶斯算法的基本形式：</p>
+\end{aligned} \ \ \ \ \    (**)</script><p>将$<em> </em>$式带入$*$式中得到朴素贝叶斯算法的基本形式：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 P(Y=c_k|X=x^{(i)}) =\dfrac{\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}{\sum\limits_{k=1}^K P(Y=c_k)\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}P(Y=c_k)
@@ -1295,7 +1389,7 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 <script type="math/tex; mode=display">
 J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>其中$\mu^{(k)}=\frac{1}{\vert \mathbb C_k \vert}\sum\limits_{x^{(i)}\in\mathbb C_k}x^{(i)}$是簇$\mathbb C_k$的聚类中心。</p>
 <h3 id="优化损失函数"><a href="#优化损失函数" class="headerlink" title="优化损失函数"></a>优化损失函数</h3><p>$k\text{-}means$算法的损失函数$J(\mathcal C)$描述了簇类样本围绕簇聚类中心的紧密程度，其值越小，则簇内样本的相似度越高。故$k\text{-}means$算法的优化目标为最小化损失函数</p>
-<script type="math/tex; mode=display">\argmin_{c} J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
+<script type="math/tex; mode=display">argmin_{c} J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
 <ol>
 <li>首先随机初始化$K$个聚类中心，$\mu^{(1)},\mu^{(2)},\cdots,\mu^{(K)}$；</li>
 <li>然后根据这$K$个聚类中心给出输入空间$\mathcal X$的一个划分，$\mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K$；<ul>
@@ -2055,25 +2149,34 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>stacking 精排得分入重排序</li>
 </ol>
 <h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><script type="math/tex; mode=display">\theta^*=argmin_{\theta}\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i;\theta))+\lambda\Omega(\theta)</script><hr>
-<h3 id="Loss-损失函数"><a href="#Loss-损失函数" class="headerlink" title="Loss 损失函数"></a>Loss 损失函数</h3><blockquote>
-<blockquote>
-<p>0-1损失、平方损失、绝对损失、对数损失、</p>
-</blockquote>
-</blockquote>
-<ol>
+<h3 id="Loss-损失函数"><a href="#Loss-损失函数" class="headerlink" title="Loss 损失函数"></a>Loss 损失函数</h3><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ol>
 <li><p>对数损失-交叉熵取均值</p>
 <ol>
 <li><script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 <li><script type="math/tex; mode=display">CrossEntropy(\theta)=-\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script></li>
 </ol>
 </li>
+<li><p>指数损失-Adaboost</p>
+<script type="math/tex; mode=display">L(y,f(x))=\frac{1}{N}\sum_{i=1}^{N}e^{-y_if(x_i)}</script></li>
+<li><p>合页损失-SVM</p>
+<script type="math/tex; mode=display">L(y·(w*x+b))=\sum_{i=1}^{N}[1-y(w*x+b)]_++\lambda||w||^2</script></li>
+<li><p>决策树</p>
+<script type="math/tex; mode=display">C_\alpha(T)=\sum_{t=1}^{T}N_tH_t(T)+\alpha|T|</script></li>
+<li><p>focal loss- 推荐挖掘困难样本</p>
+<script type="math/tex; mode=display">L_{fl}=-\alpha(1-p)^\gamma \log(p); p=1</script><script type="math/tex; mode=display">L_{fl}=-(1-\alpha)p^\gamma \log(1-p); p=0</script></li>
+<li><p>多分类交叉熵损失</p>
+</li>
+<li>KL散度</li>
+</ol>
+<h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4><ol>
 <li><p>平方损失-回归</p>
 <script type="math/tex; mode=display">MSE=\frac{1}{N}\sum_{i=1}^{N}(y_i^{pred}-y_i^{true})^2</script></li>
-<li>指数损失-Adaboost<script type="math/tex; mode=display">L(y,f(x))=\frac{1}{N}\sum_{i=1}^{N}e^{-y_if(x_i)}</script></li>
-<li>合页损失-SVM<script type="math/tex; mode=display">L(y·(w*x+b))=\sum_{i=1}^{N}[1-y(w*x+b)]_++\lambda||w||^2</script></li>
-<li>决策树<script type="math/tex; mode=display">C_\alpha(T)=\sum_{t=1}^{T}N_tH_t(T)+\alpha|T|</script></li>
-<li>focal loss- 推荐挖掘困难样本<script type="math/tex; mode=display">L_{fl}=-\alpha(1-p)^\gamma \log(p); p=1</script><script type="math/tex; mode=display">L_{fl}=-(1-\alpha)p^\gamma \log(1-p); p=0</script></li>
+<li><p>绝对误差损失</p>
+<script type="math/tex; mode=display">MAE=\sum_{i=1}^{n}|y-f(x)|</script></li>
+<li><p>Huber损失<br>Huber损失结合了MSE和MAE的最佳特性。对于较小的误差，它是二次的，否则是线性的(对于其梯度也是如此)。Huber损失需要确定δ参数：</p>
+</li>
 </ol>
+<p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/640.webp" alt></p>
 <h3 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h3><blockquote>
 <blockquote>
 <p>准确率，精确率，召回率，均方根误差</p>

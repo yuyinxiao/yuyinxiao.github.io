@@ -172,7 +172,7 @@
 \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)=C\sum\limits_{z^{(i)}}Q_i(z^{(i)})=C\\
 &\Leftrightarrow
 \sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)=C \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \   (**)
-\end{aligned}</script><p>把$\ (<em>*)\ ​$式带入$\ (</em>)\ ​$化简可知</p>
+\end{aligned}</script><p>把$<em>*​$式带入$</em>​$化简可知</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 Q_i(z^{(i)})&=\dfrac{p(x^{(i)},z^{(i)};\theta)}{\sum\limits_{z^{(i)}}p(x^{(i)},z^{(i)};\theta)}\\
@@ -201,7 +201,7 @@ Q_i(z^{(i)})&=\dfrac{p(x^{(i)},z^{(i)};\theta)}{\sum\limits_{z^{(i)}}p(x^{(i)},z
 \begin{aligned}
 P(X=x^{(i)}|Y=c_k)&=P(X_1^{(i)}=x_1^{(i)},\cdots,X_n^{(i)}=x_n^{(i)}|Y=c_k)\\
 &=\prod_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)
-\end{aligned} \ \ \ \ \    (**)</script><p>将$(<em>*)$式带入$(</em>)$式中得到朴素贝叶斯算法的基本形式：</p>
+\end{aligned} \ \ \ \ \    (**)</script><p>将$<em> </em>$式带入$*$式中得到朴素贝叶斯算法的基本形式：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 P(Y=c_k|X=x^{(i)}) =\dfrac{\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}{\sum\limits_{k=1}^K P(Y=c_k)\prod\limits_{j=1}^n P(X_j^{(i)}=x_j^{(i)}|Y=c_k)}P(Y=c_k)
@@ -384,7 +384,7 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 <script type="math/tex; mode=display">
 J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>其中$\mu^{(k)}=\frac{1}{\vert \mathbb C_k \vert}\sum\limits_{x^{(i)}\in\mathbb C_k}x^{(i)}$是簇$\mathbb C_k$的聚类中心。</p>
 <h3 id="优化损失函数"><a href="#优化损失函数" class="headerlink" title="优化损失函数"></a>优化损失函数</h3><p>$k\text{-}means$算法的损失函数$J(\mathcal C)$描述了簇类样本围绕簇聚类中心的紧密程度，其值越小，则簇内样本的相似度越高。故$k\text{-}means$算法的优化目标为最小化损失函数</p>
-<script type="math/tex; mode=display">\argmin_{c} J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
+<script type="math/tex; mode=display">argmin_{c} J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i)}-\mu^{(k)} \Vert_2^2</script><p>如果要优化该损失函数就需要考虑输入空间$\mathcal X$的所有划分，这是一个$NP\text{-}hard$问题，实际上是采取贪心的策略通过迭代优化来近似求解，该过程等价于<a href="https://zhuanlan.zhihu.com/p/39490840" target="_blank" rel="noopener">$EM$算法</a>。</p>
 <ol>
 <li>首先随机初始化$K$个聚类中心，$\mu^{(1)},\mu^{(2)},\cdots,\mu^{(K)}$；</li>
 <li>然后根据这$K$个聚类中心给出输入空间$\mathcal X$的一个划分，$\mathbb C_1,\mathbb C_2,\cdots,\mathbb C_K$；<ul>
