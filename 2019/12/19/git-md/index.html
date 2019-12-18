@@ -7,10 +7,10 @@
 
     
 
-    <title>Shell基础 | 小于狙击手的博客</title>
+    <title>git | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
-    <meta name="description" content="shell基础vim命令命令功能set nu显示行号gg跳转到文件开头/向后搜索n查找下一处N查找上一处dd删除光标所在的行D删除至行末（从光标位置开始）shell本地安装的shell目录：etc/shellsfork 与 sourcefork：执行shell script时，其实是产生一个sub-shell 的子进程，然后sub-shell再去产生命令行的子行程。source：b.sh脚本中有source ..." />
+    <meta name="description" content="git操作新建分支以及远程分支git branch yyx_nugit checkout yyx_nugit push —set-upstream origin yyx_nu新本地分支追溯远程分支git checkout -b dev_yyxgit branch —set-upstream-to=origin/dev_yyx删除分支以及远程分支git checkout mastergit push origin —delete dev_yyxgit branch -D dev_yyx..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -103,7 +103,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#shell基础"><span class="toc-number">1.</span> <span class="toc-text">shell基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vim命令"><span class="toc-number">1.1.</span> <span class="toc-text">vim命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shell"><span class="toc-number">1.2.</span> <span class="toc-text">shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fork-与-source"><span class="toc-number">1.2.1.</span> <span class="toc-text">fork 与 source</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac端shell"><span class="toc-number">1.2.2.</span> <span class="toc-text">Mac端shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#source"><span class="toc-number">1.3.</span> <span class="toc-text">source</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-number">1.3.1.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于-参数"><span class="toc-number">1.4.</span> <span class="toc-text">关于$ 参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工程内部常用shell整理"><span class="toc-number">1.5.</span> <span class="toc-text">工程内部常用shell整理</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git操作"><span class="toc-number">1.</span> <span class="toc-text">git操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建分支以及远程分支"><span class="toc-number">1.1.</span> <span class="toc-text">新建分支以及远程分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新本地分支追溯远程分支"><span class="toc-number">1.2.</span> <span class="toc-text">新本地分支追溯远程分支</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#删除分支以及远程分支"><span class="toc-number">1.2.1.</span> <span class="toc-text">删除分支以及远程分支</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拉推"><span class="toc-number">1.3.</span> <span class="toc-text">拉推</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#commit"><span class="toc-number">2.</span> <span class="toc-text">commit</span></a></li></ol>
         
     </div>
 </aside>
@@ -117,11 +117,11 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            Shell基础
+            git
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/2019/11/19/Shell/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/12/19/git-md/index.html">
     
         <!-- 不蒜子统计 -->
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -131,13 +131,13 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-11-19T09:15:28.000Z" itemprop="datePublished">2019-11-19</time>
+    <time datetime="2019-12-18T16:16:34.000Z" itemprop="datePublished">2019-12-19</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a>
+    <a class="article-tag-link" href="/tags/tools/" rel="tag">tools</a>
 </div>
 
 
@@ -146,172 +146,39 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h1><h2 id="vim命令"><a href="#vim命令" class="headerlink" title="vim命令"></a>vim命令</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>set nu</td>
-<td>显示行号</td>
-</tr>
-<tr>
-<td>gg</td>
-<td>跳转到文件开头</td>
-</tr>
-<tr>
-<td>/</td>
-<td>向后搜索</td>
-</tr>
-<tr>
-<td>n</td>
-<td>查找下一处</td>
-</tr>
-<tr>
-<td>N</td>
-<td>查找上一处</td>
-</tr>
-<tr>
-<td>dd</td>
-<td>删除光标所在的行</td>
-</tr>
-<tr>
-<td>D</td>
-<td>删除至行末（从光标位置开始）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>本地安装的shell目录：etc/shells</p>
-<h3 id="fork-与-source"><a href="#fork-与-source" class="headerlink" title="fork 与 source"></a>fork 与 source</h3><p>fork：执行shell script时，其实是产生一个sub-shell 的子进程，然后sub-shell再去产生命令行的子行程。<br>source：b.sh脚本中有source ./a.sh；就是使a.sh在当前b.sh的shell内执行、而不是再产生一个sub-shell 來執行。但b.sh是fork出来的子进程</p>
-<p>$：給一般使用者使用<br>#：給 root (管理員)使用</p>
+        <h2 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h2><h3 id="新建分支以及远程分支"><a href="#新建分支以及远程分支" class="headerlink" title="新建分支以及远程分支"></a>新建分支以及远程分支</h3><p>git branch yyx_nu<br>git checkout yyx_nu<br>git push —set-upstream origin yyx_nu</p>
+<a id="more"></a>
+<h3 id="新本地分支追溯远程分支"><a href="#新本地分支追溯远程分支" class="headerlink" title="新本地分支追溯远程分支"></a>新本地分支追溯远程分支</h3><p>git checkout -b dev_yyx<br>git branch —set-upstream-to=origin/dev_yyx</p>
+<h4 id="删除分支以及远程分支"><a href="#删除分支以及远程分支" class="headerlink" title="删除分支以及远程分支"></a>删除分支以及远程分支</h4><p>git checkout master<br>git push origin —delete dev_yyx<br>git branch -D dev_yyx</p>
+<h3 id="拉推"><a href="#拉推" class="headerlink" title="拉推"></a>拉推</h3><p>commit,master,pull,checkout本地,merge master,push</p>
+<h2 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h2><ol>
+<li>对于一个任务修改多次，提交多次（amend），一次push；（添加时选中amend即可）</li>
+<li>对于一个任务修改多次，提交多次（amend），多次push；（push时使用下句）<code>git push --force-with-lease origin yyx</code></li>
+</ol>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>command</th>
-<th>desc</th>
+<th>命令</th>
+<th>作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>[command line]</td>
-<td>代码块</td>
+<td>revert</td>
+<td>修改编辑后，点击revert则撤回修改；commit之前可用</td>
 </tr>
 <tr>
-<td>echo</td>
-<td>-n无换行输出</td>
+<td>commit</td>
+<td>amend，参考上述commit</td>
 </tr>
 <tr>
-<td>date</td>
-<td>-d(2019-12-01) -/+ 2 days +%F</td>
-</tr>
-<tr>
-<td>&gt;</td>
-<td>输出重导向</td>
-</tr>
-<tr>
-<td>&lt;</td>
-<td>输入重导向</td>
-</tr>
-<tr>
-<td>｜</td>
-<td>命令管道</td>
-</tr>
-<tr>
-<td>;</td>
-<td>忽略其前返回值执行下一個命令</td>
-</tr>
-<tr>
-<td>‘ ‘(单引号)</td>
-<td>关键字符转为字符串</td>
-</tr>
-<tr>
-<td>$(command)</td>
-<td>将命令替换，类似’’</td>
-</tr>
-<tr>
-<td>$var与${var}</td>
-<td>二者相同，${ }精确范围</td>
-</tr>
-<tr>
-<td>“ “(双引号)</td>
-<td>大部分为字符串，但某些保留(如$ )参数含空格时用””包裹</td>
-</tr>
-<tr>
-<td>export</td>
-<td>将本地变量（.bash_profile）”输出”为环境变量</td>
-</tr>
-<tr>
-<td>unset</td>
-<td>取消变量</td>
-</tr>
-<tr>
-<td>$0-9</td>
-<td>$0脚本名,$1-9第几个参数，第十个参数${10}</td>
-</tr>
-<tr>
-<td>shift</td>
-<td>shift 3取消前3个参数，第4个为第1个</td>
-</tr>
-<tr>
-<td>mkdir -p /a/b/c</td>
-<td>父目录不存在时会创建，不会报错。</td>
-</tr>
-<tr>
-<td>hadoop fs -germerge -nl /hdfs_dir  /local_dir/</td>
-<td>同名则会覆盖；nl在不同文件之间会空一行</td>
-</tr>
-<tr>
-<td>hadoop fs -du -s -h /hdfs_dir</td>
-<td>文件夹下数据大小</td>
-</tr>
-<tr>
-<td>hadoop fs -test</td>
-<td>-e：如果路径存在，则返回 0;-s：如果路径不为空，则返回 0。</td>
+<td>push</td>
+<td>多次amend提交用<code>git push --force-with-lease origin yyx</code></td>
 </tr>
 </tbody>
 </table>
 </div>
-<h3 id="Mac端shell"><a href="#Mac端shell" class="headerlink" title="Mac端shell"></a>Mac端shell</h3><p>本地bash：/bin: /usr/bin: /usr/local/bin: ${PATH}包含以上的bin目录下命令文件，本地bash可直接执行；<br>.bash_profile：export PATH 添加第三方（maven，idea等）加载到本地bash可直接执行；<br>.zshrc ：文件首先source ~/.bash_profile 将上面新添加命令加载到zsh中（内置可用，新添加到bash_profile也可用）</p>
-<a id="more"></a>
-<h2 id="source"><a href="#source" class="headerlink" title="source"></a>source</h2><ul>
-<li>sh check. sh == ./check.sh</li>
-<li>source.check .sh == .check.sh</li>
-</ul>
-<p>source(或点)命令通常用于重新执行刚修改的初始化文档，如 .bash_profile和 .profile。<br><strong>在check.sh的子shell中source 几个文件，将文件中的变量和函数编译加载，然后子shell使用。</strong></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ol>
-<li>当shell脚本具有可执行权限时，sh check与./check执行脚本一样；</li>
-<li>sh check 新建子shell执行脚本，该子shell继承父shell的环境变量，但子shell新建的、改变的变量不会被带回父shell，除非使用export；</li>
-<li>source check.sh：读取脚本里面的语句依次在当前shell里面首先执行（一般放在shell前面）。没有建立新的子shell。脚本内所有变量的语句都会保存在当前shell里面。当前shell中可以直接用check中定义的变量，函数。</li>
-<li>执行脚本是在一个子shell环境运行的，脚本执行完后该子shell自动退出。</li>
-<li>执行脚本中的系统环境变量（用export定义的变量）才会被复制到子shell中。</li>
-<li>一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。</li>
-<li>不用export定义的变量只对该shell有效，对子shell也是无效的。 直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。source可以让脚本影响它们的父shell环境,这和export去影响子shell环境相反。</li>
-</ol>
-<h2 id="关于-参数"><a href="#关于-参数" class="headerlink" title="关于$ 参数"></a>关于$ 参数</h2><ul>
-<li>$1~9：函数内获取第1-9个参数；</li>
-<li>$0：文件名；</li>
-<li>$# ：命令行参数个数；</li>
-<li>$@ ：所有参数；</li>
-<li>$* ：所有命令行参数；</li>
-<li>$? ：前一个命令的退出状态，可用于获取函数返回值；</li>
-<li>$$ ：执行的进程 ID。</li>
-</ul>
-<h2 id="工程内部常用shell整理"><a href="#工程内部常用shell整理" class="headerlink" title="工程内部常用shell整理"></a>工程内部常用shell整理</h2><ul>
-<li>执行脚本输出：+表示的是Shell调试器的输出日志，不带 + 表示程序内的输出；</li>
-<li>‘’单引号严格，双引号“”可以嵌套单引号；</li>
-<li>local定义本地变量；输出字符串’$引用变量’；</li>
-<li>source /../../**.conf 当作shell脚本获取.conf文件中的变量</li>
-<li>basename：取文件名；dirname：取路径名</li>
-<li>date -d t1 -range +F :定义时间-d / +F 定义格式</li>
-<li>rn -r -skipTrash 删除文件时确定不放入回收站，直接删除</li>
-<li>shift 位置参数可以用shift命令左移。默认为1</li>
-</ul>
 
         
     </section>
@@ -319,10 +186,8 @@
 
 
 
-<a id="pagenext" href="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/" class="article-next" title="深入理解GBDT与XGB"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/11/19/Shell/" class="article-next" title="Shell基础"><i class="icon-arrow-right"></i></a>
 
-
-<a id="pageprev" href="/2019/12/19/git-md/" class="article-prev" title="git"><i class="icon-arrow-left"></i></a>
 
 
 
@@ -336,11 +201,11 @@
         repo: "yuyinxiao.github.io",
         owner: "yuyinxiao",
         admin: ["yuyinxiao"],
-        id: "2019/11/19/Shell",
+        id: "2019/12/19/git-md",
         distractionFreeMode: true,
-        title: "Shell基础",
-        body: "https://yuyinxiao.github.io/2019/11/19/Shell/",
-        labels: ["Linux","大数据"]
+        title: "git",
+        body: "https://yuyinxiao.github.io/2019/12/19/git-md/",
+        labels: ["tools"]
     }).render('comments');
     </script>
 </div>

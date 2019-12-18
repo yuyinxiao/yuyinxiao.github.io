@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git</title>
+    <url>/2019/12/19/git-md/</url>
+    <content><![CDATA[<h2 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h2><h3 id="新建分支以及远程分支"><a href="#新建分支以及远程分支" class="headerlink" title="新建分支以及远程分支"></a>新建分支以及远程分支</h3><p>git branch yyx_nu<br>git checkout yyx_nu<br>git push —set-upstream origin yyx_nu</p>
+<a id="more"></a>
+<h3 id="新本地分支追溯远程分支"><a href="#新本地分支追溯远程分支" class="headerlink" title="新本地分支追溯远程分支"></a>新本地分支追溯远程分支</h3><p>git checkout -b dev_yyx<br>git branch —set-upstream-to=origin/dev_yyx</p>
+<h4 id="删除分支以及远程分支"><a href="#删除分支以及远程分支" class="headerlink" title="删除分支以及远程分支"></a>删除分支以及远程分支</h4><p>git checkout master<br>git push origin —delete dev_yyx<br>git branch -D dev_yyx</p>
+<h3 id="拉推"><a href="#拉推" class="headerlink" title="拉推"></a>拉推</h3><p>commit,master,pull,checkout本地,merge master,push</p>
+<h2 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h2><ol>
+<li>对于一个任务修改多次，提交多次（amend），一次push；（添加时选中amend即可）</li>
+<li>对于一个任务修改多次，提交多次（amend），多次push；（push时使用下句）<code>git push --force-with-lease origin yyx</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>revert</td>
+<td>修改编辑后，点击revert则撤回修改；commit之前可用</td>
+</tr>
+<tr>
+<td>commit</td>
+<td>amend，参考上述commit</td>
+</tr>
+<tr>
+<td>push</td>
+<td>多次amend提交用<code>git push --force-with-lease origin yyx</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
+      <categories>
+        <category>bd</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Shell基础</title>
     <url>/2019/11/19/Shell/</url>
     <content><![CDATA[<h1 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h1><h2 id="vim命令"><a href="#vim命令" class="headerlink" title="vim命令"></a>vim命令</h2><div class="table-container">
@@ -43,13 +87,98 @@
 </tbody>
 </table>
 </div>
-<h2 id="工程内shell执行流程"><a href="#工程内shell执行流程" class="headerlink" title="工程内shell执行流程"></a>工程内shell执行流程</h2><ol>
-<li>workflow定时执行 s1 .sh；</li>
-<li>source .conf：获取相关配置（hive表，token等）；</li>
-<li>source gear_common.sh：读取gear流所需参数，check local和hdfs的路径，以及读取输入脚本的参数；</li>
-<li>source batch_config_parser.sh：读取.ini等该脚本执行的配置，[section]形式</li>
-<li>执行main${@}，source的文件中变量与函数已编译，且s1.sh中重写了部分函数(get_custom_params,run)。</li>
-</ol>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>本地安装的shell目录：etc/shells</p>
+<h3 id="fork-与-source"><a href="#fork-与-source" class="headerlink" title="fork 与 source"></a>fork 与 source</h3><p>fork：执行shell script时，其实是产生一个sub-shell 的子进程，然后sub-shell再去产生命令行的子行程。<br>source：b.sh脚本中有source ./a.sh；就是使a.sh在当前b.sh的shell内执行、而不是再产生一个sub-shell 來執行。但b.sh是fork出来的子进程</p>
+<p>$：給一般使用者使用<br>#：給 root (管理員)使用</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[command line]</td>
+<td>代码块</td>
+</tr>
+<tr>
+<td>echo</td>
+<td>-n无换行输出</td>
+</tr>
+<tr>
+<td>date</td>
+<td>-d(2019-12-01) -/+ 2 days +%F</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>输出重导向</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>输入重导向</td>
+</tr>
+<tr>
+<td>｜</td>
+<td>命令管道</td>
+</tr>
+<tr>
+<td>;</td>
+<td>忽略其前返回值执行下一個命令</td>
+</tr>
+<tr>
+<td>‘ ‘(单引号)</td>
+<td>关键字符转为字符串</td>
+</tr>
+<tr>
+<td>$(command)</td>
+<td>将命令替换，类似’’</td>
+</tr>
+<tr>
+<td>$var与${var}</td>
+<td>二者相同，${ }精确范围</td>
+</tr>
+<tr>
+<td>“ “(双引号)</td>
+<td>大部分为字符串，但某些保留(如$ )参数含空格时用””包裹</td>
+</tr>
+<tr>
+<td>export</td>
+<td>将本地变量（.bash_profile）”输出”为环境变量</td>
+</tr>
+<tr>
+<td>unset</td>
+<td>取消变量</td>
+</tr>
+<tr>
+<td>$0-9</td>
+<td>$0脚本名,$1-9第几个参数，第十个参数${10}</td>
+</tr>
+<tr>
+<td>shift</td>
+<td>shift 3取消前3个参数，第4个为第1个</td>
+</tr>
+<tr>
+<td>mkdir -p /a/b/c</td>
+<td>父目录不存在时会创建，不会报错。</td>
+</tr>
+<tr>
+<td>hadoop fs -germerge -nl /hdfs_dir  /local_dir/</td>
+<td>同名则会覆盖；nl在不同文件之间会空一行</td>
+</tr>
+<tr>
+<td>hadoop fs -du -s -h /hdfs_dir</td>
+<td>文件夹下数据大小</td>
+</tr>
+<tr>
+<td>hadoop fs -test</td>
+<td>-e：如果路径存在，则返回 0;-s：如果路径不为空，则返回 0。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Mac端shell"><a href="#Mac端shell" class="headerlink" title="Mac端shell"></a>Mac端shell</h3><p>本地bash：/bin: /usr/bin: /usr/local/bin: ${PATH}包含以上的bin目录下命令文件，本地bash可直接执行；<br>.bash_profile：export PATH 添加第三方（maven，idea等）加载到本地bash可直接执行；<br>.zshrc ：文件首先source ~/.bash_profile 将上面新添加命令加载到zsh中（内置可用，新添加到bash_profile也可用）</p>
 <a id="more"></a>
 <h2 id="source"><a href="#source" class="headerlink" title="source"></a>source</h2><ul>
 <li>sh check. sh == ./check.sh</li>
@@ -2619,13 +2748,66 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
     <url>/2019/10/25/bd/</url>
     <content><![CDATA[<h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><p>整理大数据的面试相关内容，主要包括namenode，hdfs读写数据，部署job流程等。<br><a id="more"></a> </p>
 <hr>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h3 id="SecondaryNamenode"><a href="#SecondaryNamenode" class="headerlink" title="SecondaryNamenode"></a>SecondaryNamenode</h3><p>SecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。</p>
+<h2 id="Scala"><a href="#Scala" class="headerlink" title="Scala"></a>Scala</h2><ul>
+<li>collect: Spark的collect方法，是Action类型的一个算子，收集一个弹性分布式数据集的所有元素到一个数组中。从远程集群拉取数据到driver端将大量数据汇集到一个driver节点上，将数据用数组存放，占用jvm堆内存容易造成内存溢出，只用作小型数据收集。</li>
+<li>persist:读取数据转为多个RDD时暂存；提高效率，没必要重复多次读取</li>
+</ul>
+<h3 id="Shuffle的操作"><a href="#Shuffle的操作" class="headerlink" title="Shuffle的操作"></a>Shuffle的操作</h3><p>由于 Shuffle 操作对性能的影响比较大，所以需要特别注意使用，以下操作都会导致 Shuffle：</p>
+<ul>
+<li>涉及到重新分区操作： 如 repartition 和 coalesce；</li>
+<li>所有涉及到 ByKey 的操作：如 groupByKey 和 reduceByKey，但 countByKey 除外；</li>
+<li>联结操作：如 cogroup 和 join。</li>
+</ul>
+<h3 id="广播变量"><a href="#广播变量" class="headerlink" title="广播变量"></a>广播变量</h3><p>每个Task任务的闭包都会持有自由变量的副本，如果变量很大且 Task 任务很多的情况下，这必然会对网络 IO 造成压力，为了解决这个情况，Spark 提供了广播变量。<strong>广播变量后不把副本变量分发到每个 Task 中，而是将其分发到每个 Executor，Executor 中的所有 Task 共享一个副本变量。</strong></p>
+<h3 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h3><ul>
+<li><strong>全局变量应用在rdd中运算为副本运算，变量并不改变；rdd中定义变量可改变。</strong></li>
+<li>一个RDD由多个分区（Partitions）组成。<strong>对于RDD的每个分区会被一个计算任务所处理，用户可以在创建 RDD 时指定其分区个数，如果没有指定，则默认采用程序所分配到的 CPU 的核心数；</strong> RDD的每次转换都会生成一个新的依赖关系，如果分区数据丢失后，可以通过依赖关系重新计算对RDD的所有分区进行重新计算；</li>
+<li>Key-Value 型的 RDD 还拥有 Partitioner(分区器)，用于决定数据被存储在哪个分区中，目前 Spark 中支持 HashPartitioner(按照哈希分区) 和 RangeParationer(按照范围进行分区)；</li>
+<li><p>Spark进行任务调度会尽可能的将计算任务分配到其所要处理数据块的存储位置。</p>
+</li>
+<li><p>RDD 支持两种类型的操作：transformations（转换，从现有数据集创建新数据集）和 actions（在数据集上运行计算后将值返回到驱动程序）。</p>
+</li>
+<li>RDD 中的所有转换操作都是惰性的，它们只是记住这些转换操作，但不会立即执行，只有遇到 action 操作后才会真正的进行计算，这类似于函数式编程中的惰性求值</li>
+</ul>
+<h2 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h2><p>mvn clean compile  编译<br>mvn clean test 测试<br><strong>mvn clean package 打包</strong><br>mvn clean install 把生成的jar/war包复制到本地repository(就是~/.m2/repository下面)<br>mvn clean deploy 把生成的jar/war包发送到远程repository（建议配置了私服，那就是往私服发送了）<br>mvn cargo:run 通过cargo插件，把生成的war包部署到本地服务器，并启动。（注意要先运行 mvn clean package 打包）<br>mvn cargo:redeploy 通过cargo插件，把生成的war包部署到远程服务器：如果已经有了，就先undeploy再deploy，如果没有直接deploy（注意要先运行 mvn clean package 打包，并且远程服务器是启动的）</p>
+<h3 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h3><p>org.apache.等外公司名下的包在集群上有相关容器提供，故scope为provide然后提交；<br>私服内公司名下的工程下的包集群上是没有容器提供的，故scope不可以添加provide默认compile，然后提交；<br>本地运行测试时，在应用中勾选“include dependencies with Provided scope”，后成功运行。</p>
+<h2 id="IDEA的快捷键"><a href="#IDEA的快捷键" class="headerlink" title="IDEA的快捷键"></a>IDEA的快捷键</h2><p>⌘P 显示方法的参数信息<br>⌘⌥T 包围代码（使用if..else, try..catch, for, synchronized等包围选中的代码）<br>⌘⌥｜切换列编辑<br>⌥↩ 显示意向动作和快速修复代码<br>⌃⌥O 优化import<br>^⌥B 重命名变量<br>⌘+ / ⌘- 展开 / 折叠代码块<br>⌃R 运行<br>⌃D 调试<br>⌘L 在当前文件跳转到某一行的指定处</p>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>func</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mkdir -p /a/b/c</td>
+<td>父目录不存在时会创建，不会报错</td>
+</tr>
+<tr>
+<td>hadoop fs -germerge -nl /hdfs_dir  /local_dir/</td>
+<td>同名则会覆盖；nl在不同文件之间会空一行</td>
+</tr>
+<tr>
+<td>hadoop fs -du -s -h /hdfs_dir</td>
+<td>文件夹下数据大小</td>
+</tr>
+<tr>
+<td>hadoop fs -test -e：</td>
+<td>如果路径存在，则返回 0;-s：如果路径不为空，则返回 0。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup command aaa.sh &gt;&gt; yu.out &amp;</span><br><span class="line">jobs -l</span><br><span class="line">kill -9 进程号</span><br></pre></td></tr></table></figure>
+<h3 id="SecondaryNamenode"><a href="#SecondaryNamenode" class="headerlink" title="SecondaryNamenode"></a>SecondaryNamenode</h3><p>SecondaryNameNode：周期性保存NameNode的元数据，在namenode失效时恢复出namenode上的元数据。</p>
 <h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><p>包括文件镜像数据FSImage和编辑日志EditLog。FSImage相当于HDFS的检查点，namenode启动时候会读取FSImage的内容到内存，并将其与EditLog日志中的所有修改信息合并生成新的FSImage；在namenode运行过程中，所有关于HDFS的修改都将写入EditLog。这样，如果namenode失效，可以通过SecondaryNameNode中保存的FSImage和EditLog数据恢复出namenode最近的状态。</p>
 <h3 id="HDFS读写流程"><a href="#HDFS读写流程" class="headerlink" title="HDFS读写流程"></a>HDFS读写流程</h3><ol>
 <li>向HDFS写数据<br><img src="/2019/10/25/bd/write.png" alt></li>
 <li>从HDFS读数据<br><img src="/2019/10/25/bd/read.png" alt></li>
 </ol>
-<h3 id="提交job应用流程"><a href="#提交job应用流程" class="headerlink" title="提交job应用流程"></a>提交job应用流程</h3><p>提交job的全过程：提交job给YARN，执行MapReduce、HDFS读数据，HDFS写数据。<br>提交job给YARN的过程：提交job，job的初始化，任务分配，任务运行，作业完成</p>
+<h3 id="提交job应用流程"><a href="#提交job应用流程" class="headerlink" title="提交job应用流程"></a>提交job应用流程</h3><p>提交job的全过程：提交job给YARN，执行MapReduce、HDFS读数据，HDFS写数据。<br>提交job给YARN的过程：提交job，job的初始化，任务分配，任务运行，作业完成<br>作业换队列：<code>yarn application -movetoqueue application_1563931265452_2009268 -queue root.a.b</code></p>
 <hr>
 <p><img src="/2019/10/25/bd/job.png" alt></p>
 <p>1、客户端向Resource Manager申请一个job_id和job资源的提交路径；提交后向Resource manager申请运行 MRAppMaster。</p>
@@ -2678,7 +2860,127 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>Rowkey的设计原则：各个列族数据平衡，长度原则、相邻原则，创建表的时候设置表放入regionserver缓存中，避免自动增长和时间，使用字节数组代替string，最大长度64kb，最好16字节以内，按天分表，两个字节散列，四个字节存储时分毫秒。</li>
 <li>列族的设计原则：尽可能少(按照列族进行存储，按照region进行读取，不必要的io操作)，经常和不经常使用的两类数据放入不同列族中，列族名字尽可能短</li>
 </ol>
+<h3 id="hbase-shell"><a href="#hbase-shell" class="headerlink" title="hbase shell"></a>hbase shell</h3><p>hbase扫的是key，非视频id，哈希后的数据对应的key<br><figure class="highlight plain"><figcaption><span>'hbasehhhhh','000005020000'```</span></figcaption><table><tr><td class="code"><pre><span class="line">```scan &apos;hbasehhhhh&apos;</span><br></pre></td></tr></table></figure></p>
 <h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#以某字符连接字段</span></span><br><span class="line">concat_ws：<span class="keyword">SELECT</span> <span class="keyword">CONCAT_WS</span>(<span class="string">'_'</span>,<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">AS</span> con_ws <span class="keyword">FROM</span> info;</span><br><span class="line"><span class="comment">#对字段A分组，队字段B降序且取字段B的top3</span></span><br><span class="line">row_number：<span class="keyword">select</span> <span class="keyword">id</span>,age,<span class="keyword">name</span>,sex <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">id</span>,age,<span class="keyword">name</span>,sex,row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> sex <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">desc</span>) <span class="keyword">as</span> rownumber <span class="keyword">from</span> rownumber) temp <span class="keyword">where</span> rownumber&lt;<span class="number">3</span> </span><br><span class="line"><span class="comment">#条件真值与假值</span></span><br><span class="line">case..when：<span class="keyword">case</span> tb1.os <span class="keyword">when</span> <span class="string">'android'</span> <span class="keyword">then</span> <span class="string">'android'</span> <span class="keyword">when</span> <span class="string">'ios'</span> <span class="keyword">then</span> <span class="string">'iPhone'</span> <span class="keyword">else</span> <span class="string">'PC'</span> <span class="keyword">end</span> <span class="keyword">as</span> os</span><br><span class="line"><span class="comment">##[&#123;"name":"王二狗","sex":"男","age":"25"&#125;,&#123;"name":"李狗嗨","sex":"男","age":"47"&#125;]</span></span><br><span class="line">get_json_object：</span><br><span class="line"><span class="number">1.</span><span class="keyword">SELECT</span> get_json_object(xjson,<span class="string">"$.[0]"</span>) <span class="keyword">FROM</span> person;</span><br><span class="line">2.SELECT get_json_object(xjson,"$.[0].age") FROM person;</span><br></pre></td></tr></table></figure>
+<h2 id="hive表"><a href="#hive表" class="headerlink" title="hive表"></a>hive表</h2><h3 id="内部表与外部表"><a href="#内部表与外部表" class="headerlink" title="内部表与外部表"></a>内部表与外部表</h3><ol>
+<li>一般为内部表，<strong>删除内部表时相应数据也会删除</strong></li>
+<li>内部表数据由Hive自身管理，外部表数据由HDFS管理。</li>
+<li>内部表数据存储在hive.metastore.warehouse.dir【默认:/user/hive/warehouse】，外部表数据存储位置由用户自己决定。</li>
+<li>加载内部表数据后会把数据源删除，很像”剪切/移动”。<strong>删除内部表会直接删除元数据【metadata】及存储数据</strong></li>
+<li>加载外部表没有mv到数据仓库目录，只是关联上数据格式和数据位置，Hive就能直接访问外部数据。<strong>删除外部表仅仅删除元数据，HDFS上的文件不会被删除。</strong></li>
+</ol>
+<h3 id="加载与删除分区"><a href="#加载与删除分区" class="headerlink" title="加载与删除分区"></a>加载与删除分区</h3><ul>
+<li>外部分区表删除分区，只会删除元数据，相应的目录和文件并不会删除；</li>
+<li>内部表删除分区，既会删除元数据，也会删除相应的目录和数据文件；</li>
+</ul>
+<h3 id="hive命令"><a href="#hive命令" class="headerlink" title="hive命令"></a>hive命令</h3><h2 id="hive"><a href="#hive" class="headerlink" title="hive"></a>hive</h2><h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use qiyu_feature;</span><br><span class="line">create table update_user_mobile_brand_day(</span><br><span class="line">uid string comment &apos;uid&apos;,</span><br><span class="line">ctiy_id string comment &apos;城市&apos;,</span><br><span class="line">brand string comment &apos;手机品牌&apos;,</span><br><span class="line">mkey string comment &apos;渠道mkey&apos;)</span><br><span class="line">partitioned by (dt string) row format delimited fields terminated by &apos;\t&apos; stored as textfile;</span><br></pre></td></tr></table></figure>
+<h3 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h3><ol>
+<li>添加字段 <code>alter table table add columns(mkey string);</code></li>
+<li>修改表名 <code>alter table table_name rename ti new_table_name;</code></li>
+<li>修改列名 <code>alter table table_name change old_name new_name data_type first col1 after col2;</code></li>
+<li>增加分区 <code>alter table table_name add if not exists partition (dt=&#39;2019-12-01&#39;) location &#39;/data/a/b/2019-12-01&#39;;</code></li>
+<li>删除分区 <code>alter table table_name drop if exists partition (dt=&#39;2019-12-01&#39;);</code></li>
+</ol>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>func</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>percentile_approxc</td>
+<td><code>percentile_approx(cast(playtime as int),0.5) as mwt</code></td>
+</tr>
+<tr>
+<td>cast(col as int) as res</td>
+<td>列做类型转换</td>
+</tr>
+<tr>
+<td>round</td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td>ceil</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>lower：转成小写</td>
+<td><code>select lower(&#39;Hive&#39;);</code> —hive</td>
+</tr>
+<tr>
+<td>upper：转成大写</td>
+<td><code>select lower(&#39;Hive&#39;);</code> —HIVE</td>
+</tr>
+<tr>
+<td>length：长度</td>
+<td><code>select length(&#39;Hive&#39;);</code> —4</td>
+</tr>
+<tr>
+<td>concat：拼接字符串</td>
+<td><code>select concat(&#39;hello&#39;,&#39;Hive&#39;);</code> —helloHive</td>
+</tr>
+<tr>
+<td>substr：求子串</td>
+<td><code>select substr(&#39;hive&#39;,2);</code> —ive <code>select substr(&#39;hive&#39;,2,1);</code> —i</td>
+</tr>
+<tr>
+<td>trim：去掉前后的空格</td>
+<td><code>select trim(&#39;  hive   &#39;);</code> -hive</td>
+</tr>
+<tr>
+<td>lpad：左填充</td>
+<td><code>select lpad(&#39;hive&#39;,10,&#39;#&#39;);</code> —######hive</td>
+</tr>
+<tr>
+<td>rpad：右填充</td>
+<td><code>select rpad(&#39;hive&#39;,10,&#39;#&#39;);</code> —hive######</td>
+</tr>
+<tr>
+<td>to_date</td>
+<td><code>select to_date(&#39;2015-05-22 15:34:23&#39;);</code> —2015-05-22</td>
+</tr>
+<tr>
+<td>year</td>
+<td><code>select year(&#39;2015-05-22 15:34:23&#39;);</code> —2015</td>
+</tr>
+<tr>
+<td>month</td>
+<td><code>select month(&#39;2015-05-22 15:34:23&#39;);</code> —5</td>
+</tr>
+<tr>
+<td>day</td>
+<td><code>select day(&#39;2015-05-22 15:34:23&#39;);</code> —22</td>
+</tr>
+<tr>
+<td>weekofyear</td>
+<td><code>select weekofyear(&#39;2015-05-22 15:34:23&#39;);</code> —21</td>
+</tr>
+<tr>
+<td>datediff</td>
+<td><code>select datediff(&#39;2015-05-22 15:34:23&#39;,&#39;2015-05-29 15:34:23&#39;);</code> —[-7]</td>
+</tr>
+<tr>
+<td>date_add</td>
+<td><code>select date_add(&#39;2015-05-22 15:34:23&#39;,2);</code> —2015-05-24</td>
+</tr>
+<tr>
+<td>date_sub</td>
+<td><code>select date_sub(&#39;2015-05-22 15:34:23&#39;,2);</code> —2015-05-20</td>
+</tr>
+<tr>
+<td>case……when</td>
+<td><code>select ename,job,sal,case job when &#39;president&#39; then sal+100 when &#39;manager&#39; then sal+800 else sal+400 end from emp;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="Hive与SQL"><a href="#Hive与SQL" class="headerlink" title="Hive与SQL"></a>Hive与SQL</h3><ul>
 <li>数据存储位置不同：hive是把数据存储在hdfs上，mysql数据是存储在自己的系统中</li>
 <li>数据格式：hive数据格式用户可以自定义，mysql有自己的系统定义格式</li>

@@ -218,13 +218,98 @@
 </tbody>
 </table>
 </div>
-<h2 id="工程内shell执行流程"><a href="#工程内shell执行流程" class="headerlink" title="工程内shell执行流程"></a>工程内shell执行流程</h2><ol>
-<li>workflow定时执行 s1 .sh；</li>
-<li>source .conf：获取相关配置（hive表，token等）；</li>
-<li>source gear_common.sh：读取gear流所需参数，check local和hdfs的路径，以及读取输入脚本的参数；</li>
-<li>source batch_config_parser.sh：读取.ini等该脚本执行的配置，[section]形式</li>
-<li>执行main${@}，source的文件中变量与函数已编译，且s1.sh中重写了部分函数(get_custom_params,run)。</li>
-</ol>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>本地安装的shell目录：etc/shells</p>
+<h3 id="fork-与-source"><a href="#fork-与-source" class="headerlink" title="fork 与 source"></a>fork 与 source</h3><p>fork：执行shell script时，其实是产生一个sub-shell 的子进程，然后sub-shell再去产生命令行的子行程。<br>source：b.sh脚本中有source ./a.sh；就是使a.sh在当前b.sh的shell内执行、而不是再产生一个sub-shell 來執行。但b.sh是fork出来的子进程</p>
+<p>$：給一般使用者使用<br>#：給 root (管理員)使用</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[command line]</td>
+<td>代码块</td>
+</tr>
+<tr>
+<td>echo</td>
+<td>-n无换行输出</td>
+</tr>
+<tr>
+<td>date</td>
+<td>-d(2019-12-01) -/+ 2 days +%F</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>输出重导向</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>输入重导向</td>
+</tr>
+<tr>
+<td>｜</td>
+<td>命令管道</td>
+</tr>
+<tr>
+<td>;</td>
+<td>忽略其前返回值执行下一個命令</td>
+</tr>
+<tr>
+<td>‘ ‘(单引号)</td>
+<td>关键字符转为字符串</td>
+</tr>
+<tr>
+<td>$(command)</td>
+<td>将命令替换，类似’’</td>
+</tr>
+<tr>
+<td>$var与${var}</td>
+<td>二者相同，${ }精确范围</td>
+</tr>
+<tr>
+<td>“ “(双引号)</td>
+<td>大部分为字符串，但某些保留(如$ )参数含空格时用””包裹</td>
+</tr>
+<tr>
+<td>export</td>
+<td>将本地变量（.bash_profile）”输出”为环境变量</td>
+</tr>
+<tr>
+<td>unset</td>
+<td>取消变量</td>
+</tr>
+<tr>
+<td>$0-9</td>
+<td>$0脚本名,$1-9第几个参数，第十个参数${10}</td>
+</tr>
+<tr>
+<td>shift</td>
+<td>shift 3取消前3个参数，第4个为第1个</td>
+</tr>
+<tr>
+<td>mkdir -p /a/b/c</td>
+<td>父目录不存在时会创建，不会报错。</td>
+</tr>
+<tr>
+<td>hadoop fs -germerge -nl /hdfs_dir  /local_dir/</td>
+<td>同名则会覆盖；nl在不同文件之间会空一行</td>
+</tr>
+<tr>
+<td>hadoop fs -du -s -h /hdfs_dir</td>
+<td>文件夹下数据大小</td>
+</tr>
+<tr>
+<td>hadoop fs -test</td>
+<td>-e：如果路径存在，则返回 0;-s：如果路径不为空，则返回 0。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Mac端shell"><a href="#Mac端shell" class="headerlink" title="Mac端shell"></a>Mac端shell</h3><p>本地bash：/bin: /usr/bin: /usr/local/bin: ${PATH}包含以上的bin目录下命令文件，本地bash可直接执行；<br>.bash_profile：export PATH 添加第三方（maven，idea等）加载到本地bash可直接执行；<br>.zshrc ：文件首先source ~/.bash_profile 将上面新添加命令加载到zsh中（内置可用，新添加到bash_profile也可用）</p>
         
         <p class="article-more-link">
             <a href="/2019/11/19/Shell/#more">
