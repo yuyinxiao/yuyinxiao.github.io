@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>图 | 小于狙击手的博客</title>
+    <meta name="author" content="于印霄" />
+    <meta name="keywords" content="null" />
+    <meta name="description" content="图主要是针对D算法，F算法。G是连通图&amp;lt;&amp;lt;=&amp;gt;&amp;gt;有生成树图的表示：邻接链表，邻接矩阵BFS：能够正确计算最短路径；DFS：图的结构；前驱子图构成森林拓扑排序：有向无环图，在一条水平线展示出来，该水平线上的边都是左指向右。计算完成时间，先后排序，然后节点连接。图的遍历BFS无向图邻接矩阵对称；有向图邻接矩阵非对称；代码一致123456789101112131415void bfs(int[][] G,int v)&amp;#123;        se..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="小于狙击手的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">小于狙击手的博客</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/categories/home">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ml">
+                <span class="nav-text">机器学习</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/rec">
+                <span class="nav-text">推荐系统</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/BD">
+                <span class="nav-text">大数据</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/code">
+                <span class="nav-text">coding</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于我</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://yuyinxiao.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#图"><span class="toc-number">1.</span> <span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#图的遍历BFS"><span class="toc-number">1.1.</span> <span class="toc-text">图的遍历BFS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最小生成树（边权重最小）"><span class="toc-number">1.2.</span> <span class="toc-text">最小生成树（边权重最小）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#K算法-O-ElogE"><span class="toc-number">1.2.1.</span> <span class="toc-text">K算法-O(ElogE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prim算法"><span class="toc-number">1.2.2.</span> <span class="toc-text">Prim算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图-最短路径（变权重最小）"><span class="toc-number">1.3.</span> <span class="toc-text">图-最短路径（变权重最小）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dijkstra（迪克斯特拉）算法：带权重单源最短路径问题-单源，非负"><span class="toc-number">1.3.1.</span> <span class="toc-text">Dijkstra（迪克斯特拉）算法：带权重单源最短路径问题  (单源，非负)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Floyd算法：图中所有节点的最短路径-全局"><span class="toc-number">1.3.2.</span> <span class="toc-text">Floyd算法：图中所有节点的最短路径 (全局)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最短路径"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">最短路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图题目"><span class="toc-number">1.4.</span> <span class="toc-text">图题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最少换乘次数-BFS"><span class="toc-number">1.4.1.</span> <span class="toc-text">最少换乘次数 BFS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆图-BFS，Map"><span class="toc-number">1.4.2.</span> <span class="toc-text">克隆图 BFS，Map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#课程表：是否可以完成所有课程学完-在有向图中检测是否有环BFS遍历完，所有入度都为0"><span class="toc-number">1.4.3.</span> <span class="toc-text">课程表：是否可以完成所有课程学完(在有向图中检测是否有环BFS遍历完，所有入度都为0)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图的关键节点"><span class="toc-number">1.4.4.</span> <span class="toc-text">图的关键节点</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            图
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/2019/10/25/%E5%9B%BE/index.html">
+    
+        <!-- 不蒜子统计 -->
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">阅读数 <span id="busuanzi_value_site_pv"></span>次</span>
+    
+
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-25T15:10:40.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/coding/" rel="tag">coding</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><p>主要是针对D算法，F算法。</p>
+<blockquote>
+<blockquote>
+<p>G是连通图&lt;&lt;=&gt;&gt;有生成树</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>图的表示：<strong>邻接链表，邻接矩阵</strong></li>
+<li>BFS：能够正确计算最短路径；</li>
+<li>DFS：图的结构；前驱子图构成森林</li>
+</ul>
+<p>拓扑排序：有向无环图，在一条水平线展示出来，该水平线上的边都是左指向右。<br>计算完成时间，先后排序，然后节点连接。<br><a id="more"></a></p>
+<h2 id="图的遍历BFS"><a href="#图的遍历BFS" class="headerlink" title="图的遍历BFS"></a>图的遍历BFS</h2><p>无向图邻接矩阵对称；有向图邻接矩阵非对称；代码一致<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span>[][] G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;ss;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;q;</span><br><span class="line">        q.push(v);</span><br><span class="line">        ss.insert(v);</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">            <span class="keyword">int</span> node=q.front();q.pop();</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;node;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> n : G[node])&#123;</span><br><span class="line">                <span class="keyword">if</span>(!ss.count(n))</span><br><span class="line">                    ss.insert(n);</span><br><span class="line">                    q.push(n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="最小生成树（边权重最小）"><a href="#最小生成树（边权重最小）" class="headerlink" title="最小生成树（边权重最小）"></a>最小生成树（边权重最小）</h2><p>无环子集T，将所有节点连接，边权重最小。这样的图T称为 最小生成树。</p>
+<h3 id="K算法-O-ElogE"><a href="#K算法-O-ElogE" class="headerlink" title="K算法-O(ElogE)"></a>K算法-O(ElogE)</h3><p>贪心算法，<strong>选择权重最小边加入森林</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span><span class="keyword">int</span> u,v,cost;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(edge &amp;e1,<span class="keyword">const</span> edge &amp;e2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> e1.cost &lt; e2.cost;</span><br><span class="line">&#125;</span><br><span class="line">edge es[MAX_E];  </span><br><span class="line"><span class="keyword">int</span> V,E;   <span class="comment">//顶点数和边数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kruskal</span><span class="params">()</span></span>&#123;</span><br><span class="line">    sort(es,es+E,cmp);       <span class="comment">//按照edge.cost的顺序从小到大排列</span></span><br><span class="line">    init_union_find(V);      <span class="comment">//并查集的初始化</span></span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;E; i++)&#123;</span><br><span class="line">        edge e=es[i];</span><br><span class="line">        <span class="keyword">if</span>(!same(e.u,e.v))&#123;</span><br><span class="line">            unite(e.u,e.v);</span><br><span class="line">            res+=e.cost;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<p>…………………………………前方高能……………………………………</p>
+</blockquote>
+</blockquote>
+<h3 id="Prim算法"><a href="#Prim算法" class="headerlink" title="Prim算法"></a>Prim算法</h3><p><a href="https://www.cnblogs.com/alantu2018/p/8464561.html" target="_blank" rel="noopener">图解Prim算法</a></p>
+<p>选择最小边<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vis<span class="comment">//标记是否遍历过</span></span><br><span class="line">dis<span class="comment">//节点值</span></span><br><span class="line">mp[i][j]<span class="comment">//节点i,j间的边权重和</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">prim</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(dis,INF,<span class="keyword">sizeof</span>(dis)); </span><br><span class="line">    dis[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    ans=<span class="number">0</span>;</span><br><span class="line">    dis[<span class="number">0</span>]=INF;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="comment">//初始化，选择权值最小的边</span></span><br><span class="line">        <span class="keyword">int</span> m=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!vis[i] &amp;&amp; dis[i]&lt;dis[m])</span><br><span class="line">                m=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(m==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        vis[m]=<span class="number">1</span>;        <span class="comment">//选择后标记</span></span><br><span class="line">        ans+=dis[m];     <span class="comment">//累加权重</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">            dis[i]=min(dis[i],mp[m][i]);<span class="comment">//更新连接的边权，否则INF</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="图-最短路径（变权重最小）"><a href="#图-最短路径（变权重最小）" class="headerlink" title="图-最短路径（变权重最小）"></a>图-最短路径（变权重最小）</h2><h3 id="Dijkstra（迪克斯特拉）算法：带权重单源最短路径问题-单源，非负"><a href="#Dijkstra（迪克斯特拉）算法：带权重单源最短路径问题-单源，非负" class="headerlink" title="Dijkstra（迪克斯特拉）算法：带权重单源最短路径问题  (单源，非负)"></a>Dijkstra（迪克斯特拉）算法：带权重单源最短路径问题  (单源，非负)</h3><p>时间复杂度为O(V^2+E) ; 所有边权重非负。<br><img src="/2019/10/25/%E5%9B%BE/d.gif" alt="avatar"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    <span class="keyword">int</span> cost;<span class="comment">//对节点编号和权值</span></span><br><span class="line">    &#125;;<span class="comment">//图的边</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; P;<span class="comment">//first为最短距离，second为相应顶点</span></span><br><span class="line"><span class="keyword">int</span> V;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;edge&gt;&gt; G[MAX_V];</span><br><span class="line"><span class="keyword">int</span> d[MAX_V];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    priority_queue&lt;P,<span class="built_in">vector</span>&lt;P&gt;,greater&lt;P&gt;&gt; q;<span class="comment">//最小堆</span></span><br><span class="line">    fill(d,d+V,INF);<span class="comment">//各点value全部设为INF</span></span><br><span class="line">    d[s]=<span class="number">0</span>;<span class="comment">//起始点为0</span></span><br><span class="line">    q.push(P(<span class="number">0</span>,s));</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        P p=q.top(); q.pop();</span><br><span class="line">        <span class="keyword">int</span> v=p.second;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;G[v].size();i++)&#123;</span><br><span class="line">            edge e=G[v][i];</span><br><span class="line">            <span class="comment">//节点v，边e，下一节点e-&gt;to</span></span><br><span class="line">            <span class="keyword">if</span>(d[e.to]&gt;d[v]+e-&gt;cost)&#123;</span><br><span class="line">                d[e.to]=d[v]+e-&gt;cost;</span><br><span class="line">                que.push(P(d[e.to],e-&gt;to));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Floyd算法：图中所有节点的最短路径-全局"><a href="#Floyd算法：图中所有节点的最短路径-全局" class="headerlink" title="Floyd算法：图中所有节点的最短路径 (全局)"></a>Floyd算法：图中所有节点的最短路径 (全局)</h3><p>时间复杂度 O(V^3)；所有边权重可负，但环路不可负；<br>可以用于无向图和有向图中。也可以用于负权的最短路径问题（虽然复杂度会比较高）。Floyd算法的时间复杂度为O（n^3），空间复杂度为O（n^2）。</p>
+<p><img src="/2019/10/25/%E5%9B%BE/F.png" alt="avatar"><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 弗洛伊德算法实现</span></span><br><span class="line"><span class="comment">//D：用来计算每个相邻点的距离，也就是我们的已知条件；</span></span><br><span class="line"><span class="comment">//P：用来表示中间点k的代数。比如说P中p[i,j]的值就是i与j两点的中间点代数。</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShortestPath_Floyd</span><span class="params">(<span class="keyword">int</span>** p, <span class="keyword">int</span>** D)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = <span class="number">0</span>, w = <span class="number">0</span>, k = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 初始化数据</span></span><br><span class="line">    <span class="keyword">for</span> (v = <span class="number">0</span>; v &lt; nVer; ++v)&#123;</span><br><span class="line">        <span class="keyword">for</span> (w = <span class="number">0</span>; w &lt; nVer; ++w)&#123;</span><br><span class="line">            D[v][w] = Edges[v][w];<span class="comment">//v-w间的边</span></span><br><span class="line">            p[v][w] = w;<span class="comment">//v-w路径v的下一节点w</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//把K为中间节点</span></span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; nVer; ++k)&#123;</span><br><span class="line">        <span class="keyword">for</span> (v = <span class="number">0</span>; v &lt; nVer; ++v)&#123;</span><br><span class="line">            <span class="keyword">for</span>(w = <span class="number">0</span>; w &lt; nVer; ++w)&#123;</span><br><span class="line">                <span class="keyword">if</span> (D[v][w] &gt; D[v][k] + D[k][w])&#123;</span><br><span class="line">                    D[v][w] = D[v][k] + D[k][w];</span><br><span class="line">                    p[v][w] = p[v][k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h4><ul>
+<li>D算法：单源、权值不可负、有向/无向（自环）</li>
+<li>F算法：全局、权值可负但环路不可负、有向/无向（自环）</li>
+</ul>
+<h2 id="图题目"><a href="#图题目" class="headerlink" title="图题目"></a>图题目</h2><h3 id="最少换乘次数-BFS"><a href="#最少换乘次数-BFS" class="headerlink" title="最少换乘次数 BFS"></a>最少换乘次数 BFS</h3><p>n个城市，部分城市之间有单向航道，给定起始点，得到各个城市的最少换乘次数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> id;     <span class="comment">//城市的id</span></span><br><span class="line">    <span class="keyword">int</span> count;<span class="comment">//该城市到其他城市的道路数目</span></span><br><span class="line">    <span class="keyword">int</span> des[LEN];<span class="comment">//到的其他城市</span></span><br><span class="line">&#125;City;</span><br><span class="line"></span><br><span class="line">City city[LEN];<span class="built_in">queue</span>&lt;City&gt;q;<span class="keyword">int</span> ans[LEN];<span class="keyword">bool</span> vis[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">    vis[v]=<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//将起点v指向的第一层目的地压入队列,城市v：city[v]</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; city[v].count;i++)&#123;</span><br><span class="line">        vis[city[v]-&gt;des[i]]=<span class="number">1</span>;</span><br><span class="line">        q.push(city[city[v].des[i]]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        num++;</span><br><span class="line">        <span class="keyword">int</span> q_size=q.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; q_size;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> tmp=q.front().id;q.pop();</span><br><span class="line">            ans[tmp]=num;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;city[tmp].count;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(!vis[city[tmp]-&gt;des[j]])&#123;</span><br><span class="line">                    vis[city[tmp]-&gt;des[j]]=<span class="number">1</span>;</span><br><span class="line">                    q.push(city[city[tmp]-&gt;des[j]]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="克隆图-BFS，Map"><a href="#克隆图-BFS，Map" class="headerlink" title="克隆图 BFS，Map"></a>克隆图 BFS，Map<old,new></old,new></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node* <span class="title">cloneGraph</span><span class="params">(Node* node)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;Node*, Node*&gt; m;</span><br><span class="line">    <span class="built_in">queue</span>&lt;Node*&gt; q&#123;&#123;node&#125;&#125;;</span><br><span class="line">    Node *clone = <span class="keyword">new</span> Node(node-&gt;val);</span><br><span class="line">    m[node] = clone;</span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        Node *t = q.front(); q.pop();</span><br><span class="line">        <span class="keyword">for</span> (Node *neighbor : t-&gt;neighbors) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!m.count(neighbor)) &#123;</span><br><span class="line">                m[neighbor] = <span class="keyword">new</span> Node(neighbor-&gt;val);</span><br><span class="line">                q.push(neighbor);</span><br><span class="line">            &#125;</span><br><span class="line">            m[t]-&gt;neighbors.push_back(m[neighbor]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="课程表：是否可以完成所有课程学完-在有向图中检测是否有环BFS遍历完，所有入度都为0"><a href="#课程表：是否可以完成所有课程学完-在有向图中检测是否有环BFS遍历完，所有入度都为0" class="headerlink" title="课程表：是否可以完成所有课程学完(在有向图中检测是否有环BFS遍历完，所有入度都为0)"></a>课程表：是否可以完成所有课程学完(在有向图中检测是否有环BFS遍历完，所有入度都为0)</h3><p>一系列[0,1]学0前必须先学1-&gt;0；路径题目，是否能够全部学完。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canFinish</span><span class="params">(<span class="keyword">int</span> numCourses, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; prerequisites)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; graph(numCourses, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; in(numCourses);</span><br><span class="line">	<span class="comment">//统计入度；构造邻接矩阵</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> a : prerequisites) &#123;</span><br><span class="line">        graph[a[<span class="number">1</span>]].push_back(a[<span class="number">0</span>]);</span><br><span class="line">		++in[a[<span class="number">0</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	<span class="comment">//根据入度寻找入口</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (in[i] == <span class="number">0</span>)</span><br><span class="line">            q.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = q.front(); q.pop();</span><br><span class="line">        <span class="comment">//res.push_back(t);//保留课程顺序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> a : graph[t]) &#123;</span><br><span class="line">            --in[a];</span><br><span class="line">            <span class="keyword">if</span> (in[a] == <span class="number">0</span>)<span class="comment">//入度为0时入队列，否则重复</span></span><br><span class="line">                q.push(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//返回是否能够上完</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (in[i] != <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//返回可能的上课顺序</span></span><br><span class="line">    <span class="keyword">if</span> (res.size() != numCourses)</span><br><span class="line">        res.clear();</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="图的关键节点"><a href="#图的关键节点" class="headerlink" title="图的关键节点"></a>图的关键节点</h3><p>通过判断下一层节点node的入度是否为0确定node的前驱是否已经全部累加到此节点；如已全部累加则不再入队列，否则重复节点重复往后累加错误<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;BFS(Node* root)&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;Node*&gt;res;</span><br><span class="line">    <span class="built_in">queue</span>&lt;Node*&gt;q&#123;root&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        Node* node=q.top();q.pop();</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;val==root-&gt;val)&#123;</span><br><span class="line">            res.push_back(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(Node* n:node-&gt;next)&#123;</span><br><span class="line">            n-&gt;val+=(node-&gt;val/(node-&gt;next.size()));</span><br><span class="line">            n-&gt;in--;</span><br><span class="line">            <span class="keyword">if</span>(n-&gt;in==<span class="number">0</span>)</span><br><span class="line">                q.push(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   &gt; b</span><br><span class="line">  /  |&gt;  \&gt;</span><br><span class="line">a -&gt; d -&gt; e</span><br><span class="line">  \&gt;</span><br><span class="line">    c</span><br></pre></td></tr></table></figure></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/25/Trie%E6%A0%91/" class="article-next" title="Trie树"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/10/25/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" class="article-prev" title="算法导论"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "a9a645b881c78d12baa8",
+        clientSecret: "d7e2f110f4885b3fa11894f3ddd2cd46523889fd",
+        repo: "yuyinxiao.github.io",
+        owner: "yuyinxiao",
+        admin: ["yuyinxiao"],
+        id: "2019/10/25/图",
+        distractionFreeMode: true,
+        title: "图",
+        body: "https://yuyinxiao.github.io/2019/10/25/%E5%9B%BE/",
+        labels: ["coding"]
+    }).render('comments');
+    </script>
+</div>
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ff62cebe12c54c12ef10722f77d75303";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+    
+    
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        </span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv" style='display:none'>
+                本站访客数<span id="busuanzi_value_site_uv"></span>人
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
