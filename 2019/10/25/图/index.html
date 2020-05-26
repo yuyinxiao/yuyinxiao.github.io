@@ -9,7 +9,7 @@
 
     <title>图 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="图主要是针对D算法，F算法。G是连通图&amp;lt;&amp;lt;=&amp;gt;&amp;gt;有生成树图的表示：邻接链表，邻接矩阵BFS：能够正确计算最短路径；DFS：图的结构；前驱子图构成森林拓扑排序：有向无环图，在一条水平线展示出来，该水平线上的边都是左指向右。计算完成时间，先后排序，然后节点连接。图的遍历BFS无向图邻接矩阵对称；有向图邻接矩阵非对称；代码一致123456789101112131415void bfs(int[][] G,int v)&amp;#123;        se..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -313,8 +313,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

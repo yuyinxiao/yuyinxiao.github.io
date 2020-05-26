@@ -9,7 +9,7 @@
 
     <title>算法导论 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="算法导论动态规划最优子结构性质。如果问题的最优解所包含的子问题的解也是最优的。无后效性。即子问题的解一旦确定，不受之后和包含它的更大的问题的决策影响。子问题重叠性质。子问题会被重复计算多次。动态规划对每一个子问题只计算一次保存在表格，简化重复计算时。钢条切割问题长度为n英寸的钢条有$2^{n-1}$种切割方法：因为在距离钢条左端i (i = 1, 2, … , n-1)英寸处，我们总是可以选择切割或不切割。有重复，可不完全遍历子问题：左端切下长度为$i$的一段，其中i=1..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -306,8 +306,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

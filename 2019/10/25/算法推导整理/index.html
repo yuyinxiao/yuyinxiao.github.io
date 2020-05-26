@@ -9,7 +9,7 @@
 
     <title>算法推导整理 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="公式推导整理EM算法当已知每一个样本数据$x^{(i)}$都对应一个类别变量$z^{(i)}$时，即$z=(z^{(1)},z^{(2)},\dots,z^{(m)})$，此时的极大化模型的对数似然函数可以通过全概率公式展开为\begin{aligned}\hat{\theta}&amp;= \mathop{\arg\max}_{\theta} \sum\limits_{i=1}^m\log p(x^{(i)};\theta)\\&amp;= \mathop{\arg\max}_{\theta} ..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -529,8 +529,23 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

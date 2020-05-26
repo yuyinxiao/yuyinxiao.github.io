@@ -9,7 +9,7 @@
 
     <title>语言模型 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="语言模型简要整理万物皆可Embedding将one-hot映射为embedding，能够很好挖掘嵌入实体间的内部关联1、高维-&amp;gt;低维2、稀疏-&amp;gt;稠密3、离散-&amp;gt;连续4、整数-&amp;gt;实数高维稀疏不利于机器学习参数学习和相关计算；维度灾难；复杂度增加，过拟合；稀疏造成梯度消失；向量化好处不丢失信息降维矩阵运算便于并行向量空间比较相似性word2vec网页版笔记在线看层序与负采样层序层序模型：用哈夫曼树词频高的路径短，更易被搜索，对于生僻词路径更长，..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -349,8 +349,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -9,7 +9,7 @@
 
     <title>动态规划 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="动态规划字符串匹配，两个字符串的问题，二位数组的最值问题等。故将字符串问题也写入DP矩阵问题DFS,BFS，$N^2$技巧遍历最大子数组和，最大子矩阵和——扩增网易12345678910111213141516171819202122232425262728//&amp;#123;-1， 4， 6， -3， 7， -3， -3， 9&amp;#125;int nums[M+1][N+1],b[M+1][N+1];//解决子序列最大和，同时输出得到最大子数组的起始地址void solve(i..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -391,8 +391,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -9,7 +9,7 @@
 
     <title>各种算法优缺点 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="各种机器学习算法优缺点总结决策树可回归，可分类决策树优点决策树易于理解和解释，可以可视化分析，容易提取出规则。可以同时处理标称型和数值型数据。测试数据集时，运行速度比较快。决策树可以很好的扩展到大型数据库中，同时它的大小独立于数据库大小。决策树缺点对缺失数据处理比较困难。容易出现过拟合问题。忽略数据集中属性的相互关联。ID3算法计算信息增益时结果偏向数值比较多的特征。改进措施剪枝，采用交叉验证法，加入正则化；bagging算法，randomforest算法..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -360,8 +360,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -9,7 +9,7 @@
 
     <title>推荐系统 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="推荐系统目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。热门、人工、相关、个性化推荐推荐系统简介$U$表示所有用户(user)的集合,用$I$表示所有项目(item)的集合。在实际系统中，$U$和$I$具有非常大的规模。定义一个效用函数$s$，用来计算项目$i$对用户$u$的推荐度,即$s$:U×I→R，其中$R$是一个全序集合(在一定范围内非负的整数或实数)，推荐算法的研究问题就是通过计算推荐度为每一个用户$u \in U$找到其最感兴趣的项目$i’ \..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -498,8 +498,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -9,7 +9,7 @@
 
     <title>深入理解GBDT与XGB | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="null" />
     <meta name="description" content="GBDT与XGB相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究。此外因为关于梯度提升树整理得较多，比较杂乱。所以为了更好地理解和向别人介绍梯度提升树，需要系统的掌握。梯度提升思想-&amp;gt;决策树思想-&amp;gt;梯度提升树理论-&amp;gt;代码-&amp;gt;wink深入理解GBDTCART树（分类与回归树）目标函数的定义决定了CART树用与回归还是分类，排序任务GBDTGBDT提升树原理无论损失函数是什么形式，每个决策树拟合的..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -311,8 +311,23 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
