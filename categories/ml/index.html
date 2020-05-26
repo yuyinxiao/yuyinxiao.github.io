@@ -9,7 +9,7 @@
 
     <title>Category: ml | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="记录一个人的学习，成长" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -178,13 +178,8 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究</p>
+        <h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究。此外因为关于梯度提升树整理得较多，比较杂乱。所以为了更好地理解和向别人介绍梯度提升树，需要系统的掌握。<br><strong>梯度提升思想-&gt;决策树思想-&gt;梯度提升树理论-&gt;代码-&gt;wink</strong></p>
 <p><a href="https://blog.csdn.net/program_developer/article/details/102763481" target="_blank" rel="noopener">深入理解GBDT</a></p>
-<ul>
-<li>训练一棵树：(特征排序-&gt;划分节点)*n—[分裂截止]—&gt;叶子节点内样本求残差和$\sum_{j \in I_j} y_j-\hat{y_j}$作为叶子节点的值。</li>
-<li>训练多棵树：<strong>最开始样本均值作为所有样本预测值</strong>，训练完后每个样本预测值+=步长(0.1)*叶子节点值作为训练下一棵树的预测值；</li>
-<li>划分节点：遍历特征选择损失小的特征；</li>
-</ul>
         
         <p class="article-more-link">
             <a href="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/#more">
@@ -784,23 +779,8 @@
             }, 3000);
         }
     });
-    </script>
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

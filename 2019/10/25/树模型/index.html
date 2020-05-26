@@ -9,7 +9,7 @@
 
     <title>树模型与集成学习 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="树模型与集成学习决策树ID3,C4.5,CART树特征枚举：根据规则选择特征划分节点：根据特征进一步分裂叶子节点根据样本训练出GBDT树，对于每个叶子节点，回溯到根节点都可以得到一组组合特征，所以用叶子节点的标号可以代表一个新的组合特征ID3算法——信息增益D为样本集合；$D_v$是特征f取v时的样本集。Gain信息增益=信息熵-条件熵信息熵：H(D)=-\sum_{y=k}^{K}p_k·log(p_k)条件熵：H(D|f)=-\sum_{v\epsilon V_f}\frac{..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -434,23 +434,8 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script>
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

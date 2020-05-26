@@ -9,7 +9,7 @@
 
     <title>优化算法 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="优化算法梯度下降梯度下降是一种优化算法，通过迭代的方式寻找模型的最优参数；当目标函数是凸函数时，梯度下降的解是全局最优解；但在一般情况下，梯度下降无法保证全局最优。负梯度中的每一项可以认为传达了两个信息:正负号在告诉输入向量应该调大还是调小（正调大，负调小）；每一项的相对大小表明每个参数对函数值达到最值的影响程度批梯度下降（Batch SGD） VS  随机梯度下降批梯度下降在每次对模型参数进行更新时，需要遍历所有数据，得到平均损失随机梯度下降每次使用单个样本的损失来近似平..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -344,23 +344,8 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script>
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

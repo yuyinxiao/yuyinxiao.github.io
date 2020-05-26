@@ -9,7 +9,7 @@
 
     <title>大数据面试基础 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="大数据整理大数据的面试相关内容，主要包括namenode，hdfs读写数据，部署job流程等。 Scalacollect: Spark的collect方法，是Action类型的一个算子，收集一个弹性分布式数据集的所有元素到一个数组中。从远程集群拉取数据到driver端将大量数据汇集到一个driver节点上，将数据用数组存放，占用jvm堆内存容易造成内存溢出，只用作小型数据收集。persist:读取数据转为多个RDD时暂存；提高效率，没必要重复多次读取Shuffle的操作由于 S..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -579,23 +579,8 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script>
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

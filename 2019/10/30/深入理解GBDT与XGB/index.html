@@ -9,8 +9,8 @@
 
     <title>深入理解GBDT与XGB | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
-    <meta name="description" content="GBDT与XGB相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究深入理解GBDT训练一棵树：(特征排序-&amp;gt;划分节点)*n—[分裂截止]—&amp;gt;叶子节点内样本求残差和$\sum_{j \in I_j} y_j-\hat{y_j}$作为叶子节点的值。训练多棵树：最开始样本均值作为所有样本预测值，训练完后每个样本预测值+=步长(0.1)*叶子节点值作为训练下一棵树的预测值；划分节点：遍历特征选择损失小的特征；..." />
+    <meta name="keywords" content="" />
+    <meta name="description" content="GBDT与XGB相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究。此外因为关于梯度提升树整理得较多，比较杂乱。所以为了更好地理解和向别人介绍梯度提升树，需要系统的掌握。梯度提升思想-&amp;gt;决策树思想-&amp;gt;梯度提升树理论-&amp;gt;代码-&amp;gt;wink深入理解GBDTCART树（分类与回归树）目标函数的定义决定了CART树用与回归还是分类，排序任务GBDTGBDT提升树原理无论损失函数是什么形式，每个决策树拟合的..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -103,7 +103,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GBDT与XGB"><span class="toc-number">1.</span> <span class="toc-text">GBDT与XGB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GBDT-vs-XGB"><span class="toc-number">1.1.</span> <span class="toc-text">GBDT vs XGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gbdt"><span class="toc-number">1.2.</span> <span class="toc-text">gbdt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xgb"><span class="toc-number">1.3.</span> <span class="toc-text">xgb</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GBDT与XGB"><span class="toc-number">1.</span> <span class="toc-text">GBDT与XGB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CART树（分类与回归树）"><span class="toc-number">1.1.</span> <span class="toc-text">CART树（分类与回归树）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT"><span class="toc-number">1.1.1.</span> <span class="toc-text">GBDT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GBDT提升树原理"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">GBDT提升树原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类任务"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">分类任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#回归任务"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">回归任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XGBoost"><span class="toc-number">1.2.</span> <span class="toc-text">XGBoost</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GBDT-vs-XGB"><span class="toc-number">1.3.</span> <span class="toc-text">GBDT vs XGB</span></a></li></ol></li></ol>
         
     </div>
 </aside>
@@ -146,30 +146,40 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究</p>
+        <h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究。此外因为关于梯度提升树整理得较多，比较杂乱。所以为了更好地理解和向别人介绍梯度提升树，需要系统的掌握。<br><strong>梯度提升思想-&gt;决策树思想-&gt;梯度提升树理论-&gt;代码-&gt;wink</strong></p>
 <p><a href="https://blog.csdn.net/program_developer/article/details/102763481" target="_blank" rel="noopener">深入理解GBDT</a></p>
-<ul>
-<li>训练一棵树：(特征排序-&gt;划分节点)*n—[分裂截止]—&gt;叶子节点内样本求残差和$\sum_{j \in I_j} y_j-\hat{y_j}$作为叶子节点的值。</li>
-<li>训练多棵树：<strong>最开始样本均值作为所有样本预测值</strong>，训练完后每个样本预测值+=步长(0.1)*叶子节点值作为训练下一棵树的预测值；</li>
-<li>划分节点：遍历特征选择损失小的特征；</li>
-</ul>
 <a id="more"></a>
-<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w=-G$<br>XGB：$w=-\frac{G}{H}$</p>
-<h2 id="gbdt"><a href="#gbdt" class="headerlink" title="gbdt"></a>gbdt</h2><ol>
-<li>初始时，样本预测值为所有样本真实结果的均值；</li>
-<li>划分叶子节点：贪心试探，得到叶子节点划分后平方损失最小的最佳特征与值；</li>
-<li>分裂截止后，对每个叶子节点求样本残差和$w_j=\sum_{i \in I_j} y_i-\hat{y_i}$作为节点值；</li>
-<li>所有样本值由上一轮预测值$y^{pred}+=0.1*w_j$；</li>
-<li>重复2，3，4</li>
-</ol>
-<h2 id="xgb"><a href="#xgb" class="headerlink" title="xgb"></a>xgb</h2><p>训练的时候过程是相似的，牛顿法计算残差+显示正则+特征直方图选择</p>
+<h2 id="CART树（分类与回归树）"><a href="#CART树（分类与回归树）" class="headerlink" title="CART树（分类与回归树）"></a>CART树（分类与回归树）</h2><p>目标函数的定义决定了CART树用与回归还是分类，排序任务</p>
+<h3 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h3><h4 id="GBDT提升树原理"><a href="#GBDT提升树原理" class="headerlink" title="GBDT提升树原理"></a>GBDT提升树原理</h4><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/1.png" alt="avater"><br><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/2.png" alt="avater"><br>无论损失函数是什么形式，每个决策树拟合的都是负梯度。准确的说，不是用负梯度代替残差，而是当损失函数是平方损失时，负梯度刚好是残差，残差只是特例。<br><strong>$\theta$参数空间的优化，方向是$L$对$\theta$的负梯度；提升树作为函数空间的优化，方向是$L$对$F_{m-1}(x)$的负梯度</strong></p>
+<p><strong>对于GBDT来说，新的提升树拟合的都是前面m-1棵树对样本造成的损失对前m-1棵树权重的负梯度方向。</strong><br><a href="https://www.zhihu.com/question/63560633/answer/379959040" target="_blank" rel="noopener">参考知乎</a></p>
+<h4 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h4><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/log_fenlei.png" alt="avatar"><br>逻辑回归、FM模型用于分类问题，其实是在用一个线性模型或者包含交叉项的非线性模型，去拟合对数几率$ln{\frac{p}{1-p}}$。而GBDT也是一样，用一系列的梯度提升树去拟合这个对数几率，实际上最终得到的是一系列CART回归树。其分类模型可以表达为：</p>
+<script type="math/tex; mode=display">P(y=1|x)=\frac{1}{1+e^{-\sum_{m=0}^{M}h_m(x)}}</script><p>前m棵树相加，然后非线性变换为概率P作为预测概率，$h_m(x)$为学习到的决策树<br>交叉熵损失函数为：</p>
+<script type="math/tex; mode=display">l(x_i,y_i)=-y_i\log{\hat{y_i}}-(1-y_i)\log(1-\hat{y_i})</script><p>迭代k步后，模型输出为</p>
+<script type="math/tex; mode=display">\hat{y_i}=F(x)=\sum_{k=0}^Kh_m(x)</script><p>，损失函数为</p>
+<script type="math/tex; mode=display">L(x_i,y_i|F(x))=y_i\log(1+e^{-F(x_i)})+(1-y_i)[F(x_i)+\log(1+e^{-F(x_i)})]</script><p>求导得到梯度为</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial {F(x)}}|_{x_i,y_i}=P-y_i</script><p>因此对于下一棵决策树的训练样本X，其所需要拟合的<strong>负梯度</strong>为真实标签与预测概率的残差$y_i-P$。<br><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/multi_fenlei.png" alt="avatar"><br><a href="https://blog.csdn.net/qq_22238533/article/details/79192579?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">参考知乎</a></p>
+<h4 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h4><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/ls_huigui.png" alt="avatar"><br>回归预测采用平方误差损失</p>
+<script type="math/tex; mode=display">L=\sum_{i=1}^{N}l(y_i,F_{m-1}(x)+h_m(x_i))</script><script type="math/tex; mode=display">L=\sum_{i=1}^{N}(y_i-F_{m-1}(x)-h_m(x_i))^2</script><p>欲使损失最小，很显然则需要满足</p>
+<script type="math/tex; mode=display">h_m(x_i)=r=(y_i-F_{m-1}(x))</script><p>拟合残差即可。—<strong>《统计学习方法》</strong><br>或者<strong>通过求取负梯度，使$h_m(x_i)=T(x_i,\theta_m)$拟合</strong>，满足损失最小</p>
+<script type="math/tex; mode=display">L=\sum_{i=1}^{N}(y_i-F_{m-1}(x_i))^2</script><p>求导得到</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial {F_{m-1}(x)}}|_{x_i,y_i}=-2\sum_{i=1}^{N}(y_i-F(x_i))</script><p>因此新的一棵树$T(x_i,\theta_m)$应该对于样本$(x_i,y_i)$需要拟合$r=y_i-F_{m-1}(x_i)$<br>两种方法是相似的，对于回归任务，新的一棵树的权重拟合的是负梯度(伪残差）</p>
+<blockquote>
+<blockquote>
+<p>对于第一棵树，作为弱分类器，样本预测值为所有样本真实结果的均值；而后每增加一棵树，使得样本在前面所有的树中得到的损失都小。因此新的树权重的拟合方向，就是所有样本在函数空间得到的损失减小的负梯度方向，构成的合矢量方向，保证所有样本损失减小。</p>
+</blockquote>
+</blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/46445201" target="_blank" rel="noopener">参考知乎</a><br><a href="https://blog.csdn.net/qq_22238533/article/details/79185969" target="_blank" rel="noopener">参考博客</a></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>因此对于GBDT来说，使用的是CART树。并且通过定义合适的目标函数实现不同的任务。但总得来说，<strong>GBDT的提升树叶子权重拟合的都是负梯度，实为真实值与预测结果值的残差。</strong></p>
 <ol>
-<li>标准：平方损失+显式正则项=&gt;Gain结构分数；</li>
-<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；特征预排序+缓存；并行</li>
-<li>计算叶子节点下残差和$w_j=-\frac{G}{H}$</li>
-<li>停止生长：Gain&lt;0；最大深度；最小样本权重和；</li>
+<li>回归任务：拟合的是r=真实值-前向累加的结果；$y-\hat{y}$</li>
+<li>二分类：拟合的是r=真实值-前向累加后非线性变换的结果；$y-p$</li>
+<li>多分类：拟合的是r=真实值-前向累加后非线性变换+softmax的结果。$y-\hat{y_p}$</li>
 </ol>
+<p>初始化弱分类器时，不同任务对应不同损失函数，对应不同的初始化方式<a href="https://blog.csdn.net/qq_22238533/article/details/79185969" target="_blank" rel="noopener">参考博客</a></p>
+<h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/gbdt.png" alt="avatar"></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MzY0MzE4Mg==&amp;mid=2247485159&amp;idx=1&amp;sn=d429aac8370ca5127e1e786995d4e8ec&amp;chksm=e9d01626dea79f30043ab80652c4a859760c1ebc0d602e58e13490bf525ad7608a9610495b3d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">XGB精选面试题</a></p>
+<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w^<em>=-G$<br>XGB：$w^</em>=-\frac{G}{H}$</p>
+<p>GBDT初始化弱分类器，任务，损失函数不同，初始化方式不同；<br>XGB初始化弱分类器，都归为0，因此训练时略去初始化过程</p>
 
         
     </section>
@@ -301,23 +311,8 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script>
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

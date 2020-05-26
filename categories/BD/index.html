@@ -9,7 +9,7 @@
 
     <title>Category: BD | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="记录一个人的学习，成长" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -144,6 +144,59 @@
         <div id="content" class="content">
             <div id="wrapper" class="wrapper" style="max-width: 800px">
                 
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/">大数据调优</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://yuyinxiao.github.io/categories/BD/index.html">
+    
+        <!-- 不蒜子统计 -->
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">阅读数 <span id="busuanzi_value_site_pv"></span>次</span>
+    
+
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-12-27T03:14:26.000Z" itemprop="datePublished">2019-12-27</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/" rel="tag">大数据调优</a>, <a class="article-tag-link" href="/tags/%E5%B7%A5%E7%A8%8B/" rel="tag">工程</a>, <a class="article-tag-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C/" rel="tag">数据倾斜</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="大数据调优"><a href="#大数据调优" class="headerlink" title="大数据调优"></a>大数据调优</h1><h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>不怕数据大，就怕数据斜。报错：<code>reduce.shuffle出错，java heap space造成OOM</code></p>
+<p>map读入文件的时候每一个切片对应一个map task；到reduce时shuffle某个key数据太多造成reduce运行缓慢</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li>过滤空值；空值可能会造成大量数据进入到一个reduce中造成内存不足</li>
+<li>预跑+设定最大；每个Reduce处理的数据默认是256MB<code>hive.exec.reducers.bytes.per.reducer=256000000</code>;每个任务最大的reduce数，默认为1009<code>hive.exec.reducers.max=1009</code>;<code>N=min(参数2，总输入数据量/参数1)</code>设置Reducer的数量<code>set mapreduce.job.reduces=n</code></li>
+</ol>
+        
+        <p class="article-more-link">
+            <a href="/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
+        
+    </section>
+</article>
+
+
     <article class="article" itemscope itemprop="blogPost">
     
     <header class="article-header">
@@ -357,9 +410,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ul>
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>更多命令参考<br><a href="https://zhuanlan.zhihu.com/p/36093355" target="_blank" rel="noopener">Linux常用命令总结</a></p>
+<ul>
 <li>ps：查看当前进程<ol>
-<li>ps -ef (system v 输出) </li>
+<li>ps -ef (system v 输出)</li>
 <li>ps -aux bsd 格式输出</li>
 <li>ps -ef | grep pid</li>
 </ol>
@@ -367,7 +421,7 @@
 <li>ln：软连接，快捷方式；硬链接：同步更改。</li>
 <li>chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7</li>
 <li>vi 文件名编辑 cat file | more | less<ol>
-<li>more 分页 </li>
+<li>more 分页</li>
 <li>less 分页可回翻</li>
 <li>tail 尾部</li>
 <li>head 头部</li>
@@ -707,23 +761,8 @@
             }, 3000);
         }
     });
-    </script>
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -9,8 +9,8 @@
 
     <title>linux | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
-    <meta name="description" content="Linuxps：查看当前进程ps -ef (system v 输出) ps -aux bsd 格式输出ps -ef | grep pidln：软连接，快捷方式；硬链接：同步更改。chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7vi 文件名编辑 cat file | more | lessmore 分页 less 分页可回翻tail 尾部head 头部wc 命令 - c 统计字节数..." />
+    <meta name="keywords" content="" />
+    <meta name="description" content="Linux更多命令参考Linux常用命令总结ps：查看当前进程ps -ef (system v 输出)ps -aux bsd 格式输出ps -ef | grep pidln：软连接，快捷方式；硬链接：同步更改。chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7vi 文件名编辑 cat file | more | lessmore 分页less 分页可回翻tail 尾部head 头部..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -146,9 +146,10 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ul>
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>更多命令参考<br><a href="https://zhuanlan.zhihu.com/p/36093355" target="_blank" rel="noopener">Linux常用命令总结</a></p>
+<ul>
 <li>ps：查看当前进程<ol>
-<li>ps -ef (system v 输出) </li>
+<li>ps -ef (system v 输出)</li>
 <li>ps -aux bsd 格式输出</li>
 <li>ps -ef | grep pid</li>
 </ol>
@@ -156,7 +157,7 @@
 <li>ln：软连接，快捷方式；硬链接：同步更改。</li>
 <li>chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7</li>
 <li>vi 文件名编辑 cat file | more | less<ol>
-<li>more 分页 </li>
+<li>more 分页</li>
 <li>less 分页可回翻</li>
 <li>tail 尾部</li>
 <li>head 头部</li>
@@ -222,7 +223,7 @@
 <li>如果想让别名重启后仍然有效需要修改<br>vi ~/.bashrc</li>
 <li>添加用户<br>useradd hadoop<br>passwd hadoop</li>
 <li>创建多个文件<br>touch a.txt b.txt<br>touch /home/{a.txt,b.txt}</li>
-<li>将一个文件的内容复制到里另一个文件中<br>cat a.txt &gt; b.txt<br>追加内容<br>cat a.txt &gt;&gt; b.txt </li>
+<li>将一个文件的内容复制到里另一个文件中<br>cat a.txt &gt; b.txt<br>追加内容<br>cat a.txt &gt;&gt; b.txt</li>
 <li>将a.txt 与b.txt设为其拥有者和其所属同一个组者可写入，但其他以外的人则不可写入:<br>chmod ug+w,o-w a.txt b.txt<br>chmod a=wx c.txt</li>
 <li>将当前目录下的所有文件与子目录皆设为任何人可读取:<br>chmod -R a+r *</li>
 <li>将a.txt的用户拥有者设为users,组的拥有者设为jessie:<br>chown users:jessie a.txt</li>
@@ -284,7 +285,7 @@
 <li>0:文件当前行的开头</li>
 <li>$:文件当前行的末尾</li>
 <li>G:文件的最后一行开头</li>
-<li>1 + G到第一行 </li>
+<li>1 + G到第一行</li>
 <li>9 + G到第九行 = :9</li>
 <li>dd:删除一行</li>
 <li>3dd：删除3行</li>
@@ -333,7 +334,7 @@
 </ol>
 <h2 id="十一、正则表达式"><a href="#十一、正则表达式" class="headerlink" title="十一、正则表达式"></a>十一、正则表达式</h2><ol>
 <li>cut截取以:分割保留第七段<br>grep hadoop /etc/passwd | cut -d: -f7</li>
-<li>排序<br>du | sort -n </li>
+<li>排序<br>du | sort -n</li>
 <li>查询不包含hadoop的<br>grep -v hadoop /etc/passwd</li>
 <li>正则表达包含hadoop<br>grep ‘hadoop’ /etc/passwd</li>
 <li>正则表达(点代表任意一个字符)<br>grep ‘h.*p’ /etc/passwd</li>
@@ -525,23 +526,8 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script>
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -3,11 +3,60 @@
   <entry>
     <title>大数据调优</title>
     <url>/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<h1 id="大数据调优"><a href="#大数据调优" class="headerlink" title="大数据调优"></a>大数据调优</h1><h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>不怕数据大，就怕数据斜。报错：<code>reduce.shuffle出错，java heap space造成OOM</code></p>
+<p>map读入文件的时候每一个切片对应一个map task；到reduce时shuffle某个key数据太多造成reduce运行缓慢</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li>过滤空值；空值可能会造成大量数据进入到一个reduce中造成内存不足</li>
+<li>预跑+设定最大；每个Reduce处理的数据默认是256MB<code>hive.exec.reducers.bytes.per.reducer=256000000</code>;每个任务最大的reduce数，默认为1009<code>hive.exec.reducers.max=1009</code>;<code>N=min(参数2，总输入数据量/参数1)</code>设置Reducer的数量<code>set mapreduce.job.reduces=n</code></li>
+</ol>
+<a id="more"></a>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><p>RDD窄依赖没有shuffle过程；RDD在遇到宽依赖时shuffle就是一个stage。更多spark内容参考<br><a href="https://mp.weixin.qq.com/s/-nP26zi8B2PLpVmHorfzbA" target="_blank" rel="noopener">30分钟理解Spark的基本原理</a></p>
+<h3 id="调优"><a href="#调优" class="headerlink" title="调优"></a>调优</h3><h4 id="提高executor内存"><a href="#提高executor内存" class="headerlink" title="提高executor内存"></a>提高executor内存</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>driverMemory</td>
+<td>4</td>
+<td>dirver创建sc，初始化DAG和任务调度</td>
+</tr>
+<tr>
+<td>driverCores</td>
+<td>2</td>
+</tr>
+<tr>
+<td>numExecutors</td>
+<td>64</td>
+<td>执行器个数</td>
+</tr>
+<tr>
+<td>executorCores</td>
+<td>4</td>
+</tr>
+<tr>
+<td>executorMemory</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">map_task数=读取分片数</span><br><span class="line">reduce_task数=executor数量*executor_cores核数</span><br></pre></td></tr></table></figure>
+<p>序列化Kryo序列<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extraSparkConf	--conf spark.serializer=org.apache.spark.serializer.</span><br><span class="line">KryoSerializer --conf spark.kryoserializer.buffer.max.mb=2000</span><br></pre></td></tr></table></figure></p>
+<p>其他参数优化参考<br><a href="https://zhuanlan.zhihu.com/p/108454557" target="_blank" rel="noopener">超全spark性能优化总结</a></p>
 ]]></content>
+      <categories>
+        <category>BD</category>
+      </categories>
       <tags>
-        <tag>NLP</tag>
-        <tag>推荐系统</tag>
+        <tag>大数据调优</tag>
+        <tag>工程</tag>
+        <tag>数据倾斜</tag>
       </tags>
   </entry>
   <entry>
@@ -235,30 +284,40 @@
   <entry>
     <title>深入理解GBDT与XGB</title>
     <url>/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/</url>
-    <content><![CDATA[<h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究</p>
+    <content><![CDATA[<h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究。此外因为关于梯度提升树整理得较多，比较杂乱。所以为了更好地理解和向别人介绍梯度提升树，需要系统的掌握。<br><strong>梯度提升思想-&gt;决策树思想-&gt;梯度提升树理论-&gt;代码-&gt;wink</strong></p>
 <p><a href="https://blog.csdn.net/program_developer/article/details/102763481" target="_blank" rel="noopener">深入理解GBDT</a></p>
-<ul>
-<li>训练一棵树：(特征排序-&gt;划分节点)*n—[分裂截止]—&gt;叶子节点内样本求残差和$\sum_{j \in I_j} y_j-\hat{y_j}$作为叶子节点的值。</li>
-<li>训练多棵树：<strong>最开始样本均值作为所有样本预测值</strong>，训练完后每个样本预测值+=步长(0.1)*叶子节点值作为训练下一棵树的预测值；</li>
-<li>划分节点：遍历特征选择损失小的特征；</li>
-</ul>
 <a id="more"></a>
-<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w=-G$<br>XGB：$w=-\frac{G}{H}$</p>
-<h2 id="gbdt"><a href="#gbdt" class="headerlink" title="gbdt"></a>gbdt</h2><ol>
-<li>初始时，样本预测值为所有样本真实结果的均值；</li>
-<li>划分叶子节点：贪心试探，得到叶子节点划分后平方损失最小的最佳特征与值；</li>
-<li>分裂截止后，对每个叶子节点求样本残差和$w_j=\sum_{i \in I_j} y_i-\hat{y_i}$作为节点值；</li>
-<li>所有样本值由上一轮预测值$y^{pred}+=0.1*w_j$；</li>
-<li>重复2，3，4</li>
-</ol>
-<h2 id="xgb"><a href="#xgb" class="headerlink" title="xgb"></a>xgb</h2><p>训练的时候过程是相似的，牛顿法计算残差+显示正则+特征直方图选择</p>
+<h2 id="CART树（分类与回归树）"><a href="#CART树（分类与回归树）" class="headerlink" title="CART树（分类与回归树）"></a>CART树（分类与回归树）</h2><p>目标函数的定义决定了CART树用与回归还是分类，排序任务</p>
+<h3 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h3><h4 id="GBDT提升树原理"><a href="#GBDT提升树原理" class="headerlink" title="GBDT提升树原理"></a>GBDT提升树原理</h4><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/1.png" alt="avater"><br><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/2.png" alt="avater"><br>无论损失函数是什么形式，每个决策树拟合的都是负梯度。准确的说，不是用负梯度代替残差，而是当损失函数是平方损失时，负梯度刚好是残差，残差只是特例。<br><strong>$\theta$参数空间的优化，方向是$L$对$\theta$的负梯度；提升树作为函数空间的优化，方向是$L$对$F_{m-1}(x)$的负梯度</strong></p>
+<p><strong>对于GBDT来说，新的提升树拟合的都是前面m-1棵树对样本造成的损失对前m-1棵树权重的负梯度方向。</strong><br><a href="https://www.zhihu.com/question/63560633/answer/379959040" target="_blank" rel="noopener">参考知乎</a></p>
+<h4 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h4><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/log_fenlei.png" alt="avatar"><br>逻辑回归、FM模型用于分类问题，其实是在用一个线性模型或者包含交叉项的非线性模型，去拟合对数几率$ln{\frac{p}{1-p}}$。而GBDT也是一样，用一系列的梯度提升树去拟合这个对数几率，实际上最终得到的是一系列CART回归树。其分类模型可以表达为：</p>
+<script type="math/tex; mode=display">P(y=1|x)=\frac{1}{1+e^{-\sum_{m=0}^{M}h_m(x)}}</script><p>前m棵树相加，然后非线性变换为概率P作为预测概率，$h_m(x)$为学习到的决策树<br>交叉熵损失函数为：</p>
+<script type="math/tex; mode=display">l(x_i,y_i)=-y_i\log{\hat{y_i}}-(1-y_i)\log(1-\hat{y_i})</script><p>迭代k步后，模型输出为</p>
+<script type="math/tex; mode=display">\hat{y_i}=F(x)=\sum_{k=0}^Kh_m(x)</script><p>，损失函数为</p>
+<script type="math/tex; mode=display">L(x_i,y_i|F(x))=y_i\log(1+e^{-F(x_i)})+(1-y_i)[F(x_i)+\log(1+e^{-F(x_i)})]</script><p>求导得到梯度为</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial {F(x)}}|_{x_i,y_i}=P-y_i</script><p>因此对于下一棵决策树的训练样本X，其所需要拟合的<strong>负梯度</strong>为真实标签与预测概率的残差$y_i-P$。<br><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/multi_fenlei.png" alt="avatar"><br><a href="https://blog.csdn.net/qq_22238533/article/details/79192579?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">参考知乎</a></p>
+<h4 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h4><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/ls_huigui.png" alt="avatar"><br>回归预测采用平方误差损失</p>
+<script type="math/tex; mode=display">L=\sum_{i=1}^{N}l(y_i,F_{m-1}(x)+h_m(x_i))</script><script type="math/tex; mode=display">L=\sum_{i=1}^{N}(y_i-F_{m-1}(x)-h_m(x_i))^2</script><p>欲使损失最小，很显然则需要满足</p>
+<script type="math/tex; mode=display">h_m(x_i)=r=(y_i-F_{m-1}(x))</script><p>拟合残差即可。—<strong>《统计学习方法》</strong><br>或者<strong>通过求取负梯度，使$h_m(x_i)=T(x_i,\theta_m)$拟合</strong>，满足损失最小</p>
+<script type="math/tex; mode=display">L=\sum_{i=1}^{N}(y_i-F_{m-1}(x_i))^2</script><p>求导得到</p>
+<script type="math/tex; mode=display">\frac{\partial L}{\partial {F_{m-1}(x)}}|_{x_i,y_i}=-2\sum_{i=1}^{N}(y_i-F(x_i))</script><p>因此新的一棵树$T(x_i,\theta_m)$应该对于样本$(x_i,y_i)$需要拟合$r=y_i-F_{m-1}(x_i)$<br>两种方法是相似的，对于回归任务，新的一棵树的权重拟合的是负梯度(伪残差）</p>
+<blockquote>
+<blockquote>
+<p>对于第一棵树，作为弱分类器，样本预测值为所有样本真实结果的均值；而后每增加一棵树，使得样本在前面所有的树中得到的损失都小。因此新的树权重的拟合方向，就是所有样本在函数空间得到的损失减小的负梯度方向，构成的合矢量方向，保证所有样本损失减小。</p>
+</blockquote>
+</blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/46445201" target="_blank" rel="noopener">参考知乎</a><br><a href="https://blog.csdn.net/qq_22238533/article/details/79185969" target="_blank" rel="noopener">参考博客</a></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>因此对于GBDT来说，使用的是CART树。并且通过定义合适的目标函数实现不同的任务。但总得来说，<strong>GBDT的提升树叶子权重拟合的都是负梯度，实为真实值与预测结果值的残差。</strong></p>
 <ol>
-<li>标准：平方损失+显式正则项=&gt;Gain结构分数；</li>
-<li>规则：$h_i$直方图分位数划分特征与值后去贪心选择；特征预排序+缓存；并行</li>
-<li>计算叶子节点下残差和$w_j=-\frac{G}{H}$</li>
-<li>停止生长：Gain&lt;0；最大深度；最小样本权重和；</li>
+<li>回归任务：拟合的是r=真实值-前向累加的结果；$y-\hat{y}$</li>
+<li>二分类：拟合的是r=真实值-前向累加后非线性变换的结果；$y-p$</li>
+<li>多分类：拟合的是r=真实值-前向累加后非线性变换+softmax的结果。$y-\hat{y_p}$</li>
 </ol>
+<p>初始化弱分类器时，不同任务对应不同损失函数，对应不同的初始化方式<a href="https://blog.csdn.net/qq_22238533/article/details/79185969" target="_blank" rel="noopener">参考博客</a></p>
+<h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><p><img src="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/gbdt.png" alt="avatar"></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MzY0MzE4Mg==&amp;mid=2247485159&amp;idx=1&amp;sn=d429aac8370ca5127e1e786995d4e8ec&amp;chksm=e9d01626dea79f30043ab80652c4a859760c1ebc0d602e58e13490bf525ad7608a9610495b3d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">XGB精选面试题</a></p>
+<h2 id="GBDT-vs-XGB"><a href="#GBDT-vs-XGB" class="headerlink" title="GBDT vs XGB"></a>GBDT vs XGB</h2><p>GBDT：$w^<em>=-G$<br>XGB：$w^</em>=-\frac{G}{H}$</p>
+<p>GBDT初始化弱分类器，任务，损失函数不同，初始化方式不同；<br>XGB初始化弱分类器，都归为0，因此训练时略去初始化过程</p>
 ]]></content>
       <categories>
         <category>ml</category>
@@ -1553,9 +1612,10 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
   <entry>
     <title>linux</title>
     <url>/2019/10/25/linux/</url>
-    <content><![CDATA[<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ul>
+    <content><![CDATA[<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>更多命令参考<br><a href="https://zhuanlan.zhihu.com/p/36093355" target="_blank" rel="noopener">Linux常用命令总结</a></p>
+<ul>
 <li>ps：查看当前进程<ol>
-<li>ps -ef (system v 输出) </li>
+<li>ps -ef (system v 输出)</li>
 <li>ps -aux bsd 格式输出</li>
 <li>ps -ef | grep pid</li>
 </ol>
@@ -1563,7 +1623,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>ln：软连接，快捷方式；硬链接：同步更改。</li>
 <li>chmod abc file a,b,c：分别表示User、Group、及Other的权限。若要rwx属性则4+2+1=7</li>
 <li>vi 文件名编辑 cat file | more | less<ol>
-<li>more 分页 </li>
+<li>more 分页</li>
 <li>less 分页可回翻</li>
 <li>tail 尾部</li>
 <li>head 头部</li>
@@ -1629,7 +1689,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>如果想让别名重启后仍然有效需要修改<br>vi ~/.bashrc</li>
 <li>添加用户<br>useradd hadoop<br>passwd hadoop</li>
 <li>创建多个文件<br>touch a.txt b.txt<br>touch /home/{a.txt,b.txt}</li>
-<li>将一个文件的内容复制到里另一个文件中<br>cat a.txt &gt; b.txt<br>追加内容<br>cat a.txt &gt;&gt; b.txt </li>
+<li>将一个文件的内容复制到里另一个文件中<br>cat a.txt &gt; b.txt<br>追加内容<br>cat a.txt &gt;&gt; b.txt</li>
 <li>将a.txt 与b.txt设为其拥有者和其所属同一个组者可写入，但其他以外的人则不可写入:<br>chmod ug+w,o-w a.txt b.txt<br>chmod a=wx c.txt</li>
 <li>将当前目录下的所有文件与子目录皆设为任何人可读取:<br>chmod -R a+r *</li>
 <li>将a.txt的用户拥有者设为users,组的拥有者设为jessie:<br>chown users:jessie a.txt</li>
@@ -1691,7 +1751,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>0:文件当前行的开头</li>
 <li>$:文件当前行的末尾</li>
 <li>G:文件的最后一行开头</li>
-<li>1 + G到第一行 </li>
+<li>1 + G到第一行</li>
 <li>9 + G到第九行 = :9</li>
 <li>dd:删除一行</li>
 <li>3dd：删除3行</li>
@@ -1740,7 +1800,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 </ol>
 <h2 id="十一、正则表达式"><a href="#十一、正则表达式" class="headerlink" title="十一、正则表达式"></a>十一、正则表达式</h2><ol>
 <li>cut截取以:分割保留第七段<br>grep hadoop /etc/passwd | cut -d: -f7</li>
-<li>排序<br>du | sort -n </li>
+<li>排序<br>du | sort -n</li>
 <li>查询不包含hadoop的<br>grep -v hadoop /etc/passwd</li>
 <li>正则表达包含hadoop<br>grep ‘hadoop’ /etc/passwd</li>
 <li>正则表达(点代表任意一个字符)<br>grep ‘h.*p’ /etc/passwd</li>
@@ -1907,9 +1967,15 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
     <title>推荐系统</title>
     <url>/2019/10/25/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>目标主要包括：用户满意性，多样性，新颖性，惊喜度，实时性，推荐透明度，覆盖率。<br>热门、人工、相关、个性化推荐</p>
-<h2 id="推荐的分类"><a href="#推荐的分类" class="headerlink" title="推荐的分类"></a>推荐的分类</h2><ul>
-<li>基于内容的过滤、协同过滤</li>
-<li>基于用户的协同过滤、基于物品的协同过滤<h3 id="协同过滤的两种主要方式"><a href="#协同过滤的两种主要方式" class="headerlink" title="协同过滤的两种主要方式"></a>协同过滤的两种主要方式</h3></li>
+<h2 id="推荐系统简介"><a href="#推荐系统简介" class="headerlink" title="推荐系统简介"></a>推荐系统简介</h2><p>$U$表示所有用户(user)的集合,用$I$表示所有项目(item)的集合。在实际系统中，$U$和$I$具有非常大的规模。定义一个效用函数$s$，用来计算项目$i$对用户$u$的推荐度,即$s$:</p>
+<script type="math/tex; mode=display">U×I→R</script><p>，其中$R$是一个全序集合(在一定范围内非负的整数或实数)，推荐算法的研究问题就是通过计算推荐度为每一个用户$u \in U$找到其最感兴趣的项目$i’ \in I$,如下:</p>
+<script type="math/tex; mode=display">\forall u \in U,i'_u =\argmax _{i \in I} s(u，i)</script><p>推荐系统中的用户和项目都可以通过一组不同的属性或特征来进行表示。关键问题是效用函数$s$通常定义在$U×I$的一个子空间上，推荐算法必须将$s$外推到整个$U×I$空间。【也就是模型的训练与预测过程，外推的效果对应着泛化能力】</p>
+<h2 id="传统推荐方法"><a href="#传统推荐方法" class="headerlink" title="传统推荐方法"></a>传统推荐方法</h2><ul>
+<li>基于内容的推荐</li>
+<li>协同过滤推荐</li>
+<li>混合推荐</li>
+</ul>
+<h3 id="协同过滤的两种主要方式"><a href="#协同过滤的两种主要方式" class="headerlink" title="协同过滤的两种主要方式"></a>协同过滤的两种主要方式</h3><ul>
 <li>近邻模型<ol>
 <li>面向用户：计算用户之间的关联；</li>
 <li>面向物品的方法：计算待推荐物品与该用户已评级过的物品之间的关联。</li>
@@ -1990,7 +2056,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>FNN：FM + concat + MLP 预训练FM，Embedding向量高阶交叉</li>
 <li>PNN：FM + vector product + MLP 层之后，加product 层做交叉（f个Embedding向量两两内积）</li>
 <li>NFM：FM + bi-interact + MLP bi-interation即Embedding向量element-wise product得到f(f-1)/2个向量 ，sum</li>
-<li>AFM：FM + bi-interact + attention + MLP </li>
+<li>AFM：FM + bi-interact + attention + MLP</li>
 <li>Wide&amp;Deep： LR + Embeding + MLP， 低阶交叉保留记忆能力，deep 高阶交叉提升泛化能力（element-wise 高阶交叉）</li>
 <li>DeepFM： LR + FM +Embeding + deep，fm交叉vector-wise二阶特征交叉， Dnn高阶element-wise 特征交叉</li>
 <li>Deep&amp;Cross： cross + deep，element-wise多项式交叉，element-wise 高阶特征交叉</li>
@@ -2081,7 +2147,8 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>对于负类样本而言同样，预测0.1的结果应当远比预测0.7的样本损失值要小得多。对于预测概率为0.5时，损失只减少了0.25倍，所以更加关注于这种难以区分的样本。</li>
 </ul>
 <p>这样减少了简单样本的影响，大量预测概率很小的正样本叠加起来后的效应才可能比较有效。此外，加入平衡因子alpha，用来平衡正负样本本身的比例不均：文中alpha取0.25，即正样本要比负样本占比小，这是因为负例易分。</p>
-<h3 id="pointwise，pairwise，listwise"><a href="#pointwise，pairwise，listwise" class="headerlink" title="pointwise，pairwise，listwise"></a>pointwise，pairwise，listwise</h3><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Pointwise、Pairwise和Listwise的本质区别是训练过程中优化的目标或者损失函数不同。Pointwise优化的目标是单条样本与用户（查询词）之间的相关性（或者是否会点），即回归的目标是label。比如对于广告排序场景，优化目标是样本是否点击这个事情，这就是Pointwise。但对于如RankNet的Pairwise方法，优化的目标是正例与负例之间的序。而对于Listwise，优化的是一个序的好坏，比如用NDCG来评价。</p>
+<h3 id="pointwise，pairwise，listwise"><a href="#pointwise，pairwise，listwise" class="headerlink" title="pointwise，pairwise，listwise"></a>pointwise，pairwise，listwise</h3><p>更多参考<br><a href="https://zhuanlan.zhihu.com/p/114459818" target="_blank" rel="noopener">排序学习</a></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Pointwise、Pairwise和Listwise的本质区别是训练过程中优化的目标或者损失函数不同。Pointwise优化的目标是单条样本与用户（查询词）之间的相关性（或者是否会点），即回归的目标是label。比如对于广告排序场景，优化目标是样本是否点击这个事情，这就是Pointwise。但对于如RankNet的Pairwise方法，优化的目标是正例与负例之间的序。而对于Listwise，优化的是一个序的好坏，比如用NDCG来评价。</p>
 <h4 id="pointwise"><a href="#pointwise" class="headerlink" title="pointwise"></a>pointwise</h4><blockquote>
 <blockquote>
 <p>将排序问题当作二分类</p>
@@ -2367,7 +2434,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <hr>
 <h3 id="1、机器学习中的梯度下降"><a href="#1、机器学习中的梯度下降" class="headerlink" title="1、机器学习中的梯度下降"></a>1、机器学习中的梯度下降</h3><p>梯度下降首先需要明确损失函数Loss function（一个样本损失）和代价函数Cost function（统计平均意义下的损失）。</p>
 <script type="math/tex; mode=display">w^{(k+1)} = w^{(k)} - \alpha \cdot  \nabla C(w^{(k)})</script><p>f(x,y)=x²+y²<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/tidu1.png" alt="avatar"><br>将f(x,y)=x²+y²看做<strong>二维等高图</strong><br><strong>对于二维曲面来说，切线的方向有上有下描述的是函数值的方向；梯度代表使函数值增大时，各个自变量的变化方向；梯度下降就是梯度反方向更新各个自变量可以使得函数值减小。梯度方向与切线方向垂直。</strong></p>
-<p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/tidu2.png" alt="avatar"></p>
+<p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/tidu2.png" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/futidu.jpeg" alt="avatar"></p>
 <h4 id="1-1、批梯度下降比较"><a href="#1-1、批梯度下降比较" class="headerlink" title="1.1、批梯度下降比较"></a>1.1、批梯度下降比较</h4><ol>
 <li>批梯度下降会获得全局最优解，缺点是在更新每个参数的时候需要遍历所有的数据，计算量会很大，并且会有很多的冗余计算，导致的结果是当数据量大的时候，每个参数的更新都会很慢。</li>
 <li>随机梯度下降是以高方差频繁更新，优点是使得sgd会跳到新的和潜在更好的局部最优解，缺点是使得收敛到局部最优解的过程更加的复杂。</li>
@@ -2382,7 +2449,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <script type="math/tex; mode=display">w^{(k+1)} = w^{(k)} - \alpha_k \cdot  \nabla C(w^{(k)})</script><p>使得在这个方向上$f(x^{(k+1)})$取最小值。</p>
 <script type="math/tex; mode=display">\alpha_k = \mathop{\arg\min}_{\alpha \ge 0} f(x^{(k)} - \alpha \nabla f(x^{(k)}))</script><p>有意思的是，最速下降法每次更新的轨迹都和上一次垂直。而且只要梯度$\nabla f(x^{(k)}) \not = 0$则$f(x^{(k+1)}) &lt; f(x^{(k)})$<br>（即梯度不等于 0 时，肯定会下降。）</p>
 <h4 id="1-3、多分类梯度下降"><a href="#1-3、多分类梯度下降" class="headerlink" title="1.3、多分类梯度下降"></a>1.3、多分类梯度下降</h4><p>softmax 函数的表达式为:</p>
-<script type="math/tex; mode=display">y_i = \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}</script><script type="math/tex; mode=display">\frac{\partial y_i}{\partial z_j} 
+<script type="math/tex; mode=display">y_i = \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}</script><script type="math/tex; mode=display">\frac{\partial y_i}{\partial z_j}
 = \frac{\partial \frac{e^{z_i}}{\sum_{t = 1}^m e^{z_t}}}{\partial z_j}
 \tag{2}</script><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/38.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/39.jpg" alt="avatar"></p>
 <h3 id="2、牛顿法"><a href="#2、牛顿法" class="headerlink" title="2、牛顿法"></a>2、牛顿法</h3><p>在确定搜索方向时，<strong>梯度下降和最速下降只用到了目标函数的一阶导数（梯度），而牛顿法（Newton’s method）用到了二阶（偏）导数。</strong><br>牛顿法的基本思路是在每次迭代中，利用二次型函数来局部近似目标函数f，并求解近似函数的极小点作为下一个迭代点，牛顿法自变量x的更新公式为：</p>
@@ -2442,7 +2509,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 \frac{\partial \mathcal{L}}{\partial y} = 0, \\
 \frac{\partial \mathcal{L}}{\partial \lambda} = 0.
 \end{cases}</script><p>函数 f(x,y)=x²+y² 是曲面<strong>特别地，对于序列 {d1,d2,…} 来说，f(x,y)=dk 形成了一系列的曲线。若将 dk 理解为高度，则这一系列的曲线即是函数 f(x,y) 的等高线组。</strong> 同样，对于约束 g(x,y)=x²-y=C 来说它也是一条曲线，我们称之为约束曲线。对g曲线求导得到法向量，对f也如此；故有下式成立</p>
-<script type="math/tex; mode=display">\Bigl(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\Bigr) = \lambda\Bigl(\frac{\partial g}{\partial x}, \frac{\partial g}{\partial y}\Bigr)</script><p>函数曲线相切，意味着两个函数的法线在切点重合，也就是两个函数的法向量相差一个系数 λ，这也就是说两个函数在切点的梯度向量相差一个系数 λ </p>
+<script type="math/tex; mode=display">\Bigl(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\Bigr) = \lambda\Bigl(\frac{\partial g}{\partial x}, \frac{\partial g}{\partial y}\Bigr)</script><p>函数曲线相切，意味着两个函数的法线在切点重合，也就是两个函数的法向量相差一个系数 λ，这也就是说两个函数在切点的梯度向量相差一个系数 λ</p>
 <h3 id="7-1、KKT条件"><a href="#7-1、KKT条件" class="headerlink" title="7.1、KKT条件"></a>7.1、KKT条件</h3><p><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/kkt.jpeg" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/lglr.jpg" alt="avatar"><br>因此我们说，拉格朗日乘数法有很直观的物理意义。<br>对于h(x)&gt;=0的设定如下<br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/hx1.jpg" alt="avatar"><br><img src="/2019/10/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/hx2.jpg" alt="avatar"></p>
 <h2 id="八、特征选择"><a href="#八、特征选择" class="headerlink" title="八、特征选择"></a>八、特征选择</h2><p>特征选取包含一些特征处理的操作：</p>
 <ul>
@@ -2481,6 +2548,7 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <li>采用Bagging/Boosting/ensemble等方法</li>
 <li>考虑数据的先验分布</li>
 </ul>
+<h2 id="九、模型训练"><a href="#九、模型训练" class="headerlink" title="九、模型训练"></a>九、模型训练</h2><p><a href="https://mp.weixin.qq.com/s/v2Pnqvt1TT9Kk5ee0-Opxg" target="_blank" rel="noopener">学习率和batchsize选择</a></p>
 ]]></content>
       <categories>
         <category>ml</category>

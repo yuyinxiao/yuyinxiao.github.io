@@ -9,7 +9,7 @@
 
     <title>操作系统 | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="操作系统进程与线程进程：一个程序在一个数据集合上的一次运行过程。线程：线程是进程的一个实体，是被系统独立调度和执行的基本单位。区别进程是程序的一次执行，线程理解为进程中执行的一个程序片段；进程间是独立的，表现在内存空间、上下文环境上；线程运行在进程空间内；进程间无法存取存储空间；线程在进程空间中，同一进程所产生的线程共享同一内存空间。线程属于进程，进程退出时进程产生的线程都会被强制退出并清除；进程间可以IPC通信，线程不可以进程间通信信号，信号量，消息队列，共享内存本地之间：..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -289,23 +289,8 @@
                 pagenext.removeAttr('style');
             }
         }).trigger('resize');
-        </script>
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

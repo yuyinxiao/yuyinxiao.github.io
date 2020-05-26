@@ -9,7 +9,7 @@
 
     <title>小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
-    <meta name="keywords" content="null" />
+    <meta name="keywords" content="" />
     <meta name="description" content="记录一个人的学习，成长" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
@@ -169,7 +169,7 @@
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/NLP/" rel="tag">NLP</a>, <a class="article-tag-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a>
+    <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/" rel="tag">大数据调优</a>, <a class="article-tag-link" href="/tags/%E5%B7%A5%E7%A8%8B/" rel="tag">工程</a>, <a class="article-tag-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C/" rel="tag">数据倾斜</a>
 </div>
 
 
@@ -178,8 +178,20 @@
     
     <section class="article-body markdown-body">
         
-        <a id="more"></a>
-
+        <h1 id="大数据调优"><a href="#大数据调优" class="headerlink" title="大数据调优"></a>大数据调优</h1><h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>不怕数据大，就怕数据斜。报错：<code>reduce.shuffle出错，java heap space造成OOM</code></p>
+<p>map读入文件的时候每一个切片对应一个map task；到reduce时shuffle某个key数据太多造成reduce运行缓慢</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li>过滤空值；空值可能会造成大量数据进入到一个reduce中造成内存不足</li>
+<li>预跑+设定最大；每个Reduce处理的数据默认是256MB<code>hive.exec.reducers.bytes.per.reducer=256000000</code>;每个任务最大的reduce数，默认为1009<code>hive.exec.reducers.max=1009</code>;<code>N=min(参数2，总输入数据量/参数1)</code>设置Reducer的数量<code>set mapreduce.job.reduces=n</code></li>
+</ol>
+        
+        <p class="article-more-link">
+            <a href="/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/#more">
+                <span class="vm">阅读更多</span>
+                <i class="icon-arrow-double-right vm"></i>    
+            </a>
+        </p>
+        
         
     </section>
 </article>
@@ -446,13 +458,8 @@
     
     <section class="article-body markdown-body">
         
-        <h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究</p>
+        <h1 id="GBDT与XGB"><a href="#GBDT与XGB" class="headerlink" title="GBDT与XGB"></a>GBDT与XGB</h1><p>相信看到这篇文章的你对于梯度提升树的推导计算应该有所了解，但是推导公式只是理论理解，工程实现上却有很多细节需要探究。此外因为关于梯度提升树整理得较多，比较杂乱。所以为了更好地理解和向别人介绍梯度提升树，需要系统的掌握。<br><strong>梯度提升思想-&gt;决策树思想-&gt;梯度提升树理论-&gt;代码-&gt;wink</strong></p>
 <p><a href="https://blog.csdn.net/program_developer/article/details/102763481" target="_blank" rel="noopener">深入理解GBDT</a></p>
-<ul>
-<li>训练一棵树：(特征排序-&gt;划分节点)*n—[分裂截止]—&gt;叶子节点内样本求残差和$\sum_{j \in I_j} y_j-\hat{y_j}$作为叶子节点的值。</li>
-<li>训练多棵树：<strong>最开始样本均值作为所有样本预测值</strong>，训练完后每个样本预测值+=步长(0.1)*叶子节点值作为训练下一棵树的预测值；</li>
-<li>划分节点：遍历特征选择损失小的特征；</li>
-</ul>
         
         <p class="article-more-link">
             <a href="/2019/10/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GBDT%E4%B8%8EXGB/#more">
@@ -1367,23 +1374,8 @@
             }, 3000);
         }
     });
-    </script>
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
