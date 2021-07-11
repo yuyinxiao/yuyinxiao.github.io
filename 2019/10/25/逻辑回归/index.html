@@ -163,7 +163,8 @@
 <p>损失函数为负对数损失时求和</p>
 </blockquote>
 </blockquote>
-<script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script><h2 id="逻辑回归的求解方法"><a href="#逻辑回归的求解方法" class="headerlink" title="逻辑回归的求解方法"></a>逻辑回归的求解方法</h2><p>对应着三种优化方法：随机梯度下降，批梯度下降，small batch 梯度下降三种方式：</p>
+<script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script><p>交叉熵损失用于回归任务，label[0~1]，y<0.5时0处loss最小；y约>0.5时1处loss最小。</0.5时0处loss最小；y约></p>
+<h2 id="逻辑回归的求解方法"><a href="#逻辑回归的求解方法" class="headerlink" title="逻辑回归的求解方法"></a>逻辑回归的求解方法</h2><p>对应着三种优化方法：随机梯度下降，批梯度下降，small batch 梯度下降三种方式：</p>
 <ol>
 <li>批梯度下降：会获得全局最优解，缺点是在更新每个参数的时候需要遍历所有的数据，当数据量大的时候，每个参数的更新都会很慢。</li>
 <li>随机梯度下降：以高方差频繁更新，优点是使得sgd会跳到新的和潜在更好的局部最优解，缺点是使得收敛到局部最优解的过程更加的复杂。</li>

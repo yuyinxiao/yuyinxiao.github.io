@@ -222,8 +222,8 @@ P(X_j^{(i)}=x_j^{(i)}|Y&=c_k)=\dfrac{\sum\limits_{i=1}^mI(x_j^{(i)}=a_{jl},y^{(i
 &l=1,2,\cdots,S_j
 \end{aligned}</script>其中$x_j^{(i)}$代表第$i$个样本的第$j$个特征$x_j^{(i)}\in\{a_{j1},a_{j2},\cdots,a_{jS_j}\}$，$a_{jl}$表示第$j$个特征取得第$l$个值。</li>
 </ul>
-<h2 id="GBDT-vs-XGBDT"><a href="#GBDT-vs-XGBDT" class="headerlink" title="GBDT vs XGBDT"></a>GBDT vs XGBDT</h2><p>GBDT目标函数最终形式为： </p>
-<script type="math/tex; mode=display">Obj^{(k)}=\sum\limits_{i=1}^m L(y^{(i)},\hat{y}^{(i)}_{k-1})+g_if_k(x^{(i)})</script><p>XGBDT目标函数最终形式为： </p>
+<h2 id="GBDT-vs-XGBDT"><a href="#GBDT-vs-XGBDT" class="headerlink" title="GBDT vs XGBDT"></a>GBDT vs XGBDT</h2><p>GBDT目标函数最终形式为：</p>
+<script type="math/tex; mode=display">Obj^{(k)}=\sum\limits_{i=1}^m L(y^{(i)},\hat{y}^{(i)}_{k-1})+g_if_k(x^{(i)})</script><p>XGBDT目标函数最终形式为：</p>
 <script type="math/tex; mode=display">\begin{aligned} Obj^{(k)}&==\sum\limits_{i=1}^mL(y^{(i)},\hat{y}^{(i)}_{k-1}+f_k(x^{(i)}))+\Omega(f_k)+C \end{aligned}</script><hr>
 <h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>为了求损失函数$L(y^{(i)},\hat{y}^{(i)}_{k-1}+f_k(x^{(i)}))​$在$\ \hat{y}^{(i)}_{k-1} \ ​$处的二阶展开，且记$\nabla_{\hat{y}^{(i)}_{k-1}}L\left(y^{(i)},\hat{y}^{(i)}_{k-1}\right)$为$g_i$、$\nabla^2_{\hat{y}^{(i)}_{k-1}}L\left(y^{(i)},\hat{y}^{(i)}_{k-1}\right)$为$h_i​$则有：</p>
 <script type="math/tex; mode=display">
@@ -264,8 +264,8 @@ w=VV^T=
 \end{bmatrix}
 \begin{bmatrix}
 \mathbf{v}_1^T &
-\mathbf{v}_2^T & 
-\cdots & 
+\mathbf{v}_2^T &
+\cdots &
 \mathbf{v}_n^T
 \end{bmatrix}</script><p>综上可以发现原始模型的二项式参数为$\frac{n(n-1)}{2}$个，现在减少为$kn(k\ll n)$个。引入辅助向量$V$最为重要的一点是使得$x_tx_i$和$x_ix_j$的参数不再相互独立，这样就能够在样本数据稀疏的情况下合理的估计模型交叉项的参数</p>
 <script type="math/tex; mode=display">
@@ -299,7 +299,7 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 &=f(\theta)-\sum\limits_{i=1}^m\log \frac{1}{2\lambda}e^{-\frac{|\theta_i|}{\lambda}}\\
 &=f(\theta)-\sum\limits_{i=1}^m \log\frac{1}{2\lambda} + \frac{1}{\lambda}\sum\limits_{i=1}^m|\theta_i|\\
 &\Leftrightarrow \mathop{\arg\min}_{\theta}\ f(\theta) + \color{magenta}\lambda\Vert\theta\Vert_1
-\end{aligned}</script><p><strong>从上面的数学推导可以看出，$L1$正则化可以看成是：通过假设权重参数$\theta​$的先验分布为拉普拉斯分布，由最大后验概率估计导出。</strong>​    </p>
+\end{aligned}</script><p><strong>从上面的数学推导可以看出，$L1$正则化可以看成是：通过假设权重参数$\theta​$的先验分布为拉普拉斯分布，由最大后验概率估计导出。</strong>​</p>
 <h3 id="L2-正则化的概率解释"><a href="#L2-正则化的概率解释" class="headerlink" title="$L2$正则化的概率解释"></a>$L2$正则化的概率解释</h3><p>假设$\theta$服从的先验分布为均值为$0$方差为$\sigma^2$的正态分布，即$\theta\sim \mathcal{N} (0, \sigma^2)$其中，$p(\theta)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\theta^2}{2\sigma^2}}$。因此，上述优化函数可转换为：</p>
 <script type="math/tex; mode=display">\begin{aligned}
 &\mathop{\arg\min}_{\theta}\ f(\theta)\color{magenta}-\sum\limits_{i=1}^m\log p(\theta)\\
@@ -316,7 +316,7 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 <li>对C求特征值，特征向量；按大小排列，取前K行</li>
 <li>Y=P*X 为X降维后的K维数据</li>
 </ol>
-<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><script type="math/tex; mode=display">\begin{aligned} sign(x) = 
+<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><script type="math/tex; mode=display">\begin{aligned} sign(x) =
 \begin{cases}
 +1, & ifx \geqslant 0  \\
 -1, &{otherwise}

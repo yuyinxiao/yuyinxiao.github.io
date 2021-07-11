@@ -46,7 +46,7 @@
 </tbody>
 </table>
 </div>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">map_task数=读取分片数</span><br><span class="line">reduce_task数=executor数量*executor_cores核数</span><br></pre></td></tr></table></figure>
+<h3 id="RDD的分区数"><a href="#RDD的分区数" class="headerlink" title="RDD的分区数"></a>RDD的分区数</h3><p>一个文件多个block，若干个block合并为一个输入分片InputSplit，对应一个task，合并RDD后对应输出RDD的一个partition；<br>InputSplit不跨越文件；<br>map阶段不改变rdd的partition数量，reduce阶段shuffle后改变rdd的partiiton数量<br>task的并行度：executor_num <em> cores /task个数<br>map_task数=读取分片数<br>reduce_task数=executor数量</em>executor_cores核数</p>
 <p>序列化Kryo序列<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extraSparkConf	--conf spark.serializer=org.apache.spark.serializer.</span><br><span class="line">KryoSerializer --conf spark.kryoserializer.buffer.max.mb=2000</span><br></pre></td></tr></table></figure></p>
 <p>其他参数优化参考<br><a href="https://zhuanlan.zhihu.com/p/108454557" target="_blank" rel="noopener">超全spark性能优化总结</a></p>
 ]]></content>
@@ -120,8 +120,12 @@
 <td>显示行号</td>
 </tr>
 <tr>
-<td>gg</td>
-<td>跳转到文件开头</td>
+<td>set nonu</td>
+<td>不显示行号</td>
+</tr>
+<tr>
+<td>&lt;-查找-&gt;</td>
+<td>&lt;-查找=&gt;</td>
 </tr>
 <tr>
 <td>/</td>
@@ -136,19 +140,91 @@
 <td>查找上一处</td>
 </tr>
 <tr>
+<td>&lt;-跳转-&gt;</td>
+<td>&lt;-跳转=&gt;</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>跳转到文件开头</td>
+</tr>
+<tr>
+<td>G</td>
+<td>跳转到文件结尾</td>
+</tr>
+<tr>
+<td>b</td>
+<td>单词后跳</td>
+</tr>
+<tr>
+<td>e</td>
+<td>单词前跳</td>
+</tr>
+<tr>
+<td>0</td>
+<td>跳至行首</td>
+</tr>
+<tr>
+<td>$</td>
+<td>跳至行尾</td>
+</tr>
+<tr>
+<td>ctrl+f</td>
+<td>向下翻页</td>
+</tr>
+<tr>
+<td>ctrl+b</td>
+<td>向上翻页</td>
+</tr>
+<tr>
+<td>H</td>
+<td>跳转至屏幕头</td>
+</tr>
+<tr>
+<td>M</td>
+<td>跳转至屏幕中间</td>
+</tr>
+<tr>
+<td>L</td>
+<td>跳转至屏幕底</td>
+</tr>
+<tr>
+<td>&lt;-删除-&gt;</td>
+<td>&lt;-删除-&gt;</td>
+</tr>
+<tr>
+<td>r + any</td>
+<td>将光标处字符替换</td>
+</tr>
+<tr>
+<td>x</td>
+<td>删除光标处字符，右往左缩进</td>
+</tr>
+<tr>
+<td>长按d</td>
+<td>滚动删除行</td>
+</tr>
+<tr>
 <td>dd</td>
 <td>删除光标所在的行</td>
 </tr>
 <tr>
-<td>D</td>
-<td>删除至行末（从光标位置开始）</td>
+<td>d0</td>
+<td>删除光标到头</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>删除光标到头</td>
+</tr>
+<tr>
+<td>:%d</td>
+<td>清空所有</td>
 </tr>
 </tbody>
 </table>
 </div>
 <h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>本地安装的shell目录：etc/shells</p>
 <h3 id="fork-与-source"><a href="#fork-与-source" class="headerlink" title="fork 与 source"></a>fork 与 source</h3><p>fork：执行shell script时，其实是产生一个sub-shell 的子进程，然后sub-shell再去产生命令行的子行程。<br>source：b.sh脚本中有source ./a.sh；就是使a.sh在当前b.sh的shell内执行、而不是再产生一个sub-shell 來執行。但b.sh是fork出来的子进程</p>
-<p>$：給一般使用者使用<br>#：給 root (管理員)使用</p>
+<p>$：給一般使用者使用 #：給 root (管理員)使用</p>
 <div class="table-container">
 <table>
 <thead>
@@ -1326,18 +1402,10 @@ v_t=\rho v_{t-1}+(1-\rho)g_t^2\\
 </ul>
 <hr>
 <h2 id="一、数据类型：常量、变量、占位符"><a href="#一、数据类型：常量、变量、占位符" class="headerlink" title="一、数据类型：常量、变量、占位符"></a>一、数据类型：常量、变量、占位符</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量是其值不能改变的张量；常量存储在计算图的定义中<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.constant(<span class="number">4</span>);</span><br><span class="line">tf.constant([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">tf.zeros([M,N],tf.dtype)</span><br><span class="line">tf.zeros([<span class="number">2</span>,<span class="number">3</span>],tf.int32)</span><br><span class="line">tf.ones([M,N],tf,dtype)</span><br><span class="line">range_t = tf.linspace(<span class="number">2.0</span>,<span class="number">5.0</span>,<span class="number">4</span>)  <span class="comment">#等差数列，差值=(5-2)/(4-1)</span></span><br><span class="line">range_t = tf.range(<span class="number">10</span>) <span class="comment">#同python range</span></span><br><span class="line">tf.random_normal([shape],mean=<span class="number">2.0</span>,stddev=<span class="number">4</span>,seed=<span class="number">12</span>)</span><br></pre></td></tr></table></figure><br><a id="more"></a></p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>在神经网络中的权重声明为变量来实现，变量在使用前需要被显示初始化。另外需要注意的是，每次加载图时都会加载相关变量。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常量初始变量</span></span><br><span class="line">weights=tf.Variable(tf.random_normal([m,n],stddev=<span class="number">2</span>))</span><br><span class="line">bias=tf.Variable(tf.zeros[<span class="number">100</span>],name=<span class="string">'bias'</span>)</span><br><span class="line"><span class="comment">#变量初始变量</span></span><br><span class="line">weights_2=tf.Variable(weights.initialized_value,name=<span class="string">'w2'</span>)</span><br><span class="line">intial_op=tf.global_variables_initializer()<span class="comment">#全部变量初始化，部分变量初始化</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>在神经网络中的权重声明为变量来实现，变量在使用前需要被显示初始化。另外需要注意的是，每次加载图时都会加载相关变量。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常量初始变量</span></span><br><span class="line">weights=tf.Variable(tf.random_normal([m,n],stddev=<span class="number">2</span>))</span><br><span class="line">bias=tf.Variable(tf.zeros[<span class="number">100</span>],name=<span class="string">'bias'</span>)</span><br><span class="line">tf.Variable(tf.random_normal([self.feature_size,self.embedding_size],<span class="number">0.0</span>,<span class="number">0.01</span>),name=<span class="string">'feature_embeddings'</span>)</span><br><span class="line">tf.Variable(np.random.normal(loc=<span class="number">0</span>,scale=glorot,size(input_size,self.deep_layers[<span class="number">0</span>])),dtype=np.float32)</span><br><span class="line"><span class="comment">#变量初始变量</span></span><br><span class="line">weights_2=tf.Variable(weights.initialized_value,name=<span class="string">'w2'</span>)</span><br><span class="line">intial_op=tf.global_variables_initializer()</span><br></pre></td></tr></table></figure></p>
 <h3 id="占位符"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h3><p>和 feed_dict 一起使用于将训练数据输入TensorFlow图中。在session运行计算图时，为占位符赋值。占位符不包含任何数据，只是数据的入口；<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x=tf.placeholder(dtype,shape=<span class="literal">None</span>,name=<span class="literal">None</span>)</span><br><span class="line">y=<span class="number">2</span>*x</span><br><span class="line">data=tf.random_uniform([<span class="number">4</span>,<span class="number">5</span>],<span class="number">10</span>);</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    x_data=sess.run(data)</span><br><span class="line">    print(sess.run(y,feed_dict=&#123;x:x_data&#125;))</span><br></pre></td></tr></table></figure></p>
-<h2 id="二、矩阵运算"><a href="#二、矩阵运算" class="headerlink" title="二、矩阵运算"></a>二、矩阵运算</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建矩阵</span></span><br><span class="line">W=tf.Variable(tf.random_uniform([m,n],<span class="number">10</span>))</span><br><span class="line"><span class="comment">#矩阵相乘</span></span><br><span class="line">tf.matmul(W,X).eval <span class="comment">#取值</span></span><br><span class="line">tf.add(w1,w2)</span><br></pre></td></tr></table></figure>
-<h2 id="三、Tensorflow的重要API"><a href="#三、Tensorflow的重要API" class="headerlink" title="三、Tensorflow的重要API"></a>三、Tensorflow的重要API</h2><h3 id="损失函数与优化器"><a href="#损失函数与优化器" class="headerlink" title="损失函数与优化器"></a>损失函数与优化器</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#平方损失</span></span><br><span class="line">loss=tf.reduce_mean(tf.square(Y-Y_hat,name=<span class="string">'loss'</span>))</span><br><span class="line"><span class="comment">#交叉熵损失</span></span><br><span class="line">entropy=tf.nn.softmax_cross_entropy_with_logits(Y_hat,Y)</span><br><span class="line">loss=tf.reduce_mean(entropy)</span><br><span class="line"><span class="comment">#正则项系数</span></span><br><span class="line"><span class="keyword">lambda</span>=tf.constant(<span class="number">0.2</span>)</span><br><span class="line"><span class="comment">#L1正则</span></span><br><span class="line">l1_reg=<span class="keyword">lambda</span>*tf.reduce_sum(tf.abs(w1))</span><br><span class="line">loss+=l1_reg</span><br><span class="line"><span class="comment">#L2正则</span></span><br><span class="line">l2_reg=<span class="keyword">lambda</span>*tf.nn.l2_loss(W1)</span><br><span class="line">loss+=l2_reg</span><br><span class="line"><span class="comment"># focal loss</span></span><br><span class="line">preds = array_ops.where(math_ops.equal(labels, <span class="number">1</span>), predictions, <span class="number">1.</span> - predictions)</span><br><span class="line">losses = -alpha * (<span class="number">1.</span> - preds) ** gamma * math_ops.log(preds + epsilon)</span><br><span class="line"></span><br><span class="line">tf.summary_scalar(<span class="string">'loss'</span>)</span><br><span class="line"></span><br><span class="line">train_step=optimizer=tf.train.AdamOptimizer.minimize(loss)</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(train_step,feed_dict=&#123;x:x_data,y:y_data&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.sigmoid(x)  <span class="comment">#梯度消失严重</span></span><br><span class="line">tf.tanh(x)  <span class="comment">#会出现梯度消失</span></span><br><span class="line">tf.nn.relu(x)  <span class="comment">#神经元稀疏失活，leakrelu</span></span><br><span class="line">tf.nn.softmax(x)    <span class="comment">#多分类中表示一个类的概率</span></span><br></pre></td></tr></table></figure>
-<h2 id="四、Tenforflow实现线性回归"><a href="#四、Tenforflow实现线性回归" class="headerlink" title="四、Tenforflow实现线性回归"></a>四、Tenforflow实现线性回归</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#使用numpy生成200个随机点</span></span><br><span class="line">x_data=np.linspace(<span class="number">-0.5</span>,<span class="number">0.5</span>,<span class="number">200</span>)[:,np.newaxis]</span><br><span class="line">noise=np.random.normal(<span class="number">0</span>,<span class="number">0.02</span>,x_data.shape)</span><br><span class="line">y_data=np.square(x_data)+noise</span><br><span class="line"> </span><br><span class="line"><span class="comment">#定义两个placeholder存放输入数据</span></span><br><span class="line">x=tf.placeholder(tf.float32,[<span class="literal">None</span>,<span class="number">1</span>])</span><br><span class="line">y=tf.placeholder(tf.float32,[<span class="literal">None</span>,<span class="number">1</span>])</span><br><span class="line"> </span><br><span class="line"><span class="comment">#定义神经网络中间层</span></span><br><span class="line">Weights_L1=tf.Variable(tf.random_normal([<span class="number">1</span>,<span class="number">10</span>]))</span><br><span class="line">biases_L1=tf.Variable(tf.zeros([<span class="number">1</span>,<span class="number">10</span>]))    <span class="comment">#加入偏置项</span></span><br><span class="line">Wx_plus_b_L1=tf.matmul(x,Weights_L1)+biases_L1</span><br><span class="line">L1=tf.nn.tanh(Wx_plus_b_L1)   <span class="comment">#加入激活函数</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#定义神经网络输出层</span></span><br><span class="line">Weights_L2=tf.Variable(tf.random_normal([<span class="number">10</span>,<span class="number">1</span>]))</span><br><span class="line">biases_L2=tf.Variable(tf.zeros([<span class="number">1</span>,<span class="number">1</span>]))  <span class="comment">#加入偏置项</span></span><br><span class="line">Wx_plus_b_L2=tf.matmul(L1,Weights_L2)+biases_L2</span><br><span class="line">prediction=tf.nn.tanh(Wx_plus_b_L2)   <span class="comment">#加入激活函数</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#定义损失函数（均方差函数）</span></span><br><span class="line">loss=tf.reduce_mean(tf.square(y-prediction))</span><br><span class="line"><span class="comment">#定义反向传播算法（使用梯度下降算法训练）</span></span><br><span class="line">train_step=tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment">#变量初始化</span></span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment">#训练2000次</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>):</span><br><span class="line">        sess.run(train_step,feed_dict=&#123;x:x_data,y:y_data&#125;)</span><br><span class="line">    <span class="comment">#获得预测值</span></span><br><span class="line">    prediction_value=sess.run(prediction,feed_dict=&#123;x:x_data&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="五、estimator实现"><a href="#五、estimator实现" class="headerlink" title="五、estimator实现"></a>五、estimator实现</h2><ul>
-<li>Transformer.py：完成Transformer模型构建</li>
-<li>Evaluator.py：该类集成了训练参数，和各子模型。搭建transformer+DNN</li>
-<li>main.py：训练入口</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model_fn</span><span class="params">(features, labels, mode)</span>:</span></span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">"batch_size"</span>: FLAGS.batch_size,</span><br><span class="line">        <span class="string">"feature_dim"</span>: FLAGS.feature_dim,</span><br><span class="line">        <span class="string">"length"</span>: FLAGS.length,</span><br><span class="line">        <span class="string">"l2_reg"</span>: FLAGS.l2_reg,</span><br><span class="line">        <span class="string">"learning_rate"</span>: FLAGS.learning_rate,</span><br><span class="line">        <span class="string">"latent_layer"</span>: FLAGS.latent_layer,</span><br><span class="line">        <span class="string">"cell_dim"</span>: FLAGS.cell_dim,</span><br><span class="line">        <span class="string">"optimizer"</span>: FLAGS.optimizer,</span><br><span class="line">        <span class="string">"dropout_keep_prob_p"</span>: FLAGS.dropout_keep_prob_p,</span><br><span class="line">        <span class="string">"sequence_encoder"</span>: FLAGS.sequence_encoder</span><br><span class="line">    &#125;</span><br><span class="line">    model = Evaluator(features,</span><br><span class="line">                      labels,</span><br><span class="line">                      mode,</span><br><span class="line">                      params)</span><br><span class="line">    <span class="keyword">return</span> model.build_graph()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    run_config = tf.estimator.RunConfig(save_summary_steps=FLAGS.batch_size * <span class="number">10</span>,keep_checkpoint_max=<span class="number">3</span>)</span><br><span class="line">    classifier = tf.estimator.Estimator(</span><br><span class="line">        model_fn=model_fn,</span><br><span class="line">        model_dir=FLAGS.checkpoint_path,</span><br><span class="line">        config=run_config</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> FLAGS.mode == <span class="string">"train_and_eval"</span>:</span><br><span class="line">        train_spec = tf.estimator.TrainSpec(</span><br><span class="line">            input_fn=<span class="keyword">lambda</span>: _input_fn(FLAGS.train_path, FLAGS.batch_size, epochs=FLAGS.epochs, prefetch=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">        eval_spec = tf.estimator.EvalSpec(</span><br><span class="line">            input_fn=<span class="keyword">lambda</span>: _input_fn(FLAGS.test_path, FLAGS.batch_size, epochs=FLAGS.epochs, prefetch=<span class="literal">False</span>),</span><br><span class="line">            throttle_secs=<span class="number">60</span></span><br><span class="line">        )</span><br><span class="line">        train, val = tf.estimator.train_and_evaluate(</span><br><span class="line">            classifier,</span><br><span class="line">            train_spec,</span><br><span class="line">            eval_spec)</span><br><span class="line">       </span><br><span class="line">    <span class="keyword">elif</span> FLAGS.mode == <span class="string">"eval"</span>:</span><br><span class="line">        print(<span class="string">"checkpoint_path &#123;&#125;"</span>.format(FLAGS.checkpoint_path))</span><br><span class="line">        evaluate_result = classifier.evaluate(</span><br><span class="line">            input_fn=<span class="keyword">lambda</span>: _input_fn(FLAGS.test_path, FLAGS.batch_size, epochs=FLAGS.epochs, prefetch=<span class="literal">False</span>),</span><br><span class="line">            steps=<span class="number">2</span>,</span><br><span class="line">            checkpoint_path=FLAGS.checkpoint_path,</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> evaluate_result:</span><br><span class="line">            print(<span class="string">"   &#123;&#125;, was: &#123;&#125;"</span>.format(key, evaluate_result[key]))</span><br></pre></td></tr></table></figure>
+<h2 id="二、Tensorflow的重要API"><a href="#二、Tensorflow的重要API" class="headerlink" title="二、Tensorflow的重要API"></a>二、Tensorflow的重要API</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">##输入输出 占位符</span></span><br><span class="line">tf.placeholder(tf.int32,shape=[<span class="literal">None</span>,<span class="literal">None</span>],name=<span class="string">'feat_index'</span>)</span><br><span class="line"><span class="comment">##embedding_lookup</span></span><br><span class="line">tf.nn.embedding_lookup(self.weights[<span class="string">'feature_embeddings'</span>],self.feat_index)</span><br><span class="line"><span class="comment">##改变维度</span></span><br><span class="line">tf.reshape(self.feat_value,shape=[<span class="number">-1</span>,self.field_size,<span class="number">1</span>])</span><br><span class="line"><span class="comment">##矩阵点乘</span></span><br><span class="line">tf.multiply(self.embeddings,feat_value)</span><br><span class="line"><span class="comment">##矩阵乘法</span></span><br><span class="line">tf.matmul(self.y_deep,self.weights[<span class="string">"layer_%d"</span> %i])</span><br><span class="line"><span class="comment">##矩阵加法</span></span><br><span class="line">tf.add(self.weights[<span class="string">"aa"</span>], self.weights[<span class="string">"bias_%d"</span>%i])</span><br><span class="line"><span class="comment">##dropout</span></span><br><span class="line">tf.nn.dropout(self.y_deep,self.dropout_keep_deep[i+<span class="number">1</span>])</span><br><span class="line"><span class="comment">##激活函数</span></span><br><span class="line">tf.sigmoid(x)  <span class="comment">#梯度消失严重</span></span><br><span class="line">tf.tanh(x)  <span class="comment">#会出现梯度消失</span></span><br><span class="line">tf.nn.relu(x)  <span class="comment">#神经元稀疏失活，leakrelu</span></span><br><span class="line">tf.nn.softmax(x)    <span class="comment">#多分类中表示一个类的概率</span></span><br><span class="line"><span class="comment">##损失函数</span></span><br><span class="line">self.loss = tf.losses.log_loss(self.label, self.out)</span><br><span class="line">self.loss = tf.nn.l2_loss(tf.subtract(self.label, self.out))</span><br><span class="line"><span class="comment">##优化器</span></span><br><span class="line">self.optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=<span class="number">0.9</span>, beta2=<span class="number">0.999</span>,epsilon=<span class="number">1e-8</span>).minimize(self.loss)</span><br><span class="line">self.optimizer = tf.train.AdagradOptimizer(learning_rate=self.learning_rate，initial_accumulator_value=<span class="number">1e-8</span>).minimize(self.loss)</span><br><span class="line"><span class="comment">##运行</span></span><br><span class="line">feed_dict = &#123;</span><br><span class="line">    self.feat_index: Xi,</span><br><span class="line">    self.feat_value: Xv,</span><br><span class="line">    self.label: y,</span><br><span class="line">    self.dropout_keep_deep: [<span class="number">1.0</span>] * len(self.dropout_dep),</span><br><span class="line">    self.train_phase: <span class="literal">True</span>&#125;</span><br><span class="line">loss,opt = self.sess.run([self.loss,self.optimizer],feed_dict=feed_dict)</span><br></pre></td></tr></table></figure>
+<h2 id="三、Tenforflow实现线性回归"><a href="#三、Tenforflow实现线性回归" class="headerlink" title="三、Tenforflow实现线性回归"></a>三、Tenforflow实现线性回归</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#使用numpy生成200个随机点</span></span><br><span class="line">x_data=np.linspace(<span class="number">-0.5</span>,<span class="number">0.5</span>,<span class="number">200</span>)[:,np.newaxis]</span><br><span class="line">noise=np.random.normal(<span class="number">0</span>,<span class="number">0.02</span>,x_data.shape)</span><br><span class="line">y_data=np.square(x_data)+noise</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义两个placeholder存放输入数据</span></span><br><span class="line">x=tf.placeholder(tf.float32,[<span class="literal">None</span>,<span class="number">1</span>])</span><br><span class="line">y=tf.placeholder(tf.float32,[<span class="literal">None</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义神经网络中间层</span></span><br><span class="line">Weights_L1=tf.Variable(tf.random_normal([<span class="number">1</span>,<span class="number">10</span>]))</span><br><span class="line">biases_L1=tf.Variable(tf.zeros([<span class="number">1</span>,<span class="number">10</span>]))    <span class="comment">#加入偏置项</span></span><br><span class="line">Wx_plus_b_L1=tf.matmul(x,Weights_L1)+biases_L1</span><br><span class="line">L1=tf.nn.tanh(Wx_plus_b_L1)   <span class="comment">#加入激活函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义神经网络输出层</span></span><br><span class="line">Weights_L2=tf.Variable(tf.random_normal([<span class="number">10</span>,<span class="number">1</span>]))</span><br><span class="line">biases_L2=tf.Variable(tf.zeros([<span class="number">1</span>,<span class="number">1</span>]))  <span class="comment">#加入偏置项</span></span><br><span class="line">Wx_plus_b_L2=tf.matmul(L1,Weights_L2)+biases_L2</span><br><span class="line">prediction=tf.nn.tanh(Wx_plus_b_L2)   <span class="comment">#加入激活函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义损失函数（均方差函数）</span></span><br><span class="line">loss=tf.reduce_mean(tf.square(y-prediction))</span><br><span class="line"><span class="comment">#定义反向传播算法（使用梯度下降算法训练）</span></span><br><span class="line">train_step=tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment">#变量初始化</span></span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment">#训练2000次</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>):</span><br><span class="line">        sess.run(train_step,feed_dict=&#123;x:x_data,y:y_data&#125;)</span><br><span class="line">    <span class="comment">#获得预测值</span></span><br><span class="line">    prediction_value=sess.run(prediction,feed_dict=&#123;x:x_data&#125;)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>ml</category>
@@ -1425,8 +1493,8 @@ P(X_j^{(i)}=x_j^{(i)}|Y&=c_k)=\dfrac{\sum\limits_{i=1}^mI(x_j^{(i)}=a_{jl},y^{(i
 &l=1,2,\cdots,S_j
 \end{aligned}</script>其中$x_j^{(i)}$代表第$i$个样本的第$j$个特征$x_j^{(i)}\in\{a_{j1},a_{j2},\cdots,a_{jS_j}\}$，$a_{jl}$表示第$j$个特征取得第$l$个值。</li>
 </ul>
-<h2 id="GBDT-vs-XGBDT"><a href="#GBDT-vs-XGBDT" class="headerlink" title="GBDT vs XGBDT"></a>GBDT vs XGBDT</h2><p>GBDT目标函数最终形式为： </p>
-<script type="math/tex; mode=display">Obj^{(k)}=\sum\limits_{i=1}^m L(y^{(i)},\hat{y}^{(i)}_{k-1})+g_if_k(x^{(i)})</script><p>XGBDT目标函数最终形式为： </p>
+<h2 id="GBDT-vs-XGBDT"><a href="#GBDT-vs-XGBDT" class="headerlink" title="GBDT vs XGBDT"></a>GBDT vs XGBDT</h2><p>GBDT目标函数最终形式为：</p>
+<script type="math/tex; mode=display">Obj^{(k)}=\sum\limits_{i=1}^m L(y^{(i)},\hat{y}^{(i)}_{k-1})+g_if_k(x^{(i)})</script><p>XGBDT目标函数最终形式为：</p>
 <script type="math/tex; mode=display">\begin{aligned} Obj^{(k)}&==\sum\limits_{i=1}^mL(y^{(i)},\hat{y}^{(i)}_{k-1}+f_k(x^{(i)}))+\Omega(f_k)+C \end{aligned}</script><hr>
 <h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>为了求损失函数$L(y^{(i)},\hat{y}^{(i)}_{k-1}+f_k(x^{(i)}))​$在$\ \hat{y}^{(i)}_{k-1} \ ​$处的二阶展开，且记$\nabla_{\hat{y}^{(i)}_{k-1}}L\left(y^{(i)},\hat{y}^{(i)}_{k-1}\right)$为$g_i$、$\nabla^2_{\hat{y}^{(i)}_{k-1}}L\left(y^{(i)},\hat{y}^{(i)}_{k-1}\right)$为$h_i​$则有：</p>
 <script type="math/tex; mode=display">
@@ -1467,8 +1535,8 @@ w=VV^T=
 \end{bmatrix}
 \begin{bmatrix}
 \mathbf{v}_1^T &
-\mathbf{v}_2^T & 
-\cdots & 
+\mathbf{v}_2^T &
+\cdots &
 \mathbf{v}_n^T
 \end{bmatrix}</script><p>综上可以发现原始模型的二项式参数为$\frac{n(n-1)}{2}$个，现在减少为$kn(k\ll n)$个。引入辅助向量$V$最为重要的一点是使得$x_tx_i$和$x_ix_j$的参数不再相互独立，这样就能够在样本数据稀疏的情况下合理的估计模型交叉项的参数</p>
 <script type="math/tex; mode=display">
@@ -1502,7 +1570,7 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 &=f(\theta)-\sum\limits_{i=1}^m\log \frac{1}{2\lambda}e^{-\frac{|\theta_i|}{\lambda}}\\
 &=f(\theta)-\sum\limits_{i=1}^m \log\frac{1}{2\lambda} + \frac{1}{\lambda}\sum\limits_{i=1}^m|\theta_i|\\
 &\Leftrightarrow \mathop{\arg\min}_{\theta}\ f(\theta) + \color{magenta}\lambda\Vert\theta\Vert_1
-\end{aligned}</script><p><strong>从上面的数学推导可以看出，$L1$正则化可以看成是：通过假设权重参数$\theta​$的先验分布为拉普拉斯分布，由最大后验概率估计导出。</strong>​    </p>
+\end{aligned}</script><p><strong>从上面的数学推导可以看出，$L1$正则化可以看成是：通过假设权重参数$\theta​$的先验分布为拉普拉斯分布，由最大后验概率估计导出。</strong>​</p>
 <h3 id="L2-正则化的概率解释"><a href="#L2-正则化的概率解释" class="headerlink" title="$L2$正则化的概率解释"></a>$L2$正则化的概率解释</h3><p>假设$\theta$服从的先验分布为均值为$0$方差为$\sigma^2$的正态分布，即$\theta\sim \mathcal{N} (0, \sigma^2)$其中，$p(\theta)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\theta^2}{2\sigma^2}}$。因此，上述优化函数可转换为：</p>
 <script type="math/tex; mode=display">\begin{aligned}
 &\mathop{\arg\min}_{\theta}\ f(\theta)\color{magenta}-\sum\limits_{i=1}^m\log p(\theta)\\
@@ -1519,7 +1587,7 @@ y=w_0+\sum\limits_{i=1}^nw_ix_i+\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^n \la
 <li>对C求特征值，特征向量；按大小排列，取前K行</li>
 <li>Y=P*X 为X降维后的K维数据</li>
 </ol>
-<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><script type="math/tex; mode=display">\begin{aligned} sign(x) = 
+<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><script type="math/tex; mode=display">\begin{aligned} sign(x) =
 \begin{cases}
 +1, & ifx \geqslant 0  \\
 -1, &{otherwise}
@@ -2765,7 +2833,8 @@ J(\mathcal C)=\sum\limits_{k=1}^K\sum\limits_{x^{(i)}\in \mathbb C_k}\Vert x^{(i
 <p>损失函数为负对数损失时求和</p>
 </blockquote>
 </blockquote>
-<script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script><h2 id="逻辑回归的求解方法"><a href="#逻辑回归的求解方法" class="headerlink" title="逻辑回归的求解方法"></a>逻辑回归的求解方法</h2><p>对应着三种优化方法：随机梯度下降，批梯度下降，small batch 梯度下降三种方式：</p>
+<script type="math/tex; mode=display">J(\theta)=-\frac{1}{N}\sum_{i=1}^{N}[y_{i}log(h_{\theta}(x_i))+(1-y_{i})log(1-h_{\theta}(x_i))]</script><p>交叉熵损失用于回归任务，label[0~1]，y<0.5时0处loss最小；y约>0.5时1处loss最小。</0.5时0处loss最小；y约></p>
+<h2 id="逻辑回归的求解方法"><a href="#逻辑回归的求解方法" class="headerlink" title="逻辑回归的求解方法"></a>逻辑回归的求解方法</h2><p>对应着三种优化方法：随机梯度下降，批梯度下降，small batch 梯度下降三种方式：</p>
 <ol>
 <li>批梯度下降：会获得全局最优解，缺点是在更新每个参数的时候需要遍历所有的数据，当数据量大的时候，每个参数的更新都会很慢。</li>
 <li>随机梯度下降：以高方差频繁更新，优点是使得sgd会跳到新的和潜在更好的局部最优解，缺点是使得收敛到局部最优解的过程更加的复杂。</li>

@@ -103,7 +103,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#大数据调优"><span class="toc-number">1.</span> <span class="toc-text">大数据调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive"><span class="toc-number">1.1.</span> <span class="toc-text">Hive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">1.1.1.</span> <span class="toc-text">解决办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark"><span class="toc-number">1.2.</span> <span class="toc-text">Spark</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#调优"><span class="toc-number">1.2.1.</span> <span class="toc-text">调优</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提高executor内存"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">提高executor内存</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#大数据调优"><span class="toc-number">1.</span> <span class="toc-text">大数据调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive"><span class="toc-number">1.1.</span> <span class="toc-text">Hive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">1.1.1.</span> <span class="toc-text">解决办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark"><span class="toc-number">1.2.</span> <span class="toc-text">Spark</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#调优"><span class="toc-number">1.2.1.</span> <span class="toc-text">调优</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提高executor内存"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">提高executor内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RDD的分区数"><span class="toc-number">1.2.2.</span> <span class="toc-text">RDD的分区数</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
@@ -189,7 +189,7 @@
 </tbody>
 </table>
 </div>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map_task数=读取分片数</span><br><span class="line">reduce_task数=executor数量*executor_cores核数</span><br></pre></td></tr></table></figure>
+<h3 id="RDD的分区数"><a href="#RDD的分区数" class="headerlink" title="RDD的分区数"></a>RDD的分区数</h3><p>一个文件多个block，若干个block合并为一个输入分片InputSplit，对应一个task，合并RDD后对应输出RDD的一个partition；<br>InputSplit不跨越文件；<br>map阶段不改变rdd的partition数量，reduce阶段shuffle后改变rdd的partiiton数量<br>task的并行度：executor_num <em> cores /task个数<br>map_task数=读取分片数<br>reduce_task数=executor数量</em>executor_cores核数</p>
 <p>序列化Kryo序列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extraSparkConf	--conf spark.serializer=org.apache.spark.serializer.</span><br><span class="line">KryoSerializer --conf spark.kryoserializer.buffer.max.mb=2000</span><br></pre></td></tr></table></figure></p>
 <p>其他参数优化参考<br><a href="https://zhuanlan.zhihu.com/p/108454557" target="_blank" rel="noopener">超全spark性能优化总结</a></p>
 
