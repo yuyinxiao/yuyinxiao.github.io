@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>README</title>
+    <url>/2021/07/11/README/</url>
+    <content><![CDATA[<hr>
+<hr>
+<p></p><h2 id="hexo-blog--github--stackedit">hexo blog + github + stackEdit</h2><p></p>
+<p></p><p>基于hexo搭建blog；source文件夹下为markdown源文件；现用stackEdit编辑，可直接同步到github master分支</p><p></p>
+<p></p><h3 id="pipeline">pipeline</h3><p></p>
+<p></p><p>！！切记，内容不要包含敏感字段等。</p><p></p>
+<ol>
+<li>stackEdit绑定github repo和文件夹，对应为hexo的source文件夹；</li>
+<li>复制模版编写文章，注意md的格式，包含title，tags，date，categoties等；</li>
+<li>stackEdit同步到github；</li>
+<li>hexo d -g部署与发布即可。</li>
+</ol>
+<h4 id="hexo-cli">hexo cli</h4>
+<ol>
+<li>hexo n == hexo new</li>
+<li>hexo g == hexo generate</li>
+<li>hexo s == hexo server</li>
+<li>hexo d == hexo deploy</li>
+<li>hexo s  -g  生成并本地预览</li>
+<li>hexo d -g  生成并上传</li>
+</ol>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>estimator</title>
+    <url>/2021/07/11/estimator/</url>
+    <content><![CDATA[<hr>
+<hr>
+<p></p><h1 id="标题1">标题1</h1><p></p>
+<p></p><h2 id="标题2">标题2</h2><p></p>
+<h3 id="标题3">标题3</h3>
+
+]]></content>
+  </entry>
+  <entry>
     <title>大数据调优</title>
     <url>/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/</url>
     <content><![CDATA[<h1 id="大数据调优"><a href="#大数据调优" class="headerlink" title="大数据调优"></a>大数据调优</h1><h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>不怕数据大，就怕数据斜。报错：<code>reduce.shuffle出错，java heap space造成OOM</code></p>

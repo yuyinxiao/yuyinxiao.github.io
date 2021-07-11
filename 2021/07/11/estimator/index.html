@@ -7,10 +7,10 @@
 
     
 
-    <title>大数据调优 | 小于狙击手的博客</title>
+    <title>estimator | 小于狙击手的博客</title>
     <meta name="author" content="于印霄" />
     <meta name="keywords" content="null" />
-    <meta name="description" content="大数据调优Hive不怕数据大，就怕数据斜。报错：reduce.shuffle出错，java heap space造成OOMmap读入文件的时候每一个切片对应一个map task；到reduce时shuffle某个key数据太多造成reduce运行缓慢解决办法过滤空值；空值可能会造成大量数据进入到一个reduce中造成内存不足预跑+设定最大；每个Reduce处理的数据默认是256MBhive.exec.reducers.bytes.per.reducer=256000000;每个任务..." />
+    <meta name="description" content="标题1标题2标题3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -103,7 +103,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#大数据调优"><span class="toc-number">1.</span> <span class="toc-text">大数据调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive"><span class="toc-number">1.1.</span> <span class="toc-text">Hive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">1.1.1.</span> <span class="toc-text">解决办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark"><span class="toc-number">1.2.</span> <span class="toc-text">Spark</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#调优"><span class="toc-number">1.2.1.</span> <span class="toc-text">调优</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提高executor内存"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">提高executor内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RDD的分区数"><span class="toc-number">1.2.2.</span> <span class="toc-text">RDD的分区数</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#标题1"><span class="toc-number">1.</span> <span class="toc-text">标题1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#标题2"><span class="toc-number">1.1.</span> <span class="toc-text">标题2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标题3"><span class="toc-number">1.1.1.</span> <span class="toc-text">标题3</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
@@ -117,11 +117,11 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            大数据调优
+            estimator
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://yuyinxiao.github.io/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/index.html">
+            <a class="article-date" href="https://yuyinxiao.github.io/2021/07/11/estimator/index.html">
     
         <!-- 不蒜子统计 -->
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -131,67 +131,22 @@
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-12-27T03:14:26.000Z" itemprop="datePublished">2019-12-27</time>
+    <time datetime="2021-07-11T08:08:32.989Z" itemprop="datePublished">2021-07-11</time>
 </a>
 
             
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/" rel="tag">大数据调优</a>, <a class="article-tag-link" href="/tags/%E5%B7%A5%E7%A8%8B/" rel="tag">工程</a>, <a class="article-tag-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C/" rel="tag">数据倾斜</a>
-</div>
-
 
         </div>
     </header>
     
     <section class="article-body markdown-body">
         
-        <h1 id="大数据调优"><a href="#大数据调优" class="headerlink" title="大数据调优"></a>大数据调优</h1><h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>不怕数据大，就怕数据斜。报错：<code>reduce.shuffle出错，java heap space造成OOM</code></p>
-<p>map读入文件的时候每一个切片对应一个map task；到reduce时shuffle某个key数据太多造成reduce运行缓慢</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
-<li>过滤空值；空值可能会造成大量数据进入到一个reduce中造成内存不足</li>
-<li>预跑+设定最大；每个Reduce处理的数据默认是256MB<code>hive.exec.reducers.bytes.per.reducer=256000000</code>;每个任务最大的reduce数，默认为1009<code>hive.exec.reducers.max=1009</code>;<code>N=min(参数2，总输入数据量/参数1)</code>设置Reducer的数量<code>set mapreduce.job.reduces=n</code></li>
-</ol>
-<a id="more"></a>
-<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><p>RDD窄依赖没有shuffle过程；RDD在遇到宽依赖时shuffle就是一个stage。更多spark内容参考<br><a href="https://mp.weixin.qq.com/s/-nP26zi8B2PLpVmHorfzbA" target="_blank" rel="noopener">30分钟理解Spark的基本原理</a></p>
-<h3 id="调优"><a href="#调优" class="headerlink" title="调优"></a>调优</h3><h4 id="提高executor内存"><a href="#提高executor内存" class="headerlink" title="提高executor内存"></a>提高executor内存</h4><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>值</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>driverMemory</td>
-<td>4</td>
-<td>dirver创建sc，初始化DAG和任务调度</td>
-</tr>
-<tr>
-<td>driverCores</td>
-<td>2</td>
-</tr>
-<tr>
-<td>numExecutors</td>
-<td>64</td>
-<td>执行器个数</td>
-</tr>
-<tr>
-<td>executorCores</td>
-<td>4</td>
-</tr>
-<tr>
-<td>executorMemory</td>
-<td>16</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="RDD的分区数"><a href="#RDD的分区数" class="headerlink" title="RDD的分区数"></a>RDD的分区数</h3><p>一个文件多个block，若干个block合并为一个输入分片InputSplit，对应一个task，合并RDD后对应输出RDD的一个partition；<br>InputSplit不跨越文件；<br>map阶段不改变rdd的partition数量，reduce阶段shuffle后改变rdd的partiiton数量<br>task的并行度：executor_num <em> cores /task个数<br>map_task数=读取分片数<br>reduce_task数=executor数量</em>executor_cores核数</p>
-<p>序列化Kryo序列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extraSparkConf	--conf spark.serializer=org.apache.spark.serializer.</span><br><span class="line">KryoSerializer --conf spark.kryoserializer.buffer.max.mb=2000</span><br></pre></td></tr></table></figure></p>
-<p>其他参数优化参考<br><a href="https://zhuanlan.zhihu.com/p/108454557" target="_blank" rel="noopener">超全spark性能优化总结</a></p>
+        <hr>
+<hr>
+<p></p><h1 id="标题1">标题1</h1><p></p>
+<p></p><h2 id="标题2">标题2</h2><p></p>
+<h3 id="标题3">标题3</h3>
+
 
         
     </section>
@@ -199,10 +154,10 @@
 
 
 
-<a id="pagenext" href="/2019/12/19/git-md/" class="article-next" title="git"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/" class="article-next" title="大数据调优"><i class="icon-arrow-right"></i></a>
 
 
-<a id="pageprev" href="/2021/07/11/estimator/" class="article-prev" title="estimator"><i class="icon-arrow-left"></i></a>
+<a id="pageprev" href="/2021/07/11/README/" class="article-prev" title="README"><i class="icon-arrow-left"></i></a>
 
 
 
@@ -216,11 +171,11 @@
         repo: "yuyinxiao.github.io",
         owner: "yuyinxiao",
         admin: ["yuyinxiao"],
-        id: "2019/12/27/大数据调优",
+        id: "2021/07/11/estimator",
         distractionFreeMode: true,
-        title: "大数据调优",
-        body: "https://yuyinxiao.github.io/2019/12/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%B0%83%E4%BC%98/",
-        labels: ["大数据调优","工程","数据倾斜"]
+        title: "estimator",
+        body: "https://yuyinxiao.github.io/2021/07/11/estimator/",
+        labels: []
     }).render('comments');
     </script>
 </div>
